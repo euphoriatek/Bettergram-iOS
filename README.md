@@ -1,6 +1,5 @@
 # Bettergram
 
---
 We've built an improved version of Telegram Messenger with super helpful features our users absolutely love.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=olGflYVZPkI
@@ -15,21 +14,34 @@ Telegram is an essential part of our lives as tech entrepreneurs. Over 200+ mill
 
 ## Setup Project on the Mac
 1. Clone the iOS project with its submodules using SSH way
-git clone --recursive git@github.com:bettergram/Bettergram-iOS.git
-2. Update all submodules to the latest versions
-git submodule update --recursive --remote
-3. Add config.h file on the level above the root project's folder
 
-	```
-	Bettergram-iOS/... //all project's files in the root
-	config.h // Required to add
-	```
-	
-	config.h contains next 2 lines:
-	
-	```
-	#define SETUP_API_ID(apiId) apiId = 17349;
-	#define SETUP_API_HASH(apiHash) apiHash = @"344583e45741c457fe1862106095a5eb";
-	```
+   ```
+   $ git clone --recursive git@github.com:bettergram/Bettergram-iOS.git
+   ```
+   
+   If you want to update the submodules in already cloned repository use the following command:
+
+   ```
+   $ git submodule update --init --recursive
+   ```
+   
+   If you want to update the submodules to the latest versions you can use the following command:
+
+   ```
+   $ git submodule update --recursive --remote
+   ```
+2. Add `config.h` file on the level above the root project's folder
+
+   ```
+   Bettergram-iOS/... //all project's files in the root
+   config.h // Required to add
+   ```
+
+   `config.h` contains next 2 lines:
+
+   ```
+   #define SETUP_API_ID(apiId) apiId = 17349;
+   #define SETUP_API_HASH(apiHash) apiHash = @"344583e45741c457fe1862106095a5eb";
+   ```
 
 4. Open `Telegram.xcworkspace` file in Xcode. Choose any Simulator, for example, iPhone 8 (but not a real iOS device connected to Mac). Build the project.
