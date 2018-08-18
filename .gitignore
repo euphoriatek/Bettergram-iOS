@@ -18,3 +18,4 @@ DerivedData
 *.xcuserstate
 
 *.dSYM.zip
+.DS_Store
