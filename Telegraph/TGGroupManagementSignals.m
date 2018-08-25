@@ -1114,33 +1114,6 @@
     }] switchToLatest];
 }
 
-+ (SSignal *)synchronizePinnedConversations {
-    return [[self synchronizePinnedConversationsOnce] then:[[TGDatabaseInstance() synchronizePinnedConversationsActionUpdated] mapToThrottled:^SSignal *(__unused id value) {
-        return [self synchronizePinnedConversationsOnce];
-    }]];
-}
-
-+ (SSignal *)synchronizePinnedConversationsOnce {
-    return [[[TGDatabaseInstance() modify:^id{
-        SSignal *pushAction = [SSignal complete];
-        SSignal *pullAction = [SSignal complete];
-        
-        TGSynchronizePinnedConversationsAction *action = [TGDatabaseInstance() currentSynchronizePinnedConversationsAction];
-        
-        if (action.type & TGSynchronizePinnedConversationsActionPush) {
-            pushAction = [self pushPinnedConversations];
-        }
-        
-        if (action.type & TGSynchronizePinnedConversationsActionPull) {
-            pullAction = [self pullPinnedConversations];
-        }
-        
-        return [[pushAction then:pullAction] then:[self tryCompletingWithAction:action]];
-    }] switchToLatest] retryIf:^bool(__unused id error) {
-        return true;
-    }];
-}
-
 + (SSignal *)tryCompletingWithAction:(TGSynchronizePinnedConversationsAction *)action {
     return [[TGDatabaseInstance() modify:^id{
         if ([[TGDatabaseInstance() currentSynchronizePinnedConversationsAction] isEqual:action]) {

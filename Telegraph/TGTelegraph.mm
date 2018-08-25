@@ -1627,7 +1627,6 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
                 [_channelTasksDisposable add:[[TGPeerInfoSignals dismissReportSpamForPeers] startWithNext:nil]];
                 [_channelTasksDisposable add:[[TGGroupManagementSignals validatePeerReadStates:[TGDatabaseInstance() conversationsForReadStateValidation]] startWithNext:nil]];
                 [_channelTasksDisposable add:[[TGGroupManagementSignals synchronizePeerMessageDrafts:[TGDatabaseInstance() synchronizePeerMessageDraftPeers]] startWithNext:nil]];
-                [_channelTasksDisposable add:[[TGGroupManagementSignals synchronizePinnedConversations] startWithNext:nil]];
             }];
             
             TGDispatchAfter(2.0, dispatch_get_main_queue(), ^{

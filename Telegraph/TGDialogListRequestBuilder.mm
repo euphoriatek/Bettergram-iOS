@@ -389,10 +389,6 @@
                         updatePeerDrafts[@(peerId)] = draft == nil ? (id)[NSNull null] : draft;
                     }
                     
-                    if (dialog.flags & (1 << 2)) {
-                        [pinnedPeerIds addObject:@(peerId)];
-                    }
-                    
                     if (dialog.unread_mentions_count != 0) {
                         resetPeerUnseenMentionsStates[@(peerId)] = [[TGUnseenPeerMentionsState alloc] initWithVersion:0 count:dialog.unread_mentions_count maxIdWithPrecalculatedCount:dialog.top_message];
                     }

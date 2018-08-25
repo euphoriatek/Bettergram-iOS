@@ -106,6 +106,7 @@
 static bool _debugDoNotJump = false;
 
 static int64_t lastAppearedConversationId = 0;
+static int32_t maxPinnedChats = 200;
 
 #pragma mark -
 
@@ -331,26 +332,15 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                     TGConversation *conversation = strongSelf->_listModel[indexPath.row];
                     if (conversation.pinnedToTop != pin) {
                         if (pin) {
-                            int32_t maxPinnedChats = 5;
-                            NSData *data = [TGDatabaseInstance() customProperty:@"maxPinnedChats"];
-                            if (data.length == 4) {
-                                [data getBytes:&maxPinnedChats length:4];
-                                maxPinnedChats = MAX(maxPinnedChats, 5);
-                            }
                             NSInteger pinnedCount = 0;
-                            NSInteger secretPinnedCount = 0;
                             for (TGConversation *conversation in strongSelf->_listModel) {
                                 if (conversation.pinnedToTop) {
-                                    if (TGPeerIdIsSecretChat(conversation.conversationId)) {
-                                        secretPinnedCount++;
-                                    } else {
-                                        pinnedCount++;
-                                    }
+                                    pinnedCount++;
                                 }
                             }
                             
                             [(TGDialogListCell *)[strongSelf->_tableView cellForRowAtIndexPath:indexPath] setEditingConrolsExpanded:false animated:true];
-                            if ((TGPeerIdIsSecretChat(peerId) && secretPinnedCount >= maxPinnedChats) || (!TGPeerIdIsSecretChat(peerId) && pinnedCount >= maxPinnedChats)) {
+                            if (pinnedCount >= maxPinnedChats) {
                                 [TGCustomAlertView presentAlertWithTitle:nil message:[NSString stringWithFormat: TGLocalized(@"DialogList.PinLimitError"), [NSString stringWithFormat:@"%d", maxPinnedChats]] cancelButtonTitle:TGLocalized(@"Common.OK") okButtonTitle:nil completionBlock:nil];
                             } else {
                                 strongSelf->_reloadWithAnimations = true;

@@ -741,11 +741,6 @@ static bool _initialUpdatesScheduled = false;
     
     NSMutableArray *updatedWebpages = [[NSMutableArray alloc] init];
     
-    __block bool requestPinnedDialogs = false;
-    NSMutableDictionary *updatedPinnedDialogs = [[NSMutableDictionary alloc] init];
-    NSMutableArray *updatedPinnedDialogsKeyOrder = [[NSMutableArray alloc] init];
-    NSArray *replacedPinnedDialogs = nil;
-    
     NSNumber *contactRegisteredSettings = nil;
     
     for (TLUpdate *update in otherUpdates)
@@ -1557,73 +1552,6 @@ static bool _initialUpdatesScheduled = false;
                 TGCallAcceptedContext *callContext = [[TGCallAcceptedContext alloc] initWithCallId:concreteCall.n_id accessHash:concreteCall.access_hash date:concreteCall.date adminId:concreteCall.admin_id participantId:concreteCall.participant_id gA:nil gB:concreteCall.g_b];
                 [TGTelegraphInstance.callManager updateCallContextWithCallId:concreteCall.n_id callContext:callContext];
             }
-        } else if ([update isKindOfClass:[TLUpdate$updatePinnedDialogsMeta class]]) {
-            TLUpdate$updatePinnedDialogsMeta *updatePinnedDialogs = (TLUpdate$updatePinnedDialogsMeta *)update;
-            if (updatePinnedDialogs.order != nil) {
-                NSMutableArray *peerIds = [[NSMutableArray alloc] init];
-                for (id dialogPeer in updatePinnedDialogs.order) {
-                    if ([dialogPeer isKindOfClass:[TLDialogPeer$dialogPeer class]])
-                    {
-                        TLPeer *peer = ((TLDialogPeer$dialogPeer *)dialogPeer).peer;
-                        int64_t peerId = 0;
-                        if ([peer isKindOfClass:[TLPeer$peerChat class]]) {
-                            peerId = TGPeerIdFromGroupId(((TLPeer$peerChat *)peer).chat_id);
-                        } else if ([peer isKindOfClass:[TLPeer$peerUser class]]) {
-                            peerId = ((TLPeer$peerUser *)peer).user_id;
-                        } else if ([peer isKindOfClass:[TLPeer$peerChannel class]]) {
-                            peerId = TGPeerIdFromChannelId(((TLPeer$peerChannel *)peer).channel_id);
-                        }
-                        [peerIds addObject:@(peerId)];
-                    } else if ([dialogPeer isKindOfClass:[TLDialogPeer$dialogPeerFeed class]]) {
-                        int64_t peerId = TGPeerIdFromAdminLogId(((TLDialogPeer$dialogPeerFeed *)dialogPeer).feed_id);
-                        [peerIds addObject:@(peerId)];
-                    } else if ([dialogPeer isKindOfClass:[TLPeer class]]) {
-                        TLPeer *peer = (TLPeer *)dialogPeer;
-                        int64_t peerId = 0;
-                        if ([peer isKindOfClass:[TLPeer$peerChat class]]) {
-                            peerId = TGPeerIdFromGroupId(((TLPeer$peerChat *)peer).chat_id);
-                        } else if ([peer isKindOfClass:[TLPeer$peerUser class]]) {
-                            peerId = ((TLPeer$peerUser *)peer).user_id;
-                        } else if ([peer isKindOfClass:[TLPeer$peerChannel class]]) {
-                            peerId = TGPeerIdFromChannelId(((TLPeer$peerChannel *)peer).channel_id);
-                        }
-                        [peerIds addObject:@(peerId)];
-                    }
-                }
-                replacedPinnedDialogs = peerIds;
-            } else {
-                requestPinnedDialogs = true;
-            }
-        } else if ([update isKindOfClass:[TLUpdate$updateDialogPinned class]]) {
-            TLUpdate$updateDialogPinned *updateDialogPinned = (TLUpdate$updateDialogPinned *)update;
-            
-            int64_t peerId = 0;
-            id dialogPeer = updateDialogPinned.peer;
-            if ([dialogPeer isKindOfClass:[TLDialogPeer$dialogPeer class]])
-            {
-                TLPeer *peer = ((TLDialogPeer$dialogPeer *)dialogPeer).peer;
-                if ([peer isKindOfClass:[TLPeer$peerChat class]]) {
-                    peerId = TGPeerIdFromGroupId(((TLPeer$peerChat *)peer).chat_id);
-                } else if ([peer isKindOfClass:[TLPeer$peerUser class]]) {
-                    peerId = ((TLPeer$peerUser *)peer).user_id;
-                } else if ([peer isKindOfClass:[TLPeer$peerChannel class]]) {
-                    peerId = TGPeerIdFromChannelId(((TLPeer$peerChannel *)peer).channel_id);
-                }
-            } else if ([dialogPeer isKindOfClass:[TLDialogPeer$dialogPeerFeed class]]) {
-                peerId = TGPeerIdFromAdminLogId(((TLDialogPeer$dialogPeerFeed *)dialogPeer).feed_id);
-            }
-            else if ([dialogPeer isKindOfClass:[TLPeer class]]) {
-                if ([updateDialogPinned.peer isKindOfClass:[TLPeer$peerChat class]]) {
-                    peerId = TGPeerIdFromGroupId(((TLPeer$peerChat *)updateDialogPinned.peer).chat_id);
-                } else if ([updateDialogPinned.peer isKindOfClass:[TLPeer$peerUser class]]) {
-                    peerId = ((TLPeer$peerUser *)updateDialogPinned.peer).user_id;
-                } else if ([updateDialogPinned.peer isKindOfClass:[TLPeer$peerChannel class]]) {
-                    peerId = TGPeerIdFromChannelId(((TLPeer$peerChannel *)updateDialogPinned.peer).channel_id);
-                }
-            }
-            updatedPinnedDialogs[@(peerId)] = @((updateDialogPinned.flags & (1 << 0)) != 0);
-            [updatedPinnedDialogsKeyOrder removeObject:@(peerId)];
-            [updatedPinnedDialogsKeyOrder addObject:@(peerId)];
         } else if ([update isKindOfClass:[TLUpdate$updateConfig class]]) {
             [ActionStageInstance() requestActor:@"/tg/service/updateConfig/(task)" options:nil flags:0 watcher:TGTelegraphInstance];
         } else if ([update isKindOfClass:[TLUpdate$updateLangPack class]]) {
@@ -2215,46 +2143,6 @@ static bool _initialUpdatesScheduled = false;
                 [ActionStageInstance() dispatchResource:@"/tg/blockedUsers" resource:[[SGraphObjectNode alloc] initWithObject:users]];
             }];
         }
-        
-        [TGDatabaseInstance() dispatchOnDatabaseThread:^{
-            if (replacedPinnedDialogs != nil) {
-                for (NSNumber *nPeerId in replacedPinnedDialogs) {
-                    if (![TGDatabaseInstance() containsConversationWithId:[nPeerId longLongValue]]) {
-                        requestPinnedDialogs = true;
-                        break;
-                    }
-                }
-            }
-            
-            if (updatedPinnedDialogs.count != 0) {
-                for (NSNumber *nPeerId in updatedPinnedDialogs.allKeys) {
-                    if (![TGDatabaseInstance() containsConversationWithId:[nPeerId longLongValue]]) {
-                        requestPinnedDialogs = true;
-                        break;
-                    }
-                }
-            }
-                     
-            if (requestPinnedDialogs) {
-                [TGGroupManagementSignals beginPullPinnedConversations];
-            } else if (replacedPinnedDialogs != nil) {
-                [TGDatabaseInstance() transactionUpdatePinnedConversations:replacedPinnedDialogs synchronizePinnedConversations:false forceReplacePinnedConversations:false];
-            } else if (updatedPinnedDialogs.count != 0) {
-                NSMutableArray *peerIds = [[NSMutableArray alloc] init];
-                for (TGConversation *conversation in [TGDatabaseInstance() _getPinnedConversations]) {
-                    NSNumber *updatedStatus = updatedPinnedDialogs[@(conversation.conversationId)];
-                    if (!(updatedStatus != nil && ![updatedStatus boolValue])) {
-                        [peerIds addObject:@(conversation.conversationId)];
-                    }
-                }
-                for (NSNumber *nPeerId in updatedPinnedDialogsKeyOrder) {
-                    if ([updatedPinnedDialogs[nPeerId] boolValue]) {
-                        [peerIds insertObject:nPeerId atIndex:0];
-                    }
-                }
-                [TGDatabaseInstance() transactionUpdatePinnedConversations:peerIds synchronizePinnedConversations:false forceReplacePinnedConversations:false];
-            }
-        } synchronous:false];
         
         if (completion)
             completion(true);
