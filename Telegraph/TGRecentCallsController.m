@@ -133,7 +133,7 @@
     [_segmentedControl setDividerImage:self.presentation.images.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.navigationButtonColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.accentContrastColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.accentColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
     
     for (UITableViewCell *cell in _tableView.visibleCells)
     {
@@ -193,9 +193,6 @@
     _tableView.opaque = true;
     _tableView.backgroundColor = nil;
     _tableView.showsVerticalScrollIndicator = true;
-    
-    if (_inSettings)
-        _tableView.tableHeaderView = [self settingsView];
     
     __weak TGRecentCallsController *weakSelf = self;
     ((TGListsTableView *)_tableView).onHitTest = ^(CGPoint point) {
@@ -277,55 +274,8 @@
     }
 }
 
-- (UIView *)settingsView
-{
-    UIView *settingsView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 123.0f)];
-    settingsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    settingsView.backgroundColor = _presentation.pallete.collectionMenuBackgroundColor;
-    
-    UIView *extensionView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, -1000.0f, 0.0f, 1000.0f)];
-    extensionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    extensionView.backgroundColor = _presentation.pallete.collectionMenuBackgroundColor;
-    [settingsView addSubview:extensionView];
-    
-    UIView *stripeView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, settingsView.frame.size.height - TGScreenPixel, 0.0f, TGScreenPixel)];
-    stripeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    stripeView.backgroundColor = _presentation.pallete.collectionMenuSeparatorColor;
-    [settingsView addSubview:stripeView];
-    
-    _settingsItemView = [[TGSwitchCollectionItemView alloc] initWithFrame:CGRectMake(0.0f, 32.0f, 0.0f, 44.0f)];
-    [_settingsItemView setPresentation:TGPresentation.current];
-    _settingsItemView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _settingsItemView.delegate = self;
-    _settingsItemView.safeAreaInset = self.controllerSafeAreaInset;
-    [_settingsItemView setItemPosition:TGCollectionItemViewPositionFirstInBlock | TGCollectionItemViewPositionLastInBlock];
-    [_settingsItemView setTitle:TGLocalized(@"CallSettings.TabIcon")];
-    [_settingsItemView setIsOn:TGAppDelegateInstance.showCallsTab animated:false];
-    [settingsView addSubview:_settingsItemView];
-    
-    UILabel *commentLabel = [[UILabel alloc] init];
-    commentLabel.backgroundColor = settingsView.backgroundColor;
-    commentLabel.font = TGSystemFontOfSize(14.0f);
-    commentLabel.text = TGLocalized(@"CallSettings.TabIconDescription");
-    commentLabel.textColor = TGPresentation.current.pallete.collectionMenuCommentColor;
-    commentLabel.numberOfLines = 0;
-    [commentLabel sizeToFit];
-    commentLabel.frame = CGRectMake(15.0f + self.controllerSafeAreaInset.left, CGRectGetMaxY(_settingsItemView.frame) + 7.0f, commentLabel.frame.size.width, commentLabel.frame.size.height);
-    [settingsView addSubview:commentLabel];
-    
-    CGFloat height = ceil(commentLabel.frame.size.height) + 106;
-    _settingsCommentLabel = commentLabel;
-    settingsView.frame = CGRectMake(settingsView.frame.origin.x, settingsView.frame.origin.y, settingsView.frame.size.width, MAX(123.0f, height));
-    
-    return settingsView;
-}
-
 - (void)switchCollectionItemViewChangedValue:(TGSwitchCollectionItemView *)__unused switchItemView isOn:(bool)isOn
 {
-    TGAppDelegateInstance.showCallsTab = isOn;
-    [TGAppDelegateInstance saveSettings];
-    
-    [TGAppDelegateInstance.rootController.mainTabsController setCallsHidden:!isOn animated:false];
 }
 
 - (void)controllerInsetUpdated:(UIEdgeInsets)previousInset
@@ -1159,8 +1109,6 @@
         @"/tg/readPeerHistories",
         @"/tg/updatedMaxIncomingReadIds"
     ] watcher:self];
-    
-    [self maybeSuggestEnableCallsTab:true];
 }
 
 - (void)_maybeLoadMore
@@ -1310,36 +1258,6 @@
             });
         }];
     } synchronous:false];
-}
-
-- (void)maybeSuggestEnableCallsTab:(bool)automatically
-{
-    if (TGAppDelegateInstance.showCallsTab)
-        return;
-    
-    if ([TGAppDelegateInstance callsTabFileExists])
-        return;
-    
-    if (automatically)
-    {
-        NSData *phoneCallsEnabledData = [TGDatabaseInstance() customProperty:@"phoneCallsEnabled"];
-        int32_t phoneCallsEnabled = false;
-        if (phoneCallsEnabledData.length == 4)
-            [phoneCallsEnabledData getBytes:&phoneCallsEnabled];
-        
-        if (!phoneCallsEnabled)
-            return;
-    }
-    
-    if (automatically && _displayListModel.count > 24)
-    {
-        TGAppDelegateInstance.showCallsTab = true;
-        [TGAppDelegateInstance.rootController.mainTabsController setCallsHidden:false animated:true];
-    }
-    else if (!automatically && _displayListModel.count > 2)
-    {
-        [[TGInterfaceManager instance] maybeDisplayCallsTabAlert];
-    }
 }
 
 - (void)updateLocalization {

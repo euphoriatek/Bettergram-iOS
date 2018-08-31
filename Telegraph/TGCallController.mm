@@ -53,7 +53,6 @@
     TGAudioRoute *_activeAudioRoute;
     
     bool _presentRatingAlert;
-    bool _presentTabAlert;
     NSString *_finalError;
     
     TGCallDebugView *_debugView;
@@ -337,7 +336,6 @@
                 _finalError = state.stateData.error;
             if ((state.state == TGCallStateEnded || state.state == TGCallStateEnding) && _session.duration > 1.0)
             {
-                _presentTabAlert = true;
                 if (state.stateData.needsRating)
                     _presentRatingAlert = true;
             }
@@ -527,7 +525,7 @@
 
 #pragma mark - Alerts
 
-+ (void)presentRatingAlertView:(int64_t)callId accessHash:(int64_t)accessHash presentTabAlert:(bool)presentTabAlert
++ (void)presentRatingAlertView:(int64_t)callId accessHash:(int64_t)accessHash
 {
     TGCallRatingView *ratingView = [[TGCallRatingView alloc] initWithPresentation:TGPresentation.current];
     __weak TGCallRatingView *weakRatingView = ratingView;
@@ -541,17 +539,11 @@
         {
             [self presentSendLogsViewWithCompletion:^(bool includeLogs) {
                 [[TGCallSignals reportCallRatingWithCallId:callId accessHash:accessHash rating:(int32_t)strongRatingView.selectedStars comment:strongRatingView.comment includeLogs:includeLogs] startWithNext:nil];
-                
-                if (presentTabAlert)
-                    [TGAppDelegateInstance.rootController.callsController maybeSuggestEnableCallsTab:false];
             }];
         }
         else
         {
             [[TGCallSignals reportCallRatingWithCallId:callId accessHash:accessHash rating:(int32_t)strongRatingView.selectedStars comment:strongRatingView.comment includeLogs:false] startWithNext:nil];
-            
-            if (presentTabAlert)
-                [TGAppDelegateInstance.rootController.callsController maybeSuggestEnableCallsTab:false];
         }
     }];
     alertView.followsKeyboard = true;
@@ -688,9 +680,7 @@
                 if (_finalError.length > 0)
                     [self presentErrorAlertView:_finalError];
                 else if (_presentRatingAlert)
-                    [TGCallController presentRatingAlertView:callId accessHash:accessHash presentTabAlert:_presentTabAlert];
-                else if (_presentTabAlert)
-                    [TGAppDelegateInstance.rootController.callsController maybeSuggestEnableCallsTab:false];
+                    [TGCallController presentRatingAlertView:callId accessHash:accessHash];
             });
         }
     }

@@ -1999,6 +1999,9 @@ Unused sets are archived when you add more.";
 "DialogList.Unpin" = "Unpin";
 "DialogList.PinLimitError" = "Sorry, you can pin no more than %@ chats to the top.";
 
+"DialogList.Favorite" = "Favorite";
+"DialogList.Unfavorite" = "Unfavorite";
+
 "Conversation.DeleteMessagesForMe" = "Delete for me";
 "Conversation.DeleteMessagesFor" = "Delete for me and %@";
 "Conversation.DeleteMessagesForEveryone" = "Delete for everyone";

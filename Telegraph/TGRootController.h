@@ -10,14 +10,17 @@
 @class TGCallStatusBarView;
 @class TGVolumeBarView;
 @class TGPresentation;
+@class TGCryptoViewController;
+@class TGTelegraphDialogListCompanion;
 
 @interface TGRootController : TGViewController
 
 @property (nonatomic, strong, readonly) TGMainTabsController *mainTabsController;
-@property (nonatomic, strong, readonly) TGDialogListController *dialogListController;
+@property (nonatomic, strong, readonly) NSArray<TGDialogListController *> *dialogListControllers;
 @property (nonatomic, strong, readonly) TGContactsController *contactsController;
 @property (nonatomic, strong) TGAccountSettingsController *accountSettingsController;
 @property (nonatomic, strong, readonly) TGRecentCallsController *callsController;
+@property (nonatomic, strong, readonly) TGCryptoViewController *cryptoController;
 @property (nonatomic, strong, readonly) TGCallStatusBarView *callStatusBarView;
 @property (nonatomic, strong, readonly) TGVolumeBarView *volumeBarView;
 

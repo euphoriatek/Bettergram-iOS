@@ -11865,7 +11865,7 @@ static UIView *_findBackArrow(UIView *view)
                             }
                             
                             if (callId != 0 && accessHash != 0)
-                                [TGCallController presentRatingAlertView:callId accessHash:accessHash presentTabAlert:false];
+                                [TGCallController presentRatingAlertView:callId accessHash:accessHash];
                         }
                         break;
                     }

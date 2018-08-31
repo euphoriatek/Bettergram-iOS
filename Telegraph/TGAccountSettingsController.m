@@ -112,6 +112,8 @@
     TGDisclosureActionCollectionItem *_stickerSettingsItem;
     TGDisclosureActionCollectionItem *_supportItem;
     TGDisclosureActionCollectionItem *_faqItem;
+    TGDisclosureActionCollectionItem *_twitterItem;
+    TGDisclosureActionCollectionItem *_githubItem;
     
     TGCollectionMenuSection *_otherSection;
     TGDisclosureActionCollectionItem *_passportItem;
@@ -247,15 +249,21 @@
         _faqItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:TGLocalized(@"Settings.FAQ") action:@selector(faqPressed)];
         _faqItem.deselectAutomatically = true;
         
+        _twitterItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:@"Twitter" action:@selector(twitterPressed)];
+        _twitterItem.deselectAutomatically = true;
+        
+        _githubItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:@"GitHub" action:@selector(githubPressed)];
+        _githubItem.deselectAutomatically = true;
+        
         TGCollectionMenuSection *infoSection = [[TGCollectionMenuSection alloc] initWithItems:@[
-            _supportItem,
-            _faqItem
+            _twitterItem,
+            _githubItem
         ]];
         [self.menuSections addSection:infoSection];
    
-#ifdef INTERNAL_RELEASE
-        //TGCollectionMenuSection *debugSection = [[TGCollectionMenuSection alloc] initWithItems:@[[[TGButtonCollectionItem alloc] initWithTitle:@"Debug Settings" action:@selector(mySettingsPressed)]]];
-        //[self.menuSections addSection:debugSection];
+#ifdef DEBUG
+        TGCollectionMenuSection *debugSection = [[TGCollectionMenuSection alloc] initWithItems:@[[[TGButtonCollectionItem alloc] initWithTitle:@"Debug Settings" action:@selector(mySettingsPressed)]]];
+        [self.menuSections addSection:debugSection];
 #endif
         
         [ActionStageInstance() watchForPath:@"/tg/loggedOut" watcher:self];
@@ -289,6 +297,8 @@
     _watchItem.icon = TGImageNamed(@"SettingsWatchIcon.png");
     _supportItem.icon = TGImageNamed(@"SettingsSupportIcon.png");
     _faqItem.icon = TGImageNamed(@"SettingsFaqIcon.png");
+    _githubItem.icon = TGImageNamed(@"github_logo.png");
+    _twitterItem.icon = TGImageNamed(@"twitter_logo.png");
     if (_callSettingsItem != nil)
         _callSettingsItem.icon = TGImageNamed(@"SettingsCallsIcon.png");
     
@@ -778,6 +788,16 @@
 - (void)faqPressed
 {
     [TGAppDelegateInstance handleOpenInstantView:TGLocalized(@"Settings.FAQ_URL") disableActions:false];
+}
+
+- (void)twitterPressed
+{
+    [TGAppDelegateInstance handleOpenInstantView:@"http://www.twitter.com/bettergramapp" disableActions:false];
+}
+
+- (void)githubPressed
+{
+    [TGAppDelegateInstance handleOpenInstantView:@"http://www.github.com/bettergram" disableActions:false];
 }
 
 #pragma mark -

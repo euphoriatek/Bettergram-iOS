@@ -636,9 +636,6 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     telegraph = [[TGTelegraph alloc] init];
     
     [TGHacks hackSetAnimationDuration];
-    
-    [self loadShowCallsTab];
-    
     //PGTock;
     //TGLog(@"before root controller");
     _rootController = [[TGRootController alloc] init];
@@ -711,14 +708,10 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
              //PGTock;
              //TGLog(@"loaded dialogs");
              
-             _rootController.dialogListController.debugReady = ^{
-                 //PGTock;
-                 //TGLog(@"in dialog controller");
-             };
-             
              [ActionStageInstance() dispatchOnStageQueue:^
              {
-                 [(id<ASWatcher>)_rootController.dialogListController.dialogListCompanion actorCompleted:ASStatusSuccess path:@"/tg/dialoglist/(0)" result:node];
+                 for (TGDialogListController *dialogListController in _rootController.dialogListControllers)
+                     [(id<ASWatcher>)dialogListController.dialogListCompanion actorCompleted:ASStatusSuccess path:@"/tg/dialoglist/(0)" result:node];
                  TGLog(@"===== Dispatched dialog list");
                  
                  [TGTelegraphInstance.liveLocationManager restoreSessions];
@@ -1495,7 +1488,8 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
             {
                 [_rootController.mainTabsController setSelectedIndex:2];
                 
-                [_rootController.dialogListController.dialogListCompanion clearData];
+                for (TGDialogListController *dialogListController in _rootController.dialogListControllers)
+                    [dialogListController.dialogListCompanion clearData];
                 [_rootController.contactsController clearData];
                 [_rootController.callsController clearData];
                 
@@ -2899,21 +2893,15 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 {
     TGAccountSettingsController *accountSettingsController = [[TGAccountSettingsController alloc] initWithUid:uid];
     
-    int index = -1;
-    for (id controller in _rootController.mainTabsController.viewControllers)
-    {
-        index++;
-        if ([controller isKindOfClass:[TGAccountSettingsController class]])
-            break;
-    }
-    
-    if (index != -1)
-    {
-        NSMutableArray *viewControllers = [_rootController.mainTabsController.viewControllers mutableCopy];
-        [viewControllers replaceObjectAtIndex:index withObject:accountSettingsController];
-        [_rootController.mainTabsController setViewControllers:viewControllers];
-        _rootController.accountSettingsController = accountSettingsController;
-    }
+    [_rootController.mainTabsController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[TGAccountSettingsController class]]) {
+            NSMutableArray *viewControllers = [_rootController.mainTabsController.viewControllers mutableCopy];
+            [viewControllers replaceObjectAtIndex:idx withObject:accountSettingsController];
+            [_rootController.mainTabsController setViewControllers:viewControllers];
+            *stop = YES;
+        }
+    }];
+    _rootController.accountSettingsController = accountSettingsController;
 }
 
 - (BOOL)application:(UIApplication *)__unused application openURL:(NSURL *)url sourceApplication:(NSString *)__unused sourceApplication annotation:(id)__unused annotation
@@ -3770,7 +3758,7 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (void)application:(UIApplication *)__unused application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    [_rootController.mainTabsController setSelectedIndex:2];
+    [_rootController.mainTabsController setSelectedIndex:0];
     
     if (_rootController.associatedWindowStack.count > 0)
     {
@@ -3784,12 +3772,12 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     if ([shortcutItem.type isEqualToString:@"compose"])
     {
         [_rootController clearContentControllers];
-        [_rootController.dialogListController.dialogListCompanion composeMessageAndOpenSearch:false];
+        [_rootController.dialogListControllers[0].dialogListCompanion composeMessageAndOpenSearch:false];
     }
     else if ([shortcutItem.type isEqualToString:@"search"])
     {
         [_rootController clearContentControllers];
-        [_rootController.dialogListController startSearch];
+        [_rootController.dialogListControllers[0] startSearch];
     }
     else if ([shortcutItem.type isEqualToString:@"camera"])
     {
@@ -4529,45 +4517,6 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     UIApplicationShortcutItem *item = [[UIApplicationShortcutItem alloc] initWithType:@"conversation" localizedTitle:title localizedSubtitle:nil icon:icon userInfo:@{ @"cid": @(peerId) }];
     
     return item;
-}
-
-- (NSString *)_callsTabFilePath
-{
-    return [[TGAppDelegate documentsPath] stringByAppendingPathComponent:@"enablecalls.tab"];
-}
-
-- (bool)callsTabFileExists
-{
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self _callsTabFilePath]];
-}
-
-- (void)loadShowCallsTab
-{
-    NSData *data = [NSData dataWithContentsOfFile:[self _callsTabFilePath]];
-    bool flag = false;
-    if (data.length != 0)
-    {
-        uint8_t show = 0;
-        [data getBytes:&show length:1];
-        if (show > 0)
-            flag = true;
-    }
-    _showCallsTab = flag;
-}
-
-- (void)setShowCallsTab:(int)showCallsTab
-{
-    _showCallsTab = showCallsTab;
-    
-    uint8_t show = showCallsTab ? 1: 0;
-    NSData *data = [NSData dataWithBytes:&show length:1];
-    [data writeToFile:[self _callsTabFilePath] atomically:true];
-}
-
-- (void)resetCallsTab
-{
-    _showCallsTab = false;
-    [[NSFileManager defaultManager] removeItemAtPath:[self _callsTabFilePath] error:NULL];
 }
 
 - (void)actionStageActionRequested:(NSString *)action options:(id)options

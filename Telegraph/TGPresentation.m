@@ -3,6 +3,7 @@
 #import "TGDayPresentationPallete.h"
 #import "TGNightPresentationPallete.h"
 #import "TGNightBluePresentationPallete.h"
+#import "TGBettergramPresentationPallete.h"
 
 #import "TGMediaStoreContext.h"
 #import "TGAppDelegate.h"
@@ -191,22 +192,9 @@ static id<SDisposable> autoNightDisposable;
     }
 }
 
-+ (TGPresentationPallete *)palleteWithState:(TGPresentationState *)state
++ (TGPresentationPallete *)palleteWithState:(__unused TGPresentationState *)state
 {
-    if (state == nil)
-        return [[TGDefaultPresentationPallete alloc] init];
-    
-    switch (state.pallete)
-    {
-        case 1:
-            return [TGDayPresentationPallete dayPalleteWithAccentColor:UIColorRGB(state.userInfo)];
-        case 2:
-            return [[TGNightPresentationPallete alloc] init];
-        case 3:
-            return [[TGNightBluePresentationPallete alloc] init];
-        default:
-            return [[TGDefaultPresentationPallete alloc] init];
-    }
+    return [[TGBettergramPresentationPallete alloc] init];
 }
 
 + (CGFloat)fontSizeWithState:(TGPresentationState *)state

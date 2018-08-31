@@ -13,6 +13,7 @@
 #import "TGRecentCallsController.h"
 #import "TGMainTabsController.h"
 #import "TGModernConversationController.h"
+#import "TGCryptoViewController.h"
 
 #import "TGCallStatusBarView.h"
 #import "TGVolumeBarView.h"
@@ -33,6 +34,8 @@
     SMetaDisposable *_callDisposable;
     
     id<SDisposable> _presentationDisposable;
+    
+    NSMutableArray<TGDialogListController *> *_dialogListControllers;
 }
 
 @end
@@ -55,9 +58,16 @@
                 [strongSelf setPresentation:next];
         }];
         
-        TGTelegraphDialogListCompanion *dialogListCompanion = [[TGTelegraphDialogListCompanion alloc] init];
-        _dialogListController = [[TGDialogListController alloc] initWithCompanion:dialogListCompanion];
-        _dialogListController.presentation = _presentation;
+        NSMutableArray<TGDialogListController *> *dialogListControllers = [NSMutableArray array];
+        for (int i = 0; i < 5; i++) {
+            TGTelegraphDialogListCompanion *dialogListCompanion = [[TGTelegraphDialogListCompanion alloc] init];
+            dialogListCompanion.filter = i;
+            
+            TGDialogListController *dialogListController = [[TGDialogListController alloc] initWithCompanion:dialogListCompanion];
+            dialogListController.presentation = _presentation;
+            [dialogListControllers addObject:dialogListController];
+        }
+        _dialogListControllers = [dialogListControllers copy];
         
         _contactsController = [[TGContactsController alloc] initWithContactsMode:TGContactsModeMainContacts | TGContactsModeRegistered | TGContactsModePhonebook | TGContactsModeSortByLastSeen];
         _contactsController.presentation = _presentation;
@@ -66,16 +76,11 @@
         
         _callsController = [[TGRecentCallsController alloc] init];
         _callsController.presentation = _presentation;
-        _callsController.missedCountChanged = ^(NSInteger count)
-        {
-            __strong TGRootController *strongSelf = weakSelf;
-            if (strongSelf != nil)
-                [strongSelf->_mainTabsController setMissedCallsCount:(int)count];
-        };
+        
+        _cryptoController = [[TGCryptoViewController alloc] init];
         
         _mainTabsController = [[TGMainTabsController alloc] initWithPresentation:_presentation];
-        [_mainTabsController setViewControllers:[NSArray arrayWithObjects:_contactsController, _callsController, _dialogListController, _accountSettingsController, nil]];
-        [_mainTabsController setCallsHidden:!TGAppDelegateInstance.showCallsTab animated:false];
+        [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:_cryptoController]];
         _mainTabsController.onControllerInsetUpdated = ^(CGFloat inset)
         {
             __strong TGRootController *strongSelf = weakSelf;
@@ -125,7 +130,9 @@
     [_mainTabsController setPresentation:presentation];
     [_contactsController setPresentation:presentation];
     [_callsController setPresentation:presentation];
-    [_dialogListController setPresentation:presentation];
+    for (TGDialogListController *dialogListController in _dialogListControllers) {
+        [dialogListController setPresentation:presentation];
+    }
     
     if ([self.presentedViewController isKindOfClass:[TGNavigationController class]])
     {

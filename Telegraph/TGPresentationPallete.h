@@ -28,6 +28,9 @@ COLOR checkButtonBlueColor;
 
 COLOR padSeparatorColor;
 
+COLOR tabBarBackgroundColor;
+COLOR tabBarSeparatorColor;
+
 COLOR barBackgroundColor;
 COLOR barSeparatorColor;
 
@@ -78,6 +81,7 @@ COLOR dialogEditTextColor;
 COLOR dialogEditDeleteColor;
 COLOR dialogEditMuteColor;
 COLOR dialogEditPinColor;
+COLOR dialogEditFavoriteColor;
 COLOR dialogEditGroupColor;
 COLOR dialogEditReadColor;
 COLOR dialogEditUnreadColor;

@@ -99,14 +99,11 @@
         NSString *version = [NSString stringWithFormat:@"v%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
         version = [NSString stringWithFormat:@"%@ (%@)", version, [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]];
         TGVersionCollectionItem *versionItem = [[TGVersionCollectionItem alloc] initWithVersion:version];
-        
-        TGButtonCollectionItem *resetCallsTabItem = [[TGButtonCollectionItem alloc] initWithTitle:@"Reset Calls Tab" action:@selector(resetCallsTabPressed)];
-        resetCallsTabItem.deselectAutomatically = true;
-        
+    
         TGButtonCollectionItem *dropFeeds = [[TGButtonCollectionItem alloc] initWithTitle:@"Reset Feeds" action:@selector(resetFeedsPressed)];
         dropFeeds.deselectAutomatically = true;
         
-        TGCollectionMenuSection *callsSection = [[TGCollectionMenuSection alloc] initWithItems:@[resetCallsTabItem, versionItem]];
+        TGCollectionMenuSection *callsSection = [[TGCollectionMenuSection alloc] initWithItems:@[versionItem]];
         [self.menuSections addSection:callsSection];
     }
     return self;
@@ -295,11 +292,6 @@
             [progressWindow dismiss:true];
         });
     }] startWithNext:nil];
-}
-
-- (void)resetCallsTabPressed {
-    [TGAppDelegateInstance resetCallsTab];
-    [TGAppDelegateInstance.rootController.mainTabsController setCallsHidden:true animated:false];
 }
 
 - (void)walPressed {

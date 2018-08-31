@@ -115,10 +115,6 @@ extern NSString *TGDeviceProximityStateChangedNotification;
 @property (nonatomic, readonly) bool inBackground;
 @property (nonatomic, readonly) bool backgroundTaskOngoing;
 
-@property (nonatomic) int showCallsTab;
-- (bool)callsTabFileExists;
-- (void)resetCallsTab;
-
 - (void)resetLocalization;
 
 - (void)performPhoneCall:(NSURL *)url;

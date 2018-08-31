@@ -1116,17 +1116,6 @@
     }
 }
 
-- (void)maybeDisplayCallsTabAlert
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CallsTabBarInfo"]];
-    [TGCallAlertView presentAlertWithTitle:TGLocalized(@"Calls.CallTabTitle") message:TGLocalized(@"Calls.CallTabDescription") customView:imageView cancelButtonTitle:TGLocalized(@"Calls.NotNow") doneButtonTitle:TGLocalized(@"Calls.AddTab") completionBlock:^(bool done)
-    {
-        TGAppDelegateInstance.showCallsTab = done;
-        if (done)
-            [TGAppDelegateInstance.rootController.mainTabsController setCallsHidden:false animated:true];
-    }];
-}
-
 - (SSignal *)callControllerInForeground
 {
     return _callControllerPipe.signalProducer();

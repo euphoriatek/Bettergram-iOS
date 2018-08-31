@@ -36,8 +36,6 @@
     TGCheckCollectionItem *_dayItem;
     TGCheckCollectionItem *_nightItem;
     TGCheckCollectionItem *_nightBlueItem;
-    
-    TGDisclosureActionCollectionItem *_autoNightItem;
 }
 
 @property (nonatomic, strong) ASHandle *actionHandle;
@@ -103,8 +101,6 @@
         _colorItem = [[TGAppearanceColorCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.AccentColor") action:@selector(accentColorPressed)];
         _colorItem.deselectAutomatically = true;
         
-        _autoNightItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.AutoNightTheme") action:@selector(autoNightPressed)];
-        
         TGDisclosureActionCollectionItem *backgroundItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:TGLocalized(@"Settings.ChatBackground") action:@selector(wallpapersPressed)];
         backgroundItem.ignoreSeparatorInset = true;
         _previewSection = [[TGCollectionMenuSection alloc] initWithItems:@
@@ -116,16 +112,6 @@
         [self.menuSections addSection:_previewSection];
         
         [self updateColorItem:TGPresentation.currentSavedPallete];
-        
-        TGCollectionMenuSection *themeSection = [[TGCollectionMenuSection alloc] initWithItems:@
-        [
-         [[TGHeaderCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ColorTheme")],
-         _dayClassicItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeDayClassic") action:@selector(dayClassicPressed)],
-         _dayItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeDay") action:@selector(dayPressed)],
-         _nightBlueItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeNightBlue") action:@selector(nightBluePressed)],
-         _nightItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeNight") action:@selector(nightPressed)]
-        ]];
-        [self.menuSections addSection:themeSection];
         
         [self updateSelection];
         
@@ -224,7 +210,6 @@
 - (void)updateColorItem:(TGPresentationPallete *)pallete
 {
     bool colorVisible = [pallete isKindOfClass:[TGDayPresentationPallete class]];
-    bool autoNightVisible = [pallete isKindOfClass:[TGDefaultPresentationPallete class]];
     bool changed = false;
     
     if (colorVisible)
@@ -240,20 +225,6 @@
         if (colorVisible) {
             indexOfColorItem = 3;
             [_previewSection insertItem:_colorItem atIndex:3];
-            changed = true;
-        }
-    }
-    
-    NSUInteger indexOfAutoNightItem = [_previewSection indexOfItem:_autoNightItem];
-    if (indexOfAutoNightItem != NSNotFound) {
-        if (!autoNightVisible) {
-            [_previewSection deleteItemAtIndex:indexOfAutoNightItem];
-            changed = true;
-        }
-    } else {
-        if (autoNightVisible) {
-            NSUInteger targetIndex = indexOfColorItem != NSNotFound ? indexOfColorItem + 1 : 3;
-            [_previewSection insertItem:_autoNightItem atIndex:targetIndex];
             changed = true;
         }
     }

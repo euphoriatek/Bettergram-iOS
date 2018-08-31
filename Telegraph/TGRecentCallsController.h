@@ -12,6 +12,4 @@
 
 - (void)initialize;
 
-- (void)maybeSuggestEnableCallsTab:(bool)automatically;
-
 @end
