@@ -1072,7 +1072,7 @@ static const NSUInteger loadMoreMemberCount = 100;
 
 - (void)_commitLeaveGroup
 {
-    [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_peerId unreadCount:0 serviceUnreadCount:0] animated:false];
+    [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_peerId unreadCount:0 serviceUnreadCount:0] animated:false];
     
     if (self.popoverController != nil)
     {
@@ -1786,7 +1786,7 @@ static const NSUInteger loadMoreMemberCount = 100;
 
 - (void)_commitLeaveChannel
 {
-    [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_peerId unreadCount:0 serviceUnreadCount:0] animated:false];
+    [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_peerId unreadCount:0 serviceUnreadCount:0] animated:false];
     
     if (self.popoverController != nil)
     {
@@ -1809,7 +1809,7 @@ static const NSUInteger loadMoreMemberCount = 100;
             [progressWindow dismiss:true];
         });
     }] startWithNext:nil completed:^{
-        [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_peerId unreadCount:0 serviceUnreadCount:0] animated:false];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_peerId unreadCount:0 serviceUnreadCount:0] animated:false];
         
         if (self.popoverController != nil)
         {

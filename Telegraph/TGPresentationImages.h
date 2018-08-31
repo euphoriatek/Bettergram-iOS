@@ -8,12 +8,6 @@
 
 + (instancetype)imagesWithPallete:(TGPresentationPallete *)pallete;
 
-IMAGE tabBarContactsIcon;
-IMAGE tabBarCallsIcon;
-IMAGE tabBarChatsIcon;
-IMAGE tabBarChatsUpIcon;
-IMAGE tabBarChatsDownIcon;
-IMAGE tabBarSettingsIcon;
 IMAGE tabBarBadgeImage;
 
 IMAGE contactsInviteIcon;

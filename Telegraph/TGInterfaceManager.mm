@@ -165,7 +165,7 @@
 - (void)navigateToConversationWithId:(int64_t)conversationId conversation:(TGConversation *)__unused conversation performActions:(NSDictionary *)performActions atMessage:(NSDictionary *)atMessage clearStack:(bool)clearStack openKeyboard:(bool)openKeyboard canOpenKeyboardWhileInTransition:(bool)canOpenKeyboardWhileInTransition navigationController:(TGNavigationController *)navigationController selectChat:(bool)selectChat animated:(bool)animated
 {
     if (selectChat)
-        [TGAppDelegateInstance.rootController.dialogListController selectConversationWithId:conversationId];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:conversationId];
     
     [self dismissBannerForConversationId:conversationId];
     
@@ -206,7 +206,7 @@
         conversationController.willChangeDim = ^(bool dim, UIView *keyboardSnapshotView, bool restoringFocus)
         {
             if (TGAppDelegateInstance.rootController.currentSizeClass == UIUserInterfaceSizeClassRegular)
-                [TGAppDelegateInstance.rootController.dialogListController setDimmed:dim animated:true keyboardSnapshot:keyboardSnapshotView restoringFocus:restoringFocus];
+                [TGAppDelegateInstance.rootController.dialogListControllers[0] setDimmed:dim animated:true keyboardSnapshot:keyboardSnapshotView restoringFocus:restoringFocus];
         };
         
         if (TGPeerIdIsChannel(conversationId))
@@ -215,7 +215,7 @@
             if (conversation != nil) {
                 if (conversation.hasExplicitContent) {
                     if (!navigationController)
-                        [TGAppDelegateInstance.rootController.dialogListController selectConversationWithId:0];
+                        [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:0];
                     
                     [TGCustomAlertView presentAlertWithTitle:TGLocalized(@"ExplicitContent.AlertTitle") message:conversation.restrictionReason.length == 0 ? TGLocalized(@"ExplicitContent.AlertChannel") : [self explicitContentReason:conversation.restrictionReason] cancelButtonTitle:TGLocalized(@"Common.OK") okButtonTitle:nil completionBlock:nil];
                     
@@ -260,7 +260,7 @@
             TGUser *user = [TGDatabaseInstance() loadUser:(int32_t)conversationId];
             if (user.hasExplicitContent) {
                 if (!navigationController)
-                    [TGAppDelegateInstance.rootController.dialogListController selectConversationWithId:0];
+                    [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:0];
                 
                 [TGCustomAlertView presentAlertWithTitle:TGLocalized(@"ExplicitContent.AlertTitle") message:user.restrictionReason.length == 0 ? TGLocalized(@"ExplicitContent.AlertUser") : [self explicitContentReason:user.restrictionReason] cancelButtonTitle:TGLocalized(@"Common.OK") okButtonTitle:nil completionBlock:nil];
                 
@@ -473,7 +473,7 @@
     conversationController.willChangeDim = ^(bool dim, UIView *keyboardSnapshotView, bool restoringFocus)
     {
         if (TGAppDelegateInstance.rootController.currentSizeClass == UIUserInterfaceSizeClassRegular)
-            [TGAppDelegateInstance.rootController.dialogListController setDimmed:dim animated:true keyboardSnapshot:keyboardSnapshotView restoringFocus:restoringFocus];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0] setDimmed:dim animated:true keyboardSnapshot:keyboardSnapshotView restoringFocus:restoringFocus];
     };
     
     TGConversation *conversation = nil;
@@ -482,7 +482,7 @@
         conversation = [TGDatabaseInstance() loadChannels:@[@(conversationId)]][@(conversationId)];
         if (conversation != nil) {
             if (conversation.hasExplicitContent) {
-                [TGAppDelegateInstance.rootController.dialogListController selectConversationWithId:0];
+                [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:0];
                 
                 [TGCustomAlertView presentAlertWithTitle:TGLocalized(@"ExplicitContent.AlertTitle") message:conversation.restrictionReason.length == 0 ? TGLocalized(@"ExplicitContent.AlertChannel") : [self explicitContentReason:conversation.restrictionReason] cancelButtonTitle:TGLocalized(@"Common.OK") okButtonTitle:nil completionBlock:nil];
                 
@@ -531,7 +531,7 @@
     {
         TGUser *user = [TGDatabaseInstance() loadUser:(int32_t)conversationId];
         if (user.hasExplicitContent) {
-            [TGAppDelegateInstance.rootController.dialogListController selectConversationWithId:0];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:0];
             
             [TGCustomAlertView presentAlertWithTitle:TGLocalized(@"ExplicitContent.AlertTitle") message:user.restrictionReason.length == 0 ? TGLocalized(@"ExplicitContent.AlertUser") : [self explicitContentReason:user.restrictionReason] cancelButtonTitle:TGLocalized(@"Common.OK") okButtonTitle:nil completionBlock:nil];
             
@@ -583,7 +583,7 @@
 - (void)dismissConversation
 {
     [TGAppDelegateInstance.rootController clearContentControllers];
-    [TGAppDelegateInstance.rootController.dialogListController selectConversationWithId:0];
+    [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:0];
 }
 
 - (void)navigateToProfileOfUser:(int)uid

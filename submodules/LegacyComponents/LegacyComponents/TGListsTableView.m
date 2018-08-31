@@ -202,6 +202,7 @@
         return;
     
     [super setContentOffset:contentOffset];
+//    NSLog(@"setContentOffset: %@",@(contentOffset.y));
 }
 
 - (void)setForcedContentOffset:(CGPoint)contentOffset

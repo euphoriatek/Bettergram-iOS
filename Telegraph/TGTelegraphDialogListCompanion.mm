@@ -1210,7 +1210,6 @@
 {
     bool forwardMode = self.forwardMode;
     bool privacyMode = self.privacyMode;
-    bool showGroupsOnly = self.showGroupsOnly;
     bool showSecretInForwardMode = self.showSecretInForwardMode;
     
     if ([item isKindOfClass:[TGConversation class]])
@@ -1222,12 +1221,7 @@
         if ((forwardMode || privacyMode) && conversation.isBroadcast)
             return nil;
         
-        if (showGroupsOnly && conversation.isChannel && conversation.isChannelGroup) {
-            [self initializeDialogListData:conversation customUser:nil selfUser:[TGDatabaseInstance() loadUser:TGTelegraphInstance.clientUserId]];
-            return conversation;
-        }
-        
-        if (showGroupsOnly && (conversation.conversationId > 0 || conversation.conversationId <= INT_MIN))
+        if ([[self filterPredicate] evaluateWithObject:item] == NO)
             return nil;
         
         [self initializeDialogListData:conversation customUser:nil selfUser:[TGDatabaseInstance() loadUser:TGTelegraphInstance.clientUserId]];
@@ -1235,10 +1229,14 @@
     }
     else if ([item isKindOfClass:[TGUser class]])
     {
-        if (showGroupsOnly)
-            return nil;
-        
-        return item;
+        switch (_filter) {
+            case TGDialogFilterAnnouncements:
+            case TGDialogFilterGroups:
+                return nil;
+                
+            default:
+                return item;
+        }
     }
     
     return nil;
@@ -1251,6 +1249,77 @@
         selfPeer = [[TGConversation alloc] initWithConversationId:TGTelegraphInstance.clientUserId unreadCount:0 serviceUnreadCount:0];
     
     return selfPeer;
+}
+
+- (void)setFilter:(TGDialogFilter)filter
+{
+    _filter = filter;
+}
+
+- (bool)showGroupsOnly
+{
+    return _filter == TGDialogFilterGroups;
+}
+
+- (NSPredicate *)filterPredicate
+{
+    return TGFilterPredicateForFilter(_filter);
+}
+
+- (void)filterLoadedItems:(NSMutableArray<id<TGDialogListItem>> *)loadedItems
+{
+    NSPredicate *predicate = [self filterPredicate];
+    if (predicate != nil) {
+        [loadedItems filterUsingPredicate:predicate];
+    }
+    
+//    [self printListLoadedItems: loadedItems];
+//    static NSArray *filterIds = @[@-5443491307, @777000, @-234241609, @482842959, @-5301470418, @626708829];
+//    ----------------
+    static NSMutableArray<id<TGDialogListItem>> *allConversations = [NSMutableArray array];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TGLog(@"array pointer: %p",allConversations);
+    });
+    [[loadedItems sortedArrayUsingComparator:^NSComparisonResult(id<TGDialogListItem>  _Nonnull obj1, id<TGDialogListItem>  _Nonnull obj2) {
+        return (NSComparisonResult)(obj2.conversationId - obj1.conversationId);
+    }] enumerateObjectsUsingBlock:^(id<TGDialogListItem>  _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        __block NSInteger insertionIndex = allConversations.count;
+        __block NSInteger replaceIndex = -1;
+        [allConversations enumerateObjectsUsingBlock:^(id<TGDialogListItem>  _Nonnull savedObj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (savedObj.conversationId == obj.conversationId) {
+                replaceIndex = idx;
+                *stop = true;
+                return;
+            }
+            if (savedObj.conversationId > obj.conversationId) {
+                insertionIndex = idx;
+                *stop = true;
+                return;
+            }
+        }];
+        if (replaceIndex >= 0) {
+            [allConversations replaceObjectAtIndex:replaceIndex withObject:obj];
+        }
+        else if (insertionIndex >= 0) {
+            [allConversations insertObject:obj atIndex:insertionIndex];
+        }
+    }];
+//    ----------------
+//    TGLog(@"-------------------\\n%@",[loadedItems debugDescription]);
+//    for (NSUInteger i = loadedItems.count - 1; i < loadedItems.count; i--) {
+//        if (![filterIds containsObject:@(loadedItems[i].conversationId)]) {
+//             [loadedItems removeObjectAtIndex:i];
+//        }
+//    }
+//    static NSArray *filterIdsDiff = @[@538243687, @777000, @-234241609, @482842959, @-5301470418, @626708829];
+    
+}
+
+- (void)printListLoadedItems:(NSMutableArray<id<TGDialogListItem>> *)loadedItems {
+    for (id<TGDialogListItem> item in loadedItems) {
+        TGLog(item.debugDescription);
+    }
 }
 
 - (void)actorCompleted:(int)resultCode path:(NSString *)path result:(id)result
@@ -1269,7 +1338,6 @@
         {
             bool forwardMode = self.forwardMode;
             bool privacyMode = self.privacyMode;
-            bool showGroupsOnly = self.showGroupsOnly;
             bool showSecretInForwardMode = self.showSecretInForwardMode;
             
             TGUser *selfUser = [[TGDatabase instance] loadUser:TGTelegraphInstance.clientUserId];
@@ -1292,7 +1360,7 @@
                     if ((forwardMode || privacyMode) && conversation.isBroadcast)
                         continue;
                     
-                    if (showGroupsOnly && (conversation.conversationId <= INT_MIN || conversation.conversationId > 0))
+                    if ([[self filterPredicate] evaluateWithObject:conversation] == NO)
                         continue;
                     
                     [self initializeDialogListData:conversation customUser:nil selfUser:selfUser];
@@ -1334,11 +1402,13 @@
             
             SGraphListNode *listNode = (SGraphListNode *)result;
             NSMutableArray<id<TGDialogListItem>> *loadedItems = [[listNode items] mutableCopy];
+            
             bool canLoadMore = false;
             bool forwardMode = self.forwardMode;
             bool privacyMode = self.privacyMode;
             bool showGroupsOnly = self.showGroupsOnly;
             bool showSecretInForwardMode = self.showSecretInForwardMode;
+            NSPredicate *filterPredicate = [self filterPredicate];
             
             TGUser *selfUser = [[TGDatabase instance] loadUser:TGTelegraphInstance.clientUserId];
             
@@ -1398,6 +1468,10 @@
                         i--;
                     }
                 }
+            }
+            
+            if (filterPredicate != nil) {
+                [loadedItems filterUsingPredicate:filterPredicate];
             }
             
             for (id<TGDialogListItem> conversation in loadedItems)
@@ -1643,6 +1717,22 @@
             [conversations addObjectsFromArray:additional];
         }
         
+        NSPredicate *filterPredicate = [self filterPredicate];
+        NSMutableArray<NSNumber *> *maybeUnfavoritedIds = [NSMutableArray array];
+        if (filterPredicate != nil) {
+            if (_filter == TGDialogFilterFavorites) {
+                for (NSUInteger i = conversations.count - 1; i < conversations.count; i--) {
+                    if (![filterPredicate evaluateWithObject:conversations[i]]) {
+                        [maybeUnfavoritedIds addObject:@([conversations[i] conversationId])];
+                        [conversations removeObjectAtIndex:i];
+                    }
+                }
+            }
+            else {
+                [conversations filterUsingPredicate:filterPredicate];
+            }
+        }
+        
         for (NSInteger i = 0; i < (NSInteger)conversations.count; i++) {
             TGConversation *conversation = conversations[i];
             
@@ -1716,7 +1806,7 @@
             }
         }
         
-        if (conversations.count == 0)
+        if (conversations.count + maybeUnfavoritedIds.count == 0)
             return;
         
         [conversations sortUsingComparator:^NSComparisonResult(id<TGDialogListItem> obj1, id<TGDialogListItem> obj2)
@@ -1775,7 +1865,6 @@
         }
         
         NSMutableSet *candidatesForCutoff = [[NSMutableSet alloc] init];
-        
         for (int i = 0; i < (int)conversations.count; i++)
         {
             TGConversation *conversation = [conversations objectAtIndex:i];
@@ -1820,6 +1909,14 @@
                 [self initializeDialogListData:newConversation customUser:nil selfUser:selfUser];
                 
                 [_conversationList addObject:newConversation];
+            }
+        }
+        
+        if (maybeUnfavoritedIds.count > 0) {
+            for (NSUInteger i = _conversationList.count - 1; i < _conversationList.count; i--) {
+                if ([maybeUnfavoritedIds containsObject:@([_conversationList[i] conversationId])]) {
+                    [_conversationList removeObjectAtIndex:i];
+                }
             }
         }
         
@@ -2050,6 +2147,8 @@
             [TGDatabaseInstance() dispatchOnDatabaseThread:^ // request to database
             {
                 int unreadCount = [TGDatabaseInstance() databaseState].unreadCount;
+                int unreadChatsCount = TGDatabaseInstance().unreadChatsCount;
+                int unreadChannelsCount = TGDatabaseInstance().unreadChannelsCount;
                 TGDispatchOnMainThread(^
                 {
                     if (![arguments[@"previous"] boolValue]) {
@@ -2059,7 +2158,9 @@
                         [[UIApplication sharedApplication] cancelAllLocalNotifications];
                     
                     self.unreadCount = unreadCount;
-                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadCount];
+                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadCount forTabAtIndex:0];
+                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadChatsCount forTabAtIndex:1];
+                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadChannelsCount forTabAtIndex:2];
                     
                     TGDialogListController *dialogListController = self.dialogListController;
                     dialogListController.tabBarItem.badgeValue = unreadCount == 0 ? nil : [[NSString alloc] initWithFormat:@"%d", unreadCount];

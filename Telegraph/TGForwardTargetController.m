@@ -208,7 +208,7 @@
         
         _dialogListCompanion = [[TGTelegraphDialogListCompanion alloc] init];
         _dialogListCompanion.forwardMode = true;
-        _dialogListCompanion.showGroupsOnly = true;
+        _dialogListCompanion.filter = TGDialogFilterGroups;
         _dialogListCompanion.botStartMode = true;
         _dialogListCompanion.conversatioSelectedWatcher = _actionHandle;
         _dialogListController = [[TGDialogListController alloc] initWithCompanion:_dialogListCompanion];
@@ -802,7 +802,7 @@
                     
                     [[[TGProgressWindow alloc] init] dismissWithSuccess];
                     
-                    [TGAppDelegateInstance.rootController.dialogListController requestSavedMessagesTooltip];
+                    [TGAppDelegateInstance.rootController.dialogListControllers[0] requestSavedMessagesTooltip];
                 }
                 else
                 {

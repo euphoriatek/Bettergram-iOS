@@ -21,6 +21,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self != nil) {
+        self.clipsToBounds = YES;
         _labelView = [[UILabel alloc] init];
         _labelView.backgroundColor = nil;
         _labelView.opaque = false;

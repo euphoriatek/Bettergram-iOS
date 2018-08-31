@@ -1554,7 +1554,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         [_database executeUpdate:[[NSString alloc] initWithFormat:@"ALTER TABLE %@ ADD COLUMN data BLOB", _usersTableName]];
     }
     
-    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, date INTEGER, from_uid INTEGER, message TEXT, media BLOB, unread_count INTEGER, flags INTEGER, chat_title TEXT, chat_photo BLOB, participants BLOB, participants_count INTEGER, chat_version INTEGER, service_unread INTEGER)", _conversationListTableName]];
+    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, date INTEGER, from_uid INTEGER, message TEXT, media BLOB, unread_count INTEGER, flags INTEGER, chat_title TEXT, chat_photo BLOB, participants BLOB, participants_count INTEGER, chat_version INTEGER, favorited_date INTEGER, service_unread INTEGER)", _conversationListTableName]];
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE INDEX IF NOT EXISTS date ON %@ (date DESC)", _conversationListTableName]];
     
     FMResultSet *serviceUnreadResult = [_database executeQuery:[[NSString alloc] initWithFormat:@"SELECT service_unread FROM %@ LIMIT 1", _conversationListTableName]];
@@ -3296,7 +3296,7 @@ inline static TGUser *loadUserFromDatabase(FMResultSet *result, PSKeyValueDecode
 
 static void storeConversationToDatabase(TGDatabase *database, TGConversation *conversation)
 {
-    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version, service_unread) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
+    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version, favorited_date, service_unread) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
     
     int flags = 0;
     if (conversation.outgoing)
@@ -3318,12 +3318,12 @@ static void storeConversationToDatabase(TGDatabase *database, TGConversation *co
     if (conversation.unreadMark)
         flags |= 256;
     
-    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion], [[NSNumber alloc] initWithInt:conversation.serviceUnreadCount]];
+    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion], @(conversation.favoritedDate), [[NSNumber alloc] initWithInt:conversation.serviceUnreadCount]];
 }
 
 static inline void storeConversationToDatabaseIfNotExists(TGDatabase *database, TGConversation *conversation)
 {
-    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR IGNORE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
+    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR IGNORE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version, favorited_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
     
     int flags = 0;
     if (conversation.outgoing)
@@ -3345,7 +3345,7 @@ static inline void storeConversationToDatabaseIfNotExists(TGDatabase *database, 
     if (conversation.unreadMark)
         flags |= 256;
     
-    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion]];
+    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion], @(conversation.favoritedDate)];
 }
 
 static inline TGConversation *loadConversationFromDatabase(FMResultSet *result)
@@ -3385,7 +3385,23 @@ static inline TGConversation *loadConversationFromDatabase(FMResultSet *result)
         conversation.messageDate = [result intForColumn:@"date"];
     }
     
+    conversation.favoritedDate = [result intForColumn:@"favorited_date"];
+    
     return conversation;
+}
+
+NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
+{
+    switch (filter) {
+        case TGDialogFilterAll:
+            return nil;
+            
+        case TGDialogFilterFavorites:
+            return [NSPredicate predicateWithFormat:@"isFavorited == YES"];
+            
+        default:
+            return [NSPredicate predicateWithFormat:@"type == %@",@(filter)];
+    }
 }
 
 - (void)storeConversationList:(NSArray *)conversations replace:(bool)replace
@@ -4034,6 +4050,14 @@ static inline TGConversation *loadConversationFromDatabase(FMResultSet *result)
             }
         }
     } synchronous:false];
+}
+
+- (void)conversationFieldUpdated:(TGConversation *)conversation
+{
+    storeConversationToDatabase(self, conversation);
+    
+    [ActionStageInstance() dispatchResource:_liveMessagesDispatchPath resource:[[SGraphObjectNode alloc] initWithObject:[NSArray arrayWithObject:conversation]]];
+    [ActionStageInstance() dispatchResource:[NSString stringWithFormat:@"/tg/conversation/(%lld)/conversation", conversation.conversationId] resource:[[SGraphObjectNode alloc] initWithObject:conversation]];
 }
 
 bool searchDialogsResultComparator(const std::pair<id, int> &obj1, const std::pair<id, int> &obj2)

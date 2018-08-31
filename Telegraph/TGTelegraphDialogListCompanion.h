@@ -7,6 +7,7 @@
  */
 
 #import "TGDialogListCompanion.h"
+#import "TGDatabase.h"
 
 #import <LegacyComponents/ActionStage.h>
 
@@ -26,5 +27,9 @@ typedef enum {
 @property (nonatomic, strong) ASHandle *actionHandle;
 
 @property (nonatomic, strong) ASHandle *conversatioSelectedWatcher;
+
+@property (nonatomic, assign) TGDialogFilter filter;
+
++ (NSPredicate *)filterPredicateForFilter:(TGDialogFilter)filter;
 
 @end

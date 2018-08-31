@@ -524,6 +524,7 @@
         _pinnedMessageId = [coder decodeInt32ForCKey:"pmi"];
         _chatCreationDate = [coder decodeInt32ForCKey:"ccd"];
         _pinnedDate = [coder decodeInt32ForCKey:"pdt"];
+        _favoritedDate = [coder decodeInt32ForCKey:"fdt"];
         _channelAdminRights = [coder decodeObjectForCKey:"car"];
         _channelBannedRights = [coder decodeObjectForCKey:"cbr"];
         _messageFlags = [coder decodeInt64ForCKey:"mf"];
@@ -583,6 +584,7 @@
     [coder encodeInt32:_chatCreationDate forCKey:"ccd"];
     [coder encodeObject:_channelAdminRights forCKey:"car"];
     [coder encodeObject:_channelBannedRights forCKey:"cbr"];
+    [coder encodeInt32:_favoritedDate forCKey:"fdt"];
     [coder encodeInt64:_messageFlags forCKey:"mf"];
     [coder encodeInt32:_feedId != nil ? _feedId.intValue : -1 forCKey:"fi"];
     [coder encodeInt32:_unreadMark ? 1 : 0 forCKey:"unrm"];
@@ -652,6 +654,7 @@
     conversation->_draft = _draft;
     conversation->_unreadMentionCount = _unreadMentionCount;
     conversation.pinnedDate = _pinnedDate;
+    conversation.favoritedDate = _favoritedDate;
     
     conversation->_channelAdminRights = _channelAdminRights;
     conversation->_channelBannedRights = _channelBannedRights;
@@ -661,6 +664,16 @@
     conversation->_feedId = _feedId;
     
     return conversation;
+}
+
+- (NSString *)debugDescription
+{
+    NSString *text = [self.text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+    NSUInteger maxLen = 40;
+    if (text.length > maxLen) {
+        text = [text stringByReplacingCharactersInRange:NSMakeRange(maxLen, text.length - maxLen) withString:@"..."];
+    }
+    return [NSString stringWithFormat:@"<%@: %p> id:%@ flags:%@ readOnly:%@ chatTitle:%@ text:%@", [self class], self, @(self.conversationId), @(self.flags), @(self.channelIsReadOnly), self.chatTitle, text];
 }
 
 - (void)setKind:(uint8_t)kind {
@@ -794,6 +807,10 @@
     }
     
     if (_pinnedDate != other->_pinnedDate) {
+        return false;
+    }
+    
+    if (_favoritedDate != other->_favoritedDate) {
         return false;
     }
     
@@ -1021,6 +1038,25 @@
 - (bool)isEncrypted
 {
     return _encryptedData != nil;
+}
+
+- (bool)isFavorited
+{
+    return _favoritedDate > 0;
+}
+
+- (TGConversationType)type
+{
+    if (!_channelIsReadOnly && (_conversationId > 0 || [self isEncrypted]))
+        return TGConversationTypeDirectMessage;
+    if (_conversationId < 0) {
+        if (_channelIsReadOnly){
+            return TGConversationTypeAnnouncement;
+        }
+        else
+            return TGConversationTypeGroup;
+    }
+    return TGConversationTypeOther;
 }
 
 - (void)mergeConversation:(TGConversation *)conversation {

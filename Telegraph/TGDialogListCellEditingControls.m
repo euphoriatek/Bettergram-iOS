@@ -22,6 +22,10 @@ static NSString *buttonTitleForType(TGDialogListCellEditingControlButton button)
             return TGLocalized(@"Conversation.Mute");
         case TGDialogListCellEditingControlsUnmute:
             return TGLocalized(@"Conversation.Unmute");
+        case TGDialogListCellEditingControlsFavorite:
+            return TGLocalized(@"DialogList.Favorite");
+        case TGDialogListCellEditingControlsUnfavorite:
+            return TGLocalized(@"DialogList.Unfavorite");
         case TGDialogListCellEditingControlsPromote:
             return TGLocalized(@"GroupInfo.ActionPromote");
         case TGDialogListCellEditingControlsBan:
@@ -41,30 +45,12 @@ static NSString *buttonTitleForType(TGDialogListCellEditingControlButton button)
 
 static NSString *animationForType(TGDialogListCellEditingControlButton button) {
     switch (button) {
-        case TGDialogListCellEditingControlsDelete:
-            return @"anim_delete";
-        case TGDialogListCellEditingControlsPin:
-            return @"anim_pin";
-        case TGDialogListCellEditingControlsUnpin:
-            return @"anim_unpin";
-        case TGDialogListCellEditingControlsMute:
-            return @"anim_mute";
-        case TGDialogListCellEditingControlsUnmute:
-            return @"anim_unmute";
-        case TGDialogListCellEditingControlsPromote:
-            return nil;
-        case TGDialogListCellEditingControlsBan:
-            return nil;
-        case TGDialogListCellEditingControlsRestrict:
-            return nil;
-        case TGDialogListCellEditingControlsGroup:
-            return @"anim_group";
-        case TGDialogListCellEditingControlsUngroup:
-            return @"anim_ungroup";
         case TGDialogListCellEditingControlsRead:
             return @"anim_read";
         case TGDialogListCellEditingControlsUnread:
             return @"anim_unread";
+        default:
+            return nil;
     }
 }
 
@@ -78,6 +64,9 @@ static UIColor *buttonColorForType(TGDialogListCellEditingControlButton button, 
         case TGDialogListCellEditingControlsMute:
         case TGDialogListCellEditingControlsUnmute:
             return presentation.pallete.dialogEditMuteColor;
+        case TGDialogListCellEditingControlsFavorite:
+        case TGDialogListCellEditingControlsUnfavorite:
+            return presentation.pallete.dialogEditFavoriteColor;
         case TGDialogListCellEditingControlsPromote:
             return presentation.pallete.dialogEditPinColor;
         case TGDialogListCellEditingControlsBan:
@@ -97,15 +86,19 @@ static UIColor *buttonColorForType(TGDialogListCellEditingControlButton button, 
 static UIImage *buttonImageForType(TGDialogListCellEditingControlButton button, TGPresentation *presentation) {
     switch (button) {
         case TGDialogListCellEditingControlsDelete:
-            return presentation.images.dialogEditDeleteIcon;
+            return TGImageNamed(@"dialog_delete");
         case TGDialogListCellEditingControlsPin:
-            return presentation.images.dialogEditPinIcon;
+            return TGImageNamed(@"dialog_pin");
         case TGDialogListCellEditingControlsUnpin:
-            return presentation.images.dialogEditUnpinIcon;
+            return TGImageNamed(@"dialog_unpin");
+        case TGDialogListCellEditingControlsFavorite:
+            return TGImageNamed(@"dialog_favorite");
+        case TGDialogListCellEditingControlsUnfavorite:
+            return TGImageNamed(@"dialog_unfavorite");
         case TGDialogListCellEditingControlsMute:
-            return presentation.images.dialogEditMuteIcon;
+            return TGImageNamed(@"dialog_mute");
         case TGDialogListCellEditingControlsUnmute:
-            return presentation.images.dialogEditUnmuteIcon;
+            return TGImageNamed(@"dialog_unmute");
         case TGDialogListCellEditingControlsGroup:
             return presentation.images.dialogEditGroupIcon;
         case TGDialogListCellEditingControlsUngroup:
@@ -645,6 +638,13 @@ static CGRect validatedRect(CGRect value) {
                 _togglePinned(false);
             }
             break;
+        case TGDialogListCellEditingControlsFavorite:
+        case TGDialogListCellEditingControlsUnfavorite:
+            if (_toggleFavorited) {
+                _toggleFavorited(action == TGDialogListCellEditingControlsFavorite);
+            }
+            break;
+            
         case TGDialogListCellEditingControlsMute:
             if (_toggleMute) {
                 _toggleMute(true);

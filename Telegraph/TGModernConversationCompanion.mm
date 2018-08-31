@@ -2842,7 +2842,7 @@ static void dispatchOnMessageQueue(dispatch_block_t block, bool synchronous)
         TGModernConversationController *controller = _controller;
         [controller openMediaFromMessage:[options[@"mid"] intValue] peerId:[options[@"peerId"] int64Value] instant:[options[@"instant"] boolValue]];
         
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     }
     else if ([action isEqualToString:@"openEmbedRequested"])
     {
@@ -2853,7 +2853,7 @@ static void dispatchOnMessageQueue(dispatch_block_t block, bool synchronous)
         else
             [controller openEmbed:webPage forMessageId:[options[@"mid"] intValue] peerId:[options[@"peerId"] int64Value]];
         
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     }
     else if ([action isEqualToString:@"closeMediaRequested"])
     {

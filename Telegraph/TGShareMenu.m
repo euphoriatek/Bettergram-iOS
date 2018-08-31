@@ -154,7 +154,7 @@
         [strongController dismissAnimated:true];
         
         if ([strongCollectionItem.peerIds containsObject:@(TGTelegraphInstance.clientUserId)])
-            [TGAppDelegateInstance.rootController.dialogListController requestSavedMessagesTooltip];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0] requestSavedMessagesTooltip];
     }];
     sendItem.presentation = TGPresentation.current;
     

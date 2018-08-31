@@ -19,6 +19,8 @@ typedef enum {
     TGDialogListCellEditingControlsUngroup = 1 << 9,
     TGDialogListCellEditingControlsRead = 1 << 10,
     TGDialogListCellEditingControlsUnread = 1 << 11,
+    TGDialogListCellEditingControlsFavorite = 1 << 12,
+    TGDialogListCellEditingControlsUnfavorite = 1 << 13,
 } TGDialogListCellEditingControlButton;
 
 @interface TGDialogListCellEditingControls : UIView
@@ -26,6 +28,7 @@ typedef enum {
 @property (nonatomic, strong) TGPresentation *presentation;
 
 @property (nonatomic, copy) void (^requestDelete)();
+@property (nonatomic, copy) void (^toggleFavorited)(bool);
 @property (nonatomic, copy) void (^togglePinned)(bool);
 @property (nonatomic, copy) void (^toggleMute)(bool);
 @property (nonatomic, copy) void (^requestPromote)();

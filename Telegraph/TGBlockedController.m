@@ -219,7 +219,7 @@
         TGConversation *conversation = options;
         if (conversation.conversationId != 0)
         {
-            [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:conversation.conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:conversation.conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
             
             [self dismissViewControllerAnimated:true completion:nil];
         }

@@ -14,11 +14,7 @@
 
 - (void)setIgnoreKeyboardFrameChange:(bool)ignore restoringFocus:(bool)restoringFocus;
 
-- (void)setUnreadArrow:(NSNumber *)up;
-- (void)setUnreadCount:(int)unreadCount;
-- (void)setMissedCallsCount:(int)callsCount;
-
-- (void)setCallsHidden:(bool)hidden animated:(bool)animated;
+- (void)setUnreadCount:(int)unreadCount forTabAtIndex:(int)index;
 
 - (void)localizationUpdated;
 

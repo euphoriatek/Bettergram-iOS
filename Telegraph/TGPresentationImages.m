@@ -2,6 +2,7 @@
 #import "TGPresentationPallete.h"
 #import "TGPresentationAssets.h"
 #import "TGPresentation.h"
+#import <LegacyComponents/TGImageUtils.h>
 
 #import "TGWallpaperManager.h"
 #import <LegacyComponents/TGWallpaperInfo.h>
@@ -21,52 +22,10 @@
 
 #pragma mark - Tabs
 
-- (UIImage *)tabBarContactsIcon
-{
-    return [self imageWithKey:@"tabContacts" generator:^UIImage *{
-        return [TGPresentationAssets tabBarContactsIcon:self.pallete.tabIconColor];
-    }];
-}
-
-- (UIImage *)tabBarCallsIcon
-{
-    return [self imageWithKey:@"tabCalls" generator:^UIImage *{
-        return [TGPresentationAssets tabBarCallsIcon:self.pallete.tabIconColor];
-    }];
-}
-
-- (UIImage *)tabBarChatsIcon
-{
-    return [self imageWithKey:@"tabChats" generator:^UIImage *{
-        return [TGPresentationAssets tabBarChatsIcon:self.pallete.tabIconColor downArrow:nil];
-    }];
-}
-
-- (UIImage *)tabBarChatsUpIcon
-{
-    return [self imageWithKey:@"tabChatsUp" generator:^UIImage *{
-        return [TGPresentationAssets tabBarChatsIcon:self.pallete.tabIconColor downArrow:@false];
-    }];
-}
-
-- (UIImage *)tabBarChatsDownIcon
-{
-    return [self imageWithKey:@"tabChatsDown" generator:^UIImage *{
-        return [TGPresentationAssets tabBarChatsIcon:self.pallete.tabIconColor downArrow:@true];
-    }];
-}
-
-- (UIImage *)tabBarSettingsIcon
-{
-    return [self imageWithKey:@"tabSettings" generator:^UIImage *{
-        return [TGPresentationAssets tabBarSettingsIcon:self.pallete.tabIconColor];
-    }];
-}
-
 - (UIImage *)tabBarBadgeImage
 {
     return [self imageWithKey:@"tabBadge" generator:^UIImage *{
-        return [TGPresentationAssets badgeWithDiameter:18.0f color:self.pallete.tabBadgeColor border:1.0f borderColor:self.pallete.tabBadgeBorderColor];
+        return [TGPresentationAssets badgeWithDiameter:18.0f color:self.pallete.tabBadgeColor border:0 borderColor:nil];
     }];
 }
 

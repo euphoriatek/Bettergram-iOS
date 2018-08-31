@@ -75,6 +75,16 @@ typedef struct {
     int qts;
 } TGDatabaseState;
 
+typedef enum {
+    TGDialogFilterAll = 0,
+    TGDialogFilterDirectMessages = 1,
+    TGDialogFilterGroups = 2,
+    TGDialogFilterAnnouncements = 3,
+    TGDialogFilterFavorites = 4,
+} TGDialogFilter;
+
+FOUNDATION_EXPORT NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter);
+
 #ifdef __cplusplus
 #include <map>
 #include <vector>
@@ -697,6 +707,8 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
 - (void)scheduleFeededChannelsLoad;
 
 - (void)resetStartupTime:(NSTimeInterval)value;
+
+- (void)conversationFieldUpdated:(TGConversation *)conversation;
 
 @end
 

@@ -193,7 +193,7 @@ static int32_t maxPinnedChats = 200;
 @property (nonatomic, strong) TGDialogListTitleContainer *titleContainer;
 @property (nonatomic, strong) UILabel *titleStatusLabel;
 @property (nonatomic, strong) UILabel *titleStatusSubtitleLabel;
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *titleImageView;
 @property (nonatomic, strong) TGLockIconView *titleLockIconView;
 
 @property (nonatomic, strong) UIActivityIndicatorView *titleStatusIndicator;
@@ -207,6 +207,7 @@ static int32_t maxPinnedChats = 200;
 @property (nonatomic, copy) void (^deleteConversation)(int64_t);
 @property (nonatomic, copy) void (^toggleMuteConversation)(int64_t, bool);
 @property (nonatomic, copy) void (^togglePinConversation)(int64_t, bool);
+@property (nonatomic, copy) void (^toggleFavoriteConversation)(int64_t, bool);
 @property (nonatomic, copy) void (^toggleGroupConversation)(int64_t, bool);
 @property (nonatomic, copy) void (^toggleReadConversation)(int64_t, bool);
 
@@ -356,6 +357,24 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                             [[[TGGroupManagementSignals updatePinnedState:conversation.conversationId pinned:false] onDispose:^{
                             }] startWithNext:nil];
                         }
+                    }
+                }
+            }
+        };
+        self.toggleFavoriteConversation = ^(int64_t peerId, bool favorited) {
+            __strong TGDialogListController *strongSelf = weakSelf;
+            if (strongSelf != nil) {
+                NSIndexPath *indexPath = [strongSelf indexPathForConversationId:peerId];
+                if (indexPath != nil) {
+                    TGConversation *conversation = strongSelf->_listModel[indexPath.row];
+                    [(TGDialogListCell *)[strongSelf->_tableView cellForRowAtIndexPath:indexPath] setEditingConrolsExpanded:false animated:true];
+                    if (conversation.isFavorited != favorited) {
+                        if (favorited) {
+                            conversation.favoritedDate = (int32_t)[NSDate date].timeIntervalSince1970;
+                        } else {
+                            conversation.favoritedDate = 0;
+                        }
+                        [TGDatabaseInstance() conversationFieldUpdated:conversation];
                     }
                 }
             }
@@ -565,7 +584,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if (!_editingMode)
     {
-        return [[UIBarButtonItem alloc] initWithTitle:TGLocalized(@"Common.Edit") style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPressed)];
+        return [[UIBarButtonItem alloc]  initWithImage:TGImageNamed(@"settings") style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed)];
     }
     else
     {
@@ -603,7 +622,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         _titleStatusLabel.hidden = true;
         _titleStatusIndicator.hidden = true;
         _titleStatusSubtitleLabel.hidden = true;
-        _titleLabel.hidden = false;
+        _titleImageView.hidden = false;
         _titleLockIconView.hidden = false;
         
         [_titleStatusIndicator stopAnimating];
@@ -614,7 +633,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         
         _titleStatusLabel.hidden = false;
         _titleStatusIndicator.hidden = false;
-        _titleLabel.hidden = true;
+        _titleImageView.hidden = true;
         _titleLockIconView.hidden = true;
                 
         _titleStatusLabel.text = text;
@@ -749,12 +768,12 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         indicatorOffset = 0.0f;
     }
     
-    CGRect titleLabelFrame = _titleLabel.frame;
+    CGRect titleLabelFrame = _titleImageView.frame;
     titleLabelFrame.origin = CGPointMake(CGFloor((_titleContainer.frame.size.width - titleLabelFrame.size.width) / 2.0f), CGFloor((_titleContainer.frame.size.height - titleLabelFrame.size.height) / 2.0f) + (UIInterfaceOrientationIsPortrait(orientation) ? portraitOffset : landscapeOffset));
     if (_titleLockIconView.alpha > FLT_EPSILON)
         titleLabelFrame.origin.x -= 4.0f;
     _titleLockIconView.frame = CGRectMake(CGRectGetMaxX(titleLabelFrame) + 6.0f, titleLabelFrame.origin.y + 4.0f, _titleLockIconView.frame.size.width, _titleLockIconView.frame.size.height);
-    _titleLabel.frame = titleLabelFrame;
+    _titleImageView.frame = titleLabelFrame;
     
     if (_titleStatusLabel != nil)
     {
@@ -797,13 +816,9 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     _titleContainer = [[TGDialogListTitleContainer alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 2.0f, 2.0f)];
     [self setTitleView:_titleContainer];
     
-    _titleLabel = [[UILabel alloc] init];
-    _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = self.presentation.pallete.navigationTitleColor;
-    _titleLabel.font = TGBoldSystemFontOfSize(17.0f);
-    _titleLabel.text = TGLocalized(@"DialogList.Title");
-    [_titleLabel sizeToFit];
-    [_titleContainer addSubview:_titleLabel];
+    _titleImageView = [[UIImageView alloc] initWithImage:TGTintedImage(TGImageNamed(@"header_logo_bettergram.png"), self.presentation.pallete.navigationTitleColor)];
+    [_titleImageView sizeToFit];
+    [_titleContainer addSubview:_titleImageView];
     
     _titleLockIconView = [[TGLockIconView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 2.0f, 2.0f)];
     _titleLockIconView.presentation = self.presentation;
@@ -1610,6 +1625,14 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     [self setRightBarButtonItems:[self controllerRightBarButtonItems] animated:animated];
 }
 
+- (void)settingsButtonPressed
+{
+    TGViewController *accountSettingsController = TGAppDelegateInstance.rootController.accountSettingsController;
+    [TGAppDelegateInstance.rootController pushContentController:accountSettingsController];
+    
+    [accountSettingsController setTargetNavigationItem:accountSettingsController.navigationItem titleController:TGAppDelegateInstance.rootController];
+}
+
 - (void)editButtonPressed
 {
     [self setupEditingMode:!_editingMode];
@@ -1864,6 +1887,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
         cell.date = conversation.unpinnedDate;
         cell.pinnedToTop = conversation.pinnedToTop && !_dialogListCompanion.feedChannels;
+        cell.favorited = conversation.isFavorited;
         cell.isAd = conversation.isAd;
         cell.groupedInFeed = conversation.feedId.intValue != 0;
         cell.isFeedChannels = _dialogListCompanion.feedChannels;
@@ -2158,6 +2182,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                     cell.deleteConversation = self.deleteConversation;
                     cell.toggleMuteConversation = self.toggleMuteConversation;
                     cell.togglePinConversation = self.togglePinConversation;
+                    cell.toggleFavoriteConversation = self.toggleFavoriteConversation;
                     cell.toggleGroupConversation = self.toggleGroupConversation;
                     cell.toggleReadConversation = self.toggleReadConversation;
                     cell.watcherHandle = _actionHandle;
@@ -2180,6 +2205,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                     cell = [[TGDialogListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCellIdentifier assetsSource:[_dialogListCompanion dialogListCellAssetsSource]];
                     cell.deleteConversation = self.deleteConversation;
                     cell.togglePinConversation = self.togglePinConversation;
+                    cell.toggleFavoriteConversation = self.toggleFavoriteConversation;
                     cell.watcherHandle = _actionHandle;
                     //cell.enableEditing = ![_dialogListCompanion forwardMode] && !_dialogListCompanion.privacyMode;
                 }
@@ -3068,9 +3094,11 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
             [progressWindow dismiss:true];
         });
     }] startWithNext:nil error:^(__unused id error) {
-        [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:conversation.conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
-    } completed:^{
-        [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:conversation.conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
+        for (TGDialogListController *dialogListController in TGAppDelegateInstance.rootController.dialogListControllers)
+            [dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:conversation.conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
+    } completed:^{        
+        for (TGDialogListController *dialogListController in TGAppDelegateInstance.rootController.dialogListControllers)
+            [dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:conversation.conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
     }];
 }
 
@@ -3083,8 +3111,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     [self setTitleText:TGLocalized(@"DialogList.Title")];
     
-    _titleLabel.text = TGLocalized(@"DialogList.Title");
-    [_titleLabel sizeToFit];
+    _titleImageView.image = TGTintedImage(_titleImageView.image, self.presentation.pallete.navigationTitleColor);
     [self _layoutTitleViews:self.interfaceOrientation];
     
     for (id cell in _tableView.visibleCells)
@@ -4196,7 +4223,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     [_searchBar setPallete:presentation.searchBarPallete];
     
     _titleLockIconView.presentation = self.presentation;
-    _titleLabel.textColor = self.presentation.pallete.navigationTitleColor;
+    _titleImageView.image = TGTintedImage(_titleImageView.image, self.presentation.pallete.navigationTitleColor);
     _titleStatusLabel.textColor = _presentation.pallete.navigationTitleColor;
     _titleStatusSubtitleLabel.textColor = _presentation.pallete.navigationSubtitleColor;
     _titleStatusIndicator.color = _presentation.pallete.navigationSpinnerColor;

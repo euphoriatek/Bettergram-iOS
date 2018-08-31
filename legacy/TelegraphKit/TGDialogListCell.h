@@ -16,6 +16,7 @@
 @property (nonatomic, copy) void (^deleteConversation)(int64_t);
 @property (nonatomic, copy) void (^toggleMuteConversation)(int64_t, bool);
 @property (nonatomic, copy) void (^togglePinConversation)(int64_t, bool);
+@property (nonatomic, copy) void (^toggleFavoriteConversation)(int64_t, bool);
 @property (nonatomic, copy) void (^toggleGroupConversation)(int64_t, bool);
 @property (nonatomic, copy) void (^toggleReadConversation)(int64_t, bool);
 
@@ -40,6 +41,7 @@
 @property (nonatomic) bool outgoing;
 @property (nonatomic) bool unread;
 @property (nonatomic) bool pinnedToTop;
+@property (nonatomic) bool favorited;
 @property (nonatomic) bool isAd;
 @property (nonatomic) bool groupedInFeed;
 @property (nonatomic) TGMessageDeliveryState deliveryState;

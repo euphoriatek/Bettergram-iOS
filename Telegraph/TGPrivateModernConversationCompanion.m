@@ -509,7 +509,7 @@ static NSMutableDictionary *dismissedContactLinkPanelsByUserId()
             [metaDisposable setDisposable:disposable];
             [TGTelegraphInstance.disposeOnLogout add:metaDisposable];
             
-            [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
             
             [controller.navigationController popToRootViewControllerAnimated:true];
         }
@@ -1165,7 +1165,7 @@ static NSMutableDictionary *dismissedContactLinkPanelsByUserId()
         else if ([panelAction isEqualToString:@"botstart"])
             [self requestBotStart];
         
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     }
     else if ([action isEqualToString:@"titlePanelAction"])
     {
@@ -1190,7 +1190,7 @@ static NSMutableDictionary *dismissedContactLinkPanelsByUserId()
             [self startVoiceCall];
             [self.controller hideTitlePanel];
             
-            [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
         }
         else if ([panelAction isEqualToString:@"mute"]) {
             [self requestUserMute:true];

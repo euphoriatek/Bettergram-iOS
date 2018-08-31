@@ -113,6 +113,13 @@ typedef enum {
     TGChannelRolePublisher
 } TGChannelRole;
 
+typedef enum {
+    TGConversationTypeDirectMessage = 1,
+    TGConversationTypeGroup = 2,
+    TGConversationTypeAnnouncement = 3,
+    TGConversationTypeOther = 0,
+} TGConversationType;
+
 @interface TGConversationParticipantsData : NSObject <NSCopying>
 {
     NSData *_serializedData;
@@ -193,6 +200,7 @@ typedef enum {
 @property (nonatomic) int32_t messageDate;
 @property (nonatomic) int32_t minMessageDate;
 @property (nonatomic) int32_t pinnedDate;
+@property (nonatomic) int32_t favoritedDate;
 @property (nonatomic) int fromUid;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSArray *media;
@@ -285,6 +293,8 @@ typedef enum {
 - (void)deserializeChatPhoto:(NSData *)data;
 
 - (bool)isEncrypted;
+- (TGConversationType)type;
+- (bool)isFavorited;
 
 - (void)mergeConversation:(TGConversation *)conversation;
 - (void)mergeChannel:(TGConversation *)channel;

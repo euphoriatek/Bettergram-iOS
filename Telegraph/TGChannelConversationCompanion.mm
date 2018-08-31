@@ -810,13 +810,13 @@
         if ([panelAction isEqualToString:@"joinchannel"]) {
             [self requestJoinChannel];
             
-            [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
         } else if ([panelAction isEqualToString:@"toggleMute"]) {
             [self _commitEnableNotifications:_isMuted];
         } else if ([panelAction isEqualToString:@"delete"]) {
             TGModernConversationController *controller = self.controller;
             
-            [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
+            [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
             
             if (controller.popoverController != nil) {
                 dispatch_async(dispatch_get_main_queue(), ^ {
@@ -2674,7 +2674,7 @@
     [metaDisposable setDisposable:disposable];
     [TGTelegraphInstance.disposeOnLogout add:metaDisposable];
     
-    [TGAppDelegateInstance.rootController.dialogListController.dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
+    [TGAppDelegateInstance.rootController.dialogListControllers[0].dialogListCompanion deleteItem:[[TGConversation alloc] initWithConversationId:_conversationId unreadCount:0 serviceUnreadCount:0] animated:false];
     
     TGModernConversationController *controller = self.controller;
     [controller.navigationController popToRootViewControllerAnimated:true];

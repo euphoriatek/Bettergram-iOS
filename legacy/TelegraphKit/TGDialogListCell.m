@@ -304,6 +304,14 @@
                 }
             }
         };
+        _wrapView.toggleFavorited = ^(bool favorite) {
+            __strong TGDialogListCell *strongSelf = weakSelf;
+            if (strongSelf != nil && strongSelf->_conversationId != 0) {
+                if (strongSelf->_toggleFavoriteConversation) {
+                    strongSelf->_toggleFavoriteConversation(strongSelf->_conversationId, favorite);
+                }
+            }
+        };
         _wrapView.togglePinned = ^(bool pin) {
             __strong TGDialogListCell *strongSelf = weakSelf;
             if (strongSelf != nil && strongSelf->_conversationId != 0) {
@@ -748,24 +756,33 @@
     }
 }
 
-static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool mutable, bool groupable, bool grouped, bool isAd) {
+static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool mutable, bool groupable, bool grouped, bool favoritable, bool favorited, bool isAd) {
     static dispatch_once_t onceToken;
     static NSMutableDictionary *buttonTypes;
     dispatch_once(&onceToken, ^{
         buttonTypes = [[NSMutableDictionary alloc] init];
     });
     
+    TGDialogListCellEditingControlButton pinAction = pinned ? TGDialogListCellEditingControlsUnpin : TGDialogListCellEditingControlsPin;
+    TGDialogListCellEditingControlButton muteAction = muted ? TGDialogListCellEditingControlsUnmute : TGDialogListCellEditingControlsMute;
+    TGDialogListCellEditingControlButton groupeAction = grouped ? TGDialogListCellEditingControlsUngroup : TGDialogListCellEditingControlsGroup;
+    TGDialogListCellEditingControlButton favoriteAction = favorited ? TGDialogListCellEditingControlsUnfavorite : TGDialogListCellEditingControlsFavorite;
+    
     TGDialogListCellEditingControlButton key = 0;
-    if (pinnable && !isAd)
-        key |= pinned ? TGDialogListCellEditingControlsUnpin : TGDialogListCellEditingControlsPin;
-    
-    if (mutable && !isAd)
-        key |= muted ? TGDialogListCellEditingControlsUnmute : TGDialogListCellEditingControlsMute;
-    
-    if (groupable && !isAd)
-        key |= grouped ? TGDialogListCellEditingControlsUngroup : TGDialogListCellEditingControlsGroup;
     
     if (!isAd) {
+        if (pinnable)
+            key |= pinAction;
+        
+        if (mutable)
+            key |= muteAction;
+        
+        if (groupable)
+            key |= groupeAction;
+        
+        if (favoritable) {
+            key |= favoriteAction;
+        }
         key |= TGDialogListCellEditingControlsDelete;
     }
 
@@ -773,14 +790,20 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         return buttonTypes[@(key)];
     
     NSMutableArray *buttons = [[NSMutableArray alloc] init];
-    if (pinnable && !isAd)
-        [buttons addObject:pinned ? @(TGDialogListCellEditingControlsUnpin) : @(TGDialogListCellEditingControlsPin)];
     
-    if (mutable && !isAd)
-        [buttons addObject:muted ? @(TGDialogListCellEditingControlsUnmute) : @(TGDialogListCellEditingControlsMute)];
-    
-//    if (false && groupable && !isAd)
-//        [buttons addObject:grouped ? @(TGDialogListCellEditingControlsUngroup) : @(TGDialogListCellEditingControlsGroup)];
+    if (!isAd) {
+        if (favoritable)
+            [buttons addObject:@(favoriteAction)];
+        
+        if (pinnable)
+            [buttons addObject:@(pinAction)];
+        
+        if (mutable)
+            [buttons addObject:@(muteAction)];
+        
+//            if (false && groupable)
+//                [buttons addObject:@(groupeAction)];
+    }
     
     [buttons addObject:@(TGDialogListCellEditingControlsDelete)];
     
@@ -802,10 +825,13 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         bool readable = !_isSavedMessages;
         bool read = totalUnreadCount == 0 && !_unreadMark && _unreadMentionCount == 0;
         
-        [_wrapView setLeftButtonTypes:readable ? @[ read ? @(TGDialogListCellEditingControlsUnread) : @(TGDialogListCellEditingControlsRead) ] : @[] rightButtonTypes:editingButtonTypes(_isMuted, !_isFeedChannels, _pinnedToTop, !_isEncrypted && !_isSavedMessages && !_isFeed, groupable, _groupedInFeed, _isAd)];
+        [_wrapView setLeftButtonTypes:readable ? @[ read ? @(TGDialogListCellEditingControlsUnread) : @(TGDialogListCellEditingControlsRead) ] : @[] rightButtonTypes:editingButtonTypes(_isMuted, !_isFeedChannels, _pinnedToTop, !_isEncrypted && !_isSavedMessages && !_isFeed, groupable, _groupedInFeed, !_isFeedChannels, _favorited, _isAd)];
     }
     
-    UIColor *backgroundColor = _pinnedToTop || _isAd || _isSavedMessages == 2 ? _presentation.pallete.dialogPinnedBackgroundColor : _presentation.pallete.backgroundColor;
+    UIColor *backgroundColor = _isAd || _isSavedMessages == 2 ? _presentation.pallete.dialogPinnedBackgroundColor : _presentation.pallete.backgroundColor;
+    if (_favorited) {
+        backgroundColor = [UIColor yellowColor];
+    }
     self.backgroundColor = backgroundColor;
     
     _dateString = _date == 0 || _isSavedMessages == 2 ? nil : [TGDateUtils stringForMessageListDate:(int)_date];

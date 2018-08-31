@@ -26,14 +26,17 @@
 }
 
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) int count;
 
 @end
 
 @implementation TGTabBarBadge
 
+static CGFloat kHeight = 18;
+
 - (instancetype)initWithPresentation:(TGPresentation *)presentation
 {
-    self = [super initWithFrame:CGRectMake(0, 0, 20.0f, 20.0f)];
+    self = [super initWithFrame:CGRectMake(0, 0, kHeight, kHeight)];
     if (self != nil)
     {
         self.hidden = true;
@@ -45,11 +48,11 @@
         
         _label = [[UILabel alloc] init];
         _label.text = @"1";
-        [_label sizeToFit];
         _label.text = nil;
         _label.backgroundColor = [UIColor clearColor];
-        _label.font = TGSystemFontOfSize(13);
+        _label.font = TGBoldSystemFontOfSize(10);
         _label.textAlignment = NSTextAlignmentCenter;
+        [_label sizeToFit];
         [self addSubview:_label];
         
         [self setPresentation:presentation];
@@ -65,6 +68,7 @@
 
 - (void)setCount:(int)count
 {
+    _count = count;
     if (count <= 0)
     {
         self.hidden = true;
@@ -89,21 +93,17 @@
         
         _label.text = text;
         [_label sizeToFit];
-        self.hidden = false;
+        self.hidden = text.length == 0;
         
         CGRect frame = _backgroundView.frame;
         CGFloat textWidth = ceil(_label.frame.size.width);
-        frame.size.width = count < 10 ? 20.0f : MAX(20.0f, textWidth + 12.0f + TGScreenPixel * 2.0f);
-        frame.size.height = 20.0f;
+        frame.size.width = MAX(kHeight, textWidth + 10 + TGScreenPixel * 2.0f);
+        frame.size.height = kHeight;
         frame.origin.x = _backgroundView.superview.frame.size.width - frame.size.width - 1.0f;
         frame.origin.y = -1.0f;
         _backgroundView.frame = frame;
         
-        CGRect labelFrame = _label.frame;
-        labelFrame.origin.x = frame.origin.x;
-        labelFrame.origin.y = 1;
-        labelFrame.size.width = frame.size.width;
-        _label.frame = labelFrame;
+        _label.center = _backgroundView.center;
     }
 }
 
@@ -111,7 +111,6 @@
 
 @interface TGTabBarButton : UIView
 {
-    UILabel *_label;
     TGPresentation *_presentation;
 }
 
@@ -119,11 +118,14 @@
 @property (nonatomic, assign, getter=isSelected) bool selected;
 @property (nonatomic, assign) bool landscape;
 
+@property (nonatomic, assign) int unreadCount;
+@property (nonatomic, strong) TGTabBarBadge *badge;
+
 @end
 
 @implementation TGTabBarButton
 
-- (instancetype)initWithImage:(UIImage *)image title:(NSString *)title presentation:(TGPresentation *)presentation
+- (instancetype)initWithImage:(UIImage *)image presentation:(TGPresentation *)presentation
 {
     self = [super init];
     if (self != nil)
@@ -131,20 +133,9 @@
         _presentation = presentation;
         
         self.accessibilityTraits = UIAccessibilityTraitButton;
-        self.accessibilityLabel = title;
         
-        _imageView = [[UIImageView alloc] initWithImage:image];
+        _imageView = [[UIImageView alloc] initWithImage:TGTintedImage(image, presentation.pallete.tabIconColor)];
         [self addSubview:_imageView];
-        
-        _label = [[UILabel alloc] init];
-        _label.backgroundColor = [UIColor clearColor];
-        _label.textColor = presentation.pallete.tabTextColor;
-        _label.highlightedTextColor = presentation.pallete.tabActiveIconColor;
-        _label.font = [TGTabBarButton labelFont];
-        _label.text = title;
-        _label.textAlignment = NSTextAlignmentLeft;
-        [_label sizeToFit];
-        [self addSubview:_label];
     }
     return self;
 }
@@ -153,7 +144,7 @@
 {
     _presentation = presentation;
     
-    _imageView.image = image;
+    _imageView.image = TGTintedImage(image, presentation.pallete.tabIconColor);
     if (_imageView.highlighted)
     {
         _imageView.highlightedImage = TGTintedImage(image, presentation.pallete.tabActiveIconColor);
@@ -162,9 +153,7 @@
     }
     else
         _imageView.highlightedImage = nil;
-    
-    _label.textColor = presentation.pallete.tabTextColor;
-    _label.highlightedTextColor = presentation.pallete.tabActiveIconColor;
+    [_badge setPresentation:presentation];
 }
 
 - (void)setSelected:(bool)selected
@@ -173,46 +162,46 @@
     if (_imageView.highlightedImage == nil && selected)
         _imageView.highlightedImage = TGTintedImage(_imageView.image, _presentation.pallete.tabActiveIconColor);
     _imageView.highlighted = selected;
-    _label.highlighted = selected;
+}
+
+- (void)setUnreadCount:(int)unreadCount {
+    if (_unreadCount == unreadCount) return;
+    _unreadCount = unreadCount;
+    if (unreadCount > 0 && _badge == nil) {
+        _badge = [[TGTabBarBadge alloc] initWithPresentation:_presentation];
+        [self addSubview:_badge];
+        [self.superview setNeedsLayout];
+    }
+    _badge.count = _unreadCount;
 }
 
 - (void)layoutSubviews
 {
-    _imageView.frame = CGRectMake(floor((self.frame.size.width - _imageView.frame.size.width) / 2), [self iconVerticalOffset], _imageView.frame.size.width, _imageView.frame.size.height);
-    
-    _imageView.center = CGPointMake(self.frame.size.width / 2, [self iconVerticalOffset] + _imageView.bounds.size.height / 2.0f);
-    
-    if (_landscape)
-    {
-        _label.font = [TGTabBarButton landscapeLabelFont];
-        if (CGAffineTransformIsIdentity(_imageView.transform))
-        {
-            [UIView animateWithDuration:0.2 animations:^
-            {
-                _imageView.transform = CGAffineTransformMakeScale(0.6667f, 0.6667f);
-            }];
-            [_label sizeToFit];
-        }
-        
-        CGFloat width = ceil(_imageView.frame.size.width + 6.0f + _label.frame.size.width);
-        _imageView.center = CGPointMake((self.frame.size.width - width) / 2.0f + _imageView.frame.size.width / 2.0f, _imageView.bounds.size.height / 2.0f + 1.0f);
-    
-        _label.frame = CGRectMake(round(((self.frame.size.width - width) / 2.0f) + _imageView.frame.size.width + 6.0f), 9.0f, _label.frame.size.width, _label.frame.size.height);
+    [super layoutSubviews];
+    CGAffineTransform transform = _landscape ? CGAffineTransformMakeScale(2.0/3, 2.0/3) : CGAffineTransformIdentity;
+    if (!CGAffineTransformEqualToTransform(transform, _imageView.transform)) {
+        [UIView animateWithDuration:0.2 animations:^
+         {
+             _imageView.transform = transform;
+         }];
     }
-    else
+    _imageView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    
+    if (_badge != nil)
     {
-        _label.font = [TGTabBarButton labelFont];
-        if (!CGAffineTransformIsIdentity(_imageView.transform))
+        if (self.landscape)
         {
-            [UIView animateWithDuration:0.2 animations:^
-            {
-                _imageView.transform = CGAffineTransformIdentity;
-            }];
-            
-            [_label sizeToFit];
+            _badge.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
+            _badge.center = CGPointMake(self.imageView.center.x + 10.0f, 10.0f);
         }
-        _imageView.center = CGPointMake(self.frame.size.width / 2, [self iconVerticalOffset] + _imageView.bounds.size.height / 2.0f);
-        _label.frame = CGRectMake(round((self.frame.size.width - _label.frame.size.width) / 2.0f), [self labelVerticalOffset], _label.frame.size.width, _label.frame.size.height);
+        else
+        {
+            _badge.transform = CGAffineTransformIdentity;
+            CGRect badgeFrame = _badge.frame;
+            badgeFrame.origin.x = self.frame.size.width / 2.0f + 6.0f + TGRetinaPixel;
+            badgeFrame.origin.y = 2 - self.frame.origin.y;
+            _badge.frame = badgeFrame;
+        }
     }
 }
 
@@ -225,69 +214,12 @@
     }
 }
 
-- (CGFloat)iconVerticalOffset
-{
-    static CGFloat offset = 0.0f;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-    {
-        if (!TGIsPad())
-            offset = 4;
-        else
-            offset = 5 + TGRetinaPixel;
-    });
-    return offset;
-}
-
-- (CGFloat)labelVerticalOffset
-{
-    static CGFloat offset = 0.0f;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-    {
-        if (!TGIsPad())
-            offset = 35 - TGScreenPixel;
-        else
-            offset = 36;
-    });
-    return offset;
-}
-
-+ (UIFont *)labelFont
-{
-    static UIFont *font = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-    {
-        if (!TGIsPad())
-            font = TGMediumSystemFontOfSize(10);
-        else
-            font = TGMediumSystemFontOfSize(11);
-    });
-    return font;
-}
-
-+ (UIFont *)landscapeLabelFont
-{
-    static UIFont *font = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-    {
-        font = TGSystemFontOfSize(12);
-    });
-    return font;
-}
-
 @end
 
 
 @interface TGTabBar : UIView <UIGestureRecognizerDelegate>
 {
     bool _skipNextLayout;
-    
-    NSNumber *_unreadArrowUp;
-    int _callsCount;
-    int _messagesCount;
 }
 
 @property (nonatomic, weak) id<TGTabBarDelegate> tabDelegate;
@@ -295,21 +227,14 @@
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIView *stripeView;
 
-@property (nonatomic, strong) NSMutableArray *tabButtons;
-@property (nonatomic, strong) TGTabBarButton *contactsButton;
-@property (nonatomic, strong) TGTabBarButton *callsButton;
-@property (nonatomic, strong) TGTabBarButton *chatsButton;
-@property (nonatomic, strong) TGTabBarButton *settingsButton;
-@property (nonatomic, assign) bool callsHidden;
-
-@property (nonatomic, strong) TGTabBarBadge *callsBadge;
-@property (nonatomic, strong) TGTabBarBadge *messagesBadge;
+@property (nonatomic, strong) NSArray<TGTabBarButton *> *tabButtons;
 
 @property (nonatomic, assign) UIEdgeInsets safeAreaInset;
 @property (nonatomic, assign) bool landscape;
 
 @property (nonatomic) int selectedIndex;
 
+@property (nonatomic, copy) NSDictionary<NSNumber *, NSNumber *> *unreadCount;
 
 @property (nonatomic, strong) TGPresentation *presentation;
 @end
@@ -327,44 +252,36 @@
         _presentation = presentation;
         
         _backgroundView = [[UIView alloc] init];
-        _backgroundView.backgroundColor = presentation.pallete.barBackgroundColor;
+        _backgroundView.backgroundColor = presentation.pallete.tabBarBackgroundColor;
         _backgroundView.frame = self.bounds;
         [self addSubview:_backgroundView];
         
         _stripeView = [[UIView alloc] init];
-        _stripeView.backgroundColor = presentation.pallete.barSeparatorColor;
+        _stripeView.backgroundColor = presentation.pallete.tabBarSeparatorColor;
         [self addSubview:_stripeView];
         
-        _tabButtons = [[NSMutableArray alloc] init];
-        
-        _contactsButton = [[TGTabBarButton alloc] initWithImage:presentation.images.tabBarContactsIcon title:TGLocalized(@"Contacts.TabTitle") presentation:presentation];
-        _chatsButton = [[TGTabBarButton alloc] initWithImage:presentation.images.tabBarChatsIcon title:TGLocalized(@"DialogList.TabTitle") presentation:presentation];
-        _settingsButton = [[TGTabBarButton alloc] initWithImage:presentation.images.tabBarSettingsIcon title:TGLocalized(@"Settings.TabTitle") presentation:presentation];
-        _callsButton = [[TGTabBarButton alloc] initWithImage:presentation.images.tabBarCallsIcon title:TGLocalized(@"Calls.TabTitle") presentation:presentation];
-        _callsButton.hidden = true;
-        _callsHidden = true;
-        
-        [_tabButtons addObject:_contactsButton];
-        [_tabButtons addObject:_callsButton];
-        [_tabButtons addObject:_chatsButton];
-        [_tabButtons addObject:_settingsButton];
-        
-        for (TGTabBarButton *button in _tabButtons)
+        NSArray *tabButtonsImages = @[
+                                      TGImageNamed(@"tab_all_messages.png"),
+                                      TGImageNamed(@"tab_direct_messages.png"),
+                                      TGImageNamed(@"tab_groups.png"),
+                                      TGImageNamed(@"tab_announcements.png"),
+                                      TGImageNamed(@"tab_favorites.png"),
+                                      TGImageNamed(@"tab_crypto.png")
+                                      ];
+        NSMutableArray<TGTabBarButton *> *tabButtons = [NSMutableArray arrayWithCapacity:tabButtonsImages.count];
+        for (UIImage *buttonImage in tabButtonsImages)
+        {
+            TGTabBarButton *button = [[TGTabBarButton alloc] initWithImage:buttonImage presentation:presentation];
+            [tabButtons addObject:button];
             [self addSubview:button];
+        }
+        _tabButtons = [tabButtons copy];
         
         UILongPressGestureRecognizer *pressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlePress:)];
         pressGestureRecognizer.minimumPressDuration = 0.0;
         pressGestureRecognizer.allowableMovement = 1.0f;
         pressGestureRecognizer.delegate = self;
         [self addGestureRecognizer:pressGestureRecognizer];
-        
-        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        longPressGestureRecognizer.minimumPressDuration = 0.25;
-        longPressGestureRecognizer.allowableMovement = 1.0f;
-        longPressGestureRecognizer.delegate = self;
-        [_chatsButton addGestureRecognizer:longPressGestureRecognizer];
-        
-        [pressGestureRecognizer requireGestureRecognizerToFail:longPressGestureRecognizer];
     }
     return self;
 }
@@ -373,16 +290,12 @@
 {
     _presentation = presentation;
     
-    _backgroundView.backgroundColor = presentation.pallete.barBackgroundColor;
-    _stripeView.backgroundColor = presentation.pallete.barSeparatorColor;
+    _backgroundView.backgroundColor = presentation.pallete.tabBarBackgroundColor;
+    _stripeView.backgroundColor = presentation.pallete.tabBarSeparatorColor;
     
-    [_contactsButton setImage:presentation.images.tabBarContactsIcon presentation:presentation];
-    [self updateArrow];
-    [_settingsButton setImage:presentation.images.tabBarSettingsIcon presentation:presentation];
-    [_callsButton setImage:presentation.images.tabBarCallsIcon presentation:presentation];
-    
-    [_messagesBadge setPresentation:presentation];
-    [_callsBadge setPresentation:presentation];
+    for (TGTabBarButton *button in _tabButtons) {
+        [button setImage:button.imageView.image presentation:presentation];
+    }
 }
 
 - (CGFloat)sideIconOffsetForWidth:(CGFloat)width
@@ -395,43 +308,6 @@
     return CGFloor(width / 21.5f);
 }
 
-- (void)setCallsTabHidden:(bool)hidden animated:(bool)animated
-{
-    if (_callsHidden == hidden)
-        return;
-    
-    if (animated)
-    {
-        _callsButton.hidden = false;
-        if (!hidden)
-            _callsButton.alpha = 0.0f;
-        
-        [UIView animateWithDuration:0.2 animations:^
-        {
-            _callsButton.alpha = hidden ? 0.0f : 1.0f;
-        }];
-        
-        [UIView animateWithDuration:0.3 delay:0.0 options:7 << 16 | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews animations:^
-        {
-            _callsHidden = hidden;
-            [self layoutButtons];
-        } completion:^(__unused BOOL finished)
-        {
-            _skipNextLayout = false;
-            _callsButton.hidden = hidden;
-        }];
-        
-        _skipNextLayout = true;
-    }
-    else
-    {
-        _callsHidden = hidden;
-        _callsButton.alpha = hidden ? 0.0f : 1.0f;
-        _callsButton.hidden = hidden;
-        [self setNeedsLayout];
-    }
-}
-
 - (void)setSelectedIndex:(int)selectedIndex
 {
     _selectedIndex = selectedIndex;
@@ -440,15 +316,13 @@
     {
         [button setSelected:((int)index == selectedIndex)];
     }];
-    
-    [self updateArrow];
 }
 
 - (void)handlePress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
-        NSInteger buttonsCount = _callsHidden ? 3 : 4;
+        NSInteger buttonsCount = _tabButtons.count;
         CGPoint location = [gestureRecognizer locationInView:gestureRecognizer.view];
         if (location.y > [TGTabBar tabBarHeight:_landscape])
             return;
@@ -483,66 +357,14 @@
         return _selectedIndex == 2;
 }
 
-- (void)setMissedCallsCount:(int)callsCount
-{
-    if (callsCount <= 0 && _callsBadge == nil)
+- (void)setUnreadCount:(NSDictionary *)unreadCount {
+    if ([_unreadCount isEqualToDictionary:unreadCount]) {
         return;
-    
-    if (_callsBadge == nil)
-    {
-        _callsBadge = [[TGTabBarBadge alloc] initWithPresentation:_presentation];
-        [_callsButton addSubview:_callsBadge];
-        
-        [self setNeedsLayout];
     }
-    
-    _callsCount = callsCount;
-    [self updateCounts];
-}
-
-- (void)setUnreadCount:(int)unreadCount
-{
-    if (unreadCount <= 0 && _messagesBadge == nil)
-        return;
-    
-    if (_messagesBadge == nil)
-    {
-        _messagesBadge = [[TGTabBarBadge alloc] initWithPresentation:_presentation];
-        [_tabButtons[2] addSubview:_messagesBadge];
-        
-        [self setNeedsLayout];
-    }
-    
-    _messagesCount = unreadCount;
-    [self updateCounts];
-    [self updateArrow];
-}
-
-- (void)setUnreadArrowUp:(NSNumber *)arrowUp
-{
-    _unreadArrowUp = arrowUp;
-    [self updateArrow];
-}
-
-- (void)updateArrow
-{
-    if (_selectedIndex == 2 && _unreadArrowUp != nil)
-    {
-        if (_unreadArrowUp.boolValue)
-            [_chatsButton setImage:self.presentation.images.tabBarChatsUpIcon presentation:self.presentation];
-        else
-            [_chatsButton setImage:self.presentation.images.tabBarChatsDownIcon presentation:self.presentation];
-    }
-    else
-    {
-        [_chatsButton setImage:self.presentation.images.tabBarChatsIcon presentation:self.presentation];
-    }
-}
-
-- (void)updateCounts
-{
-    [_callsBadge setCount:_callsCount];
-    [_messagesBadge setCount:MAX(0, _messagesCount - _callsCount)];
+    _unreadCount = [unreadCount copy];
+    [_tabButtons enumerateObjectsUsingBlock:^(TGTabBarButton * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        obj.unreadCount = [_unreadCount[@(idx)] intValue];
+    }];
 }
 
 - (void)layoutButtons
@@ -551,41 +373,13 @@
     
     CGFloat width = viewSize.width - self.safeAreaInset.left - self.safeAreaInset.right;
     
-    NSUInteger buttonsCount = _callsHidden ? 3 : 4;
+    NSUInteger buttonsCount = _tabButtons.count;
     CGFloat buttonWidth = floor(width / buttonsCount);
     
     [_tabButtons enumerateObjectsUsingBlock:^(TGTabBarButton *button, NSUInteger index, __unused BOOL *stop)
     {
-        NSInteger realIndex = index;
-        if (buttonsCount == 3 && index > 1)
-            index--;
-        
         button.landscape = self.landscape;
         button.frame = CGRectMake(self.safeAreaInset.left + index * buttonWidth, 0, buttonWidth, [TGTabBar tabBarHeight:_landscape]);
-        
-        TGTabBarBadge *badge = nil;
-        if (realIndex == 1)
-            badge = _callsBadge;
-        else if (realIndex == 2)
-            badge = _messagesBadge;
-        
-        if (badge != nil)
-        {
-            if (self.landscape)
-            {
-                [button layoutSubviews];
-                badge.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
-                badge.center = CGPointMake(button.imageView.center.x + 10.0f, 10.0f);
-            }
-            else
-            {
-                badge.transform = CGAffineTransformIdentity;
-                CGRect badgeFrame = badge.frame;
-                badgeFrame.origin.x = button.frame.size.width / 2.0f + 6.0f + (_callsHidden ? 0 : TGRetinaPixel);
-                badgeFrame.origin.y = 2 - button.frame.origin.y;
-                badge.frame = badgeFrame;
-            }
-        }
     }];
 }
 
@@ -646,9 +440,8 @@
 
 @interface TGMainTabsController () <UITabBarControllerDelegate, TGTabBarDelegate>
 {
-    int _missedCallsCount;
-    int _unreadCount;
-    bool _callsHidden;
+    NSMutableDictionary *_unreadCount;
+    
     NSTimeInterval _lastSameIndexTapTime;
     int _tapsInSuccession;
     
@@ -698,6 +491,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _unreadCount = [NSMutableDictionary dictionary];
     
     UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
     if (self.view.frame.size.width > self.view.frame.size.height)
@@ -830,9 +625,10 @@
 
 - (void)tabBarSelectedItem:(int)index
 {
+    TGViewController *selectedViewController = [self.viewControllers objectAtIndex:index];
     if ((int)self.selectedIndex != index)
     {
-        [self tabBarController:self shouldSelectViewController:[self.viewControllers objectAtIndex:index]];
+        [self tabBarController:self shouldSelectViewController:selectedViewController];
         [self setSelectedIndex:index];
     }
     else
@@ -844,7 +640,7 @@
 #pragma clang diagnostic pop
     }
     
-    if (index == 3) {
+    if ([selectedViewController isKindOfClass:[TGAccountSettingsController class]]) {
         NSTimeInterval t = CACurrentMediaTime();
         if (_lastSameIndexTapTime < DBL_EPSILON || t < _lastSameIndexTapTime + 0.5) {
             _lastSameIndexTapTime = t;
@@ -864,9 +660,10 @@
 
 - (void)setSelectedIndex:(NSUInteger)selectedIndex
 {
-    if (!_initialized && self.viewControllers.count > 2)
+    NSUInteger lastSelectedTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedTabIndex"];
+    if (!_initialized && lastSelectedTabIndex < self.viewControllers.count)
     {
-        selectedIndex = 2;
+        selectedIndex = lastSelectedTabIndex;
         _initialized = true;
     }
     
@@ -875,6 +672,10 @@
     [self _updateNavigationItemOverride:selectedIndex];
     
     [_customTabBar setSelectedIndex:(int)selectedIndex];
+    if (lastSelectedTabIndex != selectedIndex) {
+        [[NSUserDefaults standardUserDefaults] setInteger:selectedIndex forKey:@"lastSelectedTabIndex"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated
@@ -911,26 +712,13 @@
         self.navigationItem.backBarButtonItem.title = backTitle;
 }
 
-- (void)setCallsHidden:(bool)hidden animated:(bool)animated
-{
-    _callsHidden = hidden;
-    [_customTabBar setCallsTabHidden:hidden animated:animated];
-}
-
-- (void)setMissedCallsCount:(int)callsCount
-{
-    _missedCallsCount = callsCount;
-    [_customTabBar setMissedCallsCount:callsCount];
-}
-
-- (void)setUnreadArrow:(NSNumber *)up
-{
-    [_customTabBar setUnreadArrowUp:up];
-}
-
-- (void)setUnreadCount:(int)unreadCount
-{
-    _unreadCount = unreadCount;
+- (void)setUnreadCount:(int)unreadCount forTabAtIndex:(int)index {
+    if (unreadCount == 0) {
+        [_unreadCount removeObjectForKey:@(index)];
+    }
+    else {
+        _unreadCount[@(index)] = @(unreadCount);
+    }
     [_customTabBar setUnreadCount:_unreadCount];
 }
 
@@ -956,8 +744,6 @@
     [self.view insertSubview:_customTabBar aboveSubview:self.tabBar];
     
     [_customTabBar setSelectedIndex:(int)self.selectedIndex];
-    [_customTabBar setCallsTabHidden:_callsHidden animated:false];
-    [_customTabBar setMissedCallsCount:_missedCallsCount];
     [_customTabBar setUnreadCount:_unreadCount];
     
     for (TGViewController *controller in self.viewControllers)

@@ -4193,7 +4193,7 @@ static NSString *addGameShareHash(NSString *url, NSString *addHash) {
     
     TGDispatchOnMainThread(^
     {
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     });
     
     return addedMessages;
@@ -4914,7 +4914,7 @@ static NSString *addGameShareHash(NSString *url, NSString *addHash) {
             return;
         }
         
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     }
     else if ([action isEqualToString:@"showContactMessageMenu"])
     {
@@ -4937,7 +4937,7 @@ static NSString *addGameShareHash(NSString *url, NSString *addHash) {
         TGVCardUserInfoController *controller = [[TGVCardUserInfoController alloc] initWithUser:user vcard:vcard];
         [self.controller.navigationController pushViewController:controller animated:true];
         
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     }
     else if ([action isEqualToString:@"mediaDownloadRequested"])
     {
@@ -4978,7 +4978,7 @@ static NSString *addGameShareHash(NSString *url, NSString *addHash) {
             }];
         }
         
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     }
     else if ([action isEqualToString:@"mediaProgressCancelRequested"])
     {
@@ -5414,7 +5414,7 @@ static NSString *addGameShareHash(NSString *url, NSString *addHash) {
         } else {
             [self controllerWantsToSendTextMessage:[[NSString alloc] initWithFormat:@"%@%@", @"", command] entities:nil asReplyToMessageId:replyMessageId withAttachedMessages:@[] completeGroups:nil disableLinkPreviews:false botContextResult:nil botReplyMarkup:nil];
         }
-        [TGAppDelegateInstance.rootController.dialogListController maybeDismissSearchResults];
+        [TGAppDelegateInstance.rootController.dialogListControllers[0] maybeDismissSearchResults];
     } else if ([action isEqualToString:@"activateInstantPage"]) {
         int32_t messageId = [options[@"mid"] intValue];
         TGWebPageMediaAttachment *webpage = options[@"webpage"];
