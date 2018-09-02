@@ -1,5 +1,5 @@
-TELEGRAM_APP_NAME=Bettergram
-TELEGRAPH_BUNDLE_ID=io.bettergram.iOS
-TELEGRAM_APPSTORE_ID = @686449807
+TELEGRAM_APP_NAME=Dettergram
+TELEGRAPH_BUNDLE_ID=org.bettergram.iOS
 
 #include "Common.xcconfig"
+

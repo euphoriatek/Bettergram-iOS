@@ -63,8 +63,8 @@
 - (void)updatePressed
 {
     NSNumber *appStoreId = @686449807;
-#ifdef TELEGRAM_APPSTORE_ID
-    appStoreId = TELEGRAM_APPSTORE_ID;
+#ifdef TELEGRAPH_APPSTORE_ID
+    appStoreId = TELEGRAPH_APPSTORE_ID;
 #endif
     NSURL *appStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appStoreId]];
     [[UIApplication sharedApplication] openURL:appStoreURL];

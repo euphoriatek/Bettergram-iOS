@@ -1,4 +1,0 @@
-TELEGRAM_APP_NAME=Telega
-TELEGRAPH_BUNDLE_ID=co.one.Teleapp
-
-#include "Common.xcconfig"
