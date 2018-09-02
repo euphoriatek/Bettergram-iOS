@@ -234,7 +234,7 @@ static CGFloat kHeight = 18;
 
 @property (nonatomic) int selectedIndex;
 
-@property (nonatomic, copy) NSDictionary<NSNumber *, NSNumber *> *unreadCount;
+@property (nonatomic, copy) NSArray<NSNumber *> *unreadCounts;
 
 @property (nonatomic, strong) TGPresentation *presentation;
 @end
@@ -357,13 +357,13 @@ static CGFloat kHeight = 18;
         return _selectedIndex == 2;
 }
 
-- (void)setUnreadCount:(NSDictionary *)unreadCount {
-    if ([_unreadCount isEqualToDictionary:unreadCount]) {
-        return;
-    }
-    _unreadCount = [unreadCount copy];
+- (void)setUnreadCounts:(NSArray<NSNumber *> *)unreadCounts {
+    if ([_unreadCounts isEqualToArray:unreadCounts]) return;
+    _unreadCounts = [unreadCounts copy];
     [_tabButtons enumerateObjectsUsingBlock:^(TGTabBarButton * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
-        obj.unreadCount = [_unreadCount[@(idx)] intValue];
+        if (idx < _unreadCounts.count) {
+            obj.unreadCount = [_unreadCounts[idx] intValue];
+        }
     }];
 }
 
@@ -440,8 +440,6 @@ static CGFloat kHeight = 18;
 
 @interface TGMainTabsController () <UITabBarControllerDelegate, TGTabBarDelegate>
 {
-    NSMutableDictionary *_unreadCount;
-    
     NSTimeInterval _lastSameIndexTapTime;
     int _tapsInSuccession;
     
@@ -491,8 +489,6 @@ static CGFloat kHeight = 18;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _unreadCount = [NSMutableDictionary dictionary];
     
     UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
     if (self.view.frame.size.width > self.view.frame.size.height)
@@ -712,14 +708,10 @@ static CGFloat kHeight = 18;
         self.navigationItem.backBarButtonItem.title = backTitle;
 }
 
-- (void)setUnreadCount:(int)unreadCount forTabAtIndex:(int)index {
-    if (unreadCount == 0) {
-        [_unreadCount removeObjectForKey:@(index)];
-    }
-    else {
-        _unreadCount[@(index)] = @(unreadCount);
-    }
-    [_customTabBar setUnreadCount:_unreadCount];
+- (void)setUnreadCounts:(NSArray<NSNumber *> *)unreadCounts {
+    if ([_unreadCounts isEqualToArray:unreadCounts]) return;
+    _unreadCounts = unreadCounts;
+    [_customTabBar setUnreadCounts:_unreadCounts];
 }
 
 - (void)localizationUpdated
@@ -744,7 +736,7 @@ static CGFloat kHeight = 18;
     [self.view insertSubview:_customTabBar aboveSubview:self.tabBar];
     
     [_customTabBar setSelectedIndex:(int)self.selectedIndex];
-    [_customTabBar setUnreadCount:_unreadCount];
+    [_customTabBar setUnreadCounts:_unreadCounts];
     
     for (TGViewController *controller in self.viewControllers)
     {

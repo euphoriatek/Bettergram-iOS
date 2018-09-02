@@ -113,6 +113,8 @@ static const int32_t resend_seq_in_hash = 1298242412;
 
 #define TGCustomPeerSettingsKey ((int)0x374BF349)
 
+#define TGFiltersCount 5
+
 static const char *databaseQueueSpecific = "com.actionstage.databasequeue";
 static const char *databaseIndexQueueSpecific = "com.actionstage.databaseindexqueue";
 
@@ -244,6 +246,28 @@ static NSString *md5String(NSString *string)
 
 @end
 
+@interface NSArray (initWithObject)
+
++ (instancetype)arrayWithObject:(id)obj repeatCount:(NSUInteger)repeatCount;
+
+@end
+
+@implementation NSArray (initWithObject)
+
++ (instancetype)arrayWithObject:(id)obj repeatCount:(NSUInteger)repeatCount
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSUInteger i = 0; i < repeatCount; i++) {
+        [array addObject:obj];
+    }
+    if ([array isKindOfClass:[NSMutableArray class]]) {
+        return array;
+    }
+    return [array copy];
+}
+
+@end
+
 static TGFutureAction *futureActionDeserializer(int type)
 {
     static TGChangeNotificationSettingsFutureAction *TGChangeNotificationSettingsFutureActionDeserializer = nil;
@@ -328,6 +352,7 @@ static TGFutureAction *futureActionDeserializer(int type)
     TG_SYNCHRONIZED_DEFINE(_cachedUnreadCount);
     TG_SYNCHRONIZED_DEFINE(_cachedUnreadChatsCount);
     TG_SYNCHRONIZED_DEFINE(_cachedUnreadChannelsCount);
+    TG_SYNCHRONIZED_DEFINE(_cachedUnreadCounts);
     TG_SYNCHRONIZED_DEFINE(_cachedUnreadMarksCount);
     TG_SYNCHRONIZED_DEFINE(_unreadCountByConversation);
     TG_SYNCHRONIZED_DEFINE(_minAutosaveMessageIdForConversations);
@@ -366,6 +391,7 @@ static TGFutureAction *futureActionDeserializer(int type)
     int _cachedUnreadCount;
     int _cachedUnreadChatsCount;
     int _cachedUnreadChannelsCount;
+    NSMutableArray<NSNumber *> *_cachedUnreadCounts;
     int _cachedUnreadMarksCount;
     SPipe *_unreadDialogsCountPipe;
     
@@ -1157,6 +1183,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         TG_SYNCHRONIZED_INIT(_cachedUnreadCount);
         TG_SYNCHRONIZED_INIT(_cachedUnreadChatsCount);
         TG_SYNCHRONIZED_INIT(_cachedUnreadChannelsCount);
+        TG_SYNCHRONIZED_INIT(_cachedUnreadCounts);
         TG_SYNCHRONIZED_INIT(_cachedUnreadMarksCount);
         TG_SYNCHRONIZED_INIT(_unreadCountByConversation);
         TG_SYNCHRONIZED_INIT(_containsConversation);
@@ -1188,6 +1215,8 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         _cachedUnreadCount = INT_MIN;
         _cachedUnreadChatsCount = INT_MIN;
         _cachedUnreadChannelsCount = INT_MIN;
+        _cachedUnreadCounts = [NSMutableArray arrayWithObject:@(INT_MIN) repeatCount:TGFiltersCount];
+        
         _cachedUnreadMarksCount = INT_MIN;
         _unreadDialogsCountPipe = [[SPipe alloc] init];
         
@@ -1594,7 +1623,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         [_database executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ RENAME TO %@_%x", _channelLeaveTableName, _channelLeaveTableName, randomId]];
     }
     
-    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, variant_sort_key BLOB, data BLOB)", _channelListTableName]];
+    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, variant_sort_key BLOB, data BLOB, favorited_date INTEGER)", _channelListTableName]];
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE INDEX IF NOT EXISTS channel_conversations_variant_sort ON %@ (variant_sort_key)", _channelListTableName]];
     
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (fid INTEGER PRIMARY KEY, data BLOB)", _feedListTableName]];
@@ -2662,6 +2691,10 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         _unreadCountByConversation.clear();
         TG_SYNCHRONIZED_END(_unreadCountByConversation);
         
+        TG_SYNCHRONIZED_BEGIN(_cachedUnreadCounts);
+        _cachedUnreadCounts = [NSMutableArray arrayWithObject:@(INT_MIN) repeatCount:TGFiltersCount];
+        TG_SYNCHRONIZED_END(_cachedUnreadCounts);
+        
         TG_SYNCHRONIZED_BEGIN(_cachedConversations);
         _cachedConversations.clear();
         TG_SYNCHRONIZED_END(_cachedConversations);
@@ -3412,6 +3445,7 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
         
         if (replace)
         {
+            
             [_database executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@", _conversationListTableName]];
         
             for (TGConversation *conversation in conversations)
@@ -3435,6 +3469,7 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
         TG_SYNCHRONIZED_END(_cachedConversations);
         
         [_database commit];
+        
     } synchronous:false];
 }
 
@@ -3457,7 +3492,17 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
     } synchronous:false];
 }
 
-- (void)calculateUnreadChats:(int *)outChatsCount channels:(int *)outChannelsCount
+static inline void updateCountsIfNeededWithConversation(NSMutableArray<NSNumber *> *unreadCounts, TGConversation *conversation)
+{
+    for (int filter = 0; filter < TGFiltersCount; filter++) {
+        NSPredicate *predicate = TGFilterPredicateForFilter((TGDialogFilter)filter);
+        if (predicate == nil || [predicate evaluateWithObject:conversation]) {
+            unreadCounts[filter] = @([unreadCounts[filter] integerValue] + 1);
+        }
+    }
+}
+
+- (void)updateUnreadCounts
 {
     int chatsCount = 0;
     FMResultSet *result = [_database executeQuery:[NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE (flags>255 OR unread_count>0)", _conversationListTableName]];
@@ -3465,18 +3510,25 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
         chatsCount = [result intForColumn:@"COUNT(*)"];
     }
     
+    __block NSMutableArray<NSNumber *> *unreadCounts = [NSMutableArray arrayWithObject:@0 repeatCount:TGFiltersCount];
+    
     int channelsCount = 0;
     for (TGConversation *conversation in [self _loadChannelsWithLowerBound:TGConversationSortKeyLowerBound(TGConversationKindPersistentChannel) upperBound:TGConversationSortKeyUpperBound(TGConversationKindPersistentChannel) count:1000]) {
         if (conversation.unreadMark || conversation.unreadCount > 0 || conversation.serviceUnreadCount > 0) {
             channelsCount++;
+            updateCountsIfNeededWithConversation(unreadCounts, conversation);
         }
     }
     
-    if (outChatsCount != NULL)
-        *outChatsCount = chatsCount;
+    result = [_database executeQuery:[NSString stringWithFormat:@"SELECT * FROM %@ WHERE (flags>255 OR unread_count>0)", _conversationListTableName]];
+    while ([result next]) {
+        TGConversation *conversation = loadConversationFromDatabase(result);
+        updateCountsIfNeededWithConversation(unreadCounts, conversation);
+    }
     
-    if (outChannelsCount != NULL)
-        *outChannelsCount = channelsCount;
+    [self setUnreadChatsCount:chatsCount notify:false];
+    [self setUnreadChannelsCount:channelsCount notify:false];
+    self.unreadCounts = unreadCounts;
 }
 
 - (void)loadUnreadConversationListFromDate:(int)date limit:(int)limit completion:(void (^)(NSArray *result))completion
@@ -3626,8 +3678,6 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
         }
         
         bool loadedAllRegular = ((int)array.count) < limit;
-        
-        TGConversation *c = [self loadConversationWithId:-5556535648];
         
         for (TGConversation *conversation in [self _loadChannelsWithLowerBound:TGConversationSortKeyLowerBound(TGConversationKindPersistentChannel) upperBound:TGConversationSortKeyMake(TGConversationKindPersistentChannel, date, INT32_MAX) count:limit]) {
             if (excludeConversationIdsSet.find(conversation.conversationId) == excludeConversationIdsSet.end()) {
@@ -4054,10 +4104,20 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
 
 - (void)conversationFieldUpdated:(TGConversation *)conversation
 {
-    storeConversationToDatabase(self, conversation);
+    if (TGPeerIdIsChannel(conversation.conversationId)) {
+        [self dispatchOnDatabaseThread:^{
+            [self _updateChannelConversation:conversation.conversationId conversation:conversation mergeReadState:false];
+        } synchronous:false];
+    }
+    else {
+        storeConversationToDatabase(self, conversation);
+    }
     
     [ActionStageInstance() dispatchResource:_liveMessagesDispatchPath resource:[[SGraphObjectNode alloc] initWithObject:[NSArray arrayWithObject:conversation]]];
     [ActionStageInstance() dispatchResource:[NSString stringWithFormat:@"/tg/conversation/(%lld)/conversation", conversation.conversationId] resource:[[SGraphObjectNode alloc] initWithObject:conversation]];
+    if (conversation.unreadCount > 0) {
+        [self updateUnreadCounts];
+    }
 }
 
 bool searchDialogsResultComparator(const std::pair<id, int> &obj1, const std::pair<id, int> &obj2)
@@ -5661,6 +5721,54 @@ static NSMutableDictionary *transliterationPartsCache()
         
         [self setCustomProperty:@"unreadMarksCount" value:[NSData dataWithBytes:&unreadMarksCount length:4]];
     } synchronous:false];
+}
+
+- (NSMutableArray<NSNumber *> *)unreadCounts
+{
+    NSMutableArray<NSNumber *> *value;
+    TG_SYNCHRONIZED_BEGIN(_cachedUnreadCounts);
+    value = _cachedUnreadCounts;
+    TG_SYNCHRONIZED_END(_cachedUnreadCounts);
+    
+    if ([value[0] integerValue] != INT_MIN)
+        return value;
+    
+    NSData *data = [self customProperty:@"unreadCounts"];
+    id object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if ([object isKindOfClass:[NSArray class]] && ((NSArray *)object).count == TGFiltersCount) {
+        value = [object mutableCopy];
+    }
+    else {
+        return [NSMutableArray arrayWithObject:@(INT_MIN) repeatCount:TGFiltersCount];
+    }
+    
+    TG_SYNCHRONIZED_BEGIN(_cachedUnreadChatsCount);
+    _cachedUnreadCounts = value;
+    TG_SYNCHRONIZED_END(_cachedUnreadChatsCount);
+    
+    return value;
+}
+
+- (void)setUnreadCounts:(NSArray<NSNumber *> *)unreadCounts
+{
+    [self setUnreadCounts:unreadCounts notify:true];
+}
+
+- (void)setUnreadCounts:(NSArray<NSNumber *> *)unreadCounts notify:(bool)notify
+{
+    if ([_cachedUnreadCounts isEqualToArray:unreadCounts]) return;
+    [self dispatchOnDatabaseThread:^
+     {
+         TG_SYNCHRONIZED_BEGIN(_cachedUnreadCounts);
+         _cachedUnreadCounts = [unreadCounts copy];
+         TG_SYNCHRONIZED_END(_cachedUnreadCounts);
+         
+         if (notify)
+         {
+                  [ActionStageInstance() dispatchResource:@"/tg/unreadCount" resource:[[SGraphObjectNode alloc] initWithObject:@(0)]];
+         }
+         [self setCustomProperty:@"unreadCounts" value:[NSKeyedArchiver archivedDataWithRootObject:[unreadCounts copy]]];
+     } synchronous:false];
 }
 
 - (void)setCustomProperty:(NSString *)key value:(NSData *)value
@@ -12744,11 +12852,12 @@ typedef struct {
         [_database executeUpdate:[NSString stringWithFormat:@"UPDATE %@ SET variant_sort_key=?, data=? WHERE cid=?", _channelListTableName], TGConversationSortKeyData(channel.variantSortKey), encoder.data, @(peerId)];
         
         [[self _channelList] updateChannel:channel];
-        
-        if (previousUnread && !updatedUnread)
-            [self updateUnreadChannelsCount:-1];
-        else if (!previousUnread && updatedUnread)
-            [self updateUnreadChannelsCount:1];
+
+        [TGDatabaseInstance() updateUnreadCounts];
+//        if (previousUnread && !updatedUnread)
+//            [self updateUnreadChannelsCount:-1];
+//        else if (!previousUnread && updatedUnread)
+//            [self updateUnreadChannelsCount:1];
     }
 }
 
@@ -13003,11 +13112,12 @@ typedef struct {
             
             [[self _channelList] updateChannel:conversation];
             [[self _channelList] commitUpdatedChannels];
-            
-            if (previousUnread && !updatedUnread)
-                [self updateUnreadChannelsCount:-1];
-            else if (!previousUnread && updatedUnread)
-                [self updateUnreadChannelsCount:1];
+
+            [TGDatabaseInstance() updateUnreadCounts];
+//            if (previousUnread && !updatedUnread)
+//                [self updateUnreadChannelsCount:-1];
+//            else if (!previousUnread && updatedUnread)
+//                [self updateUnreadChannelsCount:1];
         }
     } synchronous:false];
 }
@@ -13078,10 +13188,11 @@ typedef struct {
                 
                 if (maybeUpdateUnreadChannelsCount)
                 {
-                    if (previousUnread && !updatedUnread)
-                        [self updateUnreadChannelsCount:-1];
-                    else if (!previousUnread && updatedUnread)
-                        [self updateUnreadChannelsCount:1];
+                    [TGDatabaseInstance() updateUnreadCounts];
+//                    if (previousUnread && !updatedUnread)
+//                        [self updateUnreadChannelsCount:-1];
+//                    else if (!previousUnread && updatedUnread)
+//                        [self updateUnreadChannelsCount:1];
                 }
                 
                 int32_t feedId = [self _peerFeedId:peerId].int32Value;
@@ -18722,13 +18833,7 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
         }
         
         if (calculateUnreadChats) {
-            int unreadChatsCount = 0;
-            int unreadChannelsCount = 0;
-            
-            [self calculateUnreadChats:&unreadChatsCount channels:&unreadChannelsCount];
-            
-            [self setUnreadChatsCount:unreadChatsCount notify:false];
-            [self setUnreadChannelsCount:unreadChannelsCount notify:true];
+            [self updateUnreadCounts];
         }
         
         NSMutableDictionary<NSNumber *, TGConversation *> *peers = [[NSMutableDictionary alloc] init];
@@ -18826,19 +18931,23 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
         [previousPeers addEntriesFromDictionary:peers];
         
         __block int32_t previousUnreadCount = 0;
+        
+        __block int32_t previousUnreadChatsCount = 0;
+        __block int32_t previousUnreadChannelsCount = 0;
+        __block NSMutableArray<NSNumber *> *previousUnreadCounts = [NSMutableArray arrayWithObject:@0 repeatCount:TGFiltersCount];
         [peers enumerateKeysAndObjectsUsingBlock:^(__unused NSNumber *nPeerId, TGConversation *conversation, __unused BOOL *stop) {
             if (!TGPeerIdIsChannel(conversation.conversationId) && !TGPeerIdIsAdminLog(conversation.conversationId)) {
                 previousUnreadCount += conversation.unreadCount;
             }
-        }];
-        
-        __block int32_t previousUnreadChatsCount = 0;
-        __block int32_t previousUnreadChannelsCount = 0;
-        [peers enumerateKeysAndObjectsUsingBlock:^(__unused NSNumber *nPeerId, TGConversation *conversation, __unused BOOL *stop) {
             if (!TGPeerIdIsChannel(conversation.conversationId)) {
                 previousUnreadChatsCount += (conversation.unreadCount > 0 || conversation.unreadMark) ? 1 : 0;
             } else {
                 previousUnreadChannelsCount += (conversation.unreadCount > 0 || conversation.unreadMark) ? 1 : 0;
+            }
+            for (int filter = 0; filter < TGFiltersCount; filter++) {
+                if ([TGFilterPredicateForFilter((TGDialogFilter)filter) evaluateWithObject:conversation]) {
+                    previousUnreadCounts[filter] = @([previousUnreadCounts[filter] integerValue] + 1);
+                }
             }
         }];
         
@@ -19166,19 +19275,24 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
         }
         
         __block int32_t updatedUnreadCount = 0;
+        __block int32_t updatedUnreadChatsCount = 0;
+        __block int32_t updatedUnreadChannelsCount = 0;
+        __block NSMutableArray<NSNumber *> *updatedUnreadCounts = [NSMutableArray arrayWithObject:@0 repeatCount:TGFiltersCount];
         [peers enumerateKeysAndObjectsUsingBlock:^(__unused NSNumber *nPeerId, TGConversation *conversation, __unused BOOL *stop) {
             if (!TGPeerIdIsChannel(conversation.conversationId)) {
                 updatedUnreadCount += conversation.unreadCount;
             }
-        }];
-        
-        __block int32_t updatedUnreadChatsCount = 0;
-        __block int32_t updatedUnreadChannelsCount = 0;
-        [peers enumerateKeysAndObjectsUsingBlock:^(__unused NSNumber *nPeerId, TGConversation *conversation, __unused BOOL *stop) {
+            
             if (!TGPeerIdIsChannel(conversation.conversationId)) {
                 updatedUnreadChatsCount += (conversation.unreadCount > 0 || conversation.unreadMark) ? 1 : 0;
             } else {
                 updatedUnreadChannelsCount += (conversation.unreadCount > 0 || conversation.unreadMark) ? 1 : 0;
+            }
+            
+            for (int filter = 0; filter < TGFiltersCount; filter++) {
+                if ([TGFilterPredicateForFilter((TGDialogFilter)filter) evaluateWithObject:conversation]) {
+                    updatedUnreadCounts[filter] = @([updatedUnreadCounts[filter] integerValue] + 1);
+                }
             }
         }];
         
@@ -19210,6 +19324,13 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
                 currentUnreadChannelsCount = 0;
             [self setUnreadChannelsCount:currentUnreadChannelsCount notify:true];
         }
+        
+//        __block NSMutableArray<NSNumber *> *currentUnreadCounts = [self.unreadCounts mutableCopy];
+//        for (int filter = 0; filter < TGFiltersCount; filter++) {
+//            currentUnreadCounts[filter] = @(MAX([currentUnreadCounts[filter] integerValue] + [updatedUnreadCounts[filter] integerValue] - [previousUnreadCounts[filter] integerValue], 0));
+//        }
+//        self.unreadCounts = currentUnreadCounts;
+        [self updateUnreadCounts];
         
         if (!wasInTransaction) {
             [_database commit];

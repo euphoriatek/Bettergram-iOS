@@ -573,20 +573,7 @@
                 }
             }
         }];
-        
-        if (_replaceList)
-        {
-            [TGDatabaseInstance() setUnreadChatsCount:unreadChatsCount notify:false];
-            [TGDatabaseInstance() setUnreadChannelsCount:unreadChannelsCount notify:true];
-        }
-        else
-        {
-            int previousUnreadChatsCount = [TGDatabaseInstance() unreadChatsCount];
-            int previousUnreadChannelsCount = [TGDatabaseInstance() unreadChannelsCount];
-            
-            [TGDatabaseInstance() setUnreadChatsCount:previousUnreadChatsCount + unreadChatsCount notify:false];
-            [TGDatabaseInstance() setUnreadChannelsCount:previousUnreadChannelsCount + unreadChannelsCount notify:true];
-        }
+        [TGDatabaseInstance() updateUnreadCounts];
         
         [TGDatabaseInstance() transactionAddMessages:nil notifyAddedMessages:false removeMessages:nil updateMessages:nil updatePeerDrafts:updatePeerDrafts removeMessagesInteractive:nil keepDates:false removeMessagesInteractiveForEveryone:false updateConversationDatas:nil applyMaxIncomingReadIds:nil applyMaxOutgoingReadIds:nil applyMaxOutgoingReadDates:nil applyUnreadMarks:nil readHistoryForPeerIds:nil resetPeerReadStates:nil resetPeerUnseenMentionsStates:resetPeerUnseenMentionsStates clearConversationsWithPeerIds:nil clearConversationsInteractive:false removeConversationsWithPeerIds:nil updatePinnedConversations:_replaceList ? pinnedPeerIds : nil synchronizePinnedConversations:false forceReplacePinnedConversations:false readMessageContentsInteractive:nil deleteEarlierHistory:nil updateFeededChannels:nil newlyJoinedFeedId:nil synchronizeFeededChannels:false calculateUnreadChats:false];
         

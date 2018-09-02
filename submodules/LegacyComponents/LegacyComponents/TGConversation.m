@@ -1103,6 +1103,7 @@
     _chatPhotoFileReferenceSmall = channel.chatPhotoFileReferenceSmall;
     _chatPhotoFileReferenceBig = channel.chatPhotoFileReferenceBig;
     _username = channel.username;
+    _favoritedDate = channel.favoritedDate;
     if (!channel.isMin) {
         _chatIsAdmin = channel.chatIsAdmin;
         self.channelRole = channel.channelRole;

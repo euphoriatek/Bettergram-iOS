@@ -2147,8 +2147,7 @@
             [TGDatabaseInstance() dispatchOnDatabaseThread:^ // request to database
             {
                 int unreadCount = [TGDatabaseInstance() databaseState].unreadCount;
-                int unreadChatsCount = TGDatabaseInstance().unreadChatsCount;
-                int unreadChannelsCount = TGDatabaseInstance().unreadChannelsCount;
+                NSArray<NSNumber *> *unreadCounts = TGDatabaseInstance().unreadCounts;
                 TGDispatchOnMainThread(^
                 {
                     if (![arguments[@"previous"] boolValue]) {
@@ -2158,9 +2157,7 @@
                         [[UIApplication sharedApplication] cancelAllLocalNotifications];
                     
                     self.unreadCount = unreadCount;
-                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadCount forTabAtIndex:0];
-                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadChatsCount forTabAtIndex:1];
-                    [TGAppDelegateInstance.rootController.mainTabsController setUnreadCount:unreadChannelsCount forTabAtIndex:2];
+                    TGAppDelegateInstance.rootController.mainTabsController.unreadCounts = unreadCounts;
                     
                     TGDialogListController *dialogListController = self.dialogListController;
                     dialogListController.tabBarItem.badgeValue = unreadCount == 0 ? nil : [[NSString alloc] initWithFormat:@"%d", unreadCount];

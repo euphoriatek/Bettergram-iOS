@@ -8,13 +8,12 @@
 
 @property (nonatomic, copy) void (^debugReady)(void);
 @property (nonatomic, copy) void (^onControllerInsetUpdated)(CGFloat);
+@property (nonatomic, copy) NSArray<NSNumber *> *unreadCounts;
 
 - (instancetype)initWithPresentation:(TGPresentation *)presentation;
 - (void)setPresentation:(TGPresentation *)presentation;
 
 - (void)setIgnoreKeyboardFrameChange:(bool)ignore restoringFocus:(bool)restoringFocus;
-
-- (void)setUnreadCount:(int)unreadCount forTabAtIndex:(int)index;
 
 - (void)localizationUpdated;
 

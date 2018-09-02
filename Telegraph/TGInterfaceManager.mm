@@ -196,8 +196,8 @@
     
     if (conversationController == nil || (atMessage[@"mid"] != nil && ![atMessage[@"openMedia"] boolValue] && ![atMessage[@"useExisting"] boolValue]))
     {
-        int conversationUnreadCount = [TGDatabaseInstance() unreadCountForConversation:conversationId];
-        int globalUnreadCount = [TGDatabaseInstance() cachedUnreadCount];
+        int conversationUnreadCount = 0;//[TGDatabaseInstance() unreadCountForConversation:conversationId];
+        int globalUnreadCount = 0;//[TGDatabaseInstance() cachedUnreadCount];
         
         conversationController = [[TGModernConversationController alloc] init];
         conversationController.presentation = TGPresentation.current;
@@ -442,7 +442,7 @@
 - (TGModernConversationController *)configuredFeedControllerWithId:(int32_t)feedId preview:(bool)preview
 {
     int conversationUnreadCount = 0; //[TGDatabaseInstance() unreadCountForConversation:conversationId];
-    int globalUnreadCount = [TGDatabaseInstance() cachedUnreadCount];
+    int globalUnreadCount = 0;//[TGDatabaseInstance() cachedUnreadCount];
     
     TGModernConversationController *conversationController = [[TGModernConversationController alloc] init];
     conversationController.presentation = TGPresentation.current;
@@ -464,8 +464,8 @@
     
     NSDictionary *atMessage = nil;
     
-    int conversationUnreadCount = [TGDatabaseInstance() unreadCountForConversation:conversationId];
-    int globalUnreadCount = [TGDatabaseInstance() cachedUnreadCount];
+    int conversationUnreadCount = 0;//[TGDatabaseInstance() unreadCountForConversation:conversationId];
+    int globalUnreadCount = 0;//[TGDatabaseInstance() cachedUnreadCount];
     
     TGModernConversationController *conversationController = [[TGModernConversationController alloc] init];
     conversationController.presentation = TGPresentation.current;

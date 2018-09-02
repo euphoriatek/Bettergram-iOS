@@ -209,6 +209,8 @@ typedef void (^TGDatabaseCleanupEverythingBlock)();
 - (SSignal *)unreadDialogsCountSignal;
 - (int)unreadMarksCount;
 
+- (NSArray<NSNumber *> *)unreadCounts;
+
 - (void)setUnreadChatsCount:(int32_t)unreadChatsCount notify:(bool)notify;
 - (void)setUnreadChannelsCount:(int32_t)unreadChannelsCount notify:(bool)notify;
 - (void)setUnreadMarksCount:(int32_t)unreadMarksCount notify:(bool)notify;
@@ -709,6 +711,7 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
 - (void)resetStartupTime:(NSTimeInterval)value;
 
 - (void)conversationFieldUpdated:(TGConversation *)conversation;
+- (void)updateUnreadCounts;
 
 @end
 
