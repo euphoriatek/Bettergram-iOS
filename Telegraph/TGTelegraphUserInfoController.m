@@ -274,7 +274,8 @@
                 @"/tg/phonebook",
                 @"/tg/blockedUsers",
                 @"/tg/calls/enabled",
-                [[NSString alloc] initWithFormat:@"/tg/sharedMediaCount/(%" PRIx64 ")", (int64_t)_uid]
+                [[NSString alloc] initWithFormat:@"/tg/sharedMediaCount/(%" PRIx64 ")", (int64_t)_uid],
+                [[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", (int64_t)_uid],
             ] watcher:self];
             
             [ActionStageInstance() watchForPath:[NSString stringWithFormat:@"/tg/peerSettings/(%" PRId32 ")", _uid] watcher:self];
@@ -645,6 +646,13 @@
                 
                 if (!isCurrentUser)
                     [self.menuSections addItemToSection:actionsSectionIndex item:_startSecretChatItem];
+                
+                if (!isCurrentUser) {
+                    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_uid];
+                    TGUserInfoButtonCollectionItem *favoriteInfoItem = [[TGUserInfoButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
+                    favoriteInfoItem.deselectAutomatically = true;
+                    [self.menuSections addItemToSection:actionsSectionIndex item:favoriteInfoItem];
+                }
             }
         }
     }
@@ -1361,6 +1369,13 @@ static UIView *_findBackArrow(UIView *view)
     if (_shareVCard)
         _shareVCard();
 }
+    
+- (void)favoriteInfoPressed
+{
+    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_uid];
+    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
+    [TGDatabaseInstance() conversationFieldUpdated:conversation];
+}
 
 - (void)_commitCreateNewContact
 {
@@ -1879,6 +1894,12 @@ static UIView *_findBackArrow(UIView *view)
                 _supportsCalls = false;
                 self.userInfoItem.showCall = false;
             }
+        });
+    }
+    else if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", (int64_t)_uid]]) {
+//        TGConversation *updatedConversation = ((SGraphObjectNode *)resource).object;
+        TGDispatchOnMainThread(^{
+            [self _updatePhonesAndActions];
         });
     }
     

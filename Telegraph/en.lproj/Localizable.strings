@@ -3221,3 +3221,6 @@ Unused sets are archived when you add more.";
 "PrivateDataSettings.Title" = "Data Settings";
 "Privacy.ChatsTitle" = "CHATS";
 "Privacy.DeleteDrafts" = "Delete All Cloud Drafts";
+
+"UserInfo.Favorite" = "Add To Favorites";
+"UserInfo.Unfavorite" = "Remove From Favorites";

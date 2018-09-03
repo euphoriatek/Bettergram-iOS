@@ -792,7 +792,13 @@
 
 - (void)twitterPressed
 {
-    [TGAppDelegateInstance handleOpenInstantView:@"http://www.twitter.com/bettergramapp" disableActions:false];
+    NSString *screenName = @"bettergramapp";
+    NSString *urlString = [NSString stringWithFormat:@"twitter://user?screen_name=%@",screenName];
+    if (![UIApplication.sharedApplication canOpenURL:[NSURL URLWithString:urlString]]) {
+        urlString = [NSString stringWithFormat:@"https://twitter.com/%@",screenName];
+    }
+
+    [TGAppDelegateInstance handleOpenInstantView:urlString disableActions:false];
 }
 
 - (void)githubPressed
