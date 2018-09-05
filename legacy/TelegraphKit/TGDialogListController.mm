@@ -728,7 +728,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     UIBarButtonItem *compose = nil;
     if (iosMajorVersion() < 7)
     {
-        TGModernBarButton *composeButton = [[TGModernBarButton alloc] initWithImage:TGTintedImage([UIImage imageNamed:@"ModernNavigationComposeButtonIcon.png"], self.presentation.pallete.navigationButtonColor)];
+        TGModernBarButton *composeButton = [[TGModernBarButton alloc] initWithImage:TGTintedImage([UIImage imageNamed:@"new-message-interface-symbol.png"], self.presentation.pallete.navigationButtonColor)];
         composeButton.portraitAdjustment = CGPointMake(-7, -5);
         composeButton.landscapeAdjustment = CGPointMake(-7, -4);
         [composeButton addTarget:self action:@selector(composeMessageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

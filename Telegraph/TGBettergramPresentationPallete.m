@@ -13,6 +13,11 @@
 
 - (bool)isDark
 {
+    return false;
+}
+
+- (bool)prefersLightStatusBar
+{
     return true;
 }
 

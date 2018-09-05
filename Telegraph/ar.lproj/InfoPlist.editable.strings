@@ -1,0 +1,16 @@
+/* Localized versions of Info.plist keys */
+
+"CFBundleDisplayName" = "TELEGRAM_APP_NAME";
+
+"NSContactsUsageDescription" = "سيقوم TELEGRAM_APP_NAME برفع جهات الاتصال الخاصة بك باستمرار إلى خوادم التخزين السحابية ذات التشفير العالي لتتمكن من التواصل مع أصدقائك من خلال جميع أجهزتك.";
+"NSLocationWhenInUseUsageDescription" = "عندما ترغب في مشاركة مكانك مع أصدقائك، TELEGRAM_APP_NAME يحتاج لصلاحيات لعرض الخريطة لهم.";
+"NSLocationAlwaysUsageDescription" = "عندما تقوم بمشاركة موقعك مع أصدقائك، TELEGRAM_APP_NAME يحتاج إلى الصلاحية ليعرض لهم الخريطة. كما تحتاج لإعطاء TELEGRAM_APP_NAME الصلاحية لتتمكن من إرسال موقعك من ساعة آبل.";
+"NSCameraUsageDescription" = "نحتاج ذلك لتتمكن من التقاط وإرسال الصور والفيديوهات.";
+"NSPhotoLibraryUsageDescription" = "نحتاج ذلك لتتمكن من إرسال الصور والفيديوهات من ألبوم الصور.";
+"NSMicrophoneUsageDescription" = "نحتاج ذلك لتتمكن من تسجيل رسائل صوتية وفيديوهات بالصوت لترسلها..";
+"NSSiriUsageDescription" = "يمكنك استخدام سيري لإرسال رسائلك.";
+
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "عندما تختار أن تشارك مكانك بشكل حي مع أصدقائك في المحادثة، يحتاج TELEGRAM_APP_NAME إلى الوصول لموقعك في الخلفية حتى بعد إغلاق TELEGRAM_APP_NAME خلال فترة المشاركة.";
+"NSLocationAlwaysUsageDescription" = "عندما تقوم بمشاركة موقعك مع أصدقائك، TELEGRAM_APP_NAME يحتاج إلى الصلاحية ليعرض لهم الخريطة. كما تحتاج لإعطاء TELEGRAM_APP_NAME الصلاحية لتتمكن من إرسال موقعك من ساعة آبل.";
+"NSLocationWhenInUseUsageDescription" = "عندما ترغب في مشاركة مكانك مع أصدقائك، TELEGRAM_APP_NAME يحتاج لصلاحيات لعرض الخريطة لهم.";
+

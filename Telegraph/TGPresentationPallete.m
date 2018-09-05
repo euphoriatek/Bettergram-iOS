@@ -11,4 +11,9 @@
     return ![[[TGWallpaperManager instance] currentWallpaperInfo] isKindOfClass:[TGColorWallpaperInfo class]];
 }
 
+- (bool)prefersLightStatusBar
+{
+    return self.isDark;
+}
+
 @end

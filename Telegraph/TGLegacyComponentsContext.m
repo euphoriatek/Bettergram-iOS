@@ -84,7 +84,7 @@
 
 - (bool)prefersLightStatusBar
 {
-    return TGAppDelegateInstance.rootController.presentation.pallete.isDark;
+    return TGAppDelegateInstance.rootController.presentation.pallete.prefersLightStatusBar;
 }
 
 - (void)forceStatusBarAppearanceUpdate {

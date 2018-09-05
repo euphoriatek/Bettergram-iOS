@@ -19,3 +19,8 @@ DerivedData
 
 *.dSYM.zip
 .DS_Store
+
+**/*.lproj/*.strings
+!**/*submodules*/**/*.lproj/*.strings
+!**/*thirdparty*/**/*.lproj/*.strings
+!**/*.lproj/*.editable.strings

@@ -1,0 +1,2507 @@
+// Notifications
+"MESSAGE_TEXT" = "%1$@: %2$@";
+"MESSAGE_NOTEXT" = "%1$@ enviou uma mensagem";
+"MESSAGE_PHOTO" = "%1$@ enviou uma foto";
+"MESSAGE_VIDEO" = "%1$@ enviou um vídeo";
+"MESSAGE_ROUND" = "%1$@ enviou uma mensagem de vídeo";
+"MESSAGE_CONTACT" = "%1$@ compartilhou um contato";
+"MESSAGE_GEO" = "%1$@ enviou uma localização";
+"MESSAGE_DOC" = "%1$@ enviou um arquivo";
+"MESSAGE_AUDIO" = "%1$@ enviou uma mensagem de voz";
+"MESSAGE_GIF" = "%1$@ enviou um GIF";
+"ENCRYPTED_MESSAGE" = "Você tem uma nova mensagem%1$@";
+"LOCKED_MESSAGE" = "Você tem uma nova mensagem%1$@";
+"ENCRYPTION_REQUEST" = "Nova criptografia solicitada%1$@";
+"ENCRYPTION_ACCEPT" = "Pedido de criptografia aceito%1$@";
+"DC_UPDATE" = "Abra essa notificação para atualizar as configurações";
+
+"CHAT_JOINED" = "%1$@ entrou no grupo %2$@";
+
+"CHAT_MESSAGE_TEXT" = "%1$@@%2$@: %3$@";
+"CHAT_MESSAGE_NOTEXT" = "%1$@ enviou uma mensagem para o grupo %2$@";
+"CHAT_MESSAGE_PHOTO" = "%1$@ enviou uma foto para o grupo %2$@";
+"CHAT_MESSAGE_VIDEO" = "%1$@ enviou um vídeo para o grupo %2$@";
+"CHAT_MESSAGE_ROUND" = "%1$@ enviou uma mensagem de vídeo para o grupo %2$@";
+"CHAT_MESSAGE_CONTACT" = "%1$@ compartilhou um contato no grupo %2$@";
+"CHAT_MESSAGE_GEO" = "%1$@ enviou uma localização para o grupo %2$@";
+"CHAT_MESSAGE_DOC" = "%1$@ enviou um arquivo para o grupo %2$@";
+"CHAT_MESSAGE_AUDIO" = "%1$@ enviou uma mensagem de voz para o grupo %2$@";
+"CHAT_MESSAGE_GIF" = "%1$@ enviou um GIF para o grupo %2$@";
+"CHAT_CREATED" = "%1$@ convidou você para o grupo %2$@";
+"CHAT_TITLE_EDITED" = "%1$@ alterou o nome do grupo %2$@";
+"CHAT_PHOTO_EDITED" = "%1$@ alterou a foto do grupo %2$@";
+"CHAT_ADD_MEMBER" = "%1$@ convidou %3$@ para o grupo %2$@";
+"CHAT_ADD_YOU" = "%1$@ convidou você para o grupo %2$@";
+"CHAT_DELETE_YOU" = "%1$@ removeu você do grupo %2$@";
+"CHAT_DELETE_MEMBER" = "%1$@ removeu %3$@ do grupo %2$@";
+"CHAT_LEFT" = "%1$@ saiu do grupo %2$@";
+"CHAT_RETURNED" = "%1$@ voltou para o grupo %2$@";
+
+"MESSAGE_STICKER" = "%1$@ enviou %2$@sticker";
+"CHAT_MESSAGE_STICKER" = "%1$@ enviou um %3$@sticker ao grupo %2$@";
+
+"CONTACT_JOINED" = "%1$@ entrou para o TELEGRAM_APP_NAME!";
+"CONTACT_ACTIVATED" = "%1$@ ajudou a ativar sua conta!";
+
+"AUTH_UNKNOWN" = "Logou de um novo dispositivo %1$@";
+"AUTH_REGION" = "Logou de um novo dispositivo %1$@, local: %2$@";
+
+"MESSAGE_FWDS" = "%1$@ encaminhou para você %2$@ mensagens";
+"CHAT_MESSAGE_FWDS" = "%1$@ encaminhou %3$@ mensagens para o grupo %2$@";
+
+"CHANNEL_MESSAGE_TEXT" = "%1$@: %2$@";
+"CHANNEL_MESSAGE_NOTEXT" = "%1$@ postou uma mensagem";
+"CHANNEL_MESSAGE_PHOTO" = "%1$@ postou uma foto";
+"CHANNEL_MESSAGE_VIDEO" = "%1$@ postou um vídeo";
+"CHANNEL_MESSAGE_ROUND" = "%1$@ postou uma mensagem de vídeo";
+"CHANNEL_MESSAGE_DOC" = "%1$@ postou um documento";
+"CHANNEL_MESSAGE_STICKER" = "%1$@ postou um %2$@sticker";
+"CHANNEL_MESSAGE_AUDIO" = "%1$@ postou uma mensagem de voz";
+"CHANNEL_MESSAGE_CONTACT" = "%1$@ postou um contato";
+"CHANNEL_MESSAGE_GEO" = "%1$@ postou um mapa";
+"CHANNEL_MESSAGE_FWDS" = "%1$@ postou %2$@ mensagens encaminhadas";
+"CHANNEL_MESSAGE_GIF" = "%1$@ postou um GIF";
+
+"PINNED_TEXT" = "%1$@ fixou \"%2$@\"";
+"PINNED_NOTEXT" = "%1$@ fixou uma mensagem";
+"PINNED_PHOTO" = "%1$@ fixou uma foto";
+"PINNED_VIDEO" = "%1$@ fixou um vídeo";
+"PINNED_ROUND" = "%1$@ fixou uma mensagem de vídeo";
+"PINNED_DOC" = "%1$@ fixou um arquivo";
+"PINNED_STICKER" = "%1$@ fixou um %2$@sticker";
+"PINNED_AUDIO" = "%1$@ fixou uma mensagem de voz";
+"PINNED_CONTACT" = "%1$@ fixou um contato";
+"PINNED_GEO" = "%1$@ fixou um mapa";
+"PINNED_GIF" = "%1$@ fixou um GIF";
+
+"MESSAGE_GAME" = "%1$@ te convidou para jogar %2$@";
+"CHANNEL_MESSAGE_GAME" = "%1$@ te convidou para jogar %2$@";
+"CHAT_MESSAGE_GAME" = "%1$@ convidou o grupo %2$@ para jogar %3$@";
+"PINNED_GAME" = "%1$@ fixou um jogo";
+
+"PHONE_CALL_REQUEST" = "%1$@ está te ligando";
+"PHONE_CALL_MISSED" = "Você perdeu uma chamada de %1$@";
+
+// Common
+"Common.OK" = "OK";
+"Common.Cancel" = "Cancelar";
+"Common.Edit" = "Editar";
+"Common.edit" = "editar";
+"Common.Done" = "Pronto";
+"Common.Next" = "Próximo";
+"Common.Delete" = "Apagar";
+"Common.Create" = "Criar";
+"Common.Back" = "Voltar";
+"Common.Close" = "Fechar";
+"Common.Yes" = "Sim";
+"Common.No" = "Não";
+"Common.TakePhotoOrVideo" = "Tirar Foto ou Vídeo";
+"Common.TakePhoto" = "Tirar Foto";
+"Common.ChoosePhoto" = "Escolher Foto";
+"Common.ChooseVideo" = "Escolher Vídeo";
+"Common.of" = "de";
+"Common.Search" = "Busca";
+"Common.More" = "Mais";
+"Common.Select" = "Selecionar";
+
+// State
+"State.connecting" = "conectando";
+"State.updating" = "atualizando";
+"State.Connecting" = "Conectando...";
+"State.Updating" = "Atualizando...";
+"State.WaitingForNetwork" = "Aguardando rede";
+
+// Presence
+"Presence.online" = "online";
+"Presence.offline" = "offline";
+"Presence.invisible" = "invisível";
+
+// Date
+"Month.GenJanuary" = "janeiro";
+"Month.GenFebruary" = "fevereiro";
+"Month.GenMarch" = "março";
+"Month.GenApril" = "abril";
+"Month.GenMay" = "maio";
+"Month.GenJune" = "junho";
+"Month.GenJuly" = "julho";
+"Month.GenAugust" = "agosto";
+"Month.GenSeptember" = "setembro";
+"Month.GenOctober" = "outubro";
+"Month.GenNovember" = "novembro";
+"Month.GenDecember" = "dezembro";
+"Month.ShortJanuary" = "Jan";
+"Month.ShortFebruary" = "Fev";
+"Month.ShortMarch" = "Mar";
+"Month.ShortApril" = "Abr";
+"Month.ShortMay" = "Mai";
+"Month.ShortJune" = "Jun";
+"Month.ShortJuly" = "Jul";
+"Month.ShortAugust" = "Ago";
+"Month.ShortSeptember" = "Set";
+"Month.ShortOctober" = "Out";
+"Month.ShortNovember" = "Nov";
+"Month.ShortDecember" = "Dez";
+"Weekday.ShortMonday" = "Seg";
+"Weekday.ShortTuesday" = "Ter";
+"Weekday.ShortWednesday" = "Qua";
+"Weekday.ShortThursday" = "Qui";
+"Weekday.ShortFriday" = "Sex";
+"Weekday.ShortSaturday" = "Sáb";
+"Weekday.ShortSunday" = "Dom";
+"Weekday.Monday" = "Segunda";
+"Weekday.Tuesday" = "Terça";
+"Weekday.Wednesday" = "Quarta";
+"Weekday.Thursday" = "Quinta";
+"Weekday.Friday" = "Sexta";
+"Weekday.Saturday" = "Sábado";
+"Weekday.Sunday" = "Domingo";
+"Weekday.Today" = "Hoje";
+"Weekday.Yesterday" = "Ontem";
+
+"Time.TodayAt" = "hoje às %@";
+"Time.YesterdayAt" = "ontem às %@";
+
+"LastSeen.JustNow" = "visto agora mesmo";
+"LastSeen.MinutesAgo_1" = "visto há 1 minuto"; //one
+"LastSeen.MinutesAgo_2" = "visto há 2 minutos"; //two
+"LastSeen.MinutesAgo_3_10" = "visto há %@ minutos"; //three to ten
+"LastSeen.MinutesAgo_any" = "visto há %@ minutos"; // more than ten
+"LastSeen.HoursAgo_1" = "visto há 1 hora";
+"LastSeen.HoursAgo_2" = "visto há 2 horas";
+"LastSeen.HoursAgo_3_10" = "visto há %@ horas";
+"LastSeen.HoursAgo_any" = "visto há %@ horas";
+"LastSeen.TodayAt" = "visto hoje às %@";
+"LastSeen.YesterdayAt" = "visto ontem às %@";
+"LastSeen.AtWeekday" = "última visualização %@";
+"LastSeen.AtDate" = "última visualização %@";
+"LastSeen.Lately" = "visto recentemente";
+"LastSeen.WithinAWeek" = "visto na última semana";
+"LastSeen.WithinAMonth" = "visto no último mês";
+"LastSeen.ALongTimeAgo" = "visto há muito tempo";
+
+"Date.DialogDateFormat" = "{day} de {month}";
+
+// Tour
+"Tour.Title1" = "TELEGRAM_APP_NAME";
+"Tour.Text1" = "O Mais **rápido** aplicativo de mensagens do mundo. \nÉ **grátis** e **seguro. **";
+
+"Tour.Title2" = "Rápido";
+"Tour.Text2" = "**TELEGRAM_APP_NAME** entrega mensagens\nmais rápido que qualquer outro aplicativo";
+
+"Tour.Title3" = "Poderoso";
+"Tour.Text3" = "**TELEGRAM_APP_NAME** não tem limites\npara suas conversas e mídias";
+
+"Tour.Title4" = "Seguro";
+"Tour.Text4" = "**TELEGRAM_APP_NAME** mantém suas mensagens\nseguras contra ataques de hackers";
+
+"Tour.Title5" = "Baseado na nuvem";
+"Tour.Text5" = "**TELEGRAM_APP_NAME** permite acessar suas\nmensagens de vários dispositivos";
+
+"Tour.Title6" = "Grátis";
+"Tour.Text6" = "**TELEGRAM_APP_NAME** é grátis para sempre.\nSem anúncios. Sem taxas.";
+
+"Tour.Title7" = "Privado";
+"Tour.Text7" = "As mensagens do **TELEGRAM_APP_NAME**  são fortemente criptográfadas e podem se autodestruir.";
+
+"Tour.StartButton" = "Comece Agora";
+
+// Login
+"Login.PhoneAndCountryHelp" = "Por favor, digite o código do seu país e o número do seu telefone.";
+"Login.CodeHelp" = "Mandamos um código via SMS para o número \n%@";
+"Login.CodeSentInternal" = "Nós enviamos o código para o App \"TELEGRAM_APP_NAME\" em seu outro dispositivo.";
+"Login.HaveNotReceivedCodeInternal" = "Não recebeu o código?";
+"Login.CodeSentSms" = "Enviamos um SMS com o código";
+"Login.Code" = "Código";
+"Login.CallRequestState1" = "TELEGRAM_APP_NAME irá te ligar em %d:%.2d";
+"Login.CallRequestState2" = "Solicitando uma ligação do TELEGRAM_APP_NAME...";
+"Login.CallRequestState3" = "TELEGRAM_APP_NAME discou seu número\n[Não recebeu o código?]";
+"Login.EmailNotConfiguredError" = "Por favor registre uma conta de e-mail.";
+"Login.EmailCodeSubject" = "%@, não há código";
+"Login.EmailCodeBody" = "Meu número de telefone é:\n%@\nNão consegui o código de ativação para o TELEGRAM_APP_NAME.";
+"Login.UnknownError" = "Ocorreu um erro. Por favor tente novamente mais tarde";
+"Login.InvalidCodeError" = "Você informou um código inválido. Por favor tente novamente.";
+"Login.NetworkError" = "Verifique sua conexão com a internet e tente novamente";
+"Login.CodeExpiredError" = "O código expirou. Por favor tente novamente.";
+"Login.CodeFloodError" = "Limite excedido. Por favor tente novamente mais tarde.";
+"Login.InvalidPhoneError" = "Número do telefone inválido. Por favor tente novamente.";
+"Login.InvalidFirstNameError" = "Nome inválido. Por favor tente novamente.";
+"Login.InvalidLastNameError" = "Sobrenome inválido. Por favor tente novamente.";
+"Login.InactiveHelp" = "Nenhum de seus contatos\nusa o TELEGRAM_APP_NAME ainda.\nNós avisaremos quando eles se juntarem.\nVocê também pode convidar um amigo agora mesmo.";
+"Login.InviteButton" = "Convide um amigo para uma Conversa";
+
+"Login.PhoneTitle" = "Seu telefone";
+"Login.PhonePlaceholder" = "Seu número";
+"Login.CountryCode" = "Código do país";
+"Login.InvalidCountryCode" = "Código do país inválido";
+
+"Login.CodeTitle" = "Seu código";
+
+"Login.InfoTitle" = "Suas informações";
+"Login.InfoAvatarAdd" = "adicionar";
+"Login.InfoAvatarPhoto" = "foto";
+"Login.InfoFirstNamePlaceholder" = "Primeiro nome";
+"Login.InfoLastNamePlaceholder" = "Sobrenome";
+"Login.InfoUpdatePhoto" = "Atualizar Foto";
+"Login.InfoDeletePhoto" = "Apagar Foto";
+"Login.InfoHelp" = "Digite seu nome e adicione uma foto.";
+
+// Login.SelectCountry
+"Login.SelectCountry.Title" = "País";
+
+// Welcome Screen
+"WelcomeScreen.Title" = "Começar";
+"WelcomeScreen.Logout" = "Sair";
+"WelcomeScreen.Greeting" = "Bem-vindo, %@!";
+"WelcomeScreen.ContactsAccessDisabled" = "Desculpe, impossível sincronizar contatos.";
+"WelcomeScreen.ContactsAccessHelp" = "O mensageiro TELEGRAM_APP_NAME é baseado em sua lista de contatos. Por favor, vá para as Configurações de %@ > Privacidade > Contatos e defina TELEGRAM_APP_NAME como Ativado.";
+"WelcomeScreen.ContactsAccessSettings" = "Configurações";
+"WelcomeScreen.UpdatingTitle" = "Atualizando";
+
+// Dialog List
+"DialogList.TabTitle" = "Chats";
+"DialogList.Title" = "Chats";
+"DialogList.SearchLabel" = "Mensagens ou usuários";
+"DialogList.SelectContact" = "Selecionar Contato";
+"DialogList.SelectContacts" = "Selecionar Contatos";
+"DialogList.Create" = "Criar";
+"DialogList.NoMessagesTitle" = "Você ainda não tem conversas";
+"DialogList.NoMessagesText" = "Comece a conversar pressionando o botão lápis no canto superior direito ou vá para a seção 'Contatos'.";
+"DialogList.SingleTypingSuffix" = "%@ está escrevendo";
+"DialogList.SingleRecordingAudioSuffix" = "%@ está gravando um áudio";
+"DialogList.SingleUploadingPhotoSuffix" = "%@ está enviando uma foto";
+"DialogList.SingleUploadingVideoSuffix" = "%@ está enviando um vídeo";
+"DialogList.SingleRecordingVideoMessageSuffix" = "%@ está gravando um vídeo";
+"DialogList.SingleUploadingFileSuffix" = "%@ está enviando um arquivo";
+"DialogList.MultipleTypingSuffix" = "%d estão escrevendo";
+"DialogList.Typing" = "escrevendo";
+"DialogList.ClearHistoryConfirmation" = "Limpar Histórico";
+"DialogList.DeleteConversationConfirmation" = "Apagar e Sair";
+"DialogList.AwaitingEncryption" = "Esperando %@ se conectar...";
+"DialogList.EncryptionRejected" = "Chat secreto cancelado";
+"DialogList.EncryptionProcessing" = "Trocando chaves criptográficas...";
+"DialogList.EncryptedChatStartedOutgoing" = "%@ entrou no chat secreto";
+"DialogList.EncryptedChatStartedIncoming" = "%@ criou um chat secreto";
+"DialogList.Conversations" = "Conversas";
+"DialogList.Messages" = "Mensagens";
+
+// Compose
+"Compose.TokenListPlaceholder" = "Para quem você gostaria de enviar?";
+"Compose.NewMessage" = "Nova mensagem";
+"Compose.NewGroup" = "Novo grupo";
+"Compose.NewEncryptedChat" = "Novo Chat Secreto";
+"Compose.NewBroadcast" = "Lista de Transmissão";
+"Compose.NewBroadcastButton" = "Nova Transmissão";
+"Compose.Recipients" = "Destinatários";
+"Compose.Create" = "Criar";
+
+// Contacts
+"Contacts.TabTitle" = "Contatos";
+"Contacts.Title" = "Contatos";
+"Contacts.Invite" = "Convidar";
+"Contacts.contact" = "contato";
+"Contacts.contacts" = "contatos";
+"Contacts.contactsvar" = "contatos";
+"Contacts.InvitationText" = "Ei, vamos mudar para o TELEGRAM_APP_NAME http://TELEGRAM_APP_NAME.org/dl";
+"Contacts.FailedToSendInvitesMessage" = "Ocorreu um erro.";
+"Contacts.AccessDeniedError" = "O TELEGRAM_APP_NAME não tem acesso à seus contatos.";
+"Contacts.AccessDeniedHelpLandscape" = "Por favor, vá para %@ Ajustes — Privacidade — Contatos.\nEm seguida, selecione ON para TELEGRAM_APP_NAME.";
+"Contacts.AccessDeniedHelpPortrait" = "Por favor, vá para %@ Ajustes — Privacidade — Contatos. Em seguida, selecione ON para TELEGRAM_APP_NAME.";
+"Contacts.AccessDeniedHelpON" = "ATIVADO";
+"Contacts.InviteToTELEGRAM_APP_NAME" = "Convidar para o TELEGRAM_APP_NAME";
+"Contacts.InviteFriends" = "Convidar";
+"Contacts.SelectAll" = "Selecionar Todos";
+
+// Conversation
+"Conversation.InputTextPlaceholder" = "Mensagem";
+"Conversation.Send" = "Enviar";
+"Conversation.typing" = "escrevendo";
+"Conversation.MessageDeliveryFailed" = "A sua mensagem não foi enviada. Toque em \"Reenviar\" para enviar esta mensagem.";
+"Conversation.MessageDialogEdit" = "Editar";
+"Conversation.MessageDialogRetry" = "Reenviar";
+"Conversation.MessageDialogRetryAll" = "Reenviar %1$d mensagens";
+"Conversation.MessageDialogDelete" = "Apagar";
+"Conversation.LinkDialogOpen" = "Abrir";
+"Conversation.LinkDialogCopy" = "Copiar";
+"Conversation.EditDelete" = "Apagar";
+"Conversation.EditForward" = "Encaminhar";
+"Conversation.ForwardToPersonFormat" = "Encaminhar para %@?";
+"Conversation.ForwardToGroupFormat" = "Encaminhar para %@?";
+"Conversation.ForwardTitle" = "Encaminhar";
+"Conversation.ForwardChats" = "Chats";
+"Conversation.ForwardContacts" = "Contatos";
+"Conversation.StatusKickedFromGroup" = "você foi removido do grupo";
+"Conversation.StatusLeftGroup" = "você saiu do grupo";
+"Conversation.StatusTyping" = "escrevendo";
+"Conversation.BroadcastTitle" = "Transmissão";
+"Conversation.Call" = "Ligar";
+"Conversation.Mute" = "Silenciar";
+"Conversation.Unmute" = "Ativar Som";
+"Conversation.Edit" = "Editar";
+"Conversation.Info" = "Informações";
+"Conversation.Search" = "Buscar";
+"Conversation.Block" = "Bloquear";
+"Conversation.Unblock" = "Desbloquear";
+"Conversation.ClearAll" = "Apagar Todas";
+"Conversation.Location" = "Localização";
+"Conversation.Document" = "Enviar Arquivo";
+"Conversation.Contact" = "Contato";
+"Conversation.BlockUser" = "Bloquear Usuário";
+"Conversation.UnblockUser" = "Desbloquear usuário";
+"Conversation.DeleteGroup" = "Apagar este Grupo";
+"Conversation.DeleteChat" = "Apagar esta Conversa";
+"Conversation.ClearAllConfirmation" = "Apagar todas as mensagens?";
+"Conversation.SearchImages" = "Pesquisar Imagens";
+"Conversation.UnsupportedMedia" = "Esta mensagem não é compatível com a sua versão do TELEGRAM_APP_NAME. Atualize o aplicativo para visualizar:\nhttp://TELEGRAM_APP_NAME.org/update";
+"Conversation.EncryptionWaiting" = "Esperando %@ se conectar...";
+"Conversation.EncryptionProcessing" = "Trocando chaves criptográficas";
+"Conversation.SupportPlaceholder" = "Tem alguma dúvida sobre o TELEGRAM_APP_NAME?";
+"Conversation.EmptyPlaceholder" = "Nenhuma mensagem...";
+"Conversation.EncryptedPlaceholderTitleIncoming" = "%@ convidou você para um chat secreto.";
+"Conversation.EncryptedPlaceholderTitleOutgoing" = "Você convidou %@ para um chat secreto.";
+"Conversation.EncryptedDescriptionTitle" = "Diferenças dos Chats Secretos:";
+"Conversation.EncryptedDescription1" = "Criptografia de ponta-a-ponta";
+"Conversation.EncryptedDescription2" = "Sem rastros nos servidores";
+"Conversation.EncryptedDescription3" = "Timer de autodestruição";
+"Conversation.EncryptedDescription4" = "Encaminhamento desativado";
+"Conversation.EncryptedForwardingAlert" = "Desculpe, você não pode encaminhar uma mensagem a partir de um chat secreto.";
+"Conversation.ContextMenuCopy" = "Copiar";
+"Conversation.ContextMenuDelete" = "Apagar";
+"Conversation.ContextMenuForward" = "Encaminhar";
+"Conversation.ContextMenuMore" = "Mais...";
+
+"Conversation.StatusMembers_1" = "1 membro";
+"Conversation.StatusMembers_2" = "2 membros";
+"Conversation.StatusMembers_3_10" = "%@ membros";
+"Conversation.StatusMembers_any" = "%@ membros";
+
+"Conversation.StatusRecipients_1" = "1 destinatário";
+"Conversation.StatusRecipients_2" = "2 destinatários";
+"Conversation.StatusRecipients_3_10" = "%@ destinatários";
+"Conversation.StatusRecipients_any" = "%@ destinatários";
+
+"Conversation.StatusOnline_1" = "1 online";
+"Conversation.StatusOnline_2" = "2 online";
+"Conversation.StatusOnline_3_10" = "%@ online";
+"Conversation.StatusOnline_any" = "%@ online";
+
+"Conversation.UnreadMessages" = "Mensagens não lidas";
+"Conversation.InfoGroup" = "Grupo";
+"Conversation.InfoPrivate" = "Contato";
+"Conversation.InfoBroadcastList" = "Lista";
+
+// Notification
+"Notification.RenamedChat" = "%@ renomeou o grupo";
+"Notification.RenamedChannel" = "Canal renomeado";
+"Notification.ChangedGroupPhoto" = "%@ alterou a foto do grupo";
+"Notification.RemovedGroupPhoto" = "%@ removeu a foto do grupo";
+"Notification.ChangedUserPhoto" = "%@ adicionou uma nova foto ao perfil";
+"Notification.RemovedUserPhoto" = "%@ removeu a foto do perfil";
+"Notification.JoinedChat" = "%@ entrou no grupo";
+"Notification.Invited" = "%@ convidou %@";
+"Notification.LeftChat" = "%@ deixou o grupo";
+"Notification.Kicked" = "%@ removeu %@";
+"Notification.CreatedChat" = "%@ criou um grupo";
+"Notification.CreatedChannel" = "Canal criado";
+"Notification.CreatedGroup" = "Grupo criado";
+"Notification.CreatedBroadcastList" = "Você criou uma lista de transmissão";
+"Notification.CreatedChatWithTitle" = "%@ criou o grupo \"%@\"";
+"Notification.Joined" = "%@ entrou no TELEGRAM_APP_NAME";
+"Notification.ChangedGroupName" = "%@ alterou o nome do grupo para \"%@\"";
+"Notification.NewAuthDetected" = "%1$@,\nNós detectamos que alguém acessou a sua conta a partir de um novo aparelho em %2$@, %3$@ às %4$@\n\nAparelho: %5$@\nLocalização: %6$@\n\nSe não foi você, você pode ir em Configurações - Privacidade e Segurança - Sessões, e terminar aquela sessão.\n\nSe você acha que alguém acessou a sua conta contra a sua vontade, você pode habilitar a verificação em duas etapas nas configurações de Privacidade e Segurança.\n\nAtenciosamente,\nEquipe TELEGRAM_APP_NAME";
+"Notification.EncryptedChatRequested" = "Chat secreto solicitado";
+"Notification.EncryptedChatAccepted" = "Chat secreto iniciado";
+"Notification.MessageLifetimeChanged" = "%1$@ alterou o tempo de autodestruição para %2$@";
+"Notification.MessageLifetimeChangedOutgoing" = "Você alterou o tempo de autodestruição para %1$@";
+"Notification.MessageLifetimeRemoved" = "%1$@ desabilitou o tempo de autodestruição";
+"Notification.MessageLifetimeRemovedOutgoing" = "Você desativou a auto-destruição";
+"Notification.MessageLifetime2s" = "2 segundos";
+"Notification.MessageLifetime5s" = "5 segundos";
+"Notification.MessageLifetime1m" = "1 minuto";
+"Notification.MessageLifetime1h" = "1 hora";
+"Notification.MessageLifetime1d" = "1 dia";
+"Notification.MessageLifetime1w" = "1 semana";
+
+// Message
+"Message.Photo" = "Foto";
+"Message.Video" = "Vídeo";
+"Message.Location" = "Localização";
+"Message.Contact" = "Contato";
+"Message.File" = "Arquivo";
+"Message.Sticker" = "Sticker";
+"Message.Audio" = "Mensagem de Voz";
+"Message.ForwardedMessage" = "Mensagem encaminhada\nDe: %@";
+"Message.SharedContact" = "Contato Compartilhado";
+"Message.Animation" = "GIF";
+
+// Conversation Profile
+"ConversationProfile.ErrorCreatingConversation" = "Ocorreu um erro";
+"ConversationProfile.UserLeftChatError" = "Desculpe, %@ decidiu sair desse grupo, então você não pode convidá-lo de volta.";
+"ConversationProfile.UnknownAddMemberError" = "Ocorreu um erro inesperado. Nossa equipe foi notificada e irá corrigir o problema em breve. Desculpe.";
+"ConversationProfile.UsersTooMuchError" = "Desculpe, este grupo está cheio. Você não pode adicionar novos membros aqui.";
+
+"ConversationProfile.LeaveDeleteAndExit" = "Apagar e Sair";
+
+"Conversation.DownloadPhoto" = "Baixar Foto";
+"Conversation.ViewPhoto" = "Ver Foto";
+"Conversation.PlayVideo" = "Tocar Vídeo";
+"Conversation.Play" = "Tocar";
+"Conversation.Stop" = "Parar";
+"Conversation.ViewFile" = "Ver Arquivo";
+"Conversation.Download" = "Baixar";
+"Conversation.DownloadMegabytes" = "Baixar %.1f MB";
+"Conversation.DownloadKilobytes" = "Baixar %d KB";
+"Conversation.Megabytes" = "%.1f MB";
+"Conversation.Kilobytes" = "%d KB";
+"Conversation.Bytes" = "%d B";
+"Conversation.DownloadProgressMegabytes" = "%1$.1f MB / %2$.1f MB";
+"Conversation.DownloadProgressKilobytes" = "%1$d KB / %2$d KB";
+"Conversation.ViewLocation" = "Ver Localização";
+"Conversation.SearchWebImages" = "Encontrar Imagens";
+"Conversation.ShareMyContactInfo" = "Enviar meu contato";
+"Conversation.AddContact" = "Adicionar Contato";
+"Conversation.SendMessage" = "Enviar Mensagem";
+"Conversation.EncryptionCanceled" = "Chat secreto cancelado";
+"Conversation.DeleteOneMessage" = "Apagar Mensagem";
+"Conversation.DeleteManyMessages" = "Apagar Mensagens";
+"Conversation.View" = "Ver";
+"Conversation.Download" = "Baixar";
+"Conversation.SlideToCancel" = "Deslize para cancelar";
+"Conversation.ApplyLocalization" = "Aplicar Localização";
+"Conversation.OpenFile" = "Abrir arquivo";
+"Conversation.MicrophoneAccessDisabled" = "TELEGRAM_APP_NAME precisa acessar seu microfone para chamadas de voz.\n\nVá até Ajustes > Privacidade > Microfone e habilite o TELEGRAM_APP_NAME.";
+
+// Media Picker
+"MediaPicker.Send" = "Enviar";
+"MediaPicker.Choose" = "Escolher";
+"SearchImages.SearchImages" = "Pesquisar Imagens";
+"SearchImages.Title" = "Álbuns";
+"MediaPicker.CameraRoll" = "Rolo da Câmera";
+"SearchImages.NoImagesFound" = "Nenhuma imagem encontrada";
+"MediaPicker.AccessDeniedError" = "O TELEGRAM_APP_NAME não tem acesso à suas fotos";
+"MediaPicker.AccessDeniedHelp" = "Por favor, vá para %@ Ajustes — Privacidade — Contatos.\nEm seguida, selecione ON para TELEGRAM_APP_NAME.";
+"SearchImages.Downloading#Kb" = "Baixando %d Kb";
+"SearchImages.Downloading#Mb" = "Baixando %d Mb";
+"SearchImages.ImageNofM" = "Imagem %1$@ de %2$@";
+"SearchImages.DownloadCancelled" = "Download cancelado";
+"SearchImages.ErrorDownloadingImage" = "Erro ao baixar a imagem";
+"SearchImages.SkipImage" = "Pular imagem";
+"SearchImages.RetryDownload" = "Tentar baixar";
+
+// User Profile
+"Profile.ImageUploadError" = "Ocorreu um erro. Por favor tente novamente mais tarde";
+"Profile.PhonebookAccessDisabled" = "Para habilitar esta funcionalidade, por favor, vá para Ajustes do seu iPhone  —Privacidade — Contactos e selecione SIM para TELEGRAM_APP_NAME.";
+"Profile.CreateEncryptedChatError" = "Ocorreu um erro.";
+"Profile.CreateEncryptedChatOutdatedError" = "Não é possível criar um chat secreto com %@.\n%@ está usando uma versão antiga do TELEGRAM_APP_NAME e precisa ser atualizada.";
+"Profile.CreateNewContact" = "Criar Novo Contato";
+"Profile.AddToExisting" = "Adicionar a Contato Existente";
+"Profile.EncryptionKey" = "Chave Criptográfica";
+"Profile.MessageLifetime" = "Timer de Destruição";
+"Profile.MessageLifetimeForever" = "Desativado";
+"Profile.MessageLifetime2s" = "2s";
+"Profile.MessageLifetime5s" = "5s";
+"Profile.MessageLifetime1m" = "1m";
+"Profile.MessageLifetime1h" = "1h";
+"Profile.MessageLifetime1d" = "1d";
+"Profile.MessageLifetime1w" = "1S";
+"Profile.ShareContactButton" = "Compartilhar Contato";
+"Profile.ShareContactPersonFormat" = "Enviar contato para %@?";
+"Profile.ShareContactGroupFormat" = "Enviar contato para %@?";
+
+// User Info
+"UserInfo.Title" = "Informações";
+"UserInfo.FirstNamePlaceholder" = "Nome";
+"UserInfo.LastNamePlaceholder" = "Sobrenome";
+"UserInfo.GenericPhoneLabel" = "celular";
+"UserInfo.SendMessage" = "Enviar Mensagem";
+"UserInfo.AddContact" = "Adicionar Contato";
+"UserInfo.ShareContact" = "Compartilhar Contato";
+"UserInfo.StartSecretChat" = "Iniciar Chat Secreto";
+"UserInfo.DeleteContact" = "Apagar Contato";
+"UserInfo.CreateNewContact" = "Criar Novo Contato";
+"UserInfo.AddToExisting" = "Adicionar à Existente";
+"UserInfo.AddPhone" = "adicionar telefone";
+"UserInfo.NotificationsEnabled" = "Ativado";
+"UserInfo.NotificationsDisabled" = "Desativado";
+"UserInfo.NotificationsEnable" = "Ativar";
+"UserInfo.NotificationsDisable" = "Desativar";
+"UserInfo.Invite" = "Convidar para o TELEGRAM_APP_NAME";
+
+// New Contact
+"NewContact.Title" = "Novo Contato";
+
+// Phone Label
+"PhoneLabel.Title" = "Legenda";
+
+// Secret Chat
+"SecretChat.Title" = "Chat Secreto";
+
+// Group Info
+"GroupInfo.Title" = "Informações do Grupo";
+"GroupInfo.GroupNamePlaceholder" = "Nome do grupo";
+"GroupInfo.BroadcastListNamePlaceholder" = "Nome da lista";
+"GroupInfo.SetGroupPhoto" = "Definir Foto do Grupo";
+"GroupInfo.SetGroupPhotoStop" = "Parar";
+"GroupInfo.SetGroupPhotoDelete" = "Apagar Foto";
+"GroupInfo.Notifications" = "Notificações";
+"GroupInfo.Sound" = "Som";
+"GroupInfo.SharedMedia" = "Todos os Arquivos";
+"GroupInfo.SharedMediaNone" = "Nenhum";
+"GroupInfo.DeleteAndExit" = "Apagar e Sair";
+"GroupInfo.DeleteAndExitConfirmation" = "Você não será capaz de entrar no grupo novamente.";
+"GroupInfo.ParticipantCount_1" = "1 MEMBRO";
+"GroupInfo.ParticipantCount_2" = "2 MEMBROS";
+"GroupInfo.ParticipantCount_3_10" = "%@ MEMBROS";
+"GroupInfo.ParticipantCount_any" = "%@ MEMBROS";
+"GroupInfo.AddParticipant" = "Adicionar Membro";
+"GroupInfo.AddParticipantTitle" = "Contatos";
+"GroupInfo.AddParticipantConfirmation" = "Adicionar %@ no grupo?";
+"GroupInfo.KickedStatus" = "Você foi removido do grupo";
+"GroupInfo.LeftStatus" = "Você saiu do grupo";
+
+// Encryption Key
+"EncryptionKey.Title" = "Chave Criptográfica";
+"EncryptionKey.Description" = "Essa imagem e texto foram derivadas da chave criptográfica para este chat secreto com %1$@.\n\nSe você vê o mesmo no dispositivo de %2$@, a criptografia ponta a ponta está garantida.\n\nLeia mais em TELEGRAM_APP_NAME.org";
+
+// Conversation media
+"ConversationMedia.Title" = "Mídia";
+"ConversationMedia.EmptyTitle" = "Nenhuma foto ou vídeo";
+
+// Preview
+"Preview.VideoNotYetDownloaded" = "Baixar o vídeo primeiro";
+"Preview.GroupPhotoTitle" = "Foto do Grupo";
+"Preview.ProfilePhotoTitle" = "Foto do Perfil";
+"Preview.LoadingVideo" = "carregando vídeo...";
+"Preview.LoadingImage" = "carregando imagem completa...";
+"Preview.LoadingImages" = "carregando imagens completas...";
+"Preview.DeletePhoto" = "Apagar Foto";
+"Preview.DeleteVideo" = "Apagar Vídeo";
+"Preview.ForwardViaTELEGRAM_APP_NAME" = "Encaminhar via TELEGRAM_APP_NAME";
+"Preview.SaveToCameraRoll" = "Salvar no Rolo da Câmera";
+
+// Map
+"Map.ChooseLocationTitle" = "Localização";
+"Map.MapTitle" = "Mapa";
+"Map.Send" = "Enviar";
+"Map.Map" = "Mapa";
+"Map.Satellite" = "Satélite";
+"Map.Hybrid" = "Híbrido";
+"Map.AccessDeniedError" = "Para habilitar esta funcionalidade, por favor, vá para Ajustes do seu iPhone  —Privacidade — Contatos e selecione SIM para TELEGRAM_APP_NAME.";
+"Map.ForwardViaTELEGRAM_APP_NAME" = "Encaminhar via TELEGRAM_APP_NAME";
+"Map.GetDirections" = "Como chegar?";
+"Map.OpenInGoogleMaps" = "Abrir no Google Maps";
+
+// Web
+"Web.Error" = "Não foi possível carregar a página";
+"Web.OpenExternal" = "Abrir no Safari";
+"Web.CopyLink" = "Copiar Link";
+
+// Document
+"Document.TargetConfirmationFormat" = "Enviar arquivo ({size}) para {target}?";
+
+// Dialog List
+"DialogList.You" = "Você";
+
+// Settings
+"Settings.TabTitle" = "Configurações";
+"Settings.SetProfilePhoto" = "Definir Foto do Perfil";
+"Settings.Logout" = "Sair";
+"Settings.Title" = "Configurações";
+"Settings.NotificationsAndSounds" = "Notificações e Sons";
+"Settings.ChatSettings" = "Dados e Armazenamento";
+"Settings.BlockedUsers" = "Usuários Bloqueados";
+"Settings.ChatBackground" = "Papel de Parede";
+"Settings.Support" = "Fazer uma pergunta";
+"Settings.FAQ" = "Perguntas frequentes";
+"Settings.FAQ_URL" = "https://TELEGRAM_APP_NAME.org/faq/br#questes-gerais";
+"Settings.FAQ_Intro" = "Note que o suporte do TELEGRAM_APP_NAME é feito por voluntários. Tentaremos responder o mais rápido possível, mas poderemos demorar um pouco.\n\nPor favor verifique a página de perguntas frequentes do TELEGRAM_APP_NAME: há dicas e respostas para a maioria das perguntas.";
+"Settings.FAQ_Button" = "Perguntas frequentes";
+"Settings.SaveIncomingPhotos" = "Salvar todas as Fotos";
+"Settings.SaveIncomingPhotosHelp" = "Salvar fotos que chegam no rolo da câmera.";
+"Settings.LogoutError" = "Ocorreu um erro. Por favor tente novamente mais tarde";
+
+// Notifications and Sounds
+"Notifications.Title" = "Notificações";
+"Notifications.MessageNotifications" = "NOTIFICAÇÕES DE MENSAGENS";
+"Notifications.MessageNotificationsAlert" = "Alerta";
+"Notifications.MessageNotificationsPreview" = "Pré-Visualização";
+"Notifications.MessageNotificationsSound" = "Som";
+"Notifications.MessageNotificationsHelp" = "Pode estabelecer notificações específicas na informação do usuário.";
+
+"Notifications.GroupNotifications" = "NOTIFICAÇÕES DE GRUPO";
+"Notifications.GroupNotificationsAlert" = "Alerta";
+"Notifications.GroupNotificationsPreview" = "Pré-Visualização";
+"Notifications.GroupNotificationsSound" = "Som";
+"Notifications.GroupNotificationsHelp" = "Pode estabelecer notificações específicas na informação do grupo.";
+
+"Notifications.TextTone" = "Tom do Texto";
+"Notifications.AlertTones" = "TONS DE ALERTA";
+"Notifications.ClassicTones" = "CLÁSSICO";
+
+"Notifications.InAppNotifications" = "NOTIFICAÇÕES NO APLICATIVO";
+"Notifications.InAppNotificationsSounds" = "Sons no aplicativo";
+"Notifications.InAppNotificationsVibrate" = "Vibração no aplicativo";
+"Notifications.InAppNotificationsPreview" = "Pré-Visualização no aplicativo";
+
+"Notifications.Reset" = "Restaurar";
+"Notifications.ResetAllNotifications" = "Restaurar Configurações";
+"Notifications.ResetAllNotificationsHelp" = "Desfazer todas as configurações de notificação para todos os seus contatos e grupos.";
+
+// Chat Settings
+"ChatSettings.Title" = "Dados e Armazenamento";
+"ChatSettings.Appearance" = "APARÊNCIA";
+"ChatSettings.TextSize" = "Tamanho do Texto";
+"ChatSettings.TextSizeUnits" = "pt";
+"ChatSettings.AutomaticPhotoDownload" = "BAIXAR FOTOS AUTOMATICAMENTE";
+"ChatSettings.AutomaticAudioDownload" = "BAIXAR ÁUDIO AUTOMATICAMENTE";
+"ChatSettings.PrivateChats" = "Conversas Privadas";
+"ChatSettings.Groups" = "Grupos";
+"ChatSettings.Security" = "SEGURANÇA";
+"ChatSettings.Language" = "IDIOMA";
+"ChatSettings.RevertLanguage" = "Reverter Idioma";
+"ChatSettings.Cache" = "CACHE";
+
+// Usage
+"Cache.Title" = "Uso do Armazenamento";
+"Cache.ClearCache" = "Apagar Cache";
+"Cache.ClearCacheAlert" = "Fotos, vídeos e outros arquivos dos chats na nuvem serão removidos deste dispositivo para economizar espaço.\n\nTodas as mídias permanecerão na nuvem do TELEGRAM_APP_NAME e podem ser baixadas novamente sempre que necessitar.";
+"Cache.KeepMedia" = "Manter Mídias";
+"Cache.Help" = "Fotos, vídeos e outros arquivos dos chats na nuvem que você **não acessou** durante este período serão removidos deste dispositivo para economizar espaço.\n\nTodas as mídias permanecerão na nuvem do TELEGRAM_APP_NAME e podem ser baixadas novamente sempre que necessitar.";
+
+// Blocked Users
+"BlockedUsers.Title" = "Usuários bloqueados";
+"BlockedUsers.SelectUserTitle" = "Bloquear Usuário";
+"BlockedUsers.AlreadyBlocked" = "Este usuário já está bloqueado";
+"BlockedUsers.BlockUser" = "Bloquear Usuário";
+"BlockedUsers.BlockFormat" = "Bloquear %@?";
+"BlockedUsers.BlockTitle" = "Bloquear";
+"BlockedUsers.LeavePrefix" = "Permitir";
+"BlockedUsers.Info" = "Você não receberá mensagens de usuários bloqueadas, assim como eles não verão quando você acessou o aplicativo pela última vez.";
+"BlockedUsers.AddNew" = "Adicionar Novo...";
+"BlockedUsers.Unblock" = "Desbloquear";
+
+// Wallpaper
+"Wallpaper.Title" = "Papel de Parede";
+"Wallpaper.PhotoLibrary" = "Biblioteca de Fotos";
+"Wallpaper.Set" = "Definir";
+"Wallpaper.Wallpaper" = "Papel de Parede";
+
+// Update
+"Update.Update" = "Atualizar";
+
+// Service
+"Service.LocalizationDownloadError" = "O download do arquivo de localização não foi concluído. Por favor verifique sua conexão com a internet e tente novamente.";
+"Service.ApplyLocalization" = "Aplicar Localização?";
+"Service.ApplyLocalizationWithWarnings" = "%@\n\nAplicar Localização?";
+
+"Notification.SecretChatMessageScreenshot" = "%@ capturou a tela!";
+"Notification.SecretChatScreenshot" = "Captura de tela realizada!";
+
+// Broadcast Lists
+"DialogList.Broadcast" = "Novo Canal";
+"BroadcastLists.Title" = "Listas de Transmissão";
+"BroadcastLists.NoListsYet" = "Não há listas ainda";
+"BroadcastLists.NoListsText" = "Com as listas de transmissão você pode facilmente enviar mensagens a várias pessoas de uma só vez.";
+
+// Broadcast List
+"BroadcastListInfo.Title" = "Lista de Transmissão";
+"BroadcastListInfo.AddRecipient" = "Adicionar destinatário";
+
+// Video
+"VideoPreview.OptionSD" = "Tamanho Normal (%@)";
+"VideoPreview.OptionHD" = "Alta Definição (%@)";
+
+"ChatSettings.AutoPlayAudio" = "Tocar áudio automaticamente";
+
+"Settings.LogoutConfirmationTitle" = "Sair?";
+"Settings.LogoutConfirmationText" = "\nSaiba que você pode usar o TELEGRAM_APP_NAME em vários dispositivos de uma vez.\n\nLembre-se que sair apaga todos os seus Chats Secretos.";
+
+"Login.PadPhoneHelp" = "\nVocê pode usar o mesmo número de telefone para entrar no TELEGRAM_APP_NAME em todos os seus aparelhos.\nNão use um número de um SIM iPad — precisaremos lhe enviar uma SMS.\n\nEsse número está correto?\n{number}";
+"Login.PadPhoneHelpTitle" = "Seu Número";
+
+"MessageTimer.Custom" = "Personalizado";
+"MessageTimer.Title" = "Timer Personalizado";
+
+"MessageTimer.Forever" = "Permanentemente";
+
+"MessageTimer.Seconds_1" = "%@ segundo";
+"MessageTimer.Seconds_2" = "%@ segundos";
+"MessageTimer.Seconds_3_10" = "%@ segundos";
+"MessageTimer.Seconds_any" = "%@ segundos";
+"MessageTimer.Minutes_1" = "%@ minuto";
+"MessageTimer.Minutes_2" = "%@ minutos";
+"MessageTimer.Minutes_3_10" = "%@ minutos";
+"MessageTimer.Minutes_any" = "%@ minutos";
+"MessageTimer.Hours_1" = "%@ hora";
+"MessageTimer.Hours_2" = "%@ horas";
+"MessageTimer.Hours_3_10" = "%@ horas";
+"MessageTimer.Hours_any" = "%@ horas";
+"MessageTimer.Days_1" = "%@ dia";
+"MessageTimer.Days_2" = "%@ dias";
+"MessageTimer.Days_3_10" = "%@ dias";
+"MessageTimer.Days_any" = "%@ dias";
+"MessageTimer.Weeks_1" = "%@ semana";
+"MessageTimer.Weeks_2" = "%@ semanas";
+"MessageTimer.Weeks_3_10" = "%@ semanas";
+"MessageTimer.Weeks_any" = "%@ semanas";
+"MessageTimer.Months_1" = "%@ mês";
+"MessageTimer.Months_2" = "%@ meses";
+"MessageTimer.Months_3_10" = "%@ meses";
+"MessageTimer.Months_any" = "%@ meses";
+"MessageTimer.Years_1" = "%@ ano";
+"MessageTimer.Years_2" = "%@ anos";
+"MessageTimer.Years_3_10" = "%@ anos";
+"MessageTimer.Years_any" = "%@ anos";
+
+"MessageTimer.ShortSeconds_1" = "%@s";
+"MessageTimer.ShortSeconds_2" = "%@s";
+"MessageTimer.ShortSeconds_3_10" = "%@s";
+"MessageTimer.ShortSeconds_any" = "%@s";
+"MessageTimer.ShortMinutes_1" = "%@m";
+"MessageTimer.ShortMinutes_2" = "%@m";
+"MessageTimer.ShortMinutes_3_10" = "%@m";
+"MessageTimer.ShortMinutes_any" = "%@m";
+"MessageTimer.ShortHours_1" = "%@h";
+"MessageTimer.ShortHours_2" = "%@h";
+"MessageTimer.ShortHours_3_10" = "%@h";
+"MessageTimer.ShortHours_any" = "%@h";
+"MessageTimer.ShortDays_1" = "%@d";
+"MessageTimer.ShortDays_2" = "%@d";
+"MessageTimer.ShortDays_3_10" = "%@d";
+"MessageTimer.ShortDays_any" = "%@d";
+"MessageTimer.ShortWeeks_1" = "%@w";
+"MessageTimer.ShortWeeks_2" = "%@w";
+"MessageTimer.ShortWeeks_3_10" = "%@w";
+"MessageTimer.ShortWeeks_any" = "%@w";
+
+"Activity.UploadingPhoto" = "enviando foto";
+"Activity.UploadingVideo" = "enviando vídeo";
+"Activity.UploadingDocument" = "enviando arquivo";
+"Activity.RecordingAudio" = "gravando áudio";
+"Activity.RecordingVideoMessage" = "gravando vídeo";
+"Activity.Location" = "buscando localização";
+
+"Service.NetworkConfigurationUpdatedMessage" = "Configurações de conexão atualizadas com sucesso.";
+
+"Compatibility.SecretMediaVersionTooLow" = "%@ está usando uma versão mais antiga do TELEGRAM_APP_NAME, por isso fotos secretas serão mostradas em modo de compatibilidade.\n\nAssim que %@ atualize o TELEGRAM_APP_NAME, fotos com timers de 1 minuto ou menos passarão a funcionar no modo ‘Toque e segure para ver’, e você será notificado caso a outra pessoa salve a tela.";
+
+"Contacts.GlobalSearch" = "Busca global";
+"Profile.Username" = "nome de usuário";
+"Settings.Username" = "Nome de usuário";
+"Settings.UsernameEmpty" = "Nenhum";
+
+"Username.Title" = "Nome de usuário";
+"Username.Placeholder" = "Seu Nome de Usuário";
+"Username.Help" = "Você pode escolher um nome de usuário no **TELEGRAM_APP_NAME**. Se escolher, outras pessoas poderão encontrá-lo por este nome e contatá-lo sem saber seu número de telefone. \n\nVocê pode usar **a-z**, **0-9** e underline.\nO tamanho mínimo é de **5** caracteres. ";
+"Username.InvalidTooShort" = "O tamanho mínimo é de 5 caracteres.";
+"Username.InvalidStartsWithNumber" = "O nome não pode iniciar com um número.";
+"Username.InvalidCharacters" = "Este nome de usuário já está sendo utilizado.";
+"Username.InvalidTaken" = "Este nome de usuário já está sendo utilizado.";
+
+"Username.CheckingUsername" = "Verificando nome de usuário...";
+"Username.UsernameIsAvailable" = "%@ está disponível.";
+
+"WebSearch.Images" = "Imagens";
+"WebSearch.GIFs" = "GIFs";
+"WebSearch.RecentSectionTitle" = "Recente";
+"WebSearch.RecentSectionClear" = "Limpar";
+
+"Settings.PrivacySettings" = "Privacidade e Segurança";
+
+"UserCount_1" = "1 usuário";
+"UserCount_2" = "2 usuários";
+"UserCount_3_10" = "%@ usuários";
+"UserCount_any" = "%@ usuários";
+
+"PrivacySettings.Title" = "Privacidade e Segurança";
+
+"PrivacySettings.PrivacyTitle" = "PRIVACIDADE";
+"PrivacySettings.LastSeen" = "Último Acesso";
+"PrivacySettings.LastSeenEverybody" = "Todos";
+"PrivacySettings.LastSeenContacts" = "Meus Contatos";
+"PrivacySettings.LastSeenNobody" = "Ninguém";
+
+"PrivacySettings.LastSeenEverybodyMinus" = "Todos (-%@)";
+"PrivacySettings.LastSeenContactsPlus" = "Meus Contatos (+%@)";
+"PrivacySettings.LastSeenContactsMinus" = "Meus Contatos (-%@)";
+"PrivacySettings.LastSeenContactsMinusPlus" = "Meus contatos (-%@, +%@)";
+"PrivacySettings.LastSeenNobodyPlus" = "Ninguém (+%@)";
+
+"PrivacySettings.SecurityTitle" = "SEGURANÇA";
+
+"PrivacySettings.DeleteAccountTitle" = "EXCLUIR MINHA CONTA";
+"PrivacySettings.DeleteAccountIfAwayFor" = "Se Inativo Por";
+"PrivacySettings.DeleteAccountHelp" = "Se você não acessar sua conta ao menos uma vez neste período, sua conta será excluída com seus grupos, mensagens e contatos.";
+"PrivacySettings.DeleteAccountNowConfirmation" = "Excluir sua conta?";
+"PrivacySettings.DeleteAccountNever" = "Nunca";
+
+"PrivacyLastSeenSettings.Title" = "Último Acesso";
+"PrivacyLastSeenSettings.CustomHelp" = "Importante: você não poderá ver quando foi o Último Acesso das pessoas com quem você não compartilha o seu Último Acesso. Você visualizará o Último acesso aproximado (recentemente, dentro de uma semana, dentro de um mês).";
+"PrivacyLastSeenSettings.AlwaysShareWith" = "Sempre Mostrar Para";
+"PrivacyLastSeenSettings.NeverShareWith" = "Nunca Mostrar Para";
+"PrivacyLastSeenSettings.CustomShareSettingsHelp" = "Essas configurações sobrescreverão os valores acima. ";
+
+"PrivacyLastSeenSettings.CustomShareSettings.Delete" = "Apagar";
+"PrivacyLastSeenSettings.AlwaysShareWith.Title" = "Sempre Mostrar";
+"PrivacyLastSeenSettings.AlwaysShareWith.Placeholder" = "Sempre mostrar para usuários...";
+"PrivacyLastSeenSettings.NeverShareWith.Title" = "Nunca Mostrar";
+"PrivacyLastSeenSettings.NeverShareWith.Placeholder" = "Nunca mostrar para usuários...";
+"PrivacyLastSeenSettings.EmpryUsersPlaceholder" = "Adicionar Usuários";
+"PrivacyLastSeenSettings.AddUsers_1" = "Adicionar 1 usuário à lista?";
+"PrivacyLastSeenSettings.AddUsers_2" = "Adicionar 2 usuários à lista?";
+"PrivacyLastSeenSettings.AddUsers_3_10" = "Adicionar %@ usuários à lista?";
+"PrivacyLastSeenSettings.AddUsers_any" = "Adicionar %@ usuários à lista?";
+
+"PrivacySettings.FloodControlError" = "Desculpe, mudanças demais. Impossível alterar os ajustes de privacidade agora, aguarde.";
+
+
+"ImagePicker.NoPhotos" = "Não há Fotos";
+"ImagePicker.NoVideos" = "Não há Vídeos";
+
+"Settings.OpenSystemPrivacySettings" = "Abrir Configurações de %@";
+
+// Photo Editor
+"PhotoEditor.DiscardChanges" = "Descartar Alterações";
+"PhotoEditor.RevertToOriginal" = "Reverter para Original";
+"PhotoEditor.RevertMessage" = "Reverter para o original irá remover todas as edições feitas na foto. Essa ação não pode ser desfeita.";
+
+"PhotoEditor.Original" = "Original";
+"PhotoEditor.Current" = "Atual";
+
+"PhotoEditor.CropReset" = "REINICIAR";
+"PhotoEditor.CropAuto" = "AUTO";
+"PhotoEditor.CropAspectRatioOriginal" = "Original";
+"PhotoEditor.CropAspectRatioSquare" = "Quadrado";
+
+"PhotoEditor.EnhanceTool" = "Realçar";
+"PhotoEditor.ExposureTool" = "Exposição";
+"PhotoEditor.ContrastTool" = "Contraste";
+"PhotoEditor.WarmthTool" = "Calor";
+"PhotoEditor.SaturationTool" = "Saturação";
+"PhotoEditor.HighlightsTool" = "Luzes";
+"PhotoEditor.ShadowsTool" = "Sombras";
+"PhotoEditor.VignetteTool" = "Vignette";
+"PhotoEditor.GrainTool" = "Granulado";
+"PhotoEditor.BlurTool" = "Desfoque";
+"PhotoEditor.SharpenTool" = "Nitidez";
+
+"PhotoEditor.BlurToolOff" = "Desativado";
+"PhotoEditor.BlurToolRadial" = "Radial";
+"PhotoEditor.BlurToolLinear" = "Linear";
+
+"PhotoEditor.Set" = "Definir";
+"PhotoEditor.Skip" = "Pular";
+
+// Camera
+"Camera.PhotoMode" = "FOTO";
+"Camera.VideoMode" = "VÍDEO";
+"Camera.SquareMode" = "QUADRADO";
+"Camera.FlashOff" = "Desativado";
+"Camera.FlashOn" = "Ativado";
+"Camera.FlashAuto" = "Auto";
+"Camera.Retake" = "Retomar";
+
+"Settings.PhoneNumber" = "Alterar Número";
+
+"PhoneNumberHelp.Help" = "Você pode alterar seu número do TELEGRAM_APP_NAME aqui. Sua conta e todos os seus dados — mensagens, mídia, contatos, etc. serão movidos para o novo número.\n\n**Importante:** todos os contatos do TELEGRAM_APP_NAME terão seu **novo número** adicionado às suas lista de contatos, desde que eles tenham seu antigo número e você não os tenha bloqueado no TELEGRAM_APP_NAME.";
+"PhoneNumberHelp.Alert" = "Todos os contatos do TELEGRAM_APP_NAME terão seu **novo número** adicionado às suas listas de contatos, desde que eles tenham seu antigo número e você não os tenha bloqueado no TELEGRAM_APP_NAME.";
+"PhoneNumberHelp.ChangeNumber" = "Alterar Número";
+
+"ChangePhoneNumberNumber.Title" = "Alterar Número";
+"ChangePhoneNumberNumber.NewNumber" = "NOVO NÚMERO";
+"ChangePhoneNumberNumber.Help" = "Enviaremos um SMS com um código de confirmação para seu novo número.";
+"ChangePhoneNumberNumber.NumberPlaceholder" = "Digite seu novo número ";
+
+"ChangePhoneNumberCode.Code" = "SEU CÓDIGO ";
+"ChangePhoneNumberCode.CodePlaceholder" = "Código";
+"ChangePhoneNumberCode.Help" = "Enviamos um SMS com o código";
+"ChangePhoneNumberCode.CallTimer" = "TELEGRAM_APP_NAME irá te ligar em %@";
+"ChangePhoneNumberCode.RequestingACall" = "Solicitando uma ligação do TELEGRAM_APP_NAME...";
+"ChangePhoneNumberCode.Called" = "TELEGRAM_APP_NAME ligou para seu número";
+
+"LoginPassword.Title" = "Sua senha";
+"LoginPassword.PasswordPlaceholder" = "Senha";
+"LoginPassword.InvalidPasswordError" = "Senha inválida. Por favor tente novamente.";
+"LoginPassword.FloodError" = "Limite excedido. Por favor tente novamente mais tarde.";
+"LoginPassword.ForgotPassword" = "Esqueceu a senha?";
+"LoginPassword.PasswordHelp" = "Você habilitou a verificação em duas etapas, a sua conta está protegida com uma senha adicional.";
+"LoginPassword.ResetAccount" = "Apagar conta";
+
+"QuickSend.Photos_1" = "Enviar 1 Foto";
+"QuickSend.Photos_2" = "Enviar 2 Fotos";
+"QuickSend.Photos_3_10" = "Enviar %@ Fotos";
+"QuickSend.Photos_any" = "Enviar %@ Fotos";
+
+"Share.Title" = "Compartilhar";
+"Forward.ConfirmMultipleFiles_1" = "Enviar 1 arquivo para {target}?";
+"Forward.ConfirmMultipleFiles_2" = "Enviar 2 arquivos para {target}?";
+"Forward.ConfirmMultipleFiles_3_10" = "Enviar %@ arquivos para {target}?";
+"Forward.ConfirmMultipleFiles_any" = "Enviar %@ arquivos para {target}?";
+
+"PrivacySettings.TouchIdTitle" = "TouchID";
+"PrivacySettings.TouchIdEnable" = "Ativar";
+
+"Notification.Reply" = "Responder";
+"Notification.Mute1h" = "Silenciar por 1 hora";
+"Notification.Mute1hMin" = "Silenciar por 1h";
+"Conversation.ContextMenuShare" = "Compartilhar";
+
+"SharedMedia.TitleAll" = "Mídia";
+"SharedMedia.TitlePhoto" = "Fotos Compartilhadas";
+"SharedMedia.TitleVideo" = "Vídeos Compartilhados";
+"SharedMedia.TitleFile" = "Arquivos Compartilhados";
+"SharedMedia.TitleAudio" = "Música Compartilhada";
+
+"SharedMedia.All" = "Todos";
+"SharedMedia.Incoming" = "Recebidos";
+"SharedMedia.Outgoing" = "Enviados";
+
+"SharedMedia.Photo_1" = "1 foto";
+"SharedMedia.Photo_2" = "2 fotos";
+"SharedMedia.Photo_3_10" = "%@ fotos";
+"SharedMedia.Photo_any" = "%@ fotos";
+
+"SharedMedia.Video_1" = "1 vídeo";
+"SharedMedia.Video_2" = "2 vídeos";
+"SharedMedia.Video_3_10" = "%@ vídeos";
+"SharedMedia.Video_any" = "%@ vídeos";
+
+"SharedMedia.File_1" = "1 arquivo";
+"SharedMedia.File_2" = "2 arquivos";
+"SharedMedia.File_3_10" = "%@ arquivos";
+"SharedMedia.File_any" = "%@ arquivos";
+
+"SharedMedia.Generic_1" = "1 arquivo de mídia";
+"SharedMedia.Generic_2" = "2 arquivos de mídia";
+"SharedMedia.Generic_3_10" = "%@ arquivos de mídia";
+"SharedMedia.Generic_any" = "%@ arquivos de mídia";
+
+"FileSize.B" = "%@ B";
+"FileSize.KB" = "%@ KB";
+"FileSize.MB" = "%@ MB";
+"FileSize.GB" = "%@ GB";
+
+"DownloadingStatus" = "Baixando %@ de %@";
+
+"Time.MonthOfYear_1" = "Janeiro %@";
+"Time.MonthOfYear_2" = "Fevereiro %@";
+"Time.MonthOfYear_3" = "Março %@";
+"Time.MonthOfYear_4" = "Abril %@";
+"Time.MonthOfYear_5" = "Maio %@";
+"Time.MonthOfYear_6" = "Junho %@";
+"Time.MonthOfYear_7" = "Julho %@";
+"Time.MonthOfYear_8" = "Agosto %@";
+"Time.MonthOfYear_9" = "Setembro %@";
+"Time.MonthOfYear_10" = "Outubro %@";
+"Time.MonthOfYear_11" = "Novembro %@";
+"Time.MonthOfYear_12" = "Dezembro %@";
+
+"Time.PreciseDate_1" = "%1$@ jan, %2$@ às %3$@";
+"Time.PreciseDate_2" = "%1$@ fev. %2$@ às %3$@";
+"Time.PreciseDate_3" = "%1$@ mar, %2$@ às %3$@";
+"Time.PreciseDate_4" = "%1$@ abr, %2$@ às %3$@";
+"Time.PreciseDate_5" = "%1$@ mai, %2$@ às %3$@";
+"Time.PreciseDate_6" = "%1$@ jun, %2$@ às %3$@";
+"Time.PreciseDate_7" = "%1$@ jul, %2$@ às %3$@";
+"Time.PreciseDate_8" = "%1$@ ago, %2$@ às %3$@";
+"Time.PreciseDate_9" = "%1$@ set, %2$@ às %3$@";
+"Time.PreciseDate_10" = "%1$@ out, %2$@ às %3$@";
+"Time.PreciseDate_11" = "%1$@ nov, %2$@ às %3$@";
+"Time.PreciseDate_12" = "%1$@ dez, %2$@ às %3$@";
+
+"MuteFor.Minutes_1" = "Silenciar por 1 minuto";
+"MuteFor.Minutes_2" = "Silenciar por 2 minutos";
+"MuteFor.Minutes_3_10" = "Silenciar por %@ minutos";
+"MuteFor.Minutes_any" = "Silenciar por %@ minutos";
+
+"MuteFor.Hours_1" = "Silenciar por 1 hora";
+"MuteFor.Hours_2" = "Silenciar por 2 horas";
+"MuteFor.Hours_3_10" = "Silenciar por %@ horas";
+"MuteFor.Hours_any" = "Silenciar por %@ horas";
+
+"MuteFor.Days_1" = "Silenciar por 1 dia";
+"MuteFor.Days_2" = "Silenciar por 2 dias";
+"MuteFor.Days_3_10" = "Silenciar por %@ dias";
+"MuteFor.Days_any" = "Silenciar por %@ dias";
+
+"MuteFor.Weeks_1" = "Silenciar por 1 semana";
+"MuteFor.Weeks_2" = "Silenciar por 2 semanas";
+"MuteFor.Weeks_3_10" = "Silenciar por %@ semanas";
+"MuteFor.Weeks_any" = "Silenciar por %@ semanas";
+
+"MuteExpires.Minutes_1" = "em 1 minuto";
+"MuteExpires.Minutes_2" = "em 2 minutos";
+"MuteExpires.Minutes_3_10" = "em %@ minutos";
+"MuteExpires.Minutes_any" = "em %@ minutos";
+
+"MuteExpires.Hours_1" = "em 1 hora";
+"MuteExpires.Hours_2" = "em 2 horas";
+"MuteExpires.Hours_3_10" = "em %@ horas";
+"MuteExpires.Hours_any" = "em %@ horas";
+
+"MuteExpires.Days_1" = "em 1 dia";
+"MuteExpires.Days_2" = "em 2 dias";
+"MuteExpires.Days_3_10" = "em %@ dias";
+"MuteExpires.Days_any" = "em %@ dias";
+
+"SharedMedia.EmptyTitle" = "Ainda não há arquivos";
+"SharedMedia.EmptyText" = "Compartilhar fotos e vídeos nesse chat\n— ou esse clipe de papel continuará infeliz.";
+"SharedMedia.EmptyFilesText" = "Você pode enviar e receber\narquivos de todos os tipos até 1.5 GB\ne acessá-los de onde estiver.";
+
+"ShareFileTip.Title" = "Compartilhando Arquivos";
+"ShareFileTip.Text" = "Você pode compartilhar arquivos de mídia **não-comprimidos** do Rolo da Câmera aqui. Para compartilhar arquivos de qualquer outro tipo, abra-os em seu %@ (ex: em seu navegador), clique **Abrir em...** ou o botão de ação e escolha TELEGRAM_APP_NAME.";
+"ShareFileTip.CloseTip" = "Fechar Dica";
+
+"DialogList.SearchSectionDialogs" = "Chats e Contatos";
+"DialogList.SearchSectionGlobal" = "Busca Global";
+"DialogList.SearchSectionMessages" = "Mensagens";
+
+"Username.LinkHint" = "Esse link abre um chat com você no TELEGRAM_APP_NAME:[\nhttps://t.me/%@]";
+"Username.LinkCopied" = "Link copiado para área de transferência";
+
+"SharedMedia.ItemsSelected_1" = "1 Selecionado";
+"SharedMedia.ItemsSelected_2" = "2 Selecionados";
+"SharedMedia.ItemsSelected_3_10" = "%@ Selecionados";
+"SharedMedia.ItemsSelected_any" = "%@ Selecionados";
+
+"SharedMedia.DeleteItemsConfirmation_1" = "Apagar arquivo de mídia?";
+"SharedMedia.DeleteItemsConfirmation_2" = "Apagar 2 arquivos de mídia?";
+"SharedMedia.DeleteItemsConfirmation_3_10" = "Apagar %@ arquivos de mídia?";
+"SharedMedia.DeleteItemsConfirmation_any" = "Apagar %@ arquivos de mídia?";
+
+"PrivacySettings.Passcode" = "Senha de Bloqueio";
+"PasscodeSettings.Title" = "Senha de Bloqueio";
+"PasscodeSettings.TurnPasscodeOn" = "Ativar Senha";
+"PasscodeSettings.TurnPasscodeOff" = "Desativar Senha";
+"PasscodeSettings.ChangePasscode" = "Alterar Senha";
+"PasscodeSettings.Help" = "Quando você definir uma senha adicional, um ícone de cadeado aparecerá na página de chats. Clique para bloquear e desbloquear o app.\n\nNota: se você esquecer a sua senha, terá de excluir e reinstalar o app. Todos os chats secretos serão perdidos.";
+"PasscodeSettings.UnlockWithTouchId" = "Desbloquear com Touch ID";
+"PasscodeSettings.SimplePasscode" = "Senha Simples";
+"PasscodeSettings.SimplePasscodeHelp" = "A senha simples é um número com 4 dígitos.";
+"PasscodeSettings.EncryptData" = "Criptografar Dados Locais";
+"PasscodeSettings.EncryptDataHelp" = "Função experimental, use com cautela. Criptografe seus dados locais do TELEGRAM_APP_NAME usando uma derivação da sua senha como chave.";
+
+"EnterPasscode.EnterTitle" = "Digite a sua senha do TELEGRAM_APP_NAME";
+"EnterPasscode.SetupTitle" = "Nova Senha";
+"EnterPasscode.ChangeTitle" = "Alterar Senha";
+"EnterPasscode.EnterPasscode" = "Digite a sua senha do TELEGRAM_APP_NAME";
+"EnterPasscode.EnterNewPasscodeNew" = "Insira uma senha";
+"EnterPasscode.EnterNewPasscodeChange" = "Insira sua nova senha";
+"EnterPasscode.RepeatNewPasscode" = "Digite novamente a sua senha do TELEGRAM_APP_NAME";
+"EnterPasscode.EnterCurrentPasscode" = "Digite a sua senha atual do TELEGRAM_APP_NAME";
+"EnterPasscode.TouchId" = "Insira sua senha";
+
+"DialogList.PasscodeLockHelp" = "Aperte para bloquear o TELEGRAM_APP_NAME";
+
+"PasscodeSettings.AutoLock" = "Auto-Bloquear";
+"PasscodeSettings.AutoLock.Disabled" = "Desativado";
+"PasscodeSettings.AutoLock.IfAwayFor_1minute" = "Se ausente por 1 min";
+"PasscodeSettings.AutoLock.IfAwayFor_5minutes" = "Se ausente por 5 min";
+"PasscodeSettings.AutoLock.IfAwayFor_1hour" = "Se ausente por 1 hora";
+"PasscodeSettings.AutoLock.IfAwayFor_5hours" = "Se ausente por 5 horas";
+
+"PasscodeSettings.FailedAttempts_1" = "1 Tentativa de Senha Falhada";
+"PasscodeSettings.FailedAttempts_2" = "2 Tentativas de Senha Falhadas";
+"PasscodeSettings.FailedAttempts_3_10" = "%@ Tentativas de Senha Falhadas";
+"PasscodeSettings.FailedAttempts_any" = "%@ Tentativa de Senha Falhada";
+"PasscodeSettings.TryAgainIn1Minute" = "Tente novamente em 1 minuto";
+
+"AccessDenied.Title" = "Liberar Acesso";
+
+"AccessDenied.Contacts" = "TELEGRAM_APP_NAME se baseia em sua lista de contato existente.\n\nPor favor, vá em Ajustes > Privacidade > Contatos e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.VoiceMicrophone" = "TELEGRAM_APP_NAME precisa acessar seu microfone para mensagens de voz.\n\nVá até Ajustes > Privacidade > Microfone e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.VideoMicrophone" = "TELEGRAM_APP_NAME precisa acessar seu microfone para gravar sons na gravação de vídeos.\n\nVá até Ajustes > Privacidade > Microfone e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.MicrophoneRestricted" = "O acesso ao microfone pelo TELEGRAM_APP_NAME está limitado.\n\nPor favor, vá em Ajustes > Geral > Restrições > Microfone e habilite o TELEGRAM_APP_NAME.";
+
+
+"AccessDenied.Camera" = "TELEGRAM_APP_NAME precisa acessar sua câmera para tirar fotos e vídeos.\n\nVá até Ajustes > Privacidade > Câmera e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.CameraRestricted" = "O acesso à câmera do seu celular está limitado.\n\nPor favor, vá em Ajustes > Geral > Restrições > Câmera e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.CameraDisabled" = "O acesso à câmera do seu celular está limitado.\n\nPor favor, vá em Ajustes > Geral > Restrições > Câmera e habilite.";
+
+"AccessDenied.PhotosAndVideos" = "O TELEGRAM_APP_NAME precisa acessar sua galeria de fotos para enviar fotos e vídeos.\n\nVá até Ajustes > Privacidade > Fotos e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.SaveMedia" = "O TELEGRAM_APP_NAME precisa acessar sua galeria de fotos para salvar fotos e vídeos.\n\nVá até Ajustes > Privacidade > Fotos e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.PhotosRestricted" = "O acesso às fotos pelo TELEGRAM_APP_NAME foi limitado.\n\nPor favor, vá em Ajustes > Geral > Restrições > Fotos e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.LocationDenied" = "O TELEGRAM_APP_NAME precisa acessar sua localização para poder compartilhá-la com seus contatos.\n\nVá até Ajustes > Privacidade > Serviços de Localização e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.LocationDisabled" = "O TELEGRAM_APP_NAME precisa acessar sua localização para poder compartilhá-la com seus contatos.\n\nVá até Ajustes > Privacidade > Serviços de Localização e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.LocationTracking" = "O TELEGRAM_APP_NAME precisa acessar sua localização para poder te mostrar no mapa.\n\nVá até Ajustes > Privacidade > Serviços de Localização e habilite o TELEGRAM_APP_NAME.";
+
+"AccessDenied.Settings" = "Configurações";
+
+"WebSearch.RecentClearConfirmation" = "Você tem certeza que deseja limpar as imagens recentes?";
+
+"FeatureDisabled.Oops" = "Oops";
+
+"Conversation.ContextMenuReply" = "Responder";
+
+"ForwardedMessages_1" = "Mensagem encaminhada";
+"ForwardedMessages_2" = "2 mensagens encaminhadas";
+"ForwardedMessages_3_10" = "%@ mensagens encaminhadas";
+"ForwardedMessages_any" = "%@ mensagens encaminhadas";
+
+"ForwardedFiles_1" = "Arquivo encaminhado";
+"ForwardedFiles_2" = "2 arquivos encaminhados";
+"ForwardedFiles_3_10" = "%@ arquivos encaminhados";
+"ForwardedFiles_any" = "%@ arquivos encaminhados";
+
+"ForwardedStickers_1" = "Sticker encaminhado";
+"ForwardedStickers_2" = "2 stickers encaminhados";
+"ForwardedStickers_3_10" = "%@ stickers encaminhados";
+"ForwardedStickers_any" = "%@ stickers encaminhados";
+
+"ForwardedPhotos_1" = "Foto encaminhada";
+"ForwardedPhotos_2" = "2 fotos encaminhadas";
+"ForwardedPhotos_3_10" = "%@ fotos encaminhadas";
+"ForwardedPhotos_any" = "%@ fotos encaminhadas";
+
+"ForwardedVideos_1" = "Vídeo encaminhado";
+"ForwardedVideos_2" = "2 vídeos encaminhados";
+"ForwardedVideos_3_10" = "%@ vídeos encaminhados";
+"ForwardedVideos_any" = "%@ vídeos encaminhados";
+
+"ForwardedAudios_1" = "Áudio encaminhado";
+"ForwardedAudios_2" = "2 áudios encaminhados";
+"ForwardedAudios_3_10" = "%@ áudios encaminhados";
+"ForwardedAudios_any" = "%@ áudios encaminhados";
+
+"ForwardedLocations_1" = "Localização encaminhada";
+"ForwardedLocations_2" = "2 localizações encaminhadas";
+"ForwardedLocations_3_10" = "%@ localizações encaminhadas";
+"ForwardedLocations_any" = "%@ localizações encaminhadas";
+
+"ForwardedGifs_1" = "GIF Encaminhado";
+"ForwardedGifs_2" = "2 GIFs Encaminhados";
+"ForwardedGifs_3_10" = "%@ GIFs Encaminhados";
+"ForwardedGifs_any" = "%@ GIFs encaminhados";
+
+"ForwardedContacts_1" = "Contato encaminhado";
+"ForwardedContacts_2" = "2 contatos encaminhados";
+"ForwardedContacts_3_10" = "%@ contatos encaminhados";
+"ForwardedContacts_any" = "%@ contatos encaminhados";
+
+"ForwardedAuthors2" = "%@, %@";
+"ForwardedAuthorsOthers_1" = "%@ e 1 outro";
+"ForwardedAuthorsOthers_2" = "%@ e 2 outros";
+"ForwardedAuthorsOthers_3_10" = "%@ e %@ outros";
+"ForwardedAuthorsOthers_any" = "%@ e %@ outros";
+
+"PrivacySettings.TwoStepAuth" = "Verificação em duas etapas";
+"TwoStepAuth.Title" = "Verificação em duas etapas";
+"TwoStepAuth.SetPassword" = "Configurar uma senha adicional";
+"TwoStepAuth.SetPasswordHelp" = "Você pode configurar uma senha que será requisitada quando você entrar em um novo aparelho, além do código que você receberá por SMS. ";
+"TwoStepAuth.SetupPasswordTitle" = "Sua senha";
+
+"TwoStepAuth.SetupHintTitle" = "Dica da senha";
+"TwoStepAuth.SetupHint" = "Por favor, crie uma dica para a sua senha";
+
+"TwoStepAuth.ChangePassword" = "Alterar senha";
+"TwoStepAuth.RemovePassword" = "Desabilitar senha";
+"TwoStepAuth.SetupEmail" = "Configurar e-mail de recuperação";
+"TwoStepAuth.ChangeEmail" = "Alterar e-mail de recuperação";
+"TwoStepAuth.PendingEmailHelp" = "O seu e-mail de recuperação %@ ainda não está ativo e aguarda confirmação.";
+"TwoStepAuth.GenericHelp" = "Você habilitou a verificação em duas etapas.\nSerá preciso a senha definida aqui para entrar em sua conta do TELEGRAM_APP_NAME.";
+
+"TwoStepAuth.ConfirmationTitle" = "Verificação em duas etapas";
+"TwoStepAuth.ConfirmationText" = "Por favor, verifique o seu e-mail e clique no link de validação para completar a configuração da verificação em duas etapas. Verifique também a pasta spam.";
+"TwoStepAuth.ConfirmationChangeEmail" = "Alterar e-mail";
+"TwoStepAuth.ConfirmationAbort" = "Cancelar a Configuração da Verificação em Duas Etapas";
+
+"TwoStepAuth.SetupPasswordEnterPasswordNew" = "Insira uma senha:";
+"TwoStepAuth.SetupPasswordEnterPasswordChange" = "Por favor, insira sua nova senha:";
+"TwoStepAuth.SetupPasswordConfirmPassword" = "Por favor, digite sua senha novamente";
+"TwoStepAuth.SetupPasswordConfirmFailed" = "As senhas não são iguais. Por favor, tente novamente.";
+
+"TwoStepAuth.EnterPasswordTitle" = "Senha";
+"TwoStepAuth.EnterPasswordPassword" = "Senha";
+"TwoStepAuth.EnterPasswordHint" = "Dica: %@";
+"TwoStepAuth.EnterPasswordHelp" = "Você habilitou a verificação em duas etapas, a sua conta está protegida com uma senha adicional.";
+"TwoStepAuth.EnterPasswordInvalid" = "Senha inválida. Por favor, tente novamente.";
+"TwoStepAuth.EnterPasswordForgot" = "Esqueceu a senha?";
+
+"TwoStepAuth.EmailTitle" = "E-mail de recuperação";
+"TwoStepAuth.EmailSkip" = "Pular";
+"TwoStepAuth.EmailSkipAlert" = "É sério!\n\nSe você esquecer a sua senha, você perderá o acesso a sua conta do TELEGRAM_APP_NAME. Não há nenhuma forma de recuperá-la.";
+"TwoStepAuth.Email" = "E-Mail";
+"TwoStepAuth.EmailPlaceholder" = "Seu e-mail";
+"TwoStepAuth.EmailHelp" = "Por favor, adicione um e-mail válido. Essa é a única forma de recuperar uma senha esquecida.";
+"TwoStepAuth.EmailInvalid" = "E-mail inválido. Por favor, tente novamente.";
+"TwoStepAuth.EmailSent" = "Nós lhe enviamos um e-mail para conferir o seu endereço.";
+"TwoStepAuth.PasswordSet" = "A sua senha para a verificação em duas etapas foi ativada.";
+"TwoStepAuth.PasswordRemoveConfirmation" = "Você tem certeza que deseja desabilitar a sua senha?";
+
+"TwoStepAuth.RecoveryUnavailable" = "Como você não indicou um e-mail de recuperação quando configurou a sua senha, as únicas opções são lembrar a senha ou apagar a sua conta.";
+"TwoStepAuth.RecoveryFailed" = "As únicas opções restantes são lembrar a senha ou apagar a sua conta.";
+"TwoStepAuth.ResetAccount" = "Apagar minha conta";
+"TwoStepAuth.ResetAccountHelp" = "Se você prosseguir e apagar a sua conta, você perderá todos os seus chats e mensagens, assim como todas as suas mídias e arquivos compartilhados.";
+"TwoStepAuth.ResetAccountConfirmation" = "Se você prosseguir e apagar a sua conta, você perderá todos os seus chats e mensagens, assim como todas as suas mídias e arquivos compartilhados.";
+
+"TwoStepAuth.RecoveryTitle" = "Código do e-mail";
+"TwoStepAuth.RecoverySent" = "O código de recuperação foi enviado para o e-mail fornecido: \n\n%@";
+"TwoStepAuth.RecoveryCode" = "Código";
+"TwoStepAuth.RecoveryCodeHelp" = "Por favor, verifique o seu e-mail e digite aqui o código de 6 dígitos recebido.";
+"TwoStepAuth.RecoveryCodeInvalid" = "Código inválido. Por favor, tente novamente.";
+"TwoStepAuth.RecoveryCodeExpired" = "Nós lhe enviamos um código de 6 dígitos.";
+"TwoStepAuth.RecoveryEmailUnavailable" = "Está tendo problemas para acessar seu e-mail %@?";
+
+"TwoStepAuth.FloodError" = "Limite excedido. Por favor tente novamente mais tarde.";
+"TwoStepAuth.GenericError" = "Ocorreu um erro. Por favor tente novamente mais tarde.";
+
+"Conversation.FilePhotoOrVideo" = "Foto ou Vídeo";
+"Conversation.FileICloudDrive" = "iCloud Drive";
+"Conversation.FileDropbox" = "Dropbox";
+"Conversation.FileGoogleDrive" = "Google Drive";
+
+"Conversation.FileHowTo" = "Como compartilhar arquivos?";
+"Conversation.FileOpenIn" = "Abrir em...";
+"Conversation.FileHowToText" = "Para compartilhar arquivos de qualquer tipo, abra-os em seu %@ (ex: em seu navegador), clique **Abrir em...** ou no botão de ação e escolha o TELEGRAM_APP_NAME.";
+
+"Map.LocationTitle" = "Localização";
+"Map.OpenInMaps" = "Abrir no Maps";
+"Map.OpenInGooglePlus" = "Abrir no Google Plus";
+"Map.OpenInFoursquare" = "Abrir no Foursquare";
+"Map.OpenInHereMaps" = "Abrir no HERE Maps";
+"Map.OpenInYandexMaps" = "Abrir no Yandex Maps";
+"Map.OpenInYandexNavigator" = "Abrir no Yandex Navigator";
+"Map.OpenIn" = "Abrir Em";
+"Map.More" = "Mais...";
+
+"Map.SendThisLocation" = "Enviar essa localização";
+"Map.SendMyCurrentLocation" = "Enviar minha localização atual";
+"Map.Locating" = "Localizando...";
+"Map.ChooseAPlace" = "Ou escolha um lugar";
+"Map.AccurateTo" = "Precisão de %@";
+"Map.Search" = "Procurar lugares próximos";
+"Map.ShowPlaces" = "Mostrar lugares";
+"Map.LoadError" = "Ocorreu um erro. Tente novamente.";
+"Map.LocatingError" = "Falha ao alocar";
+"Map.Unknown" = "Localização desconhecida";
+
+"Map.DistanceAway" = "%@ distante";
+"Map.ETAMinutes_any" = "%@ min";
+"Map.ETAHours_1" = "%@ h";
+"Map.ETAHours_any" = "%@ h";
+
+"GoogleDrive.Title" = "Google Drive";
+"GoogleDrive.Logout" = "Sair";
+"GoogleDrive.LogoutTitle" = "Sair";
+"GoogleDrive.LogoutMessage" = "Você tem certeza que deseja sair do Google Drive?";
+"GoogleDrive.LogoutLogout" = "Sair";
+"GoogleDrive.FolderIsEmpty" = "Pasta vazia.";
+"GoogleDrive.FolderLoadError" = "Incapaz de carregar pasta.";
+"GoogleDrive.LoadErrorTitle" = "Incapaz de Conectar";
+"GoogleDrive.LoadErrorMessage" = "Verifique sua conexão com a internet e tente novamente";
+
+"ChangePhone.ErrorOccupied" = "O número %@ já possui uma conta do TELEGRAM_APP_NAME. Por favor, delete esta conta antes de migrar para o novo número.";
+
+"AccessDenied.LocationTracking" = "O TELEGRAM_APP_NAME precisa acessar sua localização para poder te mostrar no mapa.\n\nVá até Ajustes > Privacidade > Serviços de Localização e habilite o TELEGRAM_APP_NAME.";
+
+"PrivacySettings.AuthSessions" = "Sessões Ativas";
+"AuthSessions.Title" = "Sessões Ativas";
+"AuthSessions.CurrentSession" = "SESSÃO ATUAL";
+"AuthSessions.TerminateOtherSessions" = "Terminar todas as outras sessões";
+"AuthSessions.TerminateOtherSessionsHelp" = "Sair de todos os dispositivos, exceto este.";
+"AuthSessions.TerminateSession" = "Encerrar sessão";
+"AuthSessions.OtherSessions" = "SESSÕES ATIVAS";
+"AuthSessions.EmptyTitle" = "Nenhuma outra sessão";
+"AuthSessions.EmptyText" = "Você pode entrar no TELEGRAM_APP_NAME a partir de outro celular, tablet ou computador usando o mesmo número de telefone. Todos os seus dados serão sincronizados instantaneamente.";
+"AuthSessions.AppUnofficial" = "(ID: %@)";
+
+"WebPreview.GettingLinkInfo" = "Obtendo informações...";
+"WebPreview.LinkPreview" = "Link Preview";
+
+"Preview.OpenInInstagram" = "Abrir no Instagram";
+
+"MediaPicker.AddCaption" = "Adicionar legenda...";
+
+"GroupInfo.InviteByLink" = "Convidar para o Grupo via Link";
+
+"GroupInfo.InviteLink.Title" = "Link de Convite";
+"GroupInfo.InviteLink.LinkSection" = "LINK";
+"GroupInfo.InviteLink.Help" = "Qualquer um com TELEGRAM_APP_NAME instalado poderá entrar no seu grupo abrindo este link.";
+"GroupInfo.InviteLink.CopyLink" = "Copiar Link";
+"GroupInfo.InviteLink.RevokeLink" = "Desativar Link";
+"GroupInfo.InviteLink.ShareLink" = "Compartilhar Link";
+"GroupInfo.InviteLink.RevokeAlert.Text" = "Você tem certeza que deseja desativar o link? Uma vez feito, ninguém conseguirá entrar no grupo usando-o.";
+"GroupInfo.InviteLink.RevokeAlert.Revoke" = "Desativar";
+"GroupInfo.InviteLink.RevokeAlert.Success" = "Este link de convite está inativo. Um novo link foi gerado.";
+"GroupInfo.InviteLink.CopyAlert.Success" = "Link copiado para área de transferência.";
+
+"UserInfo.ShareMyContactInfo" = "Compartilhar Meu Contato";
+
+"GroupInfo.InvitationLinkAccept" = "Você deseja entrar no chat \"%@\"?";
+"GroupInfo.InvitationLinkAcceptChannel" = "Você deseja entrar no canal \"%@\"?";
+"GroupInfo.InvitationLinkAlreadyAccepted" = "Você já é um membro deste grupo.";
+"GroupInfo.InvitationLinkDoesNotExist" = "Desculpe, esse grupo não existe.";
+"GroupInfo.InvitationLinkGroupFull" = "Desculpe, este grupo já está lotado.";
+
+"Core.ServiceUserStatus" = "Notificações de Serviço";
+
+"Notification.JoinedGroupByLink" = "%@ entrou para o grupo via link de convite";
+
+"ChatSettings.Other" = "OUTROS";
+"ChatSettings.Stickers" = "Stickers";
+
+"StickerPacksSettings.Title" = "Stickers";
+"StickerPacksSettings.ShowStickersButton" = "Mostrar Aba de Stickers";
+"StickerPacksSettings.ShowStickersButtonHelp" = "Um ícone aparecerá no campo de digitação.";
+
+"StickerPacksSettings.StickerPacksSection" = "PACOTES DE STICKERS";
+"StickerPacksSettings.ManagingHelp" = "Artistas são bem vindos a adicionar seus próprios pacotes usando o @stickers bot.\n\nToque sobre um sticker para visualizar todo o pacote.";
+
+"StickerPack.RemovePrompt" = "Remover \"%@\"?";
+"StickerPack.BuiltinPackName" = "Grandes Mentes";
+"StickerPack.StickerCount_1" = "1 sticker";
+"StickerPack.StickerCount_2" = "2 stickers";
+"StickerPack.StickerCount_3_10" = "%@ stickers";
+"StickerPack.StickerCount_any" = "%@ stickers";
+
+"StickerPack.AddStickerCount_1" = "Adicionar 1 Sticker";
+"StickerPack.AddStickerCount_2" = "Adicionar 2 Stickers";
+"StickerPack.AddStickerCount_3_10" = "Adicionar %@ Stickers";
+"StickerPack.AddStickerCount_any" = "Adicionar %@ Stickers";
+
+"StickerPack.ShareStickers" = "Compartilhar Stickers";
+
+"Conversation.ContextMenuStickerPackAdd" = "Adicionar";
+"Conversation.ContextMenuStickerPackInfo" = "Info";
+
+"MediaPicker.Processing" = "Processando %@";
+"MediaPicker.Nof" = "%@ de";
+
+"UserInfo.ShareBot" = "Compartilhar";
+"UserInfo.InviteBotToGroup" = "Adicionar Ao Grupo";
+"Profile.BotInfo" = "sobre";
+"Profile.ShareBotPersonFormat" = "Compartilhar o bot com %@?";
+"Profile.ShareBotGroupFormat" = "Compartilhar o bot com %@?";
+
+"Target.SelectGroup" = "Escolher Grupo";
+"Target.InviteToGroupConfirmation" = "Adicionar o bot em %@?";
+"Target.InviteToGroupErrorAlreadyInvited" = " O bot já é um membro do grupo.";
+"Bot.GenericBotStatus" = "bot";
+"Bot.DescriptionTitle" = "O que esse bot pode fazer?";
+"Bot.GroupStatusReadsHistory" = "tem acesso às mensagens";
+"Bot.GroupStatusDoesNotReadHistory" = "não tem acesso às mensagens";
+"Bot.Start" = "Iniciar";
+"UserInfo.BotSettings" = "Configurações";
+"UserInfo.BotHelp" = "Ajuda";
+
+"Contacts.SearchLabel" = "Contato ou nome de usuário";
+"ChatSearch.SearchPlaceholder" = "Busca";
+
+"WatchRemote.NotificationText" = "Abra essa notificação no celular para visualizar a mensagem de seu Apple Watch";
+"WatchRemote.AlertTitle" = "Mensagem do seu Apple Watch";
+"WatchRemote.AlertText" = "Abrir mensagem aqui?";
+"WatchRemote.AlertOpen" = "Abrir";
+
+"Conversation.SearchPlaceholder" = "Buscar neste chat";
+"Conversation.SearchNoResults" = "Sem Resultados";
+
+"GroupInfo.AddUserLeftError" = "Desculpe, se a pessoa deixou o grupo, somente com contato mútuo será possível adicionar novamente (eles precisam de seu número de telefone e você do deles).";
+
+"DialogList.SearchSectionRecent" = "Recente";
+
+"DialogList.DeleteBotConfirmation" = "Apagar";
+"DialogList.DeleteBotConversationConfirmation" = "Apagar e Parar";
+"Bot.Stop" = "Parar Bot";
+"Bot.Unblock" = "Reiniciar Bot";
+
+"Login.PhoneNumberHelp" = "Ajuda";
+"Login.EmailPhoneSubject" = "Número inválido %@";
+"Login.EmailPhoneBody" = "Eu estou tentando usar o meu número: %@\nMas o TELEGRAM_APP_NAME diz que é inválido. Por favor, ajude.";
+
+"SharedMedia.TitleLink" = "Links Compartilhados";
+"SharedMedia.EmptyLinksText" = "Todos os links compartilhados no chat aparecerão aqui.";
+
+"SharedMedia.Link_1" = "1 link";
+"SharedMedia.Link_2" = "2 links";
+"SharedMedia.Link_3_10" = "%@ links";
+"SharedMedia.Link_any" = "%@ links";
+
+"Compose.NewChannelButton" = "Novo Canal";
+"Channels.Title" = "Canais";
+
+"Compose.NewChannel" = "Novo Canal";
+"GroupInfo.ChannelListNamePlaceholder" = "Nome do Canal";
+
+"Channel.MessagePhotoUpdated" = "Foto do canal atualizada";
+"Channel.MessagePhotoRemoved" = "Foto do canal removida";
+"Channel.MessageTitleUpdated" = "Canal renomeado para \"%@\"";
+"Channel.TitleInfo" = "Info do Canal";
+
+"Channel.UpdatePhotoItem" = "Definir Foto do Canal";
+
+"Channel.AboutItem" = "sobre";
+"Channel.LinkItem" = "compartilhar link";
+"Channel.Edit.AboutItem" = "Descrição";
+"Channel.Edit.LinkItem" = "Link";
+
+"Channel.Username.Title" = "Link";
+"Channel.Username.Help" = "Você pode escolher um nome de canal no **TELEGRAM_APP_NAME**. Se você fizer, outras pessoas poderão encontrar seu canal pelo nome.\n\nVocê pode usar **a-z**, **0-9** e underline. O tamanho mínimo é de **5** caracteres.";
+"Channel.Username.LinkHint" = "Esse link abre o seu canal no TELEGRAM_APP_NAME:[\nhttps://t.me/%@]";
+"Channel.Username.InvalidTooShort" = "Nome do canal deve ter pelo menos 5 caracteres.";
+"Channel.Username.InvalidStartsWithNumber" = "Nome do canal não pode iniciar com número.";
+"Channel.Username.InvalidCharacters" = "Desculpe, esse nome é inválido.";
+"Channel.Username.InvalidTaken" = "Desculpe, nome já está em uso.";
+"Channel.Username.CheckingUsername" = "Verificando nome...";
+"Channel.Username.UsernameIsAvailable" = "%@ está disponível.";
+
+"Channel.Share" = "Compartilhar";
+"Channel.LeaveChannel" = "Sair do Canal";
+
+"Channel.About.Title" = "Descrição";
+
+"Channel.About.Placeholder" = "Descrição";
+"Channel.About.Help" = "Você pode providenciar uma descrição opcional para o seu canal.";
+"Group.About.Help" = "Você pode providenciar uma descrição para o seu grupo.";
+"Channel.About.Error" = "Ocorreu um erro.";
+"Channel.ShareNoLink" = "Selecione um link para o seu canal para as pessoas encontrarem na busca.";
+
+"Channel.Status" = "canal";
+"Group.Status" = "grupo";
+
+"Compose.NewChannel.Members" = "MEMBROS";
+"Compose.NewChannel.AddMember" = "Adicionar Membro...";
+"Compose.NewChannel.AddMemberHelp" = "Você pode convidar seus contatos para entrar no canal agora ou adicioná-los depois.";
+"Channel.NotificationSelfAdded" = "%@ adicionou você ao canal";
+
+"ChannelInfo.ConfirmLeave" = "Sair do Canal";
+"Channel.JoinChannel" = "Entrar";
+"Forward.ChannelReadOnly" = "Desculpe, você não pode postar nesse canal.";
+
+"Conversation.InfoChannel" = "Canal";
+
+"Channel.ErrorAccessDenied" = "Desculpe, esse canal é privado.";
+"Conversation.InputTextBroadcastPlaceholder" = "Transmissão";
+
+"Channel.NotificationCommentsEnabled" = "Comentários habilitados";
+"Channel.NotificationCommentsDisabled" = "Comentários desabilitados";
+"Channel.Edit.EnableComments" = "Comentários";
+
+"Channel.TitleShowDiscussion" = "mostrar comentários";
+"Channel.ShareChannel" = "Compartilhar";
+
+"Channel.NotificationComments_1" = "1 comentário";
+"Channel.NotificationComments_2" = "2 comentários";
+"Channel.NotificationComments_3_10" = "%@ comentários";
+"Channel.NotificationComments_any" = "%@ comentários";
+"Channel.NotificationLoading" = "Carregando...";
+
+"Conversation.InputTextDisabledPlaceholder" = "Comentários desabilitados";
+"Compose.ChannelTokenListPlaceholder" = "Contato ou nome de usuário";
+"Compose.GroupTokenListPlaceholder" = "Contato ou nome de usuário";
+
+"Compose.ChannelMembers" = "Membros";
+
+"Channel.Setup.TypeHeader" = "TIPO DO CANAL";
+"Channel.Setup.TypePrivate" = "Privado";
+"Channel.Setup.TypePublic" = "Público";
+"Channel.Setup.TypePublicHelp" = "Canais públicos podem ser encontrados na busca, qualquer um pode entrar.";
+"Channel.Setup.TypePrivateHelp" = "Canais privados só pode ser aderido através de um link de convite.";
+
+"Channel.Setup.Title" = "Canal";
+
+"Channel.Username.CreatePublicLinkHelp" = "Pessoas podem compartilhar esse link com outros e encontrar o seu canal usando a busca do TELEGRAM_APP_NAME";
+"Channel.Username.CreatePrivateLinkHelp" = "Pessoas podem entrar em seu canal por este link. Você pode revogar o link quando quiser.";
+
+"Channel.Username.CreateCommentsEnabled" = "Comentários";
+"Channel.Username.CreateCommentsHelp" = "Se você habilitar comentários, membros poderão discutir seu post no canal.";
+
+"Channel.Setup.PublicNoLink" = "Por favor, escolha um link para o seu canal público, assim as pessoas poderão encontrá-lo na busca e compartilhar com outros.\n\nSe não estiver interessado, em vez disso sugerimos criar um canal privado.";
+
+"Channel.Edit.PrivatePublicLinkAlert" = "Note que ao escolher um link público para o canal, qualquer um poderá encontrá-lo na busca e entrar.\n\nNão crie esse link se você deseja que seu canal seja privado.";
+
+"Channel.Info.Description" = "descrição";
+
+"Channel.Info.Management" = "Administradores";
+"Channel.Info.BlackList" = "Lista Negra";
+"Channel.Info.Members" = "Membros";
+
+"Channel.Members.AddMembers" = "Adicionar Membros";
+"Channel.Members.AddMembersHelp" = "Somente os administradores podem ver essa lista.";
+"Channel.Members.Title" = "Membros";
+"Channel.BlackList.Title" = "Lista Negra";
+"Channel.Management.Title" = "Administradores";
+"Channel.Management.LabelCreator" = "Criador";
+"Channel.Management.LabelModerator" = "Moderador";
+"Channel.Management.LabelEditor" = "Administrador";
+
+"Channel.Management.AddModerator" = "Adicionar Administrador";
+"Channel.Management.AddModeratorHelp" = "Você pode adicionar administradores para ajudar a gerenciar seu canal.";
+
+"Channel.Members.Kick" = "Remover";
+"Channel.Management.Remove" = "Remover";
+
+"Conversation.InputTextCommentPlaceholder" = "Comentário";
+
+"Channel.Members.InviteLink" = "Convidar via Link";
+
+"Channel.Management.ErrorNotMember" = "%@ não entrou no seu canal ainda. Você deseja enviar um convite?";
+
+"Channel.Moderator.AccessLevelHeader" = "NÍVEL DE ACESSO";
+"Channel.Moderator.AccessLevelEditor" = "Editor";
+"Channel.Moderator.AccessLevelModerator" = "Moderador";
+
+"Channel.Moderator.AccessLevelModeratorHelp" = "Moderadores podem remover comentários de usuários e gerenciar a lista negra do canal.\n\nModeradores não podem mudar o nome do canal, link, foto e descrição.";
+"Channel.Moderator.AccessLevelEditorHelp" = "Editores podem postar como o canal, gerenciar a lista negra e remover posts.\n\nEditores não podem mudar o nome do canal, link, foto e descrição.";
+"Channel.Moderator.AccessLevelRevoke" = "Dispensar Moderador";
+
+"Channel.Moderator.Title" = "Moderador";
+
+"Notification.ChannelInviter" = "%@ convidou você para esse canal";
+"Notification.ChannelInviterSelf" = "Você entrou nesse canal";
+
+"Notification.GroupInviter" = "%@ convidou você para este grupo";
+"Notification.GroupInviterSelf" = "Você entrou nesse grupo";
+
+"ChannelInfo.DeleteChannel" = "Apagar Canal";
+"ChannelInfo.DeleteChannelConfirmation" = "Espere! Apagando esse canal removerá todos os membros e todas as mensagens serão perdidas. Apagar assim mesmo?";
+
+"Channel.Username.InvalidTooManyUsernames" = "Desculpe, você criou muitos canais públicos. Você pode criar um canal privado ou apagar um de seus canais existentes primeiro.";
+
+"ChannelInfo.ChannelForbidden" = "Desculpe, o canal \"%@\" não é acessível.";
+
+"PhotoEditor.FadeTool" = "Fade";
+"PhotoEditor.TintTool" = "Matiz";
+"PhotoEditor.TintIntensity" = "Intensidade da Matiz";
+"PhotoEditor.ShadowsTint" = "Sombras";
+"PhotoEditor.HighlightsTint" = "Luzes";
+"PhotoEditor.CurvesTool" = "Curvas";
+"PhotoEditor.CurvesAll" = "Todos";
+"PhotoEditor.CurvesRed" = "Vermelho";
+"PhotoEditor.CurvesGreen" = "Verde";
+"PhotoEditor.CurvesBlue" = "Azul";
+
+"Channel.ErrorAddBlocked" = "Desculpe, você não pode adicionar esse usuário em canais.";
+"Channel.ErrorAddTooMuch" = "Desculpe, você só pode adicionar os primeiros 200 membros ao canal. Note que um número ilimitado de pessoas podem entrar via link do canal.";
+
+"ChannelIntro.Title" = "O que é um Canal?";
+"ChannelIntro.Text" = "Canais são uma nova ferramenta\npara transmissão de suas mensagens\npara grandes audiências.";
+"ChannelIntro.CreateChannel" = "Criar Canal";
+
+"ShareMenu.Send" = "Enviar";
+
+"Conversation.ReportSpam" = "Reportar Spam";
+"Conversation.ReportSpamConfirmation" = "Você tem certeza que deseja reportar esse usuário por spam?";
+"SharedMedia.EmptyMusicText" = "Todas as músicas compartilhadas no chat aparecerão aqui.";
+
+"ChatSettings.AutoPlayAnimations" = "Auto-Reproduzir GIFs";
+
+"GroupInfo.ChatAdmins" = "Adicionar Administradores";
+
+"ChatAdmins.Title" = "Administradores do Chat";
+"ChatAdmins.AllMembersAreAdmins" = "Todos São Administradores";
+"ChatAdmins.AllMembersAreAdminsOnHelp" = "Todos podem adicionar novos membros, editar nome e foto do grupo.";
+"ChatAdmins.AllMembersAreAdminsOffHelp" = "Somente administradores podem adicionar e remover membros, editar nome e a foto do grupo.";
+"ChatAdmins.AdminLabel" = "Administrador";
+
+"Group.MessagePhotoUpdated" = "A foto do grupo foi atualizada";
+"Group.MessagePhotoRemoved" = "A foto do grupo foi removida";
+"Group.MessageTitleUpdated" = "O nome do grupo foi mudado para \"%@\"";
+
+"Group.UpgradeNoticeHeader" = "LIMITE DE MEMBROS ALCANÇADO";
+
+"Group.UpgradeNoticeText1" = "Para ir além do limite e ter funcionalidades adicionais, converta a um supergrupo:";
+"Group.UpgradeNoticeText2" = "• Supergrupos podem ter até {supergroup_member_limit} membros \n• Novos membros podem ver todo o histórico do grupo \n• Administradores podem excluir as mensagens para todos\n• Notificações são silenciadas por padrão";
+"GroupInfo.UpgradeButton" = "Converter a supergrupo";
+"Group.UpgradeConfirmation" = "Atenção: essa ação é irreversível. Não é possível voltar de um supergrupo para um grupo normal.";
+
+"Notification.GroupMigratedToChannel" = "Esse grupo foi convertido para um supergrupo";
+"Notification.GroupDeactivated" = "Grupo desativado";
+"Notification.GroupDeactivated" = "Grupo desativado";
+"Notification.ChannelMigratedFrom" = "Esse grupo foi convertido para um supergrupo";
+
+"Conversation.StatusGroupDeactivated" = "grupo desativado";
+"GroupInfo.DeactivatedStatus" = "Grupo Desativado";
+
+"Notification.RenamedGroup" = "Grupo renomeado";
+
+"Group.ErrorAddTooMuch" = "Desculpe, o grupo está lotado.";
+"Group.ErrorAddTooMuchBots" = "Desculpe, você atingiu o número máximo de bots para esse grupo.";
+"Group.ErrorAddTooMuchAdmins" = "Desculpe, você atingiu o número máximo de administradores para esse grupo.";
+"Group.ErrorAddBlocked" = "Desculpe, você não pode adicionar esse usuário em grupos.";
+"Group.ErrorNotMutualContact" = "Desculpe, você só pode adicionar contatos mútuos à grupos no momento.";
+
+"Conversation.SendMessageErrorFlood" = "Desculpe, você pode enviar mensagens somente para contatos mútuos no momento.";
+"Generic.ErrorMoreInfo" = "Mais informações";
+
+"Notification.InvitedMany" = "%@ convidou %@";
+
+"ChannelMembers.Blacklist.EmptyText" = "Usuários na Lista Negra são removidos do grupo e só podem voltar se convidados por um administrador. Links de convite não funcionam para eles.";
+
+"ChannelInfo.DeleteGroup" = "Apagar Grupo";
+"ChannelInfo.DeleteGroupConfirmation" = "Espere! Apagar este grupo removerá todos os membros e todas as mensagens serão perdidas. Apagar o grupo mesmo assim?";
+
+"ReportPeer.Report" = "Reportar";
+
+"ReportPeer.ReasonSpam" = "Spam";
+"ReportPeer.ReasonViolence" = "Violência";
+"ReportPeer.ReasonPornography" = "Pornografia";
+"ReportPeer.ReasonOther" = "Outro";
+
+"ReportPeer.AlertSuccess" = "Obrigado!\nO relatório será revisado pela nossa equipe em breve.";
+
+"Login.TermsOfServiceLabel" = "Ao inscrever-se,\nVocê concorda com os [Termos de Serviço].";
+"Login.TermsOfServiceHeader" = "Termos de Serviço";
+
+"ReportPeer.ReasonOther.Placeholder" = "Descrição";
+"ReportPeer.ReasonOther.Title" = "Reportar";
+"ReportPeer.ReasonOther.Send" = "Enviar";
+
+"Group.Management.AddModeratorHelp" = "Você pode adicionar administradores para ajudar a gerenciar seu grupo.";
+
+"Watch.AppName" = "TELEGRAM_APP_NAME";
+"Watch.Compose.AddContact" = "Escolher Contato";
+"Watch.Compose.CreateMessage" = "Criar Mensagem";
+"Watch.Compose.CurrentLocation" = "Localização Atual";
+"Watch.Compose.Send" = "Enviar";
+"Watch.Contacts.NoResults" = "Nenhum contato\ncorrespondente";
+"Watch.ChatList.NoConversationsTitle" = "Nenhuma Conversa";
+"Watch.ChatList.NoConversationsText" = "Para iniciar\nPressione, depois toque\nem Nova Mensagem";
+"Watch.ChatList.Compose" = "Nova Mensagem";
+
+"Watch.Conversation.Reply" = "Responder";
+"Watch.Conversation.Unblock" = "Desbloquear";
+"Watch.Conversation.UserInfo" = "Informações";
+"Watch.Conversation.GroupInfo" = "Informações do Grupo";
+"Watch.Bot.Restart" = "Reiniciar";
+
+"Watch.UserInfo.Title" = "Informações";
+"Watch.UserInfo.Service" = "notificações de serviço";
+
+"Watch.UserInfo.Block" = "Bloquear";
+"Watch.UserInfo.Unblock" = "Desbloquear";
+"Watch.UserInfo.Mute_1" = "Silenciar por 1 hora";
+"Watch.UserInfo.Mute_2" = "Silenciar por 2 horas";
+"Watch.UserInfo.Mute_3_10" = "Silenciar por %@ horas";
+"Watch.UserInfo.Mute_any" = "Silenciar por %@ horas";
+"Watch.UserInfo.MuteTitle" = "Silenciar";
+"Watch.UserInfo.Unmute" = "Restaurar Som";
+
+"Watch.GroupInfo.Title" = "Informações do Grupo";
+"Watch.ChannelInfo.Title" = "Info do Canal";
+
+"Watch.Message.ForwardedFrom" = "Encaminhado de";
+
+"Watch.Notification.Joined" = "Entrou para o TELEGRAM_APP_NAME";
+
+"Watch.MessageView.Title" = "Mensagem";
+"Watch.MessageView.Forward" = "Encaminhar";
+"Watch.MessageView.Reply" = "Responder";
+"Watch.MessageView.ViewOnPhone" = "Visualizar No Celular";
+
+"Watch.PhotoView.Title" = "Foto";
+
+"Watch.Stickers.Recents" = "Recentes";
+"Watch.Stickers.RecentPlaceholder" = "Seus stickers mais frequentes aparecerão aqui";
+"Watch.Stickers.StickerPacks" = "Pacotes de Sticker";
+
+"Watch.Location.Current" = "Localização Atual";
+"Watch.Location.Access" = "Permitir acesso à localização para o TELEGRAM_APP_NAME";
+
+"Watch.AuthRequired" = "Entre no TELEGRAM_APP_NAME em seu celular para iniciar";
+"Watch.UnlockRequired" = "Desbloquear TELEGRAM_APP_NAME em seu celular";
+
+"Watch.NoConnection" = "Sem Conexão";
+"Watch.ConnectionDescription" = "Seu Watch precisa estar conectado para o app funcionar";
+
+"Watch.State.Connecting" = "Conectando...";
+"Watch.State.Updating" = "Atualizando...";
+"Watch.State.WaitingForNetwork" = "Sem Rede";
+
+"Watch.Time.ShortTodayAt" = "Hoje %@";
+"Watch.Time.ShortYesterdayAt" = "Ontem %@";
+"Watch.Time.ShortWeekdayAt" = "%1$@ %2$@";
+"Watch.Time.ShortFullAt" = "%1$@ %2$@";
+
+"Watch.LastSeen.JustNow" = "agora mesmo";
+"Watch.LastSeen.MinutesAgo_1" = "1 minuto atrás";
+"Watch.LastSeen.MinutesAgo_2" = "2 minutos atrás";
+"Watch.LastSeen.MinutesAgo_3_10" = "%@ minutos atrás";
+"Watch.LastSeen.MinutesAgo_any" = "%@ minutos atrás";
+"Watch.LastSeen.HoursAgo_1" = "1 hora atrás";
+"Watch.LastSeen.HoursAgo_2" = "2 horas atrás";
+"Watch.LastSeen.HoursAgo_3_10" = "%@ horas atrás";
+"Watch.LastSeen.HoursAgo_any" = "%@ horas atrás";
+"Watch.LastSeen.TodayAt" = "hoje às %@";
+"Watch.LastSeen.YesterdayAt" = "ontem às %@";
+"Watch.LastSeen.AtWeekday" = "%@";
+"Watch.LastSeen.AtDate" = "%@";
+"Watch.LastSeen.Lately" = "recentemente";
+"Watch.LastSeen.WithinAWeek" = "na última semana";
+"Watch.LastSeen.WithinAMonth" = "no último mês";
+"Watch.LastSeen.ALongTimeAgo" = "há muito tempo";
+
+"Watch.Suggestion.OK" = "OK";
+"Watch.Suggestion.ThankYou" = "Obrigado.";
+"Watch.Suggestion.Thanks" = "Obrigado!";
+"Watch.Suggestion.WhatsUp" = "E aí?";
+"Watch.Suggestion.Yes" = "Sim";
+"Watch.Suggestion.No" = "Não";
+"Watch.Suggestion.Absolutely" = "Absolutamente";
+"Watch.Suggestion.Nope" = "Não";
+"Watch.Suggestion.TalkLater" = "Conversamos depois?";
+"Watch.Suggestion.CantTalk" = "Não posso conversar agora...";
+"Watch.Suggestion.HoldOn" = "Espere um pouco...";
+"Watch.Suggestion.CallSoon" = "Te ligo em breve.";
+"Watch.Suggestion.TextInABit" = "Te escrevo já.";
+"Watch.Suggestion.BRB" = "Ocupado";
+"Watch.Suggestion.OnMyWay" = "Estou à caminho.";
+"Cache.Photos" = "Fotos";
+"Cache.Videos" = "Vídeos";
+"Cache.Music" = "Música";
+"Cache.Files" = "Arquivos";
+"Cache.Clear" = "Limpar (%@)";
+"Cache.ClearNone" = "Limpar";
+"Cache.ClearProgress" = "Por favor, espere...";
+"Cache.ClearEmpty" = "Vazio";
+"Cache.ByPeerHeader" = "CONVERSAS";
+"Cache.Indexing" = "O TELEGRAM_APP_NAME está calculando o tamanho atual do cache.\nIsso pode demorar alguns minutos.";
+
+"ExplicitContent.AlertTitle" = "Desculpe";
+"ExplicitContent.AlertChannel" = "Você não pode acessar esse canal devido à violação das regras da App Store.";
+"ExplicitContent.AlertUser" = "Você não pode acessar esse bot devido à violação das regras da App Store.";
+
+"StickerSettings.ContextHide" = "Arquivar";
+"StickerSettings.ContextShow" = "Mostrar";
+
+"Conversation.LinkDialogSave" = "Salvar";
+"Conversation.GifTooltip" = "Toque aqui para acessar os GIFs salvos";
+
+"AttachmentMenu.PhotoOrVideo" = "Foto ou Vídeo";
+"AttachmentMenu.ImageSearch" = "Procurar Imagem";
+"AttachmentMenu.File" = "Arquivo";
+
+"AttachmentMenu.SendPhoto_1" = "Enviar 1 Foto";
+"AttachmentMenu.SendPhoto_2" = "Enviar 2 Fotos";
+"AttachmentMenu.SendPhoto_3_10" = "Enviar %@ Fotos";
+"AttachmentMenu.SendPhoto_any" = "Enviar %@ Fotos";
+
+"AttachmentMenu.SendVideo_1" = "Enviar 1 Vídeo";
+"AttachmentMenu.SendVideo_2" = "Enviar 2 Vídeos";
+"AttachmentMenu.SendVideo_3_10" = "Enviar %@ Vídeos";
+"AttachmentMenu.SendVideo_any" = "Enviar %@ Vídeos";
+
+"AttachmentMenu.SendGif_1" = "Enviar 1 GIF";
+"AttachmentMenu.SendGif_2" = "Enviar 2 GIFs";
+"AttachmentMenu.SendGif_3_10" = "Enviar %@ GIFs";
+"AttachmentMenu.SendGif_any" = "Enviar %@ GIFs";
+
+"AttachmentMenu.SendItem_1" = "Enviar 1 Item";
+"AttachmentMenu.SendItem_2" = "Enviar 2 Itens";
+"AttachmentMenu.SendItem_3_10" = "Enviar %@ Itens";
+"AttachmentMenu.SendItem_any" = "Enviar %@ Itens";
+
+"AttachmentMenu.SendAsFile" = "Enviar como Arquivo";
+"AttachmentMenu.SendAsFiles" = "Enviar como Arquivos";
+
+"Conversation.Processing" = "Processando...";
+
+"Conversation.MessageViaUser" = "via %@";
+
+"CreateGroup.SoftUserLimitAlert" = "Você poderá adicionar mais usuários após finalizar a criação do grupo e convertê-lo em um supergrupo.";
+"ChannelMembers.AllMembersMayInvite" = "Todos Podem Convidar";
+"ChannelMembers.AllMembersMayInviteOnHelp" = "Todos podem adicionar novos membros.";
+"ChannelMembers.AllMembersMayInviteOffHelp" = "Somente administradores podem adicionar novos membros.";
+
+"Privacy.GroupsAndChannels" = "Grupos";
+"Privacy.GroupsAndChannels.WhoCanAddMe" = "QUEM PODE ME ADICIONAR A GRUPOS";
+"Privacy.GroupsAndChannels.CustomHelp" = "Você pode restringir quem pode te adicionar em grupos ou canais com precisão.";
+"Privacy.GroupsAndChannels.AlwaysAllow" = "Sempre Permitir";
+"Privacy.GroupsAndChannels.NeverAllow" = "Nunca Permitir";
+"Privacy.GroupsAndChannels.CustomShareHelp" = "Esses usuários poderão ou não te adicionar em grupos e canais, dependendo de suas configurações.";
+
+"Privacy.GroupsAndChannels.AlwaysAllow.Title" = "Sempre Permitir";
+"Privacy.GroupsAndChannels.AlwaysAllow.Placeholder" = "Sempre permitir...";
+"Privacy.GroupsAndChannels.NeverAllow.Title" = "Nunca Permitir";
+"Privacy.GroupsAndChannels.NeverAllow.Placeholder" = "Nunca permitir...";
+
+"Privacy.GroupsAndChannels.InviteToGroupError" = "Desculpe, você não pode adicionar %@ a grupos devido às configurações de privacidade de %@.";
+"Privacy.GroupsAndChannels.InviteToChannelError" = "Você não pode adicionar %@ a canais devido às configurações de privacidade de %@.";
+"Privacy.GroupsAndChannels.InviteToChannelMultipleError" = "Desculpe, você não pode criar um grupo com esses usuários por causa da configuração de privacidade deles.";
+
+"ChannelMembers.WhoCanAddMembers" = "Quem pode adicionar membros";
+"ChannelMembers.WhoCanAddMembers.AllMembers" = "Todos os Membros";
+"ChannelMembers.WhoCanAddMembers.Admins" = "Somente Administradores";
+"ChannelMembers.WhoCanAddMembersAllHelp" = "Todos podem adicionar novos membros.";
+"ChannelMembers.WhoCanAddMembersAdminsHelp" = "Somente administradores podem adicionar novos membros.";
+
+"ChannelMembers.GroupAdminsTitle" = "ADMINISTRADORES DO GRUPO";
+"ChannelMembers.ChannelAdminsTitle" = "ADMINISTRADORES DO CANAL";
+"MusicPlayer.VoiceNote" = "Mensagem de Voz";
+
+"PrivacyLastSeenSettings.WhoCanSeeMyTimestamp" = "QUEM PODE VER MEU VISTO POR ÚLTIMO";
+
+"PrivacyLastSeenSettings.GroupsAndChannelsHelp" = "Alterar quem pode adicioná-lo a grupos e canais.";
+"MusicPlayer.VoiceNote" = "Mensagem de Voz";
+
+"Watch.Microphone.Access" = "Autorize o TELEGRAM_APP_NAME acessar o microfone em seu telefone";
+
+"Settings.AppleWatch" = "Apple Watch";
+"AppleWatch.Title" = "Apple Watch";
+"AppleWatch.ReplyPresets" = "RESPOSTAS PREDEFINIDAS";
+"AppleWatch.ReplyPresetsHelp" = "Você pode selecionar uma dessas respostas padrões quando você envia ou responde uma mensagem, ou você pode alterar para o que você quiser.";
+
+"KeyCommand.FocusOnInputField" = "Escrever Mensagem";
+"KeyCommand.Find" = "Buscar";
+"KeyCommand.ScrollUp" = "Rolar para cima";
+"KeyCommand.ScrollDown" = "Rolar para baixo";
+"KeyCommand.NewMessage" = "Nova Mensagem";
+"KeyCommand.JumpToPreviousChat" = "Ir para o Chat Anterior";
+"KeyCommand.JumpToNextChat" = "Ir para o Próximo Chat";
+"KeyCommand.JumpToPreviousUnreadChat" = "Ir para o Último Chat Não Lido";
+"KeyCommand.JumpToNextUnreadChat" = "Ir para o Próximo Chat Não Lido";
+"KeyCommand.SendMessage" = "Enviar Mensagem";
+"KeyCommand.ChatInfo" = "Informações do Chat";
+
+"Conversation.SecretLinkPreviewAlert" = "Você gostaria de ativar a pré-visualização estendida de links em Chats Secretos? Note que a pré-visualização é gerada nos servidores do TELEGRAM_APP_NAME.";
+"Conversation.SecretChatContextBotAlert" = "Os bots integrados são fornecidos por desenvolvedores terceiros. Para o bot funcionar, os símbolos que você digita depois do nome de usuário do bot são enviados para o respectivo desenvolvedor.";
+
+"Map.OpenInWaze" = "Abrir no Waze";
+
+"ShareMenu.CopyShareLink" = "Copiar Link";
+
+"Channel.SignMessages" = "Assinar Mensagens";
+"Channel.SignMessages.Help" = "Adicionar nomes dos administradores nas mensagens postadas.";
+
+"Channel.EditMessageErrorGeneric" = "Desculpe, você não pode editar essa mensagem.";
+
+"ChannelInfo.InvitationLinkDoesNotExist" = "Desculpe, esse canal não existe.";
+
+"Conversation.InputTextSilentBroadcastPlaceholder" = "Transmissão Silenciosa";
+"Conversation.SilentBroadcastTooltipOn" = "Os membros serão notificados quando você postar";
+"Conversation.SilentBroadcastTooltipOff" = "Os membros não serão notificados quando você postar";
+
+"Settings.About" = "Bio";
+"GroupInfo.LabelAdmin" = "administrador";
+
+"Conversation.Pin" = "Fixar";
+"Conversation.Unpin" = "Desafixar";
+"Conversation.Report" = "Reportar Spam";
+"Conversation.PinnedMessage" = "Mensagem Fixada";
+
+"Conversation.Moderate.Delete" = "Apagar Mensagem";
+"Conversation.Moderate.Ban" = "Banir Usuário";
+"Conversation.Moderate.Report" = "Reportar Spam";
+"Conversation.Moderate.DeleteAllMessages" = "Apagar Tudo De %@";
+
+"Group.Username.Help" = "Você pode escolher um nome para o grupo no **TELEGRAM_APP_NAME**. Se você fizer, outras pessoas poderão encontrar seu canal pelo nome.\n\nVocê pode usar **a-z**, **0-9** e underline. O tamanho mínimo é de **5** caracteres.";
+
+"Group.Username.InvalidTooShort" = "Nome do grupo deve ter pelo menos 5 caracteres.";
+"Group.Username.InvalidStartsWithNumber" = "Nome do grupo não pode iniciar com número.";
+
+"Group.Username.LinkHint" = "Esse link abre o seu grupo no TELEGRAM_APP_NAME:[\nhttps://t.me/%@]";
+
+"Notification.PinnedTextMessage" = "%@ fixou \"%@\"";
+"Notification.PinnedPhotoMessage" = "%@ fixou uma foto";
+"Notification.PinnedVideoMessage" = "%@ fixou um vídeo";
+"Notification.PinnedRoundMessage" = "%@ fixou uma mensagem de vídeo";
+"Notification.PinnedAudioMessage" = "%@ fixou uma mensagem de voz ";
+"Notification.PinnedDocumentMessage" = "%@ fixou um arquivo";
+"Notification.PinnedAnimationMessage" = "%@ fixou um GIF";
+"Notification.PinnedStickerMessage" = "%@ fixou um sticker ";
+"Notification.PinnedLocationMessage" = "%@ fixou um mapa";
+"Notification.PinnedContactMessage" = "%@ fixou um contato ";
+"Notification.PinnedDeletedMessage" = "%@ fixou uma mensagem apagada";
+
+"Message.PinnedTextMessage" = "fixou \"%@\"";
+"Message.PinnedPhotoMessage" = "fixou uma foto";
+"Message.PinnedVideoMessage" = "fixou um vídeo";
+"Message.PinnedAudioMessage" = "fixou uma mensagem de voz";
+"Message.PinnedDocumentMessage" = "fixou um arquivo";
+"Message.PinnedAnimationMessage" = "fixou um GIF";
+"Message.PinnedStickerMessage" = "fixou um sticker";
+"Message.PinnedLocationMessage" = "localização fixada";
+"Message.PinnedContactMessage" = "contato fixado";
+"Message.PinnedDeletedMessage" = "mensagem apagada fixada";
+
+"Notification.PinnedMessage" = "mensagem fixada";
+
+"GroupInfo.ConvertToSupergroup" = "Converter a Supergrupo";
+
+"ConvertToSupergroup.Title" = "Supergrupo";
+"ConvertToSupergroup.HelpTitle" = "**Em supergrupos:**";
+"ConvertToSupergroup.HelpText" = "• Novos membros podem visualizar todo o histórico\n• Mensagens apagadas desaparecerão para todos\n• Administradores podem fixar mensagens importantes\n• Criador pode definir um link público para o grupo";
+
+"ConvertToSupergroup.Note" = "**Nota**: Essa ação não pode ser desfeita.";
+
+"GroupInfo.GroupType" = "Tipo de Grupo";
+
+"Group.Setup.TypeHeader" = "TIPO DE GRUPO";
+"Group.Setup.TypePublicHelp" = "Grupos públicos podem ser encontrados na busca, o histórico é disponível para todos e qualquer um pode entrar.";
+"Group.Setup.TypePrivateHelp" = "Grupos privados só podem ser aderidos através de um link de convite.";
+
+"Group.Username.CreatePublicLinkHelp" = "Pessoas podem compartilhar esse link com outros e encontrar o seu canal usando a busca do TELEGRAM_APP_NAME.";
+"Group.Username.CreatePrivateLinkHelp" = "Pessoas podem entrar em seu canal com este link. Você pode desativar o link quando quiser.";
+
+"Conversation.PinMessageAlertGroup" = "Fixar essa mensagem e notificar todos os membros do grupo?";
+"Conversation.PinMessageAlertChannel" = "Fixar essa mensagem e notificar todos os membros do canal?";
+"Conversation.PinMessageAlert.OnlyPin" = "Somente Fixar";
+
+"Conversation.UnpinMessageAlert" = "Você gostaria de desafixar essa mensagem?";
+
+"Settings.About.Title" = "Bio";
+"Settings.About.Help" = "Você pode adicionar algumas palavras sobre você mesmo. Qualquer um que abrir o seu perfil verá esse texto.";
+
+"Profile.About" = "bio";
+
+"Group.Management.ErrorNotMember" = "%@ ainda não entrou no grupo. Você deseja convidá-lo?";
+
+"Conversation.ReportSpamAndLeave" = "Reportar Spam e Sair";
+
+"Conversation.StatusKickedFromChannel" = "você foi removido do canal";
+
+"Generic.OpenHiddenLinkAlert" = "Abrir %@?";
+
+"Resolve.ErrorNotFound" = "Desculpe, esse usuário não existe.";
+
+"StickerPack.AddStickers" = "Adicionar Stickers";
+"StickerPack.Share" = "Compartilhar";
+"StickerPack.Send" = "Enviar Sticker";
+
+"StickerPack.RemoveStickers" = "Remover Stickers";
+"StickerPack.RemoveStickerCount_1" = "Remover 1 Sticker";
+"StickerPack.RemoveStickerCount_2" = "Remover 2 Stickers";
+"StickerPack.RemoveStickerCount_3_10" = "Remover %@ Stickers";
+"StickerPack.RemoveStickerCount_any" = "Remover %@ Stickers";
+
+"StickerPack.HideStickers" = "Esconder Stickers";
+"StickerPack.ShowStickers" = "Mostrar Stickers";
+
+"ShareMenu.ShareTo" = "Compartilhar em";
+"ShareMenu.SelectChats" = "Selecione os chats";
+"ShareMenu.Comment" = "Escrever um comentário...";
+
+"MediaPicker.Videos" = "Vídeos";
+
+"Coub.TapForSound" = "Toque para ouvir";
+
+"Preview.SaveGif" = "Salvar GIF";
+"Preview.DeleteGif" = "Apagar GIF";
+"Preview.CopyAddress" = "Copiar Endereço";
+"Preview.ViewStickerPack" = "Ver o Pacote de Stickers";
+
+"Conversation.ShareBotLocationConfirmationTitle" = "Compartilhar Sua Localização?";
+"Conversation.ShareBotLocationConfirmation" = "Isso irá enviar sua localização atual ao bot.";
+
+"Conversation.ShareBotContactConfirmationTitle" = "Compartilhar Seu Número de Telefone?";
+"Conversation.ShareBotContactConfirmation" = "O bot saberá seu número de telefone. Isso pode ser útil para a integração com outros serviços.";
+
+"Conversation.ShareInlineBotLocationConfirmation" = "Esse bot gostaria de saber sua localização todas as vezes que você enviá-lo uma mensagem. Isso pode ser utilizado para providenciar resultados específicos de localização.";
+
+"Activity.UploadingAudio" = "enviando áudio";
+
+"Preview.Tooltip" = "Toque e segure para pré-visualizar";
+
+"StickerPack.ErrorNotFound" = "Desculpe, esse pacote de sticker não existe.";
+
+"Camera.TapAndHoldForVideo" = "Toque e segure para filmar";
+
+"Conversation.TapAndHoldToRecord" = "Toque e segure para gravar";
+
+"DialogList.RecentTitlePeople" = "Pessoas";
+"DialogList.RecentTitleGroups" = "Grupos";
+"DialogList.RecentTitleBots" = "Bots";
+
+"Conversation.MessageEditedLabel" = "editado";
+"Conversation.EditingMessagePanelTitle" = "Editar Mensagem";
+
+"DialogList.Draft" = "Rascunho";
+"Embed.PlayingInPIP" = "Vídeo sendo reproduzido em Picture in Picture";
+
+"MediaPicker.Moments" = "Momentos";
+"MediaPicker.MomentsDateFormat" = "{day} de {month}"; // 1 - day, 2 - month
+"MediaPicker.MomentsDateYearFormat" = "{day} {month}, {year}"; // 1 - day, 2 - month, 3 - year
+
+"MediaPicker.MomentsDateRangeFormat" = "{date1} – {date2}";
+"MediaPicker.MomentsDateRangeYearFormat" = "{date1} – {date2} {year}";
+"MediaPicker.MomentsDateRangeSameMonthFormat" = "{day1} – {day2} de {month} ";
+"MediaPicker.MomentsDateRangeSameMonthYearFormat" = "{day1} – {day2} de {month}, {year}";
+
+"StickerPacksSettings.FeaturedPacks" = "Stickers Populares";
+"FeaturedStickerPacks.Title" = "Stickers Populares";
+
+"Invitation.JoinGroup" = "Entrar no Grupo";
+"Invitation.Members_1" = "1 membro:";
+"Invitation.Members_2" = "2 membros:";
+"Invitation.Members_3_10" = "%@ membros:";
+"Invitation.Members_any" = "%@ membros:";
+
+"StickerPacksSettings.ArchivedPacks" = "Stickers Arquivados";
+"StickerPacksSettings.ArchivedPacks.Info" = "Você pode ter até 200 pacotes de sticker instalados.\nStickers não usados são arquivados quando você adicionar mais.";
+
+"Conversation.CloudStorageInfo.Title" = "Sua Nuvem de Armazenamento";
+"Conversation.ClousStorageInfo.Description1" = "• Encaminhe mensagens aqui para salvá-las";
+"Conversation.ClousStorageInfo.Description2" = "• Envie mídias e arquivos aqui para salvá-los";
+"Conversation.ClousStorageInfo.Description3" = "• Acesse esse chat de qualquer dispositivo";
+"Conversation.ClousStorageInfo.Description4" = "• Use a busca para encontrar suas coisas";
+
+"Conversation.CloudStorage.ChatStatus" = "chat consigo mesmo";
+
+"ArchivedPacksAlert.Title" = "Alguns de seus pacotes de sticker antigos foram arquivados. Você pode reativá-los nas Configurações de Sticker.";
+
+"StickerSettings.ContextInfo" = "Se você arquivou um pacote de sticker, você pode rapidamente restaurá-lo na seção Stickers Arquivados.";
+
+"Contacts.TopSection" = "CONTATOS";
+
+"Login.ResetAccountProtected.Title" = "Apagar Conta";
+"Login.ResetAccountProtected.Text" = "Uma vez que a conta %@ está ativa e protegida por senha, nós iremos desativá-la em 1 semana, por questões de segurança.\n\nVocê pode cancelar esse processo a qualquer momento.";
+"Login.ResetAccountProtected.TimerTitle" = "Você poderá restaurar sua conta em:";
+"Login.ResetAccountProtected.Reset" = "Apagar";
+"Login.ResetAccountProtected.LimitExceeded" = "Suas tentativas recentes de restaurar essa conta foram canceladas pelo usuário ativo. Tente novamente em 7 dias.";
+
+"Login.CodeSentCall" = "Nós estamos te ligando para ditar o código.";
+
+"Login.SmsRequestState1" = "TELEGRAM_APP_NAME irá te enviar uma SMS em %d:%.2d";
+"Login.SmsRequestState2" = "Solicitando uma SMS do TELEGRAM_APP_NAME...";
+"Login.SmsRequestState3" = "O TELEGRAM_APP_NAME te enviou uma SMS\n[Não recebeu o código?]";
+
+"CancelResetAccount.Title" = "Cancelar Exclusão da Conta";
+"CancelResetAccount.TextSMS" = "Alguém com acesso ao seu número de telefone %@ solicitou a exclusão de sua conta do TELEGRAM_APP_NAME e redefiniu sua senha de Verificação em Duas Etapas.\n\nSe não foi você, por favor insira o código que te enviamos via SMS.";
+
+"CancelResetAccount.Success" = "O processo de exclusão foi cancelado em sua conta %@.";
+"MediaPicker.MomentsDateRangeSameMonthYearFormat" = "{day1} – {day2} de {month}, {year}";
+
+"Paint.Clear" = "Limpar Tudo";
+"Paint.ClearConfirm" = "Limpar Pinturas";
+"Paint.Delete" = "Apagar";
+"Paint.Edit" = "Editar";
+"Paint.Duplicate" = "Duplicar";
+"Paint.Stickers" = "Stickers";
+"Paint.RecentStickers" = "Recente";
+"Paint.Masks" = "Máscaras";
+
+"Paint.Outlined" = "Delineado";
+"Paint.Regular" = "Regular";
+
+"MediaPicker.VideoMuteDescription" = "Som desativado, o vídeo será reproduzido automaticamente como um GIF.";
+
+
+"Group.Username.RemoveExistingUsernamesInfo" = "Desculpe, você reservou muitos nomes públicos.\nVocê pode remover o link público de um de seus grupos ou canais, ou criar de forma privada.";
+
+"ServiceMessage.GameScoreExtended_1" = "{name} marcou {score} ponto em {game}";
+"ServiceMessage.GameScoreExtended_2" = "{name} marcou {score} pontos em {game}";
+"ServiceMessage.GameScoreExtended_3_10" = "{name} marcou {score} pontos em {game}";
+"ServiceMessage.GameScoreExtended_any" = "{name} marcou {score} pontos em {game}";
+
+"ServiceMessage.GameScoreSelfExtended_1" = "Você marcou {score} ponto em {game}";
+"ServiceMessage.GameScoreSelfExtended_2" = "Você marcou {score} pontos em {game}";
+"ServiceMessage.GameScoreSelfExtended_3_10" = "Você marcou {score} pontos em {game}";
+"ServiceMessage.GameScoreSelfExtended_any" = "Você marcou {score} pontos em {game}";
+
+"ServiceMessage.GameScoreSimple_1" = "{name} marcou {score} ponto";
+"ServiceMessage.GameScoreSimple_2" = "{name} marcou {score} pontos";
+"ServiceMessage.GameScoreSimple_3_10" = "{name} marcou {score} pontos";
+"ServiceMessage.GameScoreSimple_any" = "{name} marcou {score} pontos";
+
+"ServiceMessage.GameScoreSelfSimple_1" = "Você marcou {score} ponto";
+"ServiceMessage.GameScoreSelfSimple_2" = "Você marcou {score} pontos";
+"ServiceMessage.GameScoreSelfSimple_3_10" = "Você marcou {score} pontos";
+"ServiceMessage.GameScoreSelfSimple_any" = "Você marcou {score} pontos";
+
+"Notification.GameScoreExtended_1" = "marcou {score} ponto em {game}";
+"Notification.GameScoreExtended_2" = "marcou {score} pontos em {game}";
+"Notification.GameScoreExtended_3_10" = "marcou {score} pontos em {game}";
+"Notification.GameScoreExtended_any" = "marcou {score} pontos em {game}";
+
+"Notification.GameScoreSelfExtended_1" = "marcou {score} ponto em {game}";
+"Notification.GameScoreSelfExtended_2" = "marcou {score} pontos em {game}";
+"Notification.GameScoreSelfExtended_3_10" = "marcou {score} pontos em {game}";
+"Notification.GameScoreSelfExtended_any" = "marcou {score} pontos em {game}";
+
+"Notification.GameScoreSimple_1" = "marcou {score} ponto";
+"Notification.GameScoreSimple_2" = "marcou {score} pontos";
+"Notification.GameScoreSimple_3_10" = "marcou {score} pontos";
+"Notification.GameScoreSimple_any" = "marcou {score} pontos";
+
+"Notification.GameScoreSelfSimple_1" = "marcou {score} ponto";
+"Notification.GameScoreSelfSimple_2" = "marcou {score} pontos";
+"Notification.GameScoreSelfSimple_3_10" = "marcou {score} pontos";
+"Notification.GameScoreSelfSimple_any" = "marcou {score} pontos";
+
+"Stickers.Install" = "ADICIONAR";
+
+"MaskStickerSettings.Title" = "Máscaras";
+"MaskStickerSettings.Info" = "Você pode adicionar máscaras em fotos e vídeos que você envia. Para isso, abra o editor de fotos antes de enviar uma foto ou vídeo.";
+
+"StickerPack.MaskCount_1" = "1 máscara";
+"StickerPack.MaskCount_2" = "2 máscaras";
+"StickerPack.MaskCount_3_10" = "%@ máscaras";
+"StickerPack.MaskCount_any" = "%@ máscaras";
+
+"StickerPack.Add" = "Adicionar";
+"StickerPack.AddMaskCount_1" = "Adicionar 1 Máscara";
+"StickerPack.AddMaskCount_2" = "Adicionar 2 Máscaras";
+"StickerPack.AddMaskCount_3_10" = "Adicionar %@ Máscaras";
+"StickerPack.AddMaskCount_any" = "Adicionar %@ Máscaras";
+
+"StickerPack.Remove" = "Remover";
+"StickerPack.RemoveMaskCount_1" = "Remover 1 Máscara";
+"StickerPack.RemoveMaskCount_2" = "Remover 2 Máscaras";
+"StickerPack.RemoveMaskCount_3_10" = "Remover %@ Máscaras";
+"StickerPack.RemoveMaskCount_any" = "Remover %@ Máscaras";
+
+"Conversation.BotInteractiveUrlAlert" = "Permitir ao %@ passar seu nome do TELEGRAM_APP_NAME e id (não o seu número de telefone) para páginas que você abrir com esse bot?";
+"StickerPacksSettings.ArchivedMasks" = "Máscaras Arquivadas";
+"StickerSettings.MaskContextInfo" = "Se você arquivou um pacote de máscaras, você pode rapidamente restaurá-lo na seção Máscaras Arquivadas.";
+"StickerPacksSettings.ArchivedMasks.Info" = "Você pode ter até 200 pacotes de máscaras instaladas.\nMáscaras não usadas são arquivadas quando você adicionar mais.";
+
+"CloudStorage.Title" = "Nuvem de Armazenamento";
+
+"Widget.AuthRequired" = "Entre no TELEGRAM_APP_NAME";
+"Widget.NoUsers" = "Comece uma conversa para ver seus amigos aqui";
+
+"Message.GamePreviewLabel" = "JOGAR";
+
+"ShareMenu.CopyShareLinkGame" = "Copiar link do jogo";
+
+"Message.PinnedGame" = "fixou um jogo";
+
+"Target.ShareGameConfirmationPrivate" = "Compartilhar o jogo com %@?";
+"Target.ShareGameConfirmationGroup" = "Compartilhar o jogo com \"%@\"?";
+
+"Activity.PlayingGame" = "jogando";
+
+"DialogList.SinglePlayingGameSuffix" = "%@ está jogando";
+
+"UserInfo.GroupsInCommon" = "Grupos em Comum";
+"Conversation.InstantPagePreview" = "LEITURA RÁPIDA";
+
+"StickerPack.ViewPack" = "Ver Pacote de Stickers";
+"InstantPage.AuthorAndDateTitle" = "Por %1$@ • %2$@";
+"InstantPage.FeedbackButton" = "Deixar um comentário sobre essa pré-visualização";
+"Conversation.JumpToDate" = "Ir Para Data";
+"Conversation.AddToReadingList" = "Adicionar à Lista de Leitura";
+
+"AccessDenied.CallMicrophone" = "TELEGRAM_APP_NAME precisa acessar seu microfone para chamadas de voz. Vá até Ajustes > Privacidade  > Microfone e ative para TELEGRAM_APP_NAME.";
+
+"Call.EncryptionKey.Title" = "Chave Criptográfica";
+"Call.EncryptionKey.Description" = "Essa imagem e texto foram derivadas da chave criptográfica para esta chamada de voz com %1$@.\n\nSe você vê o mesmo no dispositivo de %2$@, a criptografia ponta a ponta está garantida.";
+
+"Application.Name" = "TELEGRAM_APP_NAME";
+"DialogList.Pin" = "Fixar";
+"DialogList.Unpin" = "Desafixar";
+"DialogList.PinLimitError" = "Desculpe, você não pode fixar mais que %@ conversas no topo.";
+
+"Conversation.DeleteMessagesForMe" = "Apagar para mim";
+"Conversation.DeleteMessagesFor" = "Apagar para mim e %@";
+"Conversation.DeleteMessagesForEveryone" = "Apagar para todos";
+
+"NetworkUsageSettings.Title" = "Uso da Rede";
+"NetworkUsageSettings.Cellular" = "Móvel";
+"NetworkUsageSettings.Wifi" = "Wi-Fi";
+
+"NetworkUsageSettings.GeneralDataSection" = "MENSAGENS";
+"NetworkUsageSettings.MediaImageDataSection" = "FOTOS";
+"NetworkUsageSettings.MediaVideoDataSection" = "VÍDEOS";
+"NetworkUsageSettings.MediaAudioDataSection" = "ÁUDIO";
+"NetworkUsageSettings.MediaDocumentDataSection" = "DOCUMENTOS";
+"NetworkUsageSettings.TotalSection" = "TOTAL EM BYTES";
+"NetworkUsageSettings.BytesSent" = "Bytes Enviados";
+"NetworkUsageSettings.BytesReceived" = "Bytes Recebidos";
+
+"NetworkUsageSettings.ResetStats" = "Reiniciar Estatísticas";
+"NetworkUsageSettings.ResetStatsConfirmation" = "Você deseja reiniciar suas estatísticas de uso?";
+"NetworkUsageSettings.CellularUsageSince" = "Uso móvel desde %@";
+"NetworkUsageSettings.WifiUsageSince" = "Uso do Wi-Fi desde %@";
+
+"Settings.CallSettings" = "Chamadas de Voz";
+
+"Calls.TabTitle" = "Chamadas";
+"Calls.All" = "Todas";
+"Calls.Missed" = "Perdidas";
+"Calls.Clear" = "Limpar";
+
+"CallSettings.Title" = "Chamadas de Voz";
+"CallSettings.RecentCalls" = "Chamadas Recentes";
+"CallSettings.TabIcon" = "Mostrar Aba de Chamadas";
+"CallSettings.TabIconDescription" = "Um ícone de ligação aparecerá na barra de abas.";
+"CallSettings.UseLessData" = "Usar Menos Dados";
+"CallSettings.Never" = "Nunca";
+"CallSettings.OnMobile" = "Em Redes Móveis";
+"CallSettings.Always" = "Sempre";
+"CallSettings.UseLessDataLongDescription" = "Usar menos dados pode melhorar a experiência em conexões ruins, mas irá diminuir drasticamente a qualidade do áudio.";
+
+"Calls.CallTabTitle" = "Aba de Chamadas";
+"Calls.CallTabDescription" = "Você pode adicionar a Aba de Chamadas à barra de abas.";
+"Calls.NotNow" = "Agora Não";
+"Calls.AddTab" = "Adicionar Aba";
+"Calls.Search" = "Buscar chamadas";
+"Calls.NewCall" = "Nova Chamada";
+
+"Calls.RatingTitle" = "Avalie a qualidade de sua\nchamada do TELEGRAM_APP_NAME";
+"Calls.SubmitRating" = "Enviar";
+
+"Call.Seconds_1" = "%@ segundo";
+"Call.Seconds_2" = "%@ segundos";
+"Call.Seconds_3_10" = "%@ segundos";
+"Call.Seconds_any" = "%@ segundos";
+"Call.Minutes_1" = "%@ minuto";
+"Call.Minutes_2" = "%@ minutos";
+"Call.Minutes_3_10" = "%@ minutos";
+"Call.Minutes_any" = "%@ minutos";
+
+"Call.ShortSeconds_1" = "%@ seg";
+"Call.ShortSeconds_2" = "%@ seg";
+"Call.ShortSeconds_3_10" = "%@ seg";
+"Call.ShortSeconds_any" = "%@ seg";
+"Call.ShortMinutes_1" = "%@ min";
+"Call.ShortMinutes_2" = "%@ min";
+"Call.ShortMinutes_3_10" = "%@ min";
+"Call.ShortMinutes_any" = "%@ min";
+
+"Notification.CallTimeFormat" = "%1$@ (%2$@)"; // 1 - type, 2 - duration
+"Notification.CallOutgoing" = "Chamada Efetuada";
+"Notification.CallIncoming" = "Chamada Recebida";
+"Notification.CallMissed" = "Chamada Perdida";
+"Notification.CallCanceled" = "Chamada Cancelada";
+"Notification.CallOutgoingShort" = "Efetuada";
+"Notification.CallIncomingShort" = "Recebida";
+"Notification.CallMissedShort" = "Perdida";
+"Notification.CallCanceledShort" = "Cancelada";
+"Notification.CallFormat" = "%1$@, %2$@"; // 1 - time, 2 - duration
+
+
+
+"Call.ConnectionErrorTitle" = "Incapaz de Chamar";
+"Call.ConnectionErrorMessage" = "Verifique sua conexão com a internet e tente novamente";
+
+"Call.CallBack" = "Ligar de Volta";
+"Call.CallAgain" = "Ligar\nNovamente";
+
+"Login.PhoneFloodError" = "Desculpe, você apagou e recriou sua conta muitas vezes recentemente. Aguarde alguns dias antes de tentar novamente.";
+
+"Checkout.Title" = "Finalizar";
+"Checkout.TotalAmount" = "Total";
+"Checkout.TotalPaidAmount" = "Total Pago";
+"Checkout.PaymentMethod" = "Método de Pagamento";
+"Checkout.ShippingMethod" = "Método de Envio";
+"Checkout.ShippingAddress" = "Informação de Envio";
+"Checkout.Name" = "Nome";
+"Checkout.Email" = "E-Mail";
+"Checkout.Phone" = "Telefone";
+"Checkout.PayPrice" = "Pagar %@";
+"Checkout.PayNone" = "Pagar";
+
+"Checkout.PaymentMethod.Title" = "Método de Pagamento";
+"Checkout.PaymentMethod.New" = "Novo Cartão...";
+
+"Checkout.NewCard.Title" = "Novo Cartão";
+"Checkout.NewCard.PaymentCard" = "CARTÃO DE PAGAMENTO";
+"Checkout.NewCard.SaveInfo" = "Salvar Informação de Pagamento";
+"Checkout.NewCard.SaveInfoEnableHelp" = "Você pode salvar sua informação de pagamento para uso futuro.\nPor favor, [ative a Verificação em Duas Etapas] para habilitar isso.";
+"Checkout.NewCard.SaveInfoHelp" = "Você pode salvar sua informação de pagamento para uso futuro.";
+"Checkout.NewCard.CardholderNameTitle" = "TITULAR DO CARTÃO";
+"Checkout.NewCard.CardholderNamePlaceholder" = "Nome do Titular";
+"Checkout.NewCard.PostcodeTitle" = "ENDEREÇO DE PAGAMENTO";
+"Checkout.NewCard.PostcodePlaceholder" = "Código Postal";
+
+"Checkout.ShippingOption.Title" = "Método de Envio";
+"Checkout.ShippingOption.Header" = "ESCOLHA O MÉTODO DE ENVIO";
+
+"Checkout.ErrorProviderAccountInvalid" = "Esse bot não pode aceitar pagamentos no momento. Tente novamente mais tarde.";
+"Checkout.ErrorProviderAccountTimeout" = "Esse bot não pode processar pagamentos no momento. Tente novamente mais tarde.";
+"Checkout.ErrorInvoiceAlreadyPaid" = "Você já pagou por este item.";
+
+"Checkout.ErrorGeneric" = "Um erro ocorreu ao processar seu pagamento. A fatura não foi debitada do seu cartão.";
+"Checkout.ErrorPaymentFailed" = "O pagamento falhou. A fatura não foi debitada do seu cartão.";
+"Checkout.ErrorPrecheckoutFailed" = "O bot não pôde processar seu pagamento. A fatura não foi debitada do seu cartão.";
+
+"CheckoutInfo.Title" = "Informação de Envio";
+"CheckoutInfo.ShippingInfoTitle" = "ENDEREÇO DE ENVIO";
+"CheckoutInfo.ShippingInfoAddress1" = "Endereço 1";
+"CheckoutInfo.ShippingInfoAddress1Placeholder" = "Endereço";
+"CheckoutInfo.ShippingInfoAddress2" = "Endereço 2";
+"CheckoutInfo.ShippingInfoAddress2Placeholder" = "Endereço";
+"CheckoutInfo.ShippingInfoState" = "Estado";
+"CheckoutInfo.ShippingInfoStatePlaceholder" = "Estado";
+"CheckoutInfo.ShippingInfoCity" = "Cidade";
+"CheckoutInfo.ShippingInfoCityPlaceholder" = "Cidade";
+"CheckoutInfo.ShippingInfoCountry" = "País";
+"CheckoutInfo.ShippingInfoCountryPlaceholder" = "País";
+"CheckoutInfo.ShippingInfoPostcode" = "Código Postal";
+"CheckoutInfo.ShippingInfoPostcodePlaceholder" = "Código Postal";
+"CheckoutInfo.ReceiverInfoTitle" = "DESTINATÁRIO";
+"CheckoutInfo.ReceiverInfoName" = "Nome";
+"CheckoutInfo.ReceiverInfoNamePlaceholder" = "Nome Sobrenome";
+"CheckoutInfo.ReceiverInfoEmail" = "Email";
+"CheckoutInfo.ReceiverInfoEmailPlaceholder" = "Email";
+"CheckoutInfo.ReceiverInfoPhone" = "Telefone";
+"CheckoutInfo.SaveInfo" = "Salvar Info";
+"CheckoutInfo.SaveInfoHelp" = "Você pode salvar sua informação de pagamento para uso futuro.";
+"CheckoutInfo.Pay" = "Pagar";
+
+"Checkout.Receipt.Title" = "Recibo";
+
+"Message.ReplyActionButtonShowReceipt" = "Mostrar Recibo";
+"Message.InvoiceShipmentLabel" = "ENVIO";
+"Message.InvoiceLabel" = "FATURA";
+
+"CheckoutInfo.ErrorShippingNotAvailable" = "O envio para o país selecionado não está disponível.";
+"CheckoutInfo.ErrorPostcodeInvalid" = "Por favor, insira um código postal válido.";
+"CheckoutInfo.ErrorStateInvalid" = "Por favor, insira um estado válido.";
+"CheckoutInfo.ErrorCityInvalid" = "Por favor, insira uma cidade válida.";
+"CheckoutInfo.ErrorNameInvalid" = "Por favor, insira um nome válido.";
+"CheckoutInfo.ErrorEmailInvalid" = "Por favor, insira um e-mail válido.";
+"CheckoutInfo.ErrorPhoneInvalid" = "Por favor, insira um telefone válido.";
+
+"Checkout.WebConfirmation.Title" = "Completar Pagamento";
+"Checkout.PasswordEntry.Title" = "Confirmação de Pagamento";
+"Checkout.PasswordEntry.Pay" = "Pagar";
+"Checkout.PasswordEntry.Text" = "Seu cartão %@ está no arquivo. Para pagar com este cartão, insira sua senha da Verificação em Duas Etapas.";
+
+"Checkout.SavePasswordTimeout" = "Você gostaria de salvar sua senha para %@?";
+"Checkout.SavePasswordTimeoutAndTouchId" = "Você gostaria de salvar sua senha para %@ e usar o Touch ID?";
+"Checkout.PayWithTouchId" = "Pagar com Touch ID";
+"Checkout.EnterPassword" = "Insira a Senha";
+
+"Your_card_has_expired" = "Seu cartão expirou.";
+
+/* Error when the card was declined by the credit card networks */
+"Your_card_was_declined" = "Seu cartão foi recusado.";
+
+/* Error when the card's expiration month is not valid */
+"Your_cards_expiration_month_is_invalid" ="Você inseriu um mês inválido.";
+
+/* Error when the card's expiration year is not valid */
+"Your_cards_expiration_year_is_invalid" ="Você inseriu um ano inválido.";
+
+/* Error when the card number is not valid */
+"Your_cards_number_is_invalid" = "Você inseriu um número de cartão inválido.";
+
+/* Error when the card's CVC is not valid */
+"Your_cards_security_code_is_invalid" = "Você inseriu um código de segurança inválido.";
+
+"MESSAGE_INVOICE" = "%1$@ te enviou uma fatura paga %2$@";
+"CHAT_MESSAGE_INVOICE" = "%1$@ enviou uma fatura para %3$@ ao grupo %2$@";
+"PINNED_INVOICE" = "%1$@ fixou uma fatura";
+
+"Message.PinnedInvoice" = "fixou uma fatura";
+
+"User.DeletedAccount" = "Conta Excluída";
+
+"Settings.SaveEditedPhotos" = "Salvar Fotos Editadas";
+
+"Message.PaymentSent" = "Pagamento: %@";
+"Notification.PaymentSent" = "Você transferiu com sucesso {amount} para {name} por {title}";
+
+"Common.NotNow" = "Agora Não";
+
+"Calls.RatingFeedback" = "Escrever um comentário...";
+
+"Call.StatusIncoming" = "TELEGRAM_APP_NAME Áudio...";
+"Call.StatusRequesting" = "Contatando...";
+"Call.StatusWaiting" = "Esperando...";
+"Call.StatusRinging" = "Tocando...";
+"Call.StatusConnecting" = "Conectando...";
+"Call.StatusOngoing" = "TELEGRAM_APP_NAME Áudio %@";
+"Call.StatusEnded" = "Chamada Encerrada";
+"Call.StatusFailed" = "Chamada Falhou";
+"Call.StatusBusy" = "Ocupado";
+"Call.Accept" = "Aceitar";
+"Call.Decline" = "Rejeitar";
+
+"Call.StatusBar" = "Toque para retornar à chamada %@";
+
+"UserInfo.Call" = "Chamada de Voz";
+
+"Call.ParticipantVersionOutdatedError" = "O aplicativo de %@ não suporta chamadas. O aplicativo desse usuário precisa ser atualizado para que você possa chamá-lo.";
+
+"Privacy.Calls" = "Chamadas de Voz";
+
+"Privacy.Calls.WhoCanCallMe" = "QUEM PODE ME LIGAR";
+"Privacy.Calls.CustomHelp" = "Você pode restringir quem pode te ligar com precisão.";
+"Privacy.Calls.AlwaysAllow" = "Sempre Permitir";
+"Privacy.Calls.NeverAllow" = "Nunca Permitir";
+"Privacy.Calls.CustomShareHelp" = "Esses usuários poderão ou não te ligar dependendo de suas configurações.";
+
+"Privacy.Calls.AlwaysAllow.Title" = "Sempre Permitir";
+"Privacy.Calls.AlwaysAllow.Placeholder" = "Sempre permitir...";
+"Privacy.Calls.NeverAllow.Title" = "Nunca Permitir";
+"Privacy.Calls.NeverAllow.Placeholder" = "Nunca permitir...";
+
+"PhotoEditor.QualityTool" = "Qualidade";
+"PhotoEditor.QualityVeryLow" = "Muito Baixa";
+"PhotoEditor.QualityLow" = "Baixa";
+"PhotoEditor.QualityMedium" = "Média";
+"PhotoEditor.QualityHigh" = "Alta";
+"PhotoEditor.QualityVeryHigh" = "Muito Alta";
+
+"Settings.SaveEditedPhotos" = "Salvar Fotos Editadas";
+
+"Calls.NoCallsPlaceholder" = "Suas chamadas recentes aparecerão aqui";
+"Calls.NoMissedCallsPlacehoder" = "Você não possui chamadas perdidas";
+
+"Call.CallInProgressTitle" = "Chamada em Andamento";
+"Call.CallInProgressMessage" = "Finalizar chamada com %1$@ e começar uma nova com %2$@?";
+
+"Call.Message" = "Mensagem";
+
+"UserInfo.TapToCall" = "Chamada com criptografia de ponta a ponta";
+"Call.GroupFormat" = "%1$@ (%2$@)";
+
+"NetworkUsageSettings.CallDataSection" = "CHAMADAS";
+
+"Call.PrivacyErrorMessage" = "Desculpe, %@ não aceita chamadas.";
+
+"Notification.CallBack" = "Ligar de Volta";
+
+"CallSettings.PrivacyDescription" = "Escolha quem pode te ligar em [Configurações de Privacidade].";
+
+"Call.AudioRouteSpeaker" = "Alto-falante";
+"Call.AudioRouteHeadphones" = "Fones de Ouvido";
+"Call.AudioRouteHide" = "Esconder";
+
+"EncryptionKey.TapToEmojify" = "Toque para emojizar";
+
+"Call.PhoneCallInProgressMessage" = "Você não pode realizar uma chamada do TELEGRAM_APP_NAME se já estiver em uma ligação.";
+"Call.RecordingDisabledMessage" = "Encerre sua chamada para gravar uma mensagem de voz.";
+
+"Call.EmojiDescription" = "Se os emojis na tela de %@ são os mesmos, essa chamada é 100%% segura.";
+
+"Message.VideoMessage" = "Mensagem de Vídeo";
+
+"Conversation.HoldForAudio" = "Segure para gravar um áudio. Toque para mudar para vídeo.";
+"Conversation.HoldForVideo" = "Segure para gravar um vídeo. Toque para mudar para áudio.";
+
+"UserInfo.TELEGRAM_APP_NAMECall" = "Chamada do TELEGRAM_APP_NAME";
+"UserInfo.PhoneCall" = "Chamada por Telefone";
+
+"SharedMedia.CategoryMedia" = "Mídia";
+"SharedMedia.CategoryDocs" = "Documentos";
+"SharedMedia.CategoryLinks" = "Links";
+"SharedMedia.CategoryOther" = "Áudio";
+
+"AccessDenied.VideoMessageCamera" = "TELEGRAM_APP_NAME precisa acessar sua câmera para mensagens de vídeo.\n\nVá até Ajustes > Privacidade > Câmera e habilite o TELEGRAM_APP_NAME.";
+"AccessDenied.VideoMessageMicrophone" = "TELEGRAM_APP_NAME precisa acessar seu microfone para mensagens de vídeo.\n\nVá até Ajustes > Privacidade > Microfone e habilite o TELEGRAM_APP_NAME.";
+
+"ChatSettings.AutomaticVideoMessageDownload" = "BAIXAR MENSAGEM DE VÍDEO AUTOMATICAMENTE";
+
+"ForwardedVideoMessages_1" = "Mensagem de vídeo encaminhada";
+"ForwardedVideoMessages_2" = "2 mensagens de vídeo encaminhadas";
+"ForwardedVideoMessages_3_10" = "%@ mensagens de vídeo encaminhadas";
+"ForwardedVideoMessages_any" = "%@ mensagens de vídeo encaminhadas";
+
+"Conversation.DiscardVoiceMessageTitle" = "Descartar Mensagem de Voz";
+"Conversation.DiscardVoiceMessageDescription" = "Você tem certeza que deseja parar de gravar e descartar\nsua mensagem de voz?";
+"Conversation.DiscardVoiceMessageAction" = "Descartar";
+
+"Message.ForwardedMessageShort" = "Encaminhado De\n%@";
+
+"Checkout.LiabilityAlertTitle" = "Atenção";
+"Checkout.LiabilityAlert" = "Pagamentos irão diretamente para o desenvolvedor de %1$@. O TELEGRAM_APP_NAME não pode prover qualquer garantia, então proceda por sua conta e risco. Em caso de problemas, contate o desenvolvedor de %1$@ ou o seu banco.";
+
+"InstantPage.AutoNightTheme" = "Tema Noturno Automático";
+
+"Privacy.PaymentsTitle" = "PAGAMENTOS";
+"Privacy.PaymentsClearInfo" = "Limpar informações de pagamento";
+"Privacy.PaymentsClearInfoHelp" = "Você pode remover suas informações de envio e instruir aos provedores de pagamentos para remover seus cartões de crédito salvos. Note que o TELEGRAM_APP_NAME nunca armazena seus dados de cartão de crédito.";
+"Privacy.PaymentsClear.PaymentInfo" = "Método de Pagamento";
+"Privacy.PaymentsClear.ShippingInfo" = "Endereço de Envio";

@@ -1,0 +1,2507 @@
+// Notifications
+"MESSAGE_TEXT" = "%1$@: %2$@";
+"MESSAGE_NOTEXT" = "%1$@ heeft je een bericht gestuurd";
+"MESSAGE_PHOTO" = "%1$@ heeft je een foto gestuurd";
+"MESSAGE_VIDEO" = "%1$@ heeft je een video gestuurd";
+"MESSAGE_ROUND" = "%1$@ heeft je een videobericht gestuurd";
+"MESSAGE_CONTACT" = "%1$@ heeft een contact met je gedeeld";
+"MESSAGE_GEO" = "%1$@ heeft je een kaart gestuurd";
+"MESSAGE_DOC" = "%1$@ heeft je een bestand gestuurd";
+"MESSAGE_AUDIO" = "%1$@ heeft je een spraakbericht gestuurd";
+"MESSAGE_GIF" = "%1$@ heeft je een GIF gestuurd";
+"ENCRYPTED_MESSAGE" = "Je hebt een nieuw bericht%1$@";
+"LOCKED_MESSAGE" = "Je hebt een nieuw bericht%1$@";
+"ENCRYPTION_REQUEST" = "Nieuw encryptieverzoek%1$@";
+"ENCRYPTION_ACCEPT" = "Je encryptieverzoek is geaccepteerd%1$@";
+"DC_UPDATE" = "Open deze melding om app-instellingen bij te werken";
+
+"CHAT_JOINED" = "%1$@ is nu lid van de groep %2$@";
+
+"CHAT_MESSAGE_TEXT" = "%1$@ @ %2$@: %3$@";
+"CHAT_MESSAGE_NOTEXT" = "%1$@ heeft een bericht gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_PHOTO" = "%1$@ heeft een foto gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_VIDEO" = "%1$@ heeft een video gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_ROUND" = "%1$@ heeft een videobericht gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_CONTACT" = "%1$@ heeft een contact gedeeld met de groep %2$@";
+"CHAT_MESSAGE_GEO" = "%1$@ heeft een kaart gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_DOC" = "%1$@ heeft een bestand gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_AUDIO" = "%1$@ heeft een spraakbericht gestuurd naar de groep %2$@";
+"CHAT_MESSAGE_GIF" = "%1$@ heeft een GIF gestuurd naar de groep %2$@";
+"CHAT_CREATED" = "%1$@ heeft je uitgenodigd voor de groep %2$@";
+"CHAT_TITLE_EDITED" = "%1$@ heeft de naam van de groep %2$@ gewijzigd";
+"CHAT_PHOTO_EDITED" = "%1$@ heeft de afbeelding van de groep %2$@ gewijzigd";
+"CHAT_ADD_MEMBER" = "%1$@ heeft %3$@ uitgenodigd voor de groep %2$@";
+"CHAT_ADD_YOU" = "%1$@ heeft je uitgenodigd voor de groep %2$@";
+"CHAT_DELETE_YOU" = "%1$@ heeft je verwijderd uit de groep %2$@";
+"CHAT_DELETE_MEMBER" = "%1$@ heeft %3$@ verwijderd uit de groep %2$@";
+"CHAT_LEFT" = "%1$@ heeft de groep %2$@ verlaten";
+"CHAT_RETURNED" = "%1$@ is weer lid van de groep %2$@";
+
+"MESSAGE_STICKER" = "%1$@ heeft je een %2$@sticker gestuurd";
+"CHAT_MESSAGE_STICKER" = "%1$@ heeft een %3$@sticker gestuurd naar de groep %2$@";
+
+"CONTACT_JOINED" = "%1$@ heeft nu TELEGRAM_APP_NAME!";
+"CONTACT_ACTIVATED" = "%1$@ heeft je geholpen je account te activeren!";
+
+"AUTH_UNKNOWN" = "Ingelogd vanaf een nieuw apparaat: %1$@";
+"AUTH_REGION" = "Ingelogd vanaf een nieuw apparaat: %1$@, locatie: %2$@";
+
+"MESSAGE_FWDS" = "%1$@ heeft %2$@ berichten doorgestuurd";
+"CHAT_MESSAGE_FWDS" = "%1$@ heeft %3$@ berichten naar de groep %2$@ doorgestuurd";
+
+"CHANNEL_MESSAGE_TEXT" = "%1$@: %2$@";
+"CHANNEL_MESSAGE_NOTEXT" = "%1$@ plaatste een bericht";
+"CHANNEL_MESSAGE_PHOTO" = "%1$@ plaatste een foto";
+"CHANNEL_MESSAGE_VIDEO" = "%1$@ plaatste een video";
+"CHANNEL_MESSAGE_ROUND" = "%1$@ plaatste een videobericht";
+"CHANNEL_MESSAGE_DOC" = "%1$@ plaatste een bestand";
+"CHANNEL_MESSAGE_STICKER" = "%1$@ plaatste een %2$@sticker";
+"CHANNEL_MESSAGE_AUDIO" = "%1$@ plaatste een spraakbericht";
+"CHANNEL_MESSAGE_CONTACT" = "%1$@ plaatste een contact";
+"CHANNEL_MESSAGE_GEO" = "%1$@ plaatste een kaart";
+"CHANNEL_MESSAGE_FWDS" = "%1$@ plaatste %2$@ doorgestuurde berichten";
+"CHANNEL_MESSAGE_GIF" = "%1$@ plaatste een GIF";
+
+"PINNED_TEXT" = "%1$@ heeft \"%2$@\" vastgezet";
+"PINNED_NOTEXT" = "%1$@ heeft bericht vastgezet";
+"PINNED_PHOTO" = "%1$@ heeft foto vastgezet";
+"PINNED_VIDEO" = "%1$@ heeft video vastgezet";
+"PINNED_ROUND" = "%1$@ heeft videobericht vastgezet";
+"PINNED_DOC" = "%1$@ heeft bestand vastgezet";
+"PINNED_STICKER" = "%1$@ heeft sticker %2$@vastgezet";
+"PINNED_AUDIO" = "%1$@ heeft spraakbericht vastgezet";
+"PINNED_CONTACT" = "%1$@ heeft contact vastgezet";
+"PINNED_GEO" = "%1$@ heeft locatie vastgezet";
+"PINNED_GIF" = "%1$@ heeft GIF vastgezet";
+
+"MESSAGE_GAME" = "%1$@ wil %2$@ met je spelen";
+"CHANNEL_MESSAGE_GAME" = "%1$@ wil %2$@ met je spelen";
+"CHAT_MESSAGE_GAME" = "%1$@ wil %3$@ met de groep %2$@ spelen";
+"PINNED_GAME" = "%1$@ heeft een spel vastgezet";
+
+"PHONE_CALL_REQUEST" = "%1$@ belt je";
+"PHONE_CALL_MISSED" = "Gemiste oproep van %1$@";
+
+// Common
+"Common.OK" = "OK";
+"Common.Cancel" = "Annuleer";
+"Common.Edit" = "Wijzig";
+"Common.edit" = "wijzig";
+"Common.Done" = "Gereed";
+"Common.Next" = "Volgende";
+"Common.Delete" = "Verwijder";
+"Common.Create" = "Maak";
+"Common.Back" = "Terug";
+"Common.Close" = "Sluit";
+"Common.Yes" = "Ja";
+"Common.No" = "Nee";
+"Common.TakePhotoOrVideo" = "Foto of video maken";
+"Common.TakePhoto" = "Foto maken";
+"Common.ChoosePhoto" = "Afbeelding kiezen";
+"Common.ChooseVideo" = "Video kiezen";
+"Common.of" = "van";
+"Common.Search" = "Zoek";
+"Common.More" = "Meer";
+"Common.Select" = "Selectie";
+
+// State
+"State.connecting" = "verbinden";
+"State.updating" = "bijwerken";
+"State.Connecting" = "Verbinden";
+"State.Updating" = "Bijwerken";
+"State.WaitingForNetwork" = "Wachten op netwerk";
+
+// Presence
+"Presence.online" = "online";
+"Presence.offline" = "offline";
+"Presence.invisible" = "onzichtbaar";
+
+// Date
+"Month.GenJanuary" = "januari";
+"Month.GenFebruary" = "februari";
+"Month.GenMarch" = "maart";
+"Month.GenApril" = "april";
+"Month.GenMay" = "mei";
+"Month.GenJune" = "juni";
+"Month.GenJuly" = "juli";
+"Month.GenAugust" = "augustus";
+"Month.GenSeptember" = "september";
+"Month.GenOctober" = "oktober";
+"Month.GenNovember" = "november";
+"Month.GenDecember" = "december";
+"Month.ShortJanuary" = "jan";
+"Month.ShortFebruary" = "feb";
+"Month.ShortMarch" = "mrt";
+"Month.ShortApril" = "apr";
+"Month.ShortMay" = "mei";
+"Month.ShortJune" = "jun";
+"Month.ShortJuly" = "jul";
+"Month.ShortAugust" = "aug";
+"Month.ShortSeptember" = "sep";
+"Month.ShortOctober" = "okt";
+"Month.ShortNovember" = "nov";
+"Month.ShortDecember" = "dec";
+"Weekday.ShortMonday" = "ma";
+"Weekday.ShortTuesday" = "di";
+"Weekday.ShortWednesday" = "wo";
+"Weekday.ShortThursday" = "do";
+"Weekday.ShortFriday" = "vr";
+"Weekday.ShortSaturday" = "za";
+"Weekday.ShortSunday" = "zo";
+"Weekday.Monday" = "maandag";
+"Weekday.Tuesday" = "dinsdag";
+"Weekday.Wednesday" = "woensdag";
+"Weekday.Thursday" = "donderdag";
+"Weekday.Friday" = "vrijdag";
+"Weekday.Saturday" = "zaterdag";
+"Weekday.Sunday" = "zondag";
+"Weekday.Today" = "Vandaag";
+"Weekday.Yesterday" = "Gisteren";
+
+"Time.TodayAt" = "vandaag om %@";
+"Time.YesterdayAt" = "gisteren om %@";
+
+"LastSeen.JustNow" = "laatst gezien zojuist";
+"LastSeen.MinutesAgo_1" = "laatst gezien 1 minuut geleden"; //one
+"LastSeen.MinutesAgo_2" = "laatst gezien 2 min geleden"; //two
+"LastSeen.MinutesAgo_3_10" = "laatst gezien %@ min geleden"; //three to ten
+"LastSeen.MinutesAgo_any" = "laatst gezien %@ min geleden"; // more than ten
+"LastSeen.HoursAgo_1" = "laatst gezien 1 uur geleden";
+"LastSeen.HoursAgo_2" = "laatst gezien 2 uur geleden";
+"LastSeen.HoursAgo_3_10" = "laatst gezien %@ uur geleden";
+"LastSeen.HoursAgo_any" = "laatst gezien %@ uur geleden";
+"LastSeen.TodayAt" = "laatst gezien vandaag om %@";
+"LastSeen.YesterdayAt" = "laatst gezien gisteren om %@";
+"LastSeen.AtWeekday" = "laatst gezien %@";
+"LastSeen.AtDate" = "laatst gezien %@";
+"LastSeen.Lately" = "recent gezien";
+"LastSeen.WithinAWeek" = "afgelopen week gezien";
+"LastSeen.WithinAMonth" = "afgelopen maand gezien";
+"LastSeen.ALongTimeAgo" = "lang geleden gezien";
+
+"Date.DialogDateFormat" = "{day} {month}";
+
+// Tour
+"Tour.Title1" = "TELEGRAM_APP_NAME";
+"Tour.Text1" = "'s Werelds **snelste** berichtenapp.\nHet is **veilig** en **gratis**.";
+
+"Tour.Title2" = "Snel";
+"Tour.Text2" = "**TELEGRAM_APP_NAME** bezorgt berichten\nsneller dan elke andere applicatie.";
+
+"Tour.Title3" = "Krachtig";
+"Tour.Text3" = "**TELEGRAM_APP_NAME** beperkt je niet \nin de grootte van je media of chats. ";
+
+"Tour.Title4" = "Veilig";
+"Tour.Text4" = "**TELEGRAM_APP_NAME** beveiligt je berichten\ntegen aanvallen van hackers.";
+
+"Tour.Title5" = "In de cloud";
+"Tour.Text5" = "**TELEGRAM_APP_NAME** biedt toegang tot je berichten vanaf meerdere apparaten.";
+
+"Tour.Title6" = "Gratis";
+"Tour.Text6" = "**TELEGRAM_APP_NAME** is altijd gratis. \nGeen advertenties.\nGeen abonnementskosten.";
+
+"Tour.Title7" = "Privé";
+"Tour.Text7" = "**TELEGRAM_APP_NAME**-berichten zijn sterk versleuteld en kunnen zichzelf vernietigen.";
+
+"Tour.StartButton" = "Begin met chatten";
+
+// Login
+"Login.PhoneAndCountryHelp" = "Bevestig je landnummer en voer je telefoonnummer in.";
+"Login.CodeHelp" = "We hebben een sms-bericht met activatiecode verstuurd naar het nummer\n%@";
+"Login.CodeSentInternal" = "We hebben de code naar je andere TELEGRAM_APP_NAME-app gestuurd.";
+"Login.HaveNotReceivedCodeInternal" = "Geen code ontvangen?";
+"Login.CodeSentSms" = "We hebben je een sms-bericht gestuurd met de code";
+"Login.Code" = "Code";
+"Login.CallRequestState1" = "Geen sms ontvangen?\nTELEGRAM_APP_NAME belt je over %d:%.2d";
+"Login.CallRequestState2" = "Oproepverzoek versturen naar TELEGRAM_APP_NAME";
+"Login.CallRequestState3" = "TELEGRAM_APP_NAME heeft je nummer gebeld.\n[Code niet ontvangen?]";
+"Login.EmailNotConfiguredError" = "Gelieve een e-mailaccount in te stellen op je iPhone.";
+"Login.EmailCodeSubject" = "%@, geen code ontvangen";
+"Login.EmailCodeBody" = "Mijn telefoonnummer is:\n%@\nIk heb geen activatiecode ontvangen voor TELEGRAM_APP_NAME.";
+"Login.UnknownError" = "Er is een fout opgetreden. Probeer het later opnieuw.";
+"Login.InvalidCodeError" = "Je hebt een ongeldige code ingevoerd. Probeer het opnieuw.";
+"Login.NetworkError" = "Controleer je internetverbinding en probeer het opnieuw.";
+"Login.CodeExpiredError" = "Code is verlopen. Probeer het opnieuw.";
+"Login.CodeFloodError" = "Limiet bereikt. Probeer het later opnieuw.";
+"Login.InvalidPhoneError" = "Ongeldig telefoonnummer. Probeer het opnieuw.";
+"Login.InvalidFirstNameError" = "Ongeldige voornaam. Probeer het opnieuw.";
+"Login.InvalidLastNameError" = "Ongeldige achternaam. Probeer het opnieuw.";
+"Login.InactiveHelp" = "Geen van je contacten gebruikt TELEGRAM_APP_NAME.\nJe ontvangt een melding wanneer iemand lid wordt.\nJe kunt ook nu vrienden uitnodigen.";
+"Login.InviteButton" = "Vrienden uitnodigen";
+
+"Login.PhoneTitle" = "Je telefoon";
+"Login.PhonePlaceholder" = "Je telefoonnummer";
+"Login.CountryCode" = "Landnummer";
+"Login.InvalidCountryCode" = "Ongeldig landnummer";
+
+"Login.CodeTitle" = "Je code";
+
+"Login.InfoTitle" = "Je gegevens";
+"Login.InfoAvatarAdd" = "voeg toe";
+"Login.InfoAvatarPhoto" = "foto";
+"Login.InfoFirstNamePlaceholder" = "Voornaam";
+"Login.InfoLastNamePlaceholder" = "Achternaam";
+"Login.InfoUpdatePhoto" = "Foto wijzigen";
+"Login.InfoDeletePhoto" = "Foto verwijderen";
+"Login.InfoHelp" = "Voer je naam in en voeg een profielfoto toe.";
+
+// Login.SelectCountry
+"Login.SelectCountry.Title" = "Land";
+
+// Welcome Screen
+"WelcomeScreen.Title" = "Aan de slag";
+"WelcomeScreen.Logout" = "Uitloggen";
+"WelcomeScreen.Greeting" = "Welkom, %@!";
+"WelcomeScreen.ContactsAccessDisabled" = "Je contacten kunnen niet worden gesynchroniseerd.";
+"WelcomeScreen.ContactsAccessHelp" = "TELEGRAM_APP_NAME is gebaseerd op je bestaande adresboek. Navigeer naar de instellingen van je %@ > Privacy > Contacten en zet TELEGRAM_APP_NAME op AAN.";
+"WelcomeScreen.ContactsAccessSettings" = "Instellingen";
+"WelcomeScreen.UpdatingTitle" = "Bijwerken";
+
+// Dialog List
+"DialogList.TabTitle" = "Chats";
+"DialogList.Title" = "Chats";
+"DialogList.SearchLabel" = "Contact of gebruikersnaam";
+"DialogList.SelectContact" = "Contact kiezen";
+"DialogList.SelectContacts" = "Contact kiezen";
+"DialogList.Create" = "Maak";
+"DialogList.NoMessagesTitle" = "Je hebt nog geen chats";
+"DialogList.NoMessagesText" = "Tik op het potloodje rechtsboven om een chat te beginnen of ga naar de contactenlijst.";
+"DialogList.SingleTypingSuffix" = "%@ is aan het typen";
+"DialogList.SingleRecordingAudioSuffix" = "%@ neemt geluid op";
+"DialogList.SingleUploadingPhotoSuffix" = "%@ verstuurt een foto";
+"DialogList.SingleUploadingVideoSuffix" = "%@ verstuurt een video";
+"DialogList.SingleRecordingVideoMessageSuffix" = "%@ neemt een video op";
+"DialogList.SingleUploadingFileSuffix" = "%@ verstuurt een bestand";
+"DialogList.MultipleTypingSuffix" = "%d zijn aan het typen";
+"DialogList.Typing" = "aan het typen";
+"DialogList.ClearHistoryConfirmation" = "Geschiedenis wissen";
+"DialogList.DeleteConversationConfirmation" = "Verwijder en verlaat";
+"DialogList.AwaitingEncryption" = "Wachten tot %@ online komt";
+"DialogList.EncryptionRejected" = "Geheime chat geannuleerd";
+"DialogList.EncryptionProcessing" = "Encryptiesleutels uitwisselen";
+"DialogList.EncryptedChatStartedOutgoing" = "%@ neemt deel aan je geheime chat.";
+"DialogList.EncryptedChatStartedIncoming" = "%@ heeft een geheime chat gemaakt.";
+"DialogList.Conversations" = "Chats";
+"DialogList.Messages" = "Berichten";
+
+// Compose
+"Compose.TokenListPlaceholder" = "Wie wil je een bericht sturen?";
+"Compose.NewMessage" = "Nieuw bericht";
+"Compose.NewGroup" = "Nieuwe groep";
+"Compose.NewEncryptedChat" = "Nieuwe geheime chat";
+"Compose.NewBroadcast" = "Verzendlijst";
+"Compose.NewBroadcastButton" = "Nieuwe verzendlijst";
+"Compose.Recipients" = "Ontvangers";
+"Compose.Create" = "Maak";
+
+// Contacts
+"Contacts.TabTitle" = "Contacten";
+"Contacts.Title" = "Contacten";
+"Contacts.Invite" = "Nodig uit";
+"Contacts.contact" = "contact";
+"Contacts.contacts" = "contacten";
+"Contacts.contactsvar" = "contacten";
+"Contacts.InvitationText" = "Hey! Zullen we overstappen op TELEGRAM_APP_NAME? http://TELEGRAM_APP_NAME.org/dl";
+"Contacts.FailedToSendInvitesMessage" = "Er is een fout opgetreden.";
+"Contacts.AccessDeniedError" = "TELEGRAM_APP_NAME heeft geen toegang tot je contacten.";
+"Contacts.AccessDeniedHelpLandscape" = "Ga naar je %@ Instellingen — Privacy — Contacten.\nKies hier 'AAN' voor TELEGRAM_APP_NAME.";
+"Contacts.AccessDeniedHelpPortrait" = "Ga naar je %@ Instellingen — Privacy — Contacten en zet TELEGRAM_APP_NAME op AAN.";
+"Contacts.AccessDeniedHelpON" = "AAN";
+"Contacts.InviteToTELEGRAM_APP_NAME" = "Nodig uit voor TELEGRAM_APP_NAME";
+"Contacts.InviteFriends" = "Uitnodigen";
+"Contacts.SelectAll" = "Selecteer alles";
+
+// Conversation
+"Conversation.InputTextPlaceholder" = "Bericht";
+"Conversation.Send" = "Stuur";
+"Conversation.typing" = "aan het typen";
+"Conversation.MessageDeliveryFailed" = "Je bericht is niet verzonden. Tik op \"Opnieuw versturen\" om dit bericht te versturen.";
+"Conversation.MessageDialogEdit" = "Wijzig";
+"Conversation.MessageDialogRetry" = "Opnieuw versturen";
+"Conversation.MessageDialogRetryAll" = "Stuur %1$d berichten opnieuw";
+"Conversation.MessageDialogDelete" = "Verwijder";
+"Conversation.LinkDialogOpen" = "Openen";
+"Conversation.LinkDialogCopy" = "Kopieer";
+"Conversation.EditDelete" = "Verwijder";
+"Conversation.EditForward" = "Doorsturen";
+"Conversation.ForwardToPersonFormat" = "Doorsturen naar %@?";
+"Conversation.ForwardToGroupFormat" = "Doorsturen naar %@?";
+"Conversation.ForwardTitle" = "Doorsturen";
+"Conversation.ForwardChats" = "Chats";
+"Conversation.ForwardContacts" = "Contacten";
+"Conversation.StatusKickedFromGroup" = "je bent verwijderd uit de groep";
+"Conversation.StatusLeftGroup" = "je hebt de groep verlaten";
+"Conversation.StatusTyping" = "aan het typen";
+"Conversation.BroadcastTitle" = "Verzendlijst";
+"Conversation.Call" = "Bel";
+"Conversation.Mute" = "Geluid uit";
+"Conversation.Unmute" = "Geluid aan";
+"Conversation.Edit" = "Wijzig";
+"Conversation.Info" = "Info";
+"Conversation.Search" = "Zoeken";
+"Conversation.Block" = "Blokkeer";
+"Conversation.Unblock" = "Deblokkeer";
+"Conversation.ClearAll" = "Wis Alles";
+"Conversation.Location" = "Locatie";
+"Conversation.Document" = "Bestand";
+"Conversation.Contact" = "Contact";
+"Conversation.BlockUser" = "Blokkeer gebruiker";
+"Conversation.UnblockUser" = "Deblokkeer gebruiker";
+"Conversation.DeleteGroup" = "Deze groep verwijderen";
+"Conversation.DeleteChat" = "Chat verwijderen";
+"Conversation.ClearAllConfirmation" = "Alle berichten verwijderen?";
+"Conversation.SearchImages" = "Afbeelding zoeken";
+"Conversation.UnsupportedMedia" = "Dit bericht wordt niet ondersteund in jouw versie van TELEGRAM_APP_NAME. Werk TELEGRAM_APP_NAME bij via:\nhttp://TELEGRAM_APP_NAME.org/update";
+"Conversation.EncryptionWaiting" = "Wachten tot %@ online komt";
+"Conversation.EncryptionProcessing" = "Encryptiesleutels uitwisselen";
+"Conversation.SupportPlaceholder" = "Heb je een vraag over TELEGRAM_APP_NAME?";
+"Conversation.EmptyPlaceholder" = "Nog geen berichten";
+"Conversation.EncryptedPlaceholderTitleIncoming" = "%@ heeft je uitgenodigd voor een geheime chat.";
+"Conversation.EncryptedPlaceholderTitleOutgoing" = "Je hebt %@ uitgenodigd voor een geheime chat.";
+"Conversation.EncryptedDescriptionTitle" = "Geheime chat functies:";
+"Conversation.EncryptedDescription1" = "End-to-end-encryptie";
+"Conversation.EncryptedDescription2" = "Geen serveropslag ";
+"Conversation.EncryptedDescription3" = "Zelfvernietigingstimers";
+"Conversation.EncryptedDescription4" = "Doorstuurbescherming";
+"Conversation.EncryptedForwardingAlert" = "Sorry, je kunt berichten in een geheime chat niet doorsturen.";
+"Conversation.ContextMenuCopy" = "Kopieer";
+"Conversation.ContextMenuDelete" = "Verwijder";
+"Conversation.ContextMenuForward" = "Doorsturen";
+"Conversation.ContextMenuMore" = "Meer...";
+
+"Conversation.StatusMembers_1" = "1 lid";
+"Conversation.StatusMembers_2" = "2 leden";
+"Conversation.StatusMembers_3_10" = "%@ leden";
+"Conversation.StatusMembers_any" = "%@ leden";
+
+"Conversation.StatusRecipients_1" = "1 ontvanger";
+"Conversation.StatusRecipients_2" = "2 ontvangers";
+"Conversation.StatusRecipients_3_10" = "%@ ontvangers";
+"Conversation.StatusRecipients_any" = "%@ ontvangers";
+
+"Conversation.StatusOnline_1" = "1 online";
+"Conversation.StatusOnline_2" = "2 online";
+"Conversation.StatusOnline_3_10" = "%@ online";
+"Conversation.StatusOnline_any" = "%@ online";
+
+"Conversation.UnreadMessages" = "Ongelezen berichten";
+"Conversation.InfoGroup" = "Groep";
+"Conversation.InfoPrivate" = "Contact";
+"Conversation.InfoBroadcastList" = "Lijst";
+
+// Notification
+"Notification.RenamedChat" = "%@ heeft de groepsnaam gewijzigd";
+"Notification.RenamedChannel" = "Kanaalnaam gewijzigd";
+"Notification.ChangedGroupPhoto" = "%@ heeft de groepsafbeelding gewijzigd";
+"Notification.RemovedGroupPhoto" = "%@ heeft de groepsafbeelding verwijderd";
+"Notification.ChangedUserPhoto" = "%@ heeft een nieuwe profielfoto toegevoegd";
+"Notification.RemovedUserPhoto" = "%@ heeft zijn/haar profielfoto verwijderd";
+"Notification.JoinedChat" = "%@ is nu lid van de groep";
+"Notification.Invited" = "%@ heeft %@ uitgenodigd";
+"Notification.LeftChat" = "%@ heeft de groep verlaten";
+"Notification.Kicked" = "%@ heeft %@ verwijderd";
+"Notification.CreatedChat" = "%@ heeft een groep gemaakt";
+"Notification.CreatedChannel" = "Kanaal gemaakt";
+"Notification.CreatedGroup" = "Groep gemaakt";
+"Notification.CreatedBroadcastList" = "Je hebt een verzendlijst gemaakt";
+"Notification.CreatedChatWithTitle" = "%@ heeft de groep \"%@\" gemaakt";
+"Notification.Joined" = "%@ heeft nu TELEGRAM_APP_NAME";
+"Notification.ChangedGroupName" = "%@ heeft de groepsnaam gewijzigd naar \"%@\"";
+"Notification.NewAuthDetected" = "%1$@,\nEr is op je account ingelogd vanaf een nieuw apparaat op %2$@, %3$@ om %4$@\n\nApparaat: %5$@\nLocatie: %6$@\n\nAls jij dit niet was, kun je deze sessie beëindigen via Instellingen – Privacy en veiligheid – Sessies. \n\nAls je denkt dat iemand zonder jouw toestemming is ingelogd kun je twee-staps-verificatie activeren via instellingen - privacy en veiligheid. \n\nBedankt,\nHet TELEGRAM_APP_NAME-team";
+"Notification.EncryptedChatRequested" = "Geheime chat aangevraagd";
+"Notification.EncryptedChatAccepted" = "Geheime chat gestart";
+"Notification.MessageLifetimeChanged" = "%1$@ heeft de zelfvernietigingstimer ingesteld op %2$@";
+"Notification.MessageLifetimeChangedOutgoing" = "Je hebt de zelfvernietigingstimer ingesteld op %1$@";
+"Notification.MessageLifetimeRemoved" = "%1$@ heeft de zelfvernietigingstimer uitgeschakeld";
+"Notification.MessageLifetimeRemovedOutgoing" = "Je hebt de zelfvernietigingstimer uitgeschakeld";
+"Notification.MessageLifetime2s" = "2 seconden";
+"Notification.MessageLifetime5s" = "5 seconden";
+"Notification.MessageLifetime1m" = "1 minuut";
+"Notification.MessageLifetime1h" = "1 uur";
+"Notification.MessageLifetime1d" = "1 dag";
+"Notification.MessageLifetime1w" = "1 week";
+
+// Message
+"Message.Photo" = "Foto";
+"Message.Video" = "Video";
+"Message.Location" = "Locatie";
+"Message.Contact" = "Contact";
+"Message.File" = "Bestand";
+"Message.Sticker" = "sticker";
+"Message.Audio" = "Spraakbericht";
+"Message.ForwardedMessage" = "Doorgestuurd bericht\nVan: %@";
+"Message.SharedContact" = "Gedeeld contact";
+"Message.Animation" = "GIF";
+
+// Conversation Profile
+"ConversationProfile.ErrorCreatingConversation" = "Er is een fout opgetreden";
+"ConversationProfile.UserLeftChatError" = "Sorry, %@ heeft deze groep verlaten. Je kunt hem/haar niet opnieuw uitnodigen.";
+"ConversationProfile.UnknownAddMemberError" = "Er is een onverwachte fout opgetreden. Ons wonderteam is op de hoogte gebracht en zal het probleem spoedig oplossen.";
+"ConversationProfile.UsersTooMuchError" = "Sorry, deze groep is vol. Je kunt geen leden meer toevoegen.";
+
+"ConversationProfile.LeaveDeleteAndExit" = "Verwijder en verlaat";
+
+"Conversation.DownloadPhoto" = "Download foto";
+"Conversation.ViewPhoto" = "Bekijk foto";
+"Conversation.PlayVideo" = "Speel video af";
+"Conversation.Play" = "Afspelen";
+"Conversation.Stop" = "Stop";
+"Conversation.ViewFile" = "Bekijk bestand";
+"Conversation.Download" = "Download";
+"Conversation.DownloadMegabytes" = "Download %.1f MB";
+"Conversation.DownloadKilobytes" = "Download %d KB";
+"Conversation.Megabytes" = "%.1f MB";
+"Conversation.Kilobytes" = "%d KB";
+"Conversation.Bytes" = "%d B";
+"Conversation.DownloadProgressMegabytes" = "%1$.1f MB / %2$.1f MB";
+"Conversation.DownloadProgressKilobytes" = "%1$d KB / %2$d KB";
+"Conversation.ViewLocation" = "Bekijk locatie";
+"Conversation.SearchWebImages" = "Zoek afbeeldingen";
+"Conversation.ShareMyContactInfo" = "Mijn contactgegevens delen";
+"Conversation.AddContact" = "Contact toevoegen";
+"Conversation.SendMessage" = "Bericht sturen";
+"Conversation.EncryptionCanceled" = "Geheime chat geannuleerd";
+"Conversation.DeleteOneMessage" = "Verwijder bericht";
+"Conversation.DeleteManyMessages" = "Verwijder berichten";
+"Conversation.View" = "Bekijk";
+"Conversation.Download" = "Download";
+"Conversation.SlideToCancel" = "Sleep om te annuleren";
+"Conversation.ApplyLocalization" = "Vertaling toepassen";
+"Conversation.OpenFile" = "Bestand openen";
+"Conversation.MicrophoneAccessDisabled" = "TELEGRAM_APP_NAME heeft toegang tot je microfoon nodig voor spraakberichten. Navigeer naar Instellingen > Privacy > Microfoon en zet TELEGRAM_APP_NAME op AAN.";
+
+// Media Picker
+"MediaPicker.Send" = "Stuur";
+"MediaPicker.Choose" = "Selecteer";
+"SearchImages.SearchImages" = "Afbeelding zoeken";
+"SearchImages.Title" = "Albums";
+"MediaPicker.CameraRoll" = "Filmrol";
+"SearchImages.NoImagesFound" = "Geen afbeeldingen gevonden";
+"MediaPicker.AccessDeniedError" = "TELEGRAM_APP_NAME heeft geen toegang tot je foto's";
+"MediaPicker.AccessDeniedHelp" = "Ga naar je %@ Instellingen — Privacy — Foto's.\nKies hier 'AAN' voor TELEGRAM_APP_NAME.";
+"SearchImages.Downloading#Kb" = "%d kB downloaden";
+"SearchImages.Downloading#Mb" = "%d MB downloaden";
+"SearchImages.ImageNofM" = "Afbeelding %1$@ van %2$@";
+"SearchImages.DownloadCancelled" = "Downloaden geannuleerd";
+"SearchImages.ErrorDownloadingImage" = "Fout bij downloaden van afbeelding";
+"SearchImages.SkipImage" = "Sla afbeelding over";
+"SearchImages.RetryDownload" = "Probeer opnieuw";
+
+// User Profile
+"Profile.ImageUploadError" = "Er is een fout opgetreden. Probeer het later opnieuw.";
+"Profile.PhonebookAccessDisabled" = "Om deze functie te gebruiken, moet je TELEGRAM_APP_NAME toegang geven tot je adresboek. Ga naar de instellingen van je iPhone, Instellingen — Privacy — Contacten, en zet TELEGRAM_APP_NAME op AAN.";
+"Profile.CreateEncryptedChatError" = "Er is een fout opgetreden.";
+"Profile.CreateEncryptedChatOutdatedError" = "Kan geen geheime chat starten met %@.\n%@ gebruikt een oudere versie van TELEGRAM_APP_NAME en moet eerst een update installeren.";
+"Profile.CreateNewContact" = "Nieuw Contact";
+"Profile.AddToExisting" = "Toevoegen aan Contact";
+"Profile.EncryptionKey" = "Encryptiesleutel";
+"Profile.MessageLifetime" = "Zelfvernietigingstimer";
+"Profile.MessageLifetimeForever" = "Uit";
+"Profile.MessageLifetime2s" = "2s";
+"Profile.MessageLifetime5s" = "5s";
+"Profile.MessageLifetime1m" = "1m";
+"Profile.MessageLifetime1h" = "1u";
+"Profile.MessageLifetime1d" = "1d";
+"Profile.MessageLifetime1w" = "1w";
+"Profile.ShareContactButton" = "Contact delen";
+"Profile.ShareContactPersonFormat" = "Contact delen met %@?";
+"Profile.ShareContactGroupFormat" = "Contact delen met %@?";
+
+// User Info
+"UserInfo.Title" = "Info";
+"UserInfo.FirstNamePlaceholder" = "Voornaam";
+"UserInfo.LastNamePlaceholder" = "Achternaam";
+"UserInfo.GenericPhoneLabel" = "mobiel";
+"UserInfo.SendMessage" = "Bericht sturen";
+"UserInfo.AddContact" = "Contact toevoegen";
+"UserInfo.ShareContact" = "Contact delen";
+"UserInfo.StartSecretChat" = "Geheime chat starten";
+"UserInfo.DeleteContact" = "Contact verwijderen";
+"UserInfo.CreateNewContact" = "Nieuw Contact";
+"UserInfo.AddToExisting" = "Voeg toe aan bestaande";
+"UserInfo.AddPhone" = "Telefoonnummer toevoegen";
+"UserInfo.NotificationsEnabled" = "Ingeschakeld";
+"UserInfo.NotificationsDisabled" = "Uitgeschakeld";
+"UserInfo.NotificationsEnable" = "Inschakelen";
+"UserInfo.NotificationsDisable" = "Uitschakelen";
+"UserInfo.Invite" = "Nodig uit voor TELEGRAM_APP_NAME";
+
+// New Contact
+"NewContact.Title" = "Nieuw contact";
+
+// Phone Label
+"PhoneLabel.Title" = "Label";
+
+// Secret Chat
+"SecretChat.Title" = "Geheime chat";
+
+// Group Info
+"GroupInfo.Title" = "Groepsinformatie";
+"GroupInfo.GroupNamePlaceholder" = "Groepsnaam";
+"GroupInfo.BroadcastListNamePlaceholder" = "Naam van lijst";
+"GroupInfo.SetGroupPhoto" = "Stel groepsafbeelding in";
+"GroupInfo.SetGroupPhotoStop" = "Stop";
+"GroupInfo.SetGroupPhotoDelete" = "Foto verwijderen";
+"GroupInfo.Notifications" = "Berichtgeving";
+"GroupInfo.Sound" = "Geluid";
+"GroupInfo.SharedMedia" = "Gedeelde media";
+"GroupInfo.SharedMediaNone" = "Geen";
+"GroupInfo.DeleteAndExit" = "Verwijder en verlaat";
+"GroupInfo.DeleteAndExitConfirmation" = "Je kunt niet opnieuw lid worden van deze groep.";
+"GroupInfo.ParticipantCount_1" = "1 LID";
+"GroupInfo.ParticipantCount_2" = "2 LEDEN";
+"GroupInfo.ParticipantCount_3_10" = "%@ LEDEN";
+"GroupInfo.ParticipantCount_any" = "%@ LEDEN";
+"GroupInfo.AddParticipant" = "Lid toevoegen";
+"GroupInfo.AddParticipantTitle" = "Contacten";
+"GroupInfo.AddParticipantConfirmation" = "%@ toevoegen aan de groep?";
+"GroupInfo.KickedStatus" = "Je bent verwijderd uit de groep";
+"GroupInfo.LeftStatus" = "Je hebt de groep verlaten";
+
+// Encryption Key
+"EncryptionKey.Title" = "Encryptiesleutel";
+"EncryptionKey.Description" = "Deze afbeelding en tekst zijn afgeleid van de encryptiesleutel voor deze geheime chat met %1$@.\n\nAls dit er hetzelfde uitziet op het apparaat van %2$@, dan is end-to-end-encryptie gegarandeerd.\n\nLees meer op TELEGRAM_APP_NAME.org";
+
+// Conversation media
+"ConversationMedia.Title" = "Media";
+"ConversationMedia.EmptyTitle" = "Geen foto's of video's";
+
+// Preview
+"Preview.VideoNotYetDownloaded" = "Download eerst de video.";
+"Preview.GroupPhotoTitle" = "Groepsafbeelding";
+"Preview.ProfilePhotoTitle" = "Profielfoto";
+"Preview.LoadingVideo" = "video laden";
+"Preview.LoadingImage" = "volledige afbeelding laden";
+"Preview.LoadingImages" = "volledige afbeeldingen laden";
+"Preview.DeletePhoto" = "Foto verwijderen";
+"Preview.DeleteVideo" = "Video verwijderen";
+"Preview.ForwardViaTELEGRAM_APP_NAME" = "Doorsturen via TELEGRAM_APP_NAME";
+"Preview.SaveToCameraRoll" = "In Filmrol opslaan";
+
+// Map
+"Map.ChooseLocationTitle" = "Locatie";
+"Map.MapTitle" = "Kaart";
+"Map.Send" = "Stuur";
+"Map.Map" = "Kaart";
+"Map.Satellite" = "Satelliet";
+"Map.Hybrid" = "Hybride";
+"Map.AccessDeniedError" = "Voor deze functie moet je Locatievoorzieningen inschakelen voor TELEGRAM_APP_NAME in de privacy instellingen van je iPhone.";
+"Map.ForwardViaTELEGRAM_APP_NAME" = "Doorsturen via TELEGRAM_APP_NAME";
+"Map.GetDirections" = "Toon routebeschrijving";
+"Map.OpenInGoogleMaps" = "Open in Google Maps";
+
+// Web
+"Web.Error" = "Kan pagina niet laden";
+"Web.OpenExternal" = "Open in Safari";
+"Web.CopyLink" = "Link kopiëren";
+
+// Document
+"Document.TargetConfirmationFormat" = "Bestand ({size}) versturen naar {target}?";
+
+// Dialog List
+"DialogList.You" = "Jij";
+
+// Settings
+"Settings.TabTitle" = "Instellingen";
+"Settings.SetProfilePhoto" = "Profielfoto instellen";
+"Settings.Logout" = "Uitloggen";
+"Settings.Title" = "Instellingen";
+"Settings.NotificationsAndSounds" = "Berichtgeving en geluiden";
+"Settings.ChatSettings" = "Data en opslag";
+"Settings.BlockedUsers" = "Geblokkeerd";
+"Settings.ChatBackground" = "Achtergrond kiezen";
+"Settings.Support" = "Een vraag stellen";
+"Settings.FAQ" = "Veelgestelde vragen";
+"Settings.FAQ_URL" = "https://TELEGRAM_APP_NAME.org/faq/nl#general";
+"Settings.FAQ_Intro" = "De ondersteuning van TELEGRAM_APP_NAME wordt gedaan door vrijwilligers. We proberen zo snel mogelijk te reageren, maar het kan even duren.\n\nBekijk ook de veelgestelde vragen: hier kun je belangrijke tips en antwoorden op de meest gestelde vragen vinden.";
+"Settings.FAQ_Button" = "Veelgestelde vragen";
+"Settings.SaveIncomingPhotos" = "Ontvangen foto's opslaan";
+"Settings.SaveIncomingPhotosHelp" = "Ontvangen foto's in Filmrol opslaan.";
+"Settings.LogoutError" = "Er is een fout opgetreden. Probeer het later opnieuw.";
+
+// Notifications and Sounds
+"Notifications.Title" = "Berichtgeving";
+"Notifications.MessageNotifications" = "BERICHTEN";
+"Notifications.MessageNotificationsAlert" = "Waarschuwing";
+"Notifications.MessageNotificationsPreview" = "Voorvertoning";
+"Notifications.MessageNotificationsSound" = "Geluid";
+"Notifications.MessageNotificationsHelp" = "Gebruikersspecifieke meldingen kun je instellen via de contactgegevens.";
+
+"Notifications.GroupNotifications" = "GROEPSBERICHTEN";
+"Notifications.GroupNotificationsAlert" = "Waarschuwing";
+"Notifications.GroupNotificationsPreview" = "Voorvertoning";
+"Notifications.GroupNotificationsSound" = "Geluid";
+"Notifications.GroupNotificationsHelp" = "Groepsspecifieke meldingen kun je instellen via de groepsinformatie.";
+
+"Notifications.TextTone" = "Berichttoon";
+"Notifications.AlertTones" = "Waarschuwingsgeluiden";
+"Notifications.ClassicTones" = "KLASSIEK";
+
+"Notifications.InAppNotifications" = "IN-APP BERICHTGEVING";
+"Notifications.InAppNotificationsSounds" = "Geluiden";
+"Notifications.InAppNotificationsVibrate" = "Trillen";
+"Notifications.InAppNotificationsPreview" = "Voorvertoningen";
+
+"Notifications.Reset" = "Resetten";
+"Notifications.ResetAllNotifications" = "Berichtgeving resetten";
+"Notifications.ResetAllNotificationsHelp" = "Aangepaste meldingsinstellingen wissen voor contacten en groepen.";
+
+// Chat Settings
+"ChatSettings.Title" = "Data en opslag";
+"ChatSettings.Appearance" = "WEERGAVE";
+"ChatSettings.TextSize" = "Tekstgrootte";
+"ChatSettings.TextSizeUnits" = "pt";
+"ChatSettings.AutomaticPhotoDownload" = "FOTO'S AUTOM. DOWNLOADEN";
+"ChatSettings.AutomaticAudioDownload" = "AUDIO AUTOMATISCH DOWNLOADEN";
+"ChatSettings.PrivateChats" = "Chats";
+"ChatSettings.Groups" = "Groepen";
+"ChatSettings.Security" = "VEILIGHEID";
+"ChatSettings.Language" = "TAAL";
+"ChatSettings.RevertLanguage" = "Taal herstellen";
+"ChatSettings.Cache" = "CACHE";
+
+// Usage
+"Cache.Title" = "Opslaggebruik";
+"Cache.ClearCache" = "Cache opschonen";
+"Cache.ClearCacheAlert" = "Foto's, video's en andere bestanden uit cloudchats zullen worden verwijderd om ruimte te besparen. \n\nMedia blijven bewaard in de TELEGRAM_APP_NAME-cloud en kunnen opnieuw worden gedownload.";
+"Cache.KeepMedia" = "Media bewaren";
+"Cache.Help" = "Foto's, video's en andere bestanden uit chats die je niet hebt **geraadpleegd** gedurende deze periode zullen worden verwijderd om ruimte te besparen. \n\nMedia blijven bewaard in de TELEGRAM_APP_NAME-cloud en kunnen opnieuw worden gedownload.";
+
+// Blocked Users
+"BlockedUsers.Title" = "Geblokkeerd";
+"BlockedUsers.SelectUserTitle" = "Blokkeer gebruiker";
+"BlockedUsers.AlreadyBlocked" = "Deze gebruiker is al geblokkeerd";
+"BlockedUsers.BlockUser" = "Blokkeer gebruiker";
+"BlockedUsers.BlockFormat" = "%@ blokkeren?";
+"BlockedUsers.BlockTitle" = "Blokkeer";
+"BlockedUsers.LeavePrefix" = "Verlaat";
+"BlockedUsers.Info" = "Geblokkeerde gebruikers kunnen je:\n- geen berichten sturen;\n- niet toevoegen aan groepen;\n- profielfoto niet zien;\n- online status niet zien;\n- laatst gezien status niet zien.";
+"BlockedUsers.AddNew" = "Toevoegen";
+"BlockedUsers.Unblock" = "Verwijder";
+
+// Wallpaper
+"Wallpaper.Title" = "Achtergrond kiezen";
+"Wallpaper.PhotoLibrary" = "Mijn afbeeldingen";
+"Wallpaper.Set" = "Stel in";
+"Wallpaper.Wallpaper" = "Achtergrond";
+
+// Update
+"Update.Update" = "Bijwerken";
+
+// Service
+"Service.LocalizationDownloadError" = "Fout bij downloaden van vertaling. Controleer je internetverbinding en probeer het opnieuw.";
+"Service.ApplyLocalization" = "Vertaling toepassen?";
+"Service.ApplyLocalizationWithWarnings" = "%@\n\nVertaling toepassen?";
+
+"Notification.SecretChatMessageScreenshot" = "%@ heeft een schermafdruk gemaakt!";
+"Notification.SecretChatScreenshot" = "Schermafdruk gemaakt!";
+
+// Broadcast Lists
+"DialogList.Broadcast" = "Verzendlijst";
+"BroadcastLists.Title" = "Verzendlijsten";
+"BroadcastLists.NoListsYet" = "Nog geen lijsten";
+"BroadcastLists.NoListsText" = "Met verzendlijsten kun je eenvoudig berichten versturen naar meerdere mensen in één keer.";
+
+// Broadcast List
+"BroadcastListInfo.Title" = "Verzendlijst";
+"BroadcastListInfo.AddRecipient" = "Ontvanger toevoegen";
+
+// Video
+"VideoPreview.OptionSD" = "Standaard (%@)";
+"VideoPreview.OptionHD" = "HD (%@)";
+
+"ChatSettings.AutoPlayAudio" = "Audio automatisch afspelen";
+
+"Settings.LogoutConfirmationTitle" = "Uitloggen?";
+"Settings.LogoutConfirmationText" = "\nTELEGRAM_APP_NAME kun je naadloos op al je apparaten tegelijkertijd gebruiken.\n\nAls je uitlogt worden al je geheime chats verwijderd.";
+
+"Login.PadPhoneHelp" = "\nJe kunt inloggen op al je apparaten met je mobiele telefoonnummer.\nGebruik niet het nummer van je iPad - anders ontvang je geen sms-bericht.\n\nIs dit nummer correct?\n{number}";
+"Login.PadPhoneHelpTitle" = "Je Nummer";
+
+"MessageTimer.Custom" = "Aangepast";
+"MessageTimer.Title" = "Aangepaste Timer";
+
+"MessageTimer.Forever" = "Voor altijd";
+
+"MessageTimer.Seconds_1" = "%@ seconde";
+"MessageTimer.Seconds_2" = "%@ seconden";
+"MessageTimer.Seconds_3_10" = "%@ seconden";
+"MessageTimer.Seconds_any" = "%@ seconden";
+"MessageTimer.Minutes_1" = "%@ minuut";
+"MessageTimer.Minutes_2" = "%@ minuten";
+"MessageTimer.Minutes_3_10" = "%@ minuten";
+"MessageTimer.Minutes_any" = "%@ minuten";
+"MessageTimer.Hours_1" = "%@ uur";
+"MessageTimer.Hours_2" = "%@ uur";
+"MessageTimer.Hours_3_10" = "%@ uur";
+"MessageTimer.Hours_any" = "%@ uur";
+"MessageTimer.Days_1" = "%@ dag";
+"MessageTimer.Days_2" = "%@ dagen";
+"MessageTimer.Days_3_10" = "%@ dagen";
+"MessageTimer.Days_any" = "%@ dagen";
+"MessageTimer.Weeks_1" = "%@ week";
+"MessageTimer.Weeks_2" = "%@ weken";
+"MessageTimer.Weeks_3_10" = "%@ weken";
+"MessageTimer.Weeks_any" = "%@ weken";
+"MessageTimer.Months_1" = "%@ maand";
+"MessageTimer.Months_2" = "%@ maanden";
+"MessageTimer.Months_3_10" = "%@ maanden";
+"MessageTimer.Months_any" = "%@ maanden";
+"MessageTimer.Years_1" = "%@ jaar";
+"MessageTimer.Years_2" = "%@ jaar";
+"MessageTimer.Years_3_10" = "%@ jaar";
+"MessageTimer.Years_any" = "%@ jaar";
+
+"MessageTimer.ShortSeconds_1" = "%@s";
+"MessageTimer.ShortSeconds_2" = "%@s";
+"MessageTimer.ShortSeconds_3_10" = "%@s";
+"MessageTimer.ShortSeconds_any" = "%@s";
+"MessageTimer.ShortMinutes_1" = "%@m";
+"MessageTimer.ShortMinutes_2" = "%@m";
+"MessageTimer.ShortMinutes_3_10" = "%@m";
+"MessageTimer.ShortMinutes_any" = "%@m";
+"MessageTimer.ShortHours_1" = "%@u";
+"MessageTimer.ShortHours_2" = "%@u";
+"MessageTimer.ShortHours_3_10" = "%@u";
+"MessageTimer.ShortHours_any" = "%@u";
+"MessageTimer.ShortDays_1" = "%@d";
+"MessageTimer.ShortDays_2" = "%@d";
+"MessageTimer.ShortDays_3_10" = "%@d";
+"MessageTimer.ShortDays_any" = "%@d";
+"MessageTimer.ShortWeeks_1" = "%@w";
+"MessageTimer.ShortWeeks_2" = "%@w";
+"MessageTimer.ShortWeeks_3_10" = "%@w";
+"MessageTimer.ShortWeeks_any" = "%@w";
+
+"Activity.UploadingPhoto" = "Foto versturen";
+"Activity.UploadingVideo" = "Video versturen";
+"Activity.UploadingDocument" = "Bestand versturen";
+"Activity.RecordingAudio" = "Audio opnemen";
+"Activity.RecordingVideoMessage" = "video opnemen";
+"Activity.Location" = "Locatie zoeken";
+
+"Service.NetworkConfigurationUpdatedMessage" = "Verbindingsinstellingen zijn opgeslagen";
+
+"Compatibility.SecretMediaVersionTooLow" = "%@ gebruikt een oudere versie van TELEGRAM_APP_NAME, daarom worden geheime foto's in compatibiliteitsmodus weergegeven.\n\nWanneer %@ de TELEGRAM_APP_NAME app update zullen foto's met een ingestelde timer van 1 minuut of minder met 'druk en houd ingedrukt' beginnen te werken en zal je op de hoogte worden gebracht wanneer je chatpartner een schermafdruk maakt.";
+
+"Contacts.GlobalSearch" = "Wereldwijd zoeken";
+"Profile.Username" = "gebruikersnaam";
+"Settings.Username" = "Gebruikersnaam";
+"Settings.UsernameEmpty" = "Geen";
+
+"Username.Title" = "Gebruikersnaam";
+"Username.Placeholder" = "Kies een naam";
+"Username.Help" = "Je kunt een gebruikersnaam kiezen voor **TELEGRAM_APP_NAME**. Hiermee kunnen anderen je vinden en contact met je opnemen zonder je telefoonnummer te weten.\n\nJe mag **a-z**, **0-9** en liggend streepje gebruiken. De minimale lengte is **5** tekens.";
+"Username.InvalidTooShort" = "Je naam moet minimaal 5 tekens hebben.";
+"Username.InvalidStartsWithNumber" = "Sorry, begincijfers zijn niet toegestaan.";
+"Username.InvalidCharacters" = "Sorry, deze gebruikersnaam is ongeldig.";
+"Username.InvalidTaken" = "Sorry, deze gebruikersnaam is al bezet.";
+
+"Username.CheckingUsername" = "Gebruikersnaam controleren.";
+"Username.UsernameIsAvailable" = "%@ is beschikbaar.";
+
+"WebSearch.Images" = "Afbeeldingen";
+"WebSearch.GIFs" = "GIFs";
+"WebSearch.RecentSectionTitle" = "Recent";
+"WebSearch.RecentSectionClear" = "Wissen";
+
+"Settings.PrivacySettings" = "Privacy en veiligheid";
+
+"UserCount_1" = "1 gebruiker";
+"UserCount_2" = "2 gebruikers";
+"UserCount_3_10" = "%@ gebruikers";
+"UserCount_any" = "%@ gebruikers";
+
+"PrivacySettings.Title" = "Privacy en veiligheid";
+
+"PrivacySettings.PrivacyTitle" = "PRIVACY";
+"PrivacySettings.LastSeen" = "Laatst gezien";
+"PrivacySettings.LastSeenEverybody" = "Iedereen";
+"PrivacySettings.LastSeenContacts" = "Mijn contacten";
+"PrivacySettings.LastSeenNobody" = "Niemand";
+
+"PrivacySettings.LastSeenEverybodyMinus" = "Iedereen (-%@)";
+"PrivacySettings.LastSeenContactsPlus" = "Mijn contacten (+%@)";
+"PrivacySettings.LastSeenContactsMinus" = "Mijn contacten (-%@)";
+"PrivacySettings.LastSeenContactsMinusPlus" = "Mijn contacten (-%@, +%@)";
+"PrivacySettings.LastSeenNobodyPlus" = "Niemand (+%@)";
+
+"PrivacySettings.SecurityTitle" = "VEILIGHEID";
+
+"PrivacySettings.DeleteAccountTitle" = "ACCOUNT VERWIJDEREN";
+"PrivacySettings.DeleteAccountIfAwayFor" = "Indien afwezig voor";
+"PrivacySettings.DeleteAccountHelp" = "Als je binnen deze periode niet minimaal één keer ingelogd bent geweest zal je account worden verwijderd, inclusief alle data.";
+"PrivacySettings.DeleteAccountNowConfirmation" = "Je account verwijderen?";
+"PrivacySettings.DeleteAccountNever" = "Nooit";
+
+"PrivacyLastSeenSettings.Title" = "Laatst gezien";
+"PrivacyLastSeenSettings.CustomHelp" = "Let op: van mensen waarmee je je laatst gezien tijd niet deelt is deze voor jou ook niet zichtbaar. In plaats daarvan krijg je tijden bij benadering te zien (recent, afgelopen week, afgelopen maand).";
+"PrivacyLastSeenSettings.AlwaysShareWith" = "Altijd delen met";
+"PrivacyLastSeenSettings.NeverShareWith" = "Nooit delen met";
+"PrivacyLastSeenSettings.CustomShareSettingsHelp" = "Deze instelling overschrijft de bovenstaande.";
+
+"PrivacyLastSeenSettings.CustomShareSettings.Delete" = "Verwijder";
+"PrivacyLastSeenSettings.AlwaysShareWith.Title" = "Altijd delen";
+"PrivacyLastSeenSettings.AlwaysShareWith.Placeholder" = "Altijd delen met gebruikers";
+"PrivacyLastSeenSettings.NeverShareWith.Title" = "Nooit delen";
+"PrivacyLastSeenSettings.NeverShareWith.Placeholder" = "Nooit delen met gebruikers";
+"PrivacyLastSeenSettings.EmpryUsersPlaceholder" = "Toevoegen";
+"PrivacyLastSeenSettings.AddUsers_1" = "1 gebruiker toevoegen?";
+"PrivacyLastSeenSettings.AddUsers_2" = "2 gebruikers toevoegen?";
+"PrivacyLastSeenSettings.AddUsers_3_10" = "%@ gebruikers toevoegen?";
+"PrivacyLastSeenSettings.AddUsers_any" = "%@ gebruikers toevoegen?";
+
+"PrivacySettings.FloodControlError" = "Sorry, te veel verzoeken. Momenteel is het niet mogelijk om de privacyinstellingen te wijzigen, even geduld alsjeblieft.";
+
+
+"ImagePicker.NoPhotos" = "Geen foto's";
+"ImagePicker.NoVideos" = "Geen video's";
+
+"Settings.OpenSystemPrivacySettings" = "%@ -instellingen openen";
+
+// Photo Editor
+"PhotoEditor.DiscardChanges" = "Wijzigingen negeren";
+"PhotoEditor.RevertToOriginal" = "Herstellen naar origineel";
+"PhotoEditor.RevertMessage" = "Herstellen naar origineel wist alle wijzigingen aan deze foto. Je kunt dit niet ongedaan maken.";
+
+"PhotoEditor.Original" = "Origineel";
+"PhotoEditor.Current" = "Huidige";
+
+"PhotoEditor.CropReset" = "HERSTEL";
+"PhotoEditor.CropAuto" = "AUTO";
+"PhotoEditor.CropAspectRatioOriginal" = "Origineel";
+"PhotoEditor.CropAspectRatioSquare" = "Vierkant";
+
+"PhotoEditor.EnhanceTool" = "Verbeteren";
+"PhotoEditor.ExposureTool" = "Belichting";
+"PhotoEditor.ContrastTool" = "Contrast";
+"PhotoEditor.WarmthTool" = "Temperatuur";
+"PhotoEditor.SaturationTool" = "Verzadiging";
+"PhotoEditor.HighlightsTool" = "Accentueren";
+"PhotoEditor.ShadowsTool" = "Schaduwen";
+"PhotoEditor.VignetteTool" = "Vignette";
+"PhotoEditor.GrainTool" = "Korrel";
+"PhotoEditor.BlurTool" = "Vervagen";
+"PhotoEditor.SharpenTool" = "Verscherpen";
+
+"PhotoEditor.BlurToolOff" = "Uit";
+"PhotoEditor.BlurToolRadial" = "Radiaal";
+"PhotoEditor.BlurToolLinear" = "Lineair";
+
+"PhotoEditor.Set" = "Instellen";
+"PhotoEditor.Skip" = "Overslaan";
+
+// Camera
+"Camera.PhotoMode" = "FOTO";
+"Camera.VideoMode" = "VIDEO";
+"Camera.SquareMode" = "VIERKANT";
+"Camera.FlashOff" = "Uit";
+"Camera.FlashOn" = "Aan";
+"Camera.FlashAuto" = "Automatisch";
+"Camera.Retake" = "Opnieuw";
+
+"Settings.PhoneNumber" = "Nummer wijzigen";
+
+"PhoneNumberHelp.Help" = "Je kan je telefoonnummer hier wijzigen. Al je clouddata — berichten, bestanden, groepen, contacten, etc. zullen worden gekopieërd naar je nieuwe nummer.\n\n**Let op**: al je TELEGRAM_APP_NAME-contacten krijgen je nieuwe nummer in hun adresboek, ervan uitgaande dat ze je oude nummer hadden en je hen niet had geblokkeerd in TELEGRAM_APP_NAME.";
+"PhoneNumberHelp.Alert" = "Al je TELEGRAM_APP_NAME-contacten krijgen je nieuwe nummer in hun adresboek, ervan uitgaande dat ze je oude nummer hadden en je hen niet had geblokkeerd in TELEGRAM_APP_NAME.";
+"PhoneNumberHelp.ChangeNumber" = "Nummer wijzigen";
+
+"ChangePhoneNumberNumber.Title" = "Nummer wijzigen";
+"ChangePhoneNumberNumber.NewNumber" = "NIEUW NUMMER";
+"ChangePhoneNumberNumber.Help" = "We sturen een sms-bericht met verificatiecode naar je nieuwe nummer.";
+"ChangePhoneNumberNumber.NumberPlaceholder" = "Voer je nieuwe nummer in";
+
+"ChangePhoneNumberCode.Code" = "JE CODE";
+"ChangePhoneNumberCode.CodePlaceholder" = "Code";
+"ChangePhoneNumberCode.Help" = "We hebben je een sms-bericht gestuurd met de code";
+"ChangePhoneNumberCode.CallTimer" = "TELEGRAM_APP_NAME belt je over %@";
+"ChangePhoneNumberCode.RequestingACall" = "Oproepverzoek versturen naar TELEGRAM_APP_NAME";
+"ChangePhoneNumberCode.Called" = "TELEGRAM_APP_NAME heeft je nummer gebeld";
+
+"LoginPassword.Title" = "Je wachtwoord";
+"LoginPassword.PasswordPlaceholder" = "Wachtwoord";
+"LoginPassword.InvalidPasswordError" = "Ongeldig wachtwoord. Probeer het nog eens.";
+"LoginPassword.FloodError" = "Limiet overschreden. Probeer het later nog eens.";
+"LoginPassword.ForgotPassword" = "Wachtwoord vergeten?";
+"LoginPassword.PasswordHelp" = "Twee-staps-verificatie is ingeschakeld. Je account is met een extra wachtwoord beveiligd.";
+"LoginPassword.ResetAccount" = "Account resetten";
+
+"QuickSend.Photos_1" = "1 foto sturen";
+"QuickSend.Photos_2" = "2 foto's sturen";
+"QuickSend.Photos_3_10" = "%@ foto's sturen";
+"QuickSend.Photos_any" = "%@ foto's sturen";
+
+"Share.Title" = "Delen";
+"Forward.ConfirmMultipleFiles_1" = "1 bestand naar {target} sturen?";
+"Forward.ConfirmMultipleFiles_2" = "2 bestanden naar {target} sturen?";
+"Forward.ConfirmMultipleFiles_3_10" = "%@ bestanden naar {target} sturen?";
+"Forward.ConfirmMultipleFiles_any" = "%@ bestanden naar {target} sturen?";
+
+"PrivacySettings.TouchIdTitle" = "TouchID";
+"PrivacySettings.TouchIdEnable" = "Inschakelen";
+
+"Notification.Reply" = "Antwoord";
+"Notification.Mute1h" = "1 uur stil";
+"Notification.Mute1hMin" = "1 u stil";
+"Conversation.ContextMenuShare" = "Delen";
+
+"SharedMedia.TitleAll" = "Gedeelde media";
+"SharedMedia.TitlePhoto" = "Gedeelde foto's";
+"SharedMedia.TitleVideo" = "Gedeelde video's";
+"SharedMedia.TitleFile" = "Gedeelde bestanden";
+"SharedMedia.TitleAudio" = "Gedeelde muziek";
+
+"SharedMedia.All" = "Alle";
+"SharedMedia.Incoming" = "Ontvangen";
+"SharedMedia.Outgoing" = "Verstuurd";
+
+"SharedMedia.Photo_1" = "1 foto";
+"SharedMedia.Photo_2" = "2 foto's";
+"SharedMedia.Photo_3_10" = "%@ foto's";
+"SharedMedia.Photo_any" = "%@ foto's";
+
+"SharedMedia.Video_1" = "1 video";
+"SharedMedia.Video_2" = "2 video's";
+"SharedMedia.Video_3_10" = "%@ video's";
+"SharedMedia.Video_any" = "%@ video's";
+
+"SharedMedia.File_1" = "1 bestand";
+"SharedMedia.File_2" = "2 bestanden";
+"SharedMedia.File_3_10" = "%@ bestanden";
+"SharedMedia.File_any" = "%@ bestanden";
+
+"SharedMedia.Generic_1" = "1 mediabestand";
+"SharedMedia.Generic_2" = "2 mediabestanden";
+"SharedMedia.Generic_3_10" = "%@ mediabestanden";
+"SharedMedia.Generic_any" = "%@ mediabestanden";
+
+"FileSize.B" = "%@ B";
+"FileSize.KB" = "%@ KB";
+"FileSize.MB" = "%@ MB";
+"FileSize.GB" = "%@ GB";
+
+"DownloadingStatus" = "%@ van %@ downloaden";
+
+"Time.MonthOfYear_1" = "januari %@";
+"Time.MonthOfYear_2" = "februari %@";
+"Time.MonthOfYear_3" = "maart %@";
+"Time.MonthOfYear_4" = "april %@";
+"Time.MonthOfYear_5" = "mei %@";
+"Time.MonthOfYear_6" = "juni %@";
+"Time.MonthOfYear_7" = "juli %@";
+"Time.MonthOfYear_8" = "augustus %@";
+"Time.MonthOfYear_9" = "september %@";
+"Time.MonthOfYear_10" = "oktober %@";
+"Time.MonthOfYear_11" = "november %@";
+"Time.MonthOfYear_12" = "december %@";
+
+"Time.PreciseDate_1" = "%1$@ jan, %2$@ om %3$@";
+"Time.PreciseDate_2" = "%1$@ feb, %2$@ om %3$@";
+"Time.PreciseDate_3" = "%1$@ mar, %2$@ om %3$@";
+"Time.PreciseDate_4" = "%1$@ apr, %2$@ om %3$@";
+"Time.PreciseDate_5" = "%1$@ mei, %2$@ om %3$@";
+"Time.PreciseDate_6" = "%1$@ jun, %2$@ om %3$@";
+"Time.PreciseDate_7" = "%1$@ jul, %2$@ om %3$@";
+"Time.PreciseDate_8" = "%1$@ aug, %2$@ om %3$@";
+"Time.PreciseDate_9" = "%1$@ sep, %2$@ om %3$@";
+"Time.PreciseDate_10" = "%1$@ okt, %2$@ om %3$@";
+"Time.PreciseDate_11" = "%1$@ nov, %2$@ om %3$@";
+"Time.PreciseDate_12" = "%1$@ dec, %2$@ om %3$@";
+
+"MuteFor.Minutes_1" = "1 minuut stil";
+"MuteFor.Minutes_2" = "2 minuten stil";
+"MuteFor.Minutes_3_10" = "%@ minuten stil";
+"MuteFor.Minutes_any" = "%@ minuten stil";
+
+"MuteFor.Hours_1" = "1 uur stil";
+"MuteFor.Hours_2" = "2 uur stil";
+"MuteFor.Hours_3_10" = "%@ uur stil";
+"MuteFor.Hours_any" = "%@ uur stil";
+
+"MuteFor.Days_1" = "1 dag stil";
+"MuteFor.Days_2" = "2 dagen stil";
+"MuteFor.Days_3_10" = "%@ dagen stil";
+"MuteFor.Days_any" = "%@ dagen stil";
+
+"MuteFor.Weeks_1" = "1 week stil";
+"MuteFor.Weeks_2" = "2 weken stil";
+"MuteFor.Weeks_3_10" = "  %@ weken stil";
+"MuteFor.Weeks_any" = "  %@ weken stil";
+
+"MuteExpires.Minutes_1" = "over 1 minuut";
+"MuteExpires.Minutes_2" = "over 2 minuten";
+"MuteExpires.Minutes_3_10" = "over %@ minuten";
+"MuteExpires.Minutes_any" = "over %@ minuten";
+
+"MuteExpires.Hours_1" = "over 1 uur";
+"MuteExpires.Hours_2" = "over 2 uur";
+"MuteExpires.Hours_3_10" = "over %@ uur";
+"MuteExpires.Hours_any" = "over %@ uur";
+
+"MuteExpires.Days_1" = "over 1 dag";
+"MuteExpires.Days_2" = "over 2 dagen";
+"MuteExpires.Days_3_10" = "over %@ dagen";
+"MuteExpires.Days_any" = "over %@ dagen";
+
+"SharedMedia.EmptyTitle" = "Nog geen bestanden";
+"SharedMedia.EmptyText" = "Deel foto's en video's in deze chat\n—  of deze paperclip blijft verdrietig.";
+"SharedMedia.EmptyFilesText" = "Je kunt willekeurige bestanden\ntot 1.5 GB versturen en ontvangen\nen deze overal benaderen.";
+
+"ShareFileTip.Title" = "Bestanden delen";
+"ShareFileTip.Text" = "Je kunt hier **ongecomprimeerde** mediabestanden van je Filmrol delen.\n\nAndere bestanden deel je door ze te openen op je %@ (bijvoorbeeld in je browser). Tik daarna op **Openen met...** of de actieknop en kies TELEGRAM_APP_NAME.";
+"ShareFileTip.CloseTip" = "Hint sluiten";
+
+"DialogList.SearchSectionDialogs" = "Chats en contacten";
+"DialogList.SearchSectionGlobal" = "Wereldwijd zoeken";
+"DialogList.SearchSectionMessages" = "Berichten";
+
+"Username.LinkHint" = "Deze link opent een chat met je in TELEGRAM_APP_NAME:[\nhttps://t.me/%@]";
+"Username.LinkCopied" = "Link gekopieerd naar klembord";
+
+"SharedMedia.ItemsSelected_1" = "1 geselecteerd";
+"SharedMedia.ItemsSelected_2" = "2 geselecteerd";
+"SharedMedia.ItemsSelected_3_10" = "%@ geselecteerd";
+"SharedMedia.ItemsSelected_any" = "%@ geselecteerd";
+
+"SharedMedia.DeleteItemsConfirmation_1" = "mediabestand verwijderen?";
+"SharedMedia.DeleteItemsConfirmation_2" = "2 mediabestanden verwijderen?";
+"SharedMedia.DeleteItemsConfirmation_3_10" = "%@ mediabestanden verwijderen?";
+"SharedMedia.DeleteItemsConfirmation_any" = "%@ mediabestanden verwijderen?";
+
+"PrivacySettings.Passcode" = "Toegangscode-vergrendeling";
+"PasscodeSettings.Title" = "Toegangscode-vergrendeling";
+"PasscodeSettings.TurnPasscodeOn" = "Toegangscode inschakelen";
+"PasscodeSettings.TurnPasscodeOff" = "Toegangscode uitschakelen";
+"PasscodeSettings.ChangePasscode" = "Toegangscode wijzigen";
+"PasscodeSettings.Help" = "Als je een toegangscode instelt verschijnt er een slotje op de chatspagina. Tik erop om TELEGRAM_APP_NAME te vergrendelen of te ontgrendelen.\n\nVergeet je de toegangscode dan zul je de app moeten herinstalleren. Alle geheime chats gaan daarbij verloren.";
+"PasscodeSettings.UnlockWithTouchId" = "Ontgrendelen met Touch ID";
+"PasscodeSettings.SimplePasscode" = "Eenvoudige toegangscode";
+"PasscodeSettings.SimplePasscodeHelp" = "Eenvoudige toegangcodes zijn 4-cijferig.";
+"PasscodeSettings.EncryptData" = "Lokale database versleutelen";
+"PasscodeSettings.EncryptDataHelp" = "Let op: dit is een experimentele functie. Versleutel je lokale TELEGRAM_APP_NAME data met een afgeleide van je toegangscode als sleutel.";
+
+"EnterPasscode.EnterTitle" = "TELEGRAM_APP_NAME-toegangscode invoeren";
+"EnterPasscode.SetupTitle" = "Nieuwe toegangscode";
+"EnterPasscode.ChangeTitle" = "Toegangscode wijzigen";
+"EnterPasscode.EnterPasscode" = "TELEGRAM_APP_NAME-toegangscode invoeren";
+"EnterPasscode.EnterNewPasscodeNew" = "Toegangscode invoeren";
+"EnterPasscode.EnterNewPasscodeChange" = "Nieuwe toegangscode invoeren";
+"EnterPasscode.RepeatNewPasscode" = "Toegangscode opnieuw invoeren";
+"EnterPasscode.EnterCurrentPasscode" = "Huidige toegangscode invoeren";
+"EnterPasscode.TouchId" = "Toegangscode invoeren";
+
+"DialogList.PasscodeLockHelp" = "Tik om TELEGRAM_APP_NAME te vergrendelen";
+
+"PasscodeSettings.AutoLock" = "Automatisch";
+"PasscodeSettings.AutoLock.Disabled" = "Uitschakelen";
+"PasscodeSettings.AutoLock.IfAwayFor_1minute" = "na 1 min afwezig";
+"PasscodeSettings.AutoLock.IfAwayFor_5minutes" = "na 5 min afwezig";
+"PasscodeSettings.AutoLock.IfAwayFor_1hour" = "na 1 uur afwezig";
+"PasscodeSettings.AutoLock.IfAwayFor_5hours" = "na 5 uur afwezig";
+
+"PasscodeSettings.FailedAttempts_1" = "1 mislukte poging";
+"PasscodeSettings.FailedAttempts_2" = "2 mislukte pogingen";
+"PasscodeSettings.FailedAttempts_3_10" = "%@ mislukte pogingen";
+"PasscodeSettings.FailedAttempts_any" = "%@ mislukte poging";
+"PasscodeSettings.TryAgainIn1Minute" = "Probeer het over 1 minuut nog eens";
+
+"AccessDenied.Title" = "Sta toegang toe";
+
+"AccessDenied.Contacts" = "TELEGRAM_APP_NAME is gebaseerd op je bestaande adresboek.\n\nNavigeer naar Instellingen > Privacy > Contacten en zet TELEGRAM_APP_NAME op AAN.";
+
+"AccessDenied.VoiceMicrophone" = "TELEGRAM_APP_NAME heeft toegang tot je microfoon nodig voor spraakberichten.\n\nNavigeer naar Instellingen > Privacy > Microfoon en zet TELEGRAM_APP_NAME op AAN.";
+
+"AccessDenied.VideoMicrophone" = "TELEGRAM_APP_NAME heeft toegang tot je microfoon nodig om geluid bij video's op te nemen.\n\nNavigeer naar Instellingen > Privacy > Microfoon en zet TELEGRAM_APP_NAME op AAN.";
+
+"AccessDenied.MicrophoneRestricted" = "Microfoontoegang is beperkt voor TELEGRAM_APP_NAME.\n\nNavigeer naar Instellingen > Algemeen > Beperkingen > Microfoon en zet TELEGRAM_APP_NAME op AAN. ";
+
+
+"AccessDenied.Camera" = "TELEGRAM_APP_NAME heeft toegang tot je camera nodig om foto's en video's te maken.\n\nNavigeer naar Instellingen > Privacy > Camera en zet TELEGRAM_APP_NAME op AAN. ";
+
+"AccessDenied.CameraRestricted" = "Cameratoegang is beperkt voor TELEGRAM_APP_NAME.\n\nNavigeer naar Instellingen > Privacy > Camera en zet TELEGRAM_APP_NAME op AAN. ";
+
+"AccessDenied.CameraDisabled" = "Cameratoegang is beperkt op je toestel.\n\nNavigeer naar Instellingen > Algemeen > Beperkingen en zet Camera op AAN. ";
+
+"AccessDenied.PhotosAndVideos" = "TELEGRAM_APP_NAME heeft toegang tot je fotobibliotheek nodig om foto's en video's te versturen.\n\nNavigeer naar Instellingen > Privacy > Foto's en zet TELEGRAM_APP_NAME op AAN. ";
+
+"AccessDenied.SaveMedia" = "TELEGRAM_APP_NAME heeft toegang tot je fotobibliotheek nodig om foto's en video's op te slaan.\n\nNavigeer naar Instellingen > Privacy > Foto's en zet TELEGRAM_APP_NAME op AAN. ";
+
+"AccessDenied.PhotosRestricted" = "TELEGRAM_APP_NAME heeft geen toegang tot je foto's\n\nNavigeer naar Instellingen > Algemeen > Beperkingen > Foto's en zet TELEGRAM_APP_NAME op AAN. ";
+
+"AccessDenied.LocationDenied" = "TELEGRAM_APP_NAME heeft toegang tot je locatie nodig om deze te kunnen delen met je contacten.\n\nNavigeer naar Instellingen > Privacy > Locatievoorzieningen en zet TELEGRAM_APP_NAME aan.";
+
+"AccessDenied.LocationDisabled" = "TELEGRAM_APP_NAME heeft toegang tot je locatie nodig om deze te kunnen delen met je contacten.\n\nNavigeer naar Instellingen > Privacy en zet Locatievoorzieningen aan.";
+
+"AccessDenied.LocationTracking" = "TELEGRAM_APP_NAME heeft toegang tot je locatie nodig om je op de kaart weer te geven.\n\nNavigeer naar Instellingen — Privacy — Locatievoorzieningen en zet TELEGRAM_APP_NAME aan.";
+
+"AccessDenied.Settings" = "Instellingen";
+
+"WebSearch.RecentClearConfirmation" = "Recente afbeeldingen echt wissen?";
+
+"FeatureDisabled.Oops" = "Oeps";
+
+"Conversation.ContextMenuReply" = "Antwoord";
+
+"ForwardedMessages_1" = "Bijlage: 1 bericht";
+"ForwardedMessages_2" = "Bijlage: 2 berichten";
+"ForwardedMessages_3_10" = "Bijlage: %@ berichten";
+"ForwardedMessages_any" = "Bijlage: %@ berichten";
+
+"ForwardedFiles_1" = "Bijlage: 1 bestand";
+"ForwardedFiles_2" = "Bijlage: 2 bestanden";
+"ForwardedFiles_3_10" = "Bijlage: %@ bestanden";
+"ForwardedFiles_any" = "Bijlage: %@ bestanden";
+
+"ForwardedStickers_1" = "Bijlage: 1 sticker";
+"ForwardedStickers_2" = "Bijlage: 2 stickers";
+"ForwardedStickers_3_10" = "Bijlage: %@ stickers";
+"ForwardedStickers_any" = "Bijlage: %@ stickers";
+
+"ForwardedPhotos_1" = "Bijlage: 1 foto";
+"ForwardedPhotos_2" = "Bijlage: 2 foto's";
+"ForwardedPhotos_3_10" = "Bijlage: %@ foto's";
+"ForwardedPhotos_any" = "Bijlage: %@ foto's";
+
+"ForwardedVideos_1" = "Bijlage: 1 video";
+"ForwardedVideos_2" = "Bijlage: 2 video's";
+"ForwardedVideos_3_10" = "Bijlage: %@ video's";
+"ForwardedVideos_any" = "Bijlage: %@ video's";
+
+"ForwardedAudios_1" = "Bijlage: 1 geluidsbestand";
+"ForwardedAudios_2" = "Bijlage: 2 geluidsbestanden";
+"ForwardedAudios_3_10" = "Bijlage: %@ geluidsbestanden";
+"ForwardedAudios_any" = "Bijlage: %@ geluidsbestanden";
+
+"ForwardedLocations_1" = "Bijlage: 1 locatie";
+"ForwardedLocations_2" = "Bijlage: 2 locaties";
+"ForwardedLocations_3_10" = "Bijlage: %@ locaties";
+"ForwardedLocations_any" = "Bijlage: %@ locaties";
+
+"ForwardedGifs_1" = "Doorgestuurde GIF";
+"ForwardedGifs_2" = "2 doorgestuurde GIF's";
+"ForwardedGifs_3_10" = "%@ doorgestuurde GIF's";
+"ForwardedGifs_any" = "%@ doorgestuurde GIF's";
+
+"ForwardedContacts_1" = "Bijlage: 1 contact";
+"ForwardedContacts_2" = "Bijlage: 2 contacten";
+"ForwardedContacts_3_10" = "Bijlage: %@ contacten";
+"ForwardedContacts_any" = "Bijlage: %@ contacten";
+
+"ForwardedAuthors2" = "%@, %@";
+"ForwardedAuthorsOthers_1" = "%@ en 1 andere";
+"ForwardedAuthorsOthers_2" = "%@ en 2 anderen";
+"ForwardedAuthorsOthers_3_10" = "%@ en %@ anderen";
+"ForwardedAuthorsOthers_any" = "%@ en %@ anderen";
+
+"PrivacySettings.TwoStepAuth" = "Twee-staps-verificatie";
+"TwoStepAuth.Title" = "Twee-staps-verificatie";
+"TwoStepAuth.SetPassword" = "Extra wachtwoord instellen";
+"TwoStepAuth.SetPasswordHelp" = "Naast de code die je per SMS ontvangt kun je een extra wachtwoord instellen voor als je inlogt op een nieuw apparaat.";
+"TwoStepAuth.SetupPasswordTitle" = "Je wachtwoord";
+
+"TwoStepAuth.SetupHintTitle" = "Wachtwoordhint";
+"TwoStepAuth.SetupHint" = "Stel een hint voor je wachtwoord in:";
+
+"TwoStepAuth.ChangePassword" = "Wachtwoord wijzigen";
+"TwoStepAuth.RemovePassword" = "Wachtwoord uitschakelen";
+"TwoStepAuth.SetupEmail" = "Herstel-e-mailadres instellen";
+"TwoStepAuth.ChangeEmail" = "Herstel-e-mailadres wijzigen";
+"TwoStepAuth.PendingEmailHelp" = "Je herstel-e-mailadres %@ is nog niet actief en in afwachting van bevestiging. ";
+"TwoStepAuth.GenericHelp" = "Je hebt twee-staps-verificatie ingeschakeld.\nAls je inlogt op je TELEGRAM_APP_NAME-account heb je het ingestelde wachtwoord nodig.";
+
+"TwoStepAuth.ConfirmationTitle" = "Twee-staps-verificatie";
+"TwoStepAuth.ConfirmationText" = "Controleer je e-mail en klik op de bevestigingslink om de twee-staps-verificatie in te schakelen. Kijk voor de zekerheid ook in de ongewenste post.";
+"TwoStepAuth.ConfirmationChangeEmail" = "E-mail wijzigen";
+"TwoStepAuth.ConfirmationAbort" = "Twee-staps-verificatie annuleren";
+
+"TwoStepAuth.SetupPasswordEnterPasswordNew" = "Wachtwoord invoeren:";
+"TwoStepAuth.SetupPasswordEnterPasswordChange" = "Nieuw wachtwoord invoeren:";
+"TwoStepAuth.SetupPasswordConfirmPassword" = "Wachtwoord opnieuw invoeren:";
+"TwoStepAuth.SetupPasswordConfirmFailed" = "Ongeldig wachtwoord. Probeer opnieuw.";
+
+"TwoStepAuth.EnterPasswordTitle" = "Wachtwoord";
+"TwoStepAuth.EnterPasswordPassword" = "Wachtwoord";
+"TwoStepAuth.EnterPasswordHint" = "Hint: %@";
+"TwoStepAuth.EnterPasswordHelp" = "Twee-staps-verificatie ingeschakeld. Je account is met een extra wachtwoord beveiligd.";
+"TwoStepAuth.EnterPasswordInvalid" = "Ongeldig wachtwoord. Probeer opnieuw.";
+"TwoStepAuth.EnterPasswordForgot" = "Wachtwoord vergeten?";
+
+"TwoStepAuth.EmailTitle" = "Herstel-e-mailadres";
+"TwoStepAuth.EmailSkip" = "Overslaan";
+"TwoStepAuth.EmailSkipAlert" = "Let op:\n\nAls je je wachtwoord vergeet verlies je toegang tot je TELEGRAM_APP_NAME account. Er is geen optie om dit te herstellen.";
+"TwoStepAuth.Email" = "E-mail";
+"TwoStepAuth.EmailPlaceholder" = "Je e-mailadres";
+"TwoStepAuth.EmailHelp" = "Voeg je geldige e-mailadres toe. Het is de enige manier om je wachtwoord te herstellen.";
+"TwoStepAuth.EmailInvalid" = "Ongeldig e-mailadres. Probeer opnieuw.";
+"TwoStepAuth.EmailSent" = "We hebben je een bevestigings-e-mail gestuurd.";
+"TwoStepAuth.PasswordSet" = "Je wachtwoord voor twee-staps-verificatie is nu actief.";
+"TwoStepAuth.PasswordRemoveConfirmation" = "Weet je zeker dat je je wachtwoord wilt uitschakelen?";
+
+"TwoStepAuth.RecoveryUnavailable" = "Omdat je geen herstel-e-mailadres hebt opgegeven voor je wachtwoord zul je bij verlies van je wachtwoord je account moeten resetten.";
+"TwoStepAuth.RecoveryFailed" = "Bij verlies van je wachtwoord zul je je account moeten resetten.";
+"TwoStepAuth.ResetAccount" = "Reset mijn account";
+"TwoStepAuth.ResetAccountHelp" = "Al je chats, berichten en alle andere data gaan verloren als je verder gaat met de account-reset.";
+"TwoStepAuth.ResetAccountConfirmation" = "Al je chats, berichten en alle andere data gaan verloren als je verder gaat met de account-reset.";
+
+"TwoStepAuth.RecoveryTitle" = "E-mailcode";
+"TwoStepAuth.RecoverySent" = "We hebben een herstelcode naar je opgegeven e-mailadres gestuurd:\n\n%@";
+"TwoStepAuth.RecoveryCode" = "Code";
+"TwoStepAuth.RecoveryCodeHelp" = "Controleer je ontvangen e-mail en geef de 6-cijferige code om je cloud-wachtwoord uit te schakelen.";
+"TwoStepAuth.RecoveryCodeInvalid" = "Ongeldige code. Probeer opnieuw.";
+"TwoStepAuth.RecoveryCodeExpired" = "We hebben je een nieuwe 6-cijferige code gestuurd.";
+"TwoStepAuth.RecoveryEmailUnavailable" = "Kun je je e-mail niet benaderen %@?";
+
+"TwoStepAuth.FloodError" = "Limiet overschreden. Probeer het later nog eens.";
+"TwoStepAuth.GenericError" = "Er is een fout opgetreden. Probeer het later nog eens.";
+
+"Conversation.FilePhotoOrVideo" = "Foto of video";
+"Conversation.FileICloudDrive" = "iCloud Drive";
+"Conversation.FileDropbox" = "Dropbox";
+"Conversation.FileGoogleDrive" = "Google Drive";
+
+"Conversation.FileHowTo" = "Hoe deel ik bestanden?";
+"Conversation.FileOpenIn" = "Open met...";
+"Conversation.FileHowToText" = "Om bestanden te delen open je ze op je %@ (bijvoorbeeld in je browser), tik  daarna op **Open met...** of de actieknop en kies TELEGRAM_APP_NAME.";
+
+"Map.LocationTitle" = "Locatie";
+"Map.OpenInMaps" = "Open met Kaarten";
+"Map.OpenInGooglePlus" = "Open met Google Plus";
+"Map.OpenInFoursquare" = "Open met Foursquare";
+"Map.OpenInHereMaps" = "Open met HERE Maps";
+"Map.OpenInYandexMaps" = "Open met Yandex Maps";
+"Map.OpenInYandexNavigator" = "Open met Yandex Navigator";
+"Map.OpenIn" = "Open met";
+"Map.More" = "Meer";
+
+"Map.SendThisLocation" = "Deze locatie sturen";
+"Map.SendMyCurrentLocation" = "Huidige locatie sturen";
+"Map.Locating" = "Localiseren";
+"Map.ChooseAPlace" = "Of kies een plek";
+"Map.AccurateTo" = "Nauwkeurig tot op %@";
+"Map.Search" = "Zoek plekken in de buurt";
+"Map.ShowPlaces" = "Plaatsen weergeven";
+"Map.LoadError" = "Er is een fout opgetreden, probeer het opnieuw.";
+"Map.LocatingError" = "Localiseren mislukt";
+"Map.Unknown" = "Onbekende locatie";
+
+"Map.DistanceAway" = "%@ hiervandaan";
+"Map.ETAMinutes_any" = "%@ min";
+"Map.ETAHours_1" = "%@u";
+"Map.ETAHours_any" = "%@u";
+
+"GoogleDrive.Title" = "Google Drive";
+"GoogleDrive.Logout" = "Uitloggen";
+"GoogleDrive.LogoutTitle" = "Uitloggen";
+"GoogleDrive.LogoutMessage" = "Echt uitloggen van Google Drive?";
+"GoogleDrive.LogoutLogout" = "Uitloggen";
+"GoogleDrive.FolderIsEmpty" = "Map is leeg.";
+"GoogleDrive.FolderLoadError" = "Map kan niet worden geladen.";
+"GoogleDrive.LoadErrorTitle" = "Verbinden mislukt";
+"GoogleDrive.LoadErrorMessage" = "Controleer je internetverbinding en probeer het opnieuw.";
+
+"ChangePhone.ErrorOccupied" = "Aan telefoonnummer %@ is al een TELEGRAM_APP_NAME-account gekoppeld. Verwijder het account om te kunnen migreren naar het nieuwe nummer.";
+
+"AccessDenied.LocationTracking" = "TELEGRAM_APP_NAME heeft toegang tot je locatie nodig om je op de kaart weer te geven.\n\nNavigeer naar Instellingen — Privacy — Locatievoorzieningen en zet TELEGRAM_APP_NAME aan.";
+
+"PrivacySettings.AuthSessions" = "Actieve sessies";
+"AuthSessions.Title" = "Actieve sessies";
+"AuthSessions.CurrentSession" = "HUIDIGE SESSIE";
+"AuthSessions.TerminateOtherSessions" = "Alle andere sessies beëindigen";
+"AuthSessions.TerminateOtherSessionsHelp" = "Logt alle apparaten behalve deze uit.";
+"AuthSessions.TerminateSession" = "Sessie beëindigen";
+"AuthSessions.OtherSessions" = "ACTIEVE SESSIES";
+"AuthSessions.EmptyTitle" = "Geen andere sessies";
+"AuthSessions.EmptyText" = "Je kunt in TELEGRAM_APP_NAME inloggen vanaf andere apparaten (mobiel, tablet, desktop) met hetzelfde telefoonnummer. Al je data zal direct worden gesynchroniseerd.";
+"AuthSessions.AppUnofficial" = "(ID: %@)";
+
+"WebPreview.GettingLinkInfo" = "Link-voorvertoning ophalen...";
+"WebPreview.LinkPreview" = "Link-voorvertoning";
+
+"Preview.OpenInInstagram" = "Open met Instagram";
+
+"MediaPicker.AddCaption" = "Onderschrift toevoegen";
+
+"GroupInfo.InviteByLink" = "Uitnodigingslink sturen";
+
+"GroupInfo.InviteLink.Title" = "Uitnodigingslink";
+"GroupInfo.InviteLink.LinkSection" = "LINK";
+"GroupInfo.InviteLink.Help" = "Andere TELEGRAM_APP_NAME-gebruikers kunnen lid worden van je groep door deze link te openen.";
+"GroupInfo.InviteLink.CopyLink" = "Link kopiëren";
+"GroupInfo.InviteLink.RevokeLink" = "Link intrekken";
+"GroupInfo.InviteLink.ShareLink" = "Link delen";
+"GroupInfo.InviteLink.RevokeAlert.Text" = "Deze link echt intrekken? Na intrekken kan niemand meer lid worden met de oude link.";
+"GroupInfo.InviteLink.RevokeAlert.Revoke" = "Intrekken";
+"GroupInfo.InviteLink.RevokeAlert.Success" = "De oude link is nu inactief. Een nieuwe link is aangemaakt.";
+"GroupInfo.InviteLink.CopyAlert.Success" = "Link gekopieerd naar klembord.";
+
+"UserInfo.ShareMyContactInfo" = "Mijn contactgegevens delen";
+
+"GroupInfo.InvitationLinkAccept" = "Wil je lid worden van de groep \"%@\"?";
+"GroupInfo.InvitationLinkAcceptChannel" = "Lid worden van kanaal \"%@\"?";
+"GroupInfo.InvitationLinkAlreadyAccepted" = "Je bent al lid van deze groep.";
+"GroupInfo.InvitationLinkDoesNotExist" = "Sorry, deze groep bestaat niet.";
+"GroupInfo.InvitationLinkGroupFull" = "Sorry, deze groep is al vol.";
+
+"Core.ServiceUserStatus" = "Servicemeldingen";
+
+"Notification.JoinedGroupByLink" = "%@ is nu lid van de groep via uitnodigingslink";
+
+"ChatSettings.Other" = "ANDERE";
+"ChatSettings.Stickers" = "Stickerinstellingen";
+
+"StickerPacksSettings.Title" = "Stickers";
+"StickerPacksSettings.ShowStickersButton" = "Stickerpaneel weergeven";
+"StickerPacksSettings.ShowStickersButtonHelp" = "Een stickericoon verschijnt in het invoerveld.";
+
+"StickerPacksSettings.StickerPacksSection" = "Stickerbundels";
+"StickerPacksSettings.ManagingHelp" = "Ontwerpers kunnen stickerbundels toevoegen via onze bot: @stickers.\n\nTik op een sticker om de bundel te bekijken en toe te voegen.";
+
+"StickerPack.RemovePrompt" = "\"%@\" verwijderen?";
+"StickerPack.BuiltinPackName" = "Grote geesten";
+"StickerPack.StickerCount_1" = "1 sticker";
+"StickerPack.StickerCount_2" = "2 stickers";
+"StickerPack.StickerCount_3_10" = "%@ stickers";
+"StickerPack.StickerCount_any" = "%@ stickers";
+
+"StickerPack.AddStickerCount_1" = "Voeg 1 sticker toe";
+"StickerPack.AddStickerCount_2" = "Voeg 2 stickers toe";
+"StickerPack.AddStickerCount_3_10" = "Voeg %@ stickers toe";
+"StickerPack.AddStickerCount_any" = "Voeg %@ stickers toe";
+
+"StickerPack.ShareStickers" = "Stickers delen";
+
+"Conversation.ContextMenuStickerPackAdd" = "Stickers toevoegen";
+"Conversation.ContextMenuStickerPackInfo" = "Info";
+
+"MediaPicker.Processing" = "Verwerken %@";
+"MediaPicker.Nof" = "%@ van";
+
+"UserInfo.ShareBot" = "Delen";
+"UserInfo.InviteBotToGroup" = "Groepslid maken";
+"Profile.BotInfo" = "over";
+"Profile.ShareBotPersonFormat" = "Bot delen met %@?";
+"Profile.ShareBotGroupFormat" = "Bot delen met \"%@\"?";
+
+"Target.SelectGroup" = "Groep kiezen";
+"Target.InviteToGroupConfirmation" = "Bot toevoegen aan \"%@\"?";
+"Target.InviteToGroupErrorAlreadyInvited" = "Deze bot is al een groepslid.";
+"Bot.GenericBotStatus" = "bot";
+"Bot.DescriptionTitle" = "Wat kan deze bot? ";
+"Bot.GroupStatusReadsHistory" = "toegang tot berichten";
+"Bot.GroupStatusDoesNotReadHistory" = "geen toegang tot berichten";
+"Bot.Start" = "Begin";
+"UserInfo.BotSettings" = "Instellingen";
+"UserInfo.BotHelp" = "Help";
+
+"Contacts.SearchLabel" = "Contact of gebruikersnaam";
+"ChatSearch.SearchPlaceholder" = "Zoeken";
+
+"WatchRemote.NotificationText" = "Open deze melding op je telefoon om het bericht te bekijken vanuit je Apple Watch";
+"WatchRemote.AlertTitle" = "Bericht van je Apple Watch";
+"WatchRemote.AlertText" = "Het bericht hier openen?";
+"WatchRemote.AlertOpen" = "Openen";
+
+"Conversation.SearchPlaceholder" = "In chat zoeken";
+"Conversation.SearchNoResults" = "Geen resultaten";
+
+"GroupInfo.AddUserLeftError" = "Sorry, iemand die de groep verlaat kan alleen weer worden toegevoegd door een gemeenschappelijk contact (je hebt elkaars nummer nodig).";
+
+"DialogList.SearchSectionRecent" = "Recent";
+
+"DialogList.DeleteBotConfirmation" = "Verwijder";
+"DialogList.DeleteBotConversationConfirmation" = "Verwijder en stop";
+"Bot.Stop" = "Stop bot";
+"Bot.Unblock" = "Herstart bot";
+
+"Login.PhoneNumberHelp" = "Help";
+"Login.EmailPhoneSubject" = "Ongeldig nummer %@";
+"Login.EmailPhoneBody" = "Ik probeer mobiel nummer %@ te gebruiken\nVolgens TELEGRAM_APP_NAME is deze ongeldig,  help. ";
+
+"SharedMedia.TitleLink" = "Gedeelde links";
+"SharedMedia.EmptyLinksText" = "Gedeelde links verschijnen hier";
+
+"SharedMedia.Link_1" = "1 link";
+"SharedMedia.Link_2" = "2 links";
+"SharedMedia.Link_3_10" = "%@ links";
+"SharedMedia.Link_any" = "%@ links";
+
+"Compose.NewChannelButton" = "Nieuw kanaal";
+"Channels.Title" = "Kanalen";
+
+"Compose.NewChannel" = "Nieuw kanaal";
+"GroupInfo.ChannelListNamePlaceholder" = "Kanaalnaam";
+
+"Channel.MessagePhotoUpdated" = "Kanaalfoto bijgewerkt";
+"Channel.MessagePhotoRemoved" = "Kanaalfoto verwijderd";
+"Channel.MessageTitleUpdated" = "Kanaalnaam gewijzigd naar \"%@\"";
+"Channel.TitleInfo" = "Kanaalinformatie";
+
+"Channel.UpdatePhotoItem" = "Kanaalfoto instellen";
+
+"Channel.AboutItem" = "over";
+"Channel.LinkItem" = "link delen";
+"Channel.Edit.AboutItem" = "Beschrijving";
+"Channel.Edit.LinkItem" = "Link";
+
+"Channel.Username.Title" = "Link";
+"Channel.Username.Help" = "Je kunt een kanaalnaam kiezen voor **TELEGRAM_APP_NAME**. Hiermee kunnen anderen je kanaal vinden.\n\nJe mag **a-z**, **0-9** en liggend streepje gebruiken. De minimale lengte is **5** tekens.";
+"Channel.Username.LinkHint" = "Deze link opent je kanaal in TELEGRAM_APP_NAME:[\nhttps://t.me/%@]";
+"Channel.Username.InvalidTooShort" = "Een kanaalnaam moet minimaal 5 tekens hebben.";
+"Channel.Username.InvalidStartsWithNumber" = "Begincijfers zijn niet toegestaan.";
+"Channel.Username.InvalidCharacters" = "Sorry, deze naam is ongeldig.";
+"Channel.Username.InvalidTaken" = "Deze naam is bezet.";
+"Channel.Username.CheckingUsername" = "Naam controleren...";
+"Channel.Username.UsernameIsAvailable" = "%@ is beschikbaar.";
+
+"Channel.Share" = "Delen";
+"Channel.LeaveChannel" = "Kanaal verlaten";
+
+"Channel.About.Title" = "Beschrijving";
+
+"Channel.About.Placeholder" = "Beschrijving";
+"Channel.About.Help" = "Optioneel kun je een kanaalbeschrijving geven.";
+"Group.About.Help" = "Optioneel kun je een groepsbeschrijving geven.";
+"Channel.About.Error" = "Er is een fout opgetreden.";
+"Channel.ShareNoLink" = "Stel een link voor je kanaal in om deze vindbaar te maken voor anderen via de zoekfunctie.";
+
+"Channel.Status" = "kanaal";
+"Group.Status" = "groep";
+
+"Compose.NewChannel.Members" = "LEDEN";
+"Compose.NewChannel.AddMember" = "Lid toevoegen";
+"Compose.NewChannel.AddMemberHelp" = "Je kunt direct contacten uitnodiging voor je kanaal of ze later toevoegen.";
+"Channel.NotificationSelfAdded" = "%@ heeft je toegevoegd aan dit kanaal";
+
+"ChannelInfo.ConfirmLeave" = "Kanaal verlaten";
+"Channel.JoinChannel" = "Lid worden";
+"Forward.ChannelReadOnly" = "Je hebt alleen leesrechten in dit kanaal.";
+
+"Conversation.InfoChannel" = "Kanaal";
+
+"Channel.ErrorAccessDenied" = "Sorry, dit kanaal is privé.";
+"Conversation.InputTextBroadcastPlaceholder" = "Massabericht";
+
+"Channel.NotificationCommentsEnabled" = "Reacties zijn ingeschakeld";
+"Channel.NotificationCommentsDisabled" = "Reacties zijn uitgeschakeld";
+"Channel.Edit.EnableComments" = "Reacties";
+
+"Channel.TitleShowDiscussion" = "reacties weergeven";
+"Channel.ShareChannel" = "Delen";
+
+"Channel.NotificationComments_1" = "1 reactie";
+"Channel.NotificationComments_2" = "2 reacties";
+"Channel.NotificationComments_3_10" = "%@ reacties";
+"Channel.NotificationComments_any" = "%@ reacties";
+"Channel.NotificationLoading" = "Laden...";
+
+"Conversation.InputTextDisabledPlaceholder" = "Reacties zijn uitgeschakeld";
+"Compose.ChannelTokenListPlaceholder" = "Contact of gebruikersnaam";
+"Compose.GroupTokenListPlaceholder" = "Contact of gebruikersnaam";
+
+"Compose.ChannelMembers" = "Leden";
+
+"Channel.Setup.TypeHeader" = "KANAALTYPE";
+"Channel.Setup.TypePrivate" = "Privé";
+"Channel.Setup.TypePublic" = "Publiek";
+"Channel.Setup.TypePublicHelp" = "Publieke kanalen zijn te vinden via de zoekfunctie, iedereen kan er lid van worden.";
+"Channel.Setup.TypePrivateHelp" = "Lid worden van privé-kanalen kan alleen per uitnodigingslink.";
+
+"Channel.Setup.Title" = "Kanaal";
+
+"Channel.Username.CreatePublicLinkHelp" = "Deze link kan gedeeld worden met anderen en je kanaal kan worden gevonden via de zoekfunctie.";
+"Channel.Username.CreatePrivateLinkHelp" = "Lid worden van je kanaal kan door deze link te volgen, je kunt de link altijd intrekken.";
+
+"Channel.Username.CreateCommentsEnabled" = "Reacties";
+"Channel.Username.CreateCommentsHelp" = "Als je reacties inschakelt kunnen leden reageren op je bericht in het kanaal.";
+
+"Channel.Setup.PublicNoLink" = "Stel een link in voor je publieke kanaal, om deze vindbaar te maken via de zoekfunctie en te delen met anderen.\n\nWil je dit niet dan kun je een privé-kanaal aanmaken.";
+
+"Channel.Edit.PrivatePublicLinkAlert" = "Als je een publieke link voor je kanaal instelt kan iedereen deze vinden en lid worden via de zoekfunctie.\n\nStel geen link in als je je kanaal privé wilt houden.";
+
+"Channel.Info.Description" = "beschrijving";
+
+"Channel.Info.Management" = "Beheerders";
+"Channel.Info.BlackList" = "Blacklist";
+"Channel.Info.Members" = "Leden";
+
+"Channel.Members.AddMembers" = "Leden toevoegen";
+"Channel.Members.AddMembersHelp" = "Alleen kanaalbeheerders zien deze lijst.";
+"Channel.Members.Title" = "Leden";
+"Channel.BlackList.Title" = "Blacklist";
+"Channel.Management.Title" = "Beheerders";
+"Channel.Management.LabelCreator" = "Maker";
+"Channel.Management.LabelModerator" = "Moderator";
+"Channel.Management.LabelEditor" = "Beheerder";
+
+"Channel.Management.AddModerator" = "Beheerder toevoegen";
+"Channel.Management.AddModeratorHelp" = "Je kunt beheerders toevoegen om te helpen met het beheer van je kanaal.";
+
+"Channel.Members.Kick" = "Verwijder";
+"Channel.Management.Remove" = "Verwijder";
+
+"Conversation.InputTextCommentPlaceholder" = "Reactie";
+
+"Channel.Members.InviteLink" = "Uitnodigen via link";
+
+"Channel.Management.ErrorNotMember" = "%@ is nog geen lid, uitnodigen?";
+
+"Channel.Moderator.AccessLevelHeader" = "TOEGANGSNIVEAU";
+"Channel.Moderator.AccessLevelEditor" = "Editor";
+"Channel.Moderator.AccessLevelModerator" = "Moderator";
+
+"Channel.Moderator.AccessLevelModeratorHelp" = "Moderators kunnen reacties verwijderen en de blacklist beheren. \n\nModerators kunnen de naam,  link,  foto en beschrijving niet wijzigen.";
+"Channel.Moderator.AccessLevelEditorHelp" = "Editors kunnen berichten plaatsen,  verwijderen en de blacklist beheren. \n\nEditors kunnen de naam, link foto en beschrijving niet wijzigen.";
+"Channel.Moderator.AccessLevelRevoke" = "Moderator ontslaan";
+
+"Channel.Moderator.Title" = "Moderator";
+
+"Notification.ChannelInviter" = "%@ heeft je uitgenodigd voor dit kanaal";
+"Notification.ChannelInviterSelf" = "Je bent nu lid van dit kanaal";
+
+"Notification.GroupInviter" = "%@ heeft je uitgenodigd voor deze groep";
+"Notification.GroupInviterSelf" = "Je bent nu lid van deze groep";
+
+"ChannelInfo.DeleteChannel" = "Kanaal verwijderen";
+"ChannelInfo.DeleteChannelConfirmation" = "Kanaal echt verwijderen? Berichten worden gewist en alle leden verwijderd.";
+
+"Channel.Username.InvalidTooManyUsernames" = "Het maximale aantal publieke kanalen is bereikt. Je kunt een privé-kanaal maken of een kanaal verwijderen om een nieuwe te maken.";
+
+"ChannelInfo.ChannelForbidden" = "Sorry, kanaal \"%@\" is niet meer beschikbaar.";
+
+"PhotoEditor.FadeTool" = "Vervagen";
+"PhotoEditor.TintTool" = "Tint";
+"PhotoEditor.TintIntensity" = "Kleurintensiteit";
+"PhotoEditor.ShadowsTint" = "Schaduwen";
+"PhotoEditor.HighlightsTint" = "Accentueren";
+"PhotoEditor.CurvesTool" = "Curven";
+"PhotoEditor.CurvesAll" = "Alle";
+"PhotoEditor.CurvesRed" = "Rood";
+"PhotoEditor.CurvesGreen" = "Groen";
+"PhotoEditor.CurvesBlue" = "Blauw";
+
+"Channel.ErrorAddBlocked" = "Je kunt deze gebruiker niet toevoegen aan kanalen.";
+"Channel.ErrorAddTooMuch" = "Je kunt  200 leden handmatig toevoegen aan een kanaal. Een ongelimiteerd aantal mensen kan lid worden via de link van het kanaal.";
+
+"ChannelIntro.Title" = "Wat is een kanaal?";
+"ChannelIntro.Text" = "Kanalen zijn een nieuwe\nfunctie om berichten naar\neen groot publiek te sturen.";
+"ChannelIntro.CreateChannel" = "Kanaal maken";
+
+"ShareMenu.Send" = "Stuur";
+
+"Conversation.ReportSpam" = "Spam melden";
+"Conversation.ReportSpamConfirmation" = "Spam van deze gebruiker echt melden?";
+"SharedMedia.EmptyMusicText" = "Gedeelde muziek verschijnt hier.";
+
+"ChatSettings.AutoPlayAnimations" = "GIF's automatisch afspelen";
+
+"GroupInfo.ChatAdmins" = "Beheerder toevoegen";
+
+"ChatAdmins.Title" = "Beheerders";
+"ChatAdmins.AllMembersAreAdmins" = "Iedereen is beheerder";
+"ChatAdmins.AllMembersAreAdminsOnHelp" = "Iedereen mag leden toevoegen en de groepsfoto of naam wijzigen.";
+"ChatAdmins.AllMembersAreAdminsOffHelp" = "Beheerders mogen leden beheren en de groepsfoto of naam wijzigen.";
+"ChatAdmins.AdminLabel" = "beheerder";
+
+"Group.MessagePhotoUpdated" = "Groepsfoto bijgewerkt";
+"Group.MessagePhotoRemoved" = "Groepsfoto verwijderd";
+"Group.MessageTitleUpdated" = "Groepsnaam gewijzigd naar \"%@\"";
+
+"Group.UpgradeNoticeHeader" = "LEDENLIMIET BEREIKT";
+
+"Group.UpgradeNoticeText1" = "Wil je extra functies en een hogere limiet ? Waardeer op naar een supergroep:";
+"Group.UpgradeNoticeText2" = "• Nieuwe leden zien de hele geschiedenis\n• Beheerder wist berichten voor iedereen\n• Supergroepen hebben tot {supergroup_member_limit} leden\n• Meldingen staan standaard uit";
+"GroupInfo.UpgradeButton" = "Opwaarderen naar supergroep";
+"Group.UpgradeConfirmation" = "Groep echt omzetten naar supergroep? Je kunt dit niet ongedaan maken.";
+
+"Notification.GroupMigratedToChannel" = "De groep is opgewaardeerd naar een supergroep.";
+"Notification.GroupDeactivated" = "Groep uitgeschakeld";
+"Notification.GroupDeactivated" = "Groep uitgeschakeld";
+"Notification.ChannelMigratedFrom" = "De groep is opgewaardeerd naar een supergroep";
+
+"Conversation.StatusGroupDeactivated" = "groep uitgeschakeld";
+"GroupInfo.DeactivatedStatus" = "Groep uitgeschakeld";
+
+"Notification.RenamedGroup" = "Groepsnaam gewijzigd";
+
+"Group.ErrorAddTooMuch" = "Sorry, deze groep is vol.";
+"Group.ErrorAddTooMuchBots" = "Je hebt het maximale aantal bots voor deze groep bereikt.";
+"Group.ErrorAddTooMuchAdmins" = "Je hebt het maximale aantal beheerders voor deze groep bereikt.";
+"Group.ErrorAddBlocked" = "Je kunt deze gebruiker niet toevoegen aan groepen.";
+"Group.ErrorNotMutualContact" = "Je kunt momenteel alleen onderlinge contacten aan groepen toevoegen";
+
+"Conversation.SendMessageErrorFlood" = "Je kunt momenteel alleen berichten sturen aan onderlingen contacten.";
+"Generic.ErrorMoreInfo" = "Meer informatie";
+
+"Notification.InvitedMany" = "%@ heeft %@ uitgenodigd";
+
+"ChannelMembers.Blacklist.EmptyText" = "Geblackliste gebruikers kunnen alleen worden uitgenodigd door beheerders, uitnodigingslinks werken niet voor hen.";
+
+"ChannelInfo.DeleteGroup" = "Groep verwijderen";
+"ChannelInfo.DeleteGroupConfirmation" = "Groep echt verwijderen? Berichten worden gewist en alle leden verwijderd.";
+
+"ReportPeer.Report" = "Melden";
+
+"ReportPeer.ReasonSpam" = "Spam";
+"ReportPeer.ReasonViolence" = "Geweld";
+"ReportPeer.ReasonPornography" = "Pornografie";
+"ReportPeer.ReasonOther" = "Overige";
+
+"ReportPeer.AlertSuccess" = "Bedankt!\nJe melding zal zo spoedig mogen worden gecontroleerd.";
+
+"Login.TermsOfServiceLabel" = "Door aan te melden ga je akkoord \nmet onze [Algemene voorwaarden].";
+"Login.TermsOfServiceHeader" = "Algemene voorwaarden";
+
+"ReportPeer.ReasonOther.Placeholder" = "Beschrijving";
+"ReportPeer.ReasonOther.Title" = "Melden";
+"ReportPeer.ReasonOther.Send" = "Stuur";
+
+"Group.Management.AddModeratorHelp" = "Je kunt beheerders toevoegen om te helpen met het beheer van je groep.";
+
+"Watch.AppName" = "TELEGRAM_APP_NAME";
+"Watch.Compose.AddContact" = "Kies een contact";
+"Watch.Compose.CreateMessage" = "Stel bericht op";
+"Watch.Compose.CurrentLocation" = "Huidige locatie";
+"Watch.Compose.Send" = "Stuur";
+"Watch.Contacts.NoResults" = "Geen vergelijkbare\ncontacten gevonden";
+"Watch.ChatList.NoConversationsTitle" = "Geen chats";
+"Watch.ChatList.NoConversationsText" = "Druk en tik op\nnieuw bericht\nom te beginnen";
+"Watch.ChatList.Compose" = "Nieuw bericht";
+
+"Watch.Conversation.Reply" = "Antwoord";
+"Watch.Conversation.Unblock" = "Deblokkeer";
+"Watch.Conversation.UserInfo" = "Info";
+"Watch.Conversation.GroupInfo" = "Groepsinformatie";
+"Watch.Bot.Restart" = "Herstart";
+
+"Watch.UserInfo.Title" = "Info";
+"Watch.UserInfo.Service" = "servicemeldingen";
+
+"Watch.UserInfo.Block" = "Blokkeer";
+"Watch.UserInfo.Unblock" = "Deblokkeer";
+"Watch.UserInfo.Mute_1" = "1 uur stil";
+"Watch.UserInfo.Mute_2" = "2 uur stil";
+"Watch.UserInfo.Mute_3_10" = "%@ uur stil";
+"Watch.UserInfo.Mute_any" = "%@ uur stil";
+"Watch.UserInfo.MuteTitle" = "Geluid uit";
+"Watch.UserInfo.Unmute" = "Stil uitschakelen";
+
+"Watch.GroupInfo.Title" = "Groepsinformatie";
+"Watch.ChannelInfo.Title" = "Kanaalinformatie";
+
+"Watch.Message.ForwardedFrom" = "Doorgestuurd bericht van";
+
+"Watch.Notification.Joined" = "heeft nu TELEGRAM_APP_NAME";
+
+"Watch.MessageView.Title" = "Bericht";
+"Watch.MessageView.Forward" = "Doorsturen";
+"Watch.MessageView.Reply" = "Antwoord";
+"Watch.MessageView.ViewOnPhone" = "Op iPhone bekijken";
+
+"Watch.PhotoView.Title" = "Foto";
+
+"Watch.Stickers.Recents" = "Recente";
+"Watch.Stickers.RecentPlaceholder" = "Je meest gebruikte stickers verschijnen hier";
+"Watch.Stickers.StickerPacks" = "Stickerbundels";
+
+"Watch.Location.Current" = "Huidige locatie";
+"Watch.Location.Access" = "Geef TELEGRAM_APP_NAME locatie-toegang op je iPhone";
+
+"Watch.AuthRequired" = "Log in op TELEGRAM_APP_NAME op je iPhone om te beginnen";
+"Watch.UnlockRequired" = "Ontgrendel TELEGRAM_APP_NAME op je iPhone";
+
+"Watch.NoConnection" = "Geen verbinding";
+"Watch.ConnectionDescription" = "Je Watch moet aangesloten zijn voordat de app werkt";
+
+"Watch.State.Connecting" = "Verbinden…";
+"Watch.State.Updating" = "Bijwerken…";
+"Watch.State.WaitingForNetwork" = "Geen netwerk";
+
+"Watch.Time.ShortTodayAt" = "Vandaag om %@";
+"Watch.Time.ShortYesterdayAt" = "Gisteren om %@";
+"Watch.Time.ShortWeekdayAt" = "%1$@ %2$@";
+"Watch.Time.ShortFullAt" = "%1$@ %2$@";
+
+"Watch.LastSeen.JustNow" = "zojuist";
+"Watch.LastSeen.MinutesAgo_1" = "1 minuut geleden";
+"Watch.LastSeen.MinutesAgo_2" = "2 minuten geleden";
+"Watch.LastSeen.MinutesAgo_3_10" = "%@ minuten geleden";
+"Watch.LastSeen.MinutesAgo_any" = "%@ minuten geleden";
+"Watch.LastSeen.HoursAgo_1" = "1 uur geleden";
+"Watch.LastSeen.HoursAgo_2" = "2 uur geleden";
+"Watch.LastSeen.HoursAgo_3_10" = "%@ uur geleden";
+"Watch.LastSeen.HoursAgo_any" = "%@ uur geleden";
+"Watch.LastSeen.TodayAt" = "vandaag om %@";
+"Watch.LastSeen.YesterdayAt" = "gisteren om %@";
+"Watch.LastSeen.AtWeekday" = "%@";
+"Watch.LastSeen.AtDate" = "%@";
+"Watch.LastSeen.Lately" = "recent";
+"Watch.LastSeen.WithinAWeek" = "afgelopen week";
+"Watch.LastSeen.WithinAMonth" = "afgelopen maand";
+"Watch.LastSeen.ALongTimeAgo" = "lang geleden";
+
+"Watch.Suggestion.OK" = "OK";
+"Watch.Suggestion.ThankYou" = "Bedankt.";
+"Watch.Suggestion.Thanks" = "Bedankt!";
+"Watch.Suggestion.WhatsUp" = "Wat is er?";
+"Watch.Suggestion.Yes" = "Ja";
+"Watch.Suggestion.No" = "Nee";
+"Watch.Suggestion.Absolutely" = "Absoluut";
+"Watch.Suggestion.Nope" = "Nope";
+"Watch.Suggestion.TalkLater" = "Later praten?";
+"Watch.Suggestion.CantTalk" = "Het komt nu niet uit.";
+"Watch.Suggestion.HoldOn" = "Eén momentje";
+"Watch.Suggestion.CallSoon" = "Ik bel je snel.";
+"Watch.Suggestion.TextInABit" = "Ik stuur je zo een bericht.";
+"Watch.Suggestion.BRB" = "Zo terug";
+"Watch.Suggestion.OnMyWay" = "Ik ben onderweg.";
+"Cache.Photos" = "Foto's";
+"Cache.Videos" = "Video's";
+"Cache.Music" = "Muziek";
+"Cache.Files" = "Bestanden";
+"Cache.Clear" = "Wissen (%@)";
+"Cache.ClearNone" = "Wissen";
+"Cache.ClearProgress" = "Een ogenblik geduld";
+"Cache.ClearEmpty" = "Leeg";
+"Cache.ByPeerHeader" = "CHATS";
+"Cache.Indexing" = "Bezig met berekenen van de cache-grootte.\nDit kan enkele minuten duren.";
+
+"ExplicitContent.AlertTitle" = "Sorry";
+"ExplicitContent.AlertChannel" = "Vanwege het overtreden van App Store regels is dit kanaal niet toegankelijk.";
+"ExplicitContent.AlertUser" = "Vanwege het overtreden van App Store regels is deze bot niet toegankelijk.";
+
+"StickerSettings.ContextHide" = "Archiveer";
+"StickerSettings.ContextShow" = "Weergeven";
+
+"Conversation.LinkDialogSave" = "Opslaan";
+"Conversation.GifTooltip" = "Tik hier om opgeslagen GIF's te bekijken";
+
+"AttachmentMenu.PhotoOrVideo" = "Foto of video";
+"AttachmentMenu.ImageSearch" = "Zoek afbeeldingen";
+"AttachmentMenu.File" = "Bestand";
+
+"AttachmentMenu.SendPhoto_1" = "1 foto sturen";
+"AttachmentMenu.SendPhoto_2" = "2 foto's sturen";
+"AttachmentMenu.SendPhoto_3_10" = "%@ foto's sturen";
+"AttachmentMenu.SendPhoto_any" = "%@ foto's sturen";
+
+"AttachmentMenu.SendVideo_1" = "1 video sturen";
+"AttachmentMenu.SendVideo_2" = "2 video's sturen";
+"AttachmentMenu.SendVideo_3_10" = "%@ video's sturen";
+"AttachmentMenu.SendVideo_any" = "%@ video's sturen";
+
+"AttachmentMenu.SendGif_1" = "1 GIF sturen";
+"AttachmentMenu.SendGif_2" = "2 GIF's sturen";
+"AttachmentMenu.SendGif_3_10" = "%@ GIF's sturen";
+"AttachmentMenu.SendGif_any" = "%@ GIF's sturen";
+
+"AttachmentMenu.SendItem_1" = "1 item sturen";
+"AttachmentMenu.SendItem_2" = "2 items sturen";
+"AttachmentMenu.SendItem_3_10" = "%@ items sturen";
+"AttachmentMenu.SendItem_any" = "%@ items sturen";
+
+"AttachmentMenu.SendAsFile" = "Als bestand sturen";
+"AttachmentMenu.SendAsFiles" = "Als bestanden sturen";
+
+"Conversation.Processing" = "Verwerken...";
+
+"Conversation.MessageViaUser" = "via %@";
+
+"CreateGroup.SoftUserLimitAlert" = "Nadat je de groep hebt aangemaakt kun je meer gebruikers toevoegen en omzetten naar een supergroep.";
+"ChannelMembers.AllMembersMayInvite" = "Alle leden mogen uitnodigen";
+"ChannelMembers.AllMembersMayInviteOnHelp" = "Iedereen mag nieuwe leden toevoegen";
+"ChannelMembers.AllMembersMayInviteOffHelp" = "Alleen beheerders mogen nieuwe leden toevoegen.";
+
+"Privacy.GroupsAndChannels" = "Groepen";
+"Privacy.GroupsAndChannels.WhoCanAddMe" = "WIE KAN ME TOEVOEGEN AAN GROEPCHATS";
+"Privacy.GroupsAndChannels.CustomHelp" = "Je kunt nauwkeurig bepalen wie je aan groepen en kanalen mag toevoegen.";
+"Privacy.GroupsAndChannels.AlwaysAllow" = "Altijd toestaan";
+"Privacy.GroupsAndChannels.NeverAllow" = "Nooit toestaan";
+"Privacy.GroupsAndChannels.CustomShareHelp" = "Deze gebruikers altijd toestaan of verbieden je aan groepen en kanalen toe te voegen.";
+
+"Privacy.GroupsAndChannels.AlwaysAllow.Title" = "Altijd toestaan";
+"Privacy.GroupsAndChannels.AlwaysAllow.Placeholder" = "Altijd toestaan...";
+"Privacy.GroupsAndChannels.NeverAllow.Title" = "Nooit toestaan";
+"Privacy.GroupsAndChannels.NeverAllow.Placeholder" = "Nooit toestaan...";
+
+"Privacy.GroupsAndChannels.InviteToGroupError" = "Sorry, je kan %@ niet toevoegen aan groepen door de privacyinstellingen van %@.";
+"Privacy.GroupsAndChannels.InviteToChannelError" = "Sorry, je kan %@ niet toevoegen aan kanalen door de privacyinstellingen van %@.";
+"Privacy.GroupsAndChannels.InviteToChannelMultipleError" = "Door de privacyinstellingen van deze gebruikers kun je geen groep met hen maken.";
+
+"ChannelMembers.WhoCanAddMembers" = "Wie kan leden toevoegen";
+"ChannelMembers.WhoCanAddMembers.AllMembers" = "Alle leden";
+"ChannelMembers.WhoCanAddMembers.Admins" = "Alleen beheerders";
+"ChannelMembers.WhoCanAddMembersAllHelp" = "Iedereen mag nieuwe leden toevoegen";
+"ChannelMembers.WhoCanAddMembersAdminsHelp" = "Alleen beheerders mogen nieuwe leden toevoegen.";
+
+"ChannelMembers.GroupAdminsTitle" = "GROEPBEHEERDERS";
+"ChannelMembers.ChannelAdminsTitle" = "KANAALBEHEERDERS";
+"MusicPlayer.VoiceNote" = "Spraakbericht";
+
+"PrivacyLastSeenSettings.WhoCanSeeMyTimestamp" = "WIE KAN MIJN TIJDSAANDUIDING ZIEN";
+
+"PrivacyLastSeenSettings.GroupsAndChannelsHelp" = "Wijzig wie je aan groepen en kanalen kan toevoegen.";
+"MusicPlayer.VoiceNote" = "Spraakbericht";
+
+"Watch.Microphone.Access" = "Geef TELEGRAM_APP_NAME microfoontoegang op je iPhone";
+
+"Settings.AppleWatch" = "Apple Watch";
+"AppleWatch.Title" = "Apple Watch";
+"AppleWatch.ReplyPresets" = "STANDAARDANTWOORDEN";
+"AppleWatch.ReplyPresetsHelp" = "Gebruik één van deze standaardantwoorden of bewerk ze naar wens om snel berichten op te stellen en te beantwoorden.";
+
+"KeyCommand.FocusOnInputField" = "Schrijf bericht";
+"KeyCommand.Find" = "Zoeken";
+"KeyCommand.ScrollUp" = "Scroll naar boven";
+"KeyCommand.ScrollDown" = "Scroll naar beneden";
+"KeyCommand.NewMessage" = "Nieuw bericht";
+"KeyCommand.JumpToPreviousChat" = "Naar vorige chat";
+"KeyCommand.JumpToNextChat" = "Naar volgende chat";
+"KeyCommand.JumpToPreviousUnreadChat" = "Naar vorige ongelezen chat";
+"KeyCommand.JumpToNextUnreadChat" = "Naar volgende ongelezen chat";
+"KeyCommand.SendMessage" = "Stuur bericht";
+"KeyCommand.ChatInfo" = "Chat-info";
+
+"Conversation.SecretLinkPreviewAlert" = "Wil je uitgebreide link-voorvertoning inschakelen voor geheime chats? Let op: deze worden gegenereerd op onze servers.";
+"Conversation.SecretChatContextBotAlert" = "Let op: inline-bots worden aangeboden door externe ontwikkelaars. Voor de werking van de bot worden de karakters die je na de botnaam typt naar deze ontwikkelaar verstuurd.";
+
+"Map.OpenInWaze" = "Openen in Waze";
+
+"ShareMenu.CopyShareLink" = "Link kopiëren";
+
+"Channel.SignMessages" = "Ondertekenen";
+"Channel.SignMessages.Help" = "Beheerdersnaam bij alle uitgaande berichten.";
+
+"Channel.EditMessageErrorGeneric" = "Je mag dit bericht niet wijzigen.";
+
+"ChannelInfo.InvitationLinkDoesNotExist" = "Sorry, dit kanaal bestaat niet.";
+
+"Conversation.InputTextSilentBroadcastPlaceholder" = "Stil massabericht";
+"Conversation.SilentBroadcastTooltipOn" = "Berichtgeving voor leden";
+"Conversation.SilentBroadcastTooltipOff" = "Geen berichtgeving voor leden";
+
+"Settings.About" = "Bio";
+"GroupInfo.LabelAdmin" = "beheerder";
+
+"Conversation.Pin" = "Vastzetten";
+"Conversation.Unpin" = "Losmaken";
+"Conversation.Report" = "Spam melden";
+"Conversation.PinnedMessage" = "Vastgezet bericht";
+
+"Conversation.Moderate.Delete" = "Verwijder bericht";
+"Conversation.Moderate.Ban" = "Blacklist gebruiker";
+"Conversation.Moderate.Report" = "Spam melden";
+"Conversation.Moderate.DeleteAllMessages" = "Alles verwijderen van %@";
+
+"Group.Username.Help" = "Je kunt een groepsnaam kiezen voor **TELEGRAM_APP_NAME**. Hiermee kunnen anderen je groep vinden.\n\nJe mag **a-z**, **0-9** en liggend streepje gebruiken. De minimale lengte is **5** tekens.";
+
+"Group.Username.InvalidTooShort" = "Een groepsnaam moet minimaal 5 tekens hebben.";
+"Group.Username.InvalidStartsWithNumber" = "Begincijfers zijn niet toegestaan.";
+
+"Group.Username.LinkHint" = "Deze link opent je groep in TELEGRAM_APP_NAME:[\nhttps://t.me/%@]";
+
+"Notification.PinnedTextMessage" = "%@ heeft \"%@\" vastgezet";
+"Notification.PinnedPhotoMessage" = "%@ heeft foto vastgezet";
+"Notification.PinnedVideoMessage" = "%@ heeft video vastgezet";
+"Notification.PinnedRoundMessage" = "%@ heeft videobericht vastgezet";
+"Notification.PinnedAudioMessage" = "%@ heeft spraakbericht vastgezet";
+"Notification.PinnedDocumentMessage" = "%@ heeft bestand vastgezet";
+"Notification.PinnedAnimationMessage" = "%@ heeft GIF vastgezet";
+"Notification.PinnedStickerMessage" = "%@ heeft sticker vastgezet";
+"Notification.PinnedLocationMessage" = "%@ heeft locatie vastgezet";
+"Notification.PinnedContactMessage" = "%@ heeft contact vastgezet";
+"Notification.PinnedDeletedMessage" = "%@ heeft verwijderd bericht vastgezet";
+
+"Message.PinnedTextMessage" = "heeft \"%@\" vastgezet";
+"Message.PinnedPhotoMessage" = "foto vastgezet";
+"Message.PinnedVideoMessage" = "video vastgezet";
+"Message.PinnedAudioMessage" = "spraakbericht vastgezet";
+"Message.PinnedDocumentMessage" = "bestand vastgezet";
+"Message.PinnedAnimationMessage" = "GIF vastgezet";
+"Message.PinnedStickerMessage" = "sticker vastgezet";
+"Message.PinnedLocationMessage" = "locatie vastgezet";
+"Message.PinnedContactMessage" = "contact vastgezet";
+"Message.PinnedDeletedMessage" = "verwijderd bericht vastgezet";
+
+"Notification.PinnedMessage" = "bericht vastgezet";
+
+"GroupInfo.ConvertToSupergroup" = "Opwaarderen naar supergroep";
+
+"ConvertToSupergroup.Title" = "Supergroep";
+"ConvertToSupergroup.HelpTitle" = "**supergroepen:**";
+"ConvertToSupergroup.HelpText" = "• Nieuwe leden zien de hele geschiedenis\n• Gewiste berichten gelden voor iedereen\n• Beheerders kunnen berichten vastzetten\n• Maker kan een publieke groepslink instellen";
+
+"ConvertToSupergroup.Note" = "**Let op**: Je kunt dit niet ongedaan maken.";
+
+"GroupInfo.GroupType" = "Groepsvorm";
+
+"Group.Setup.TypeHeader" = "GROEPSVORM";
+"Group.Setup.TypePublicHelp" = "Publieke groepen zijn te vinden via de zoekfunctie, iedereen kan er lid van worden en de geschiedenis zien.";
+"Group.Setup.TypePrivateHelp" = "Lid worden van privé-groepen kan alleen via uitnodiging of per uitnodigingslink.";
+
+"Group.Username.CreatePublicLinkHelp" = "Deze link kan gedeeld worden met anderen en je groep kan worden gevonden via de zoekfunctie.";
+"Group.Username.CreatePrivateLinkHelp" = "Lid worden van je groep kan door deze link te volgen, je kunt de link altijd intrekken.";
+
+"Conversation.PinMessageAlertGroup" = "Bericht vastzetten en leden informeren?";
+"Conversation.PinMessageAlertChannel" = "Bericht vastzetten en leden informeren?";
+"Conversation.PinMessageAlert.OnlyPin" = "Alleen vastzetten";
+
+"Conversation.UnpinMessageAlert" = "Wil je dit bericht losmaken?";
+
+"Settings.About.Title" = "Bio";
+"Settings.About.Help" = "Je kunt hier wat over jezelf vertellen. Iedereen die je profiel opent kan deze tekst zien.";
+
+"Profile.About" = "bio";
+
+"Group.Management.ErrorNotMember" = "%@ is nog geen lid, uitnodigen?";
+
+"Conversation.ReportSpamAndLeave" = "Spam melden en verlaten";
+
+"Conversation.StatusKickedFromChannel" = "je bent verwijderd uit het kanaal";
+
+"Generic.OpenHiddenLinkAlert" = "Open %@?";
+
+"Resolve.ErrorNotFound" = "Sorry, deze gebruiker bestaat niet.";
+
+"StickerPack.AddStickers" = "Stickers toevoegen";
+"StickerPack.Share" = "Delen";
+"StickerPack.Send" = "Sticker sturen";
+
+"StickerPack.RemoveStickers" = "Stickers verwijderen";
+"StickerPack.RemoveStickerCount_1" = "1 Sticker verwijderen";
+"StickerPack.RemoveStickerCount_2" = "2 Stickers verwijderen";
+"StickerPack.RemoveStickerCount_3_10" = "%@ Stickers verwijderen";
+"StickerPack.RemoveStickerCount_any" = "%@ Stickers verwijderen";
+
+"StickerPack.HideStickers" = "Stickers verbergen";
+"StickerPack.ShowStickers" = "Stickers weergeven";
+
+"ShareMenu.ShareTo" = "Delen met";
+"ShareMenu.SelectChats" = "Kies chats";
+"ShareMenu.Comment" = "Opmerking toevoegen";
+
+"MediaPicker.Videos" = "Video's";
+
+"Coub.TapForSound" = "Tik voor geluid";
+
+"Preview.SaveGif" = "GIF opslaan";
+"Preview.DeleteGif" = "GIF verwijderen";
+"Preview.CopyAddress" = "Adres kopiëren";
+"Preview.ViewStickerPack" = "Stickerbundel bekijken";
+
+"Conversation.ShareBotLocationConfirmationTitle" = "Locatie delen?";
+"Conversation.ShareBotLocationConfirmation" = "Huidige locatie naar deze bot sturen?";
+
+"Conversation.ShareBotContactConfirmationTitle" = "Telefoonnummer delen?";
+"Conversation.ShareBotContactConfirmation" = "De bot krijgt je telefoonnummer, dit kan handig zijn voor de integratie met andere diensten.";
+
+"Conversation.ShareInlineBotLocationConfirmation" = "Deze bot wil toegang tot je locatie voor ieder verzoek dat je stuurt. Dit kan gebruikt worden voor locatiespecifieke resultaten.";
+
+"Activity.UploadingAudio" = "audio versturen";
+
+"Preview.Tooltip" = "vasthouden voor een voorvertoning";
+
+"StickerPack.ErrorNotFound" = "Sorry, deze stickerbundel bestaat niet.";
+
+"Camera.TapAndHoldForVideo" = "Vasthouden voor video";
+
+"Conversation.TapAndHoldToRecord" = "Vasthouden om op te nemen";
+
+"DialogList.RecentTitlePeople" = "Mensen";
+"DialogList.RecentTitleGroups" = "Groepen";
+"DialogList.RecentTitleBots" = "Bots";
+
+"Conversation.MessageEditedLabel" = "gewijzigd";
+"Conversation.EditingMessagePanelTitle" = "Bericht wijzigen";
+
+"DialogList.Draft" = "Concept";
+"Embed.PlayingInPIP" = "deze video speelt Picture-in Picture";
+
+"MediaPicker.Moments" = "Momenten";
+"MediaPicker.MomentsDateFormat" = "{day} {month}"; // 1 - day, 2 - month
+"MediaPicker.MomentsDateYearFormat" = "{day} {month}, {year}"; // 1 - day, 2 - month, 3 - year
+
+"MediaPicker.MomentsDateRangeFormat" = "{date1} – {date2}";
+"MediaPicker.MomentsDateRangeYearFormat" = "{date1} – {date2} {year}";
+"MediaPicker.MomentsDateRangeSameMonthFormat" = "{day1} – {day2} {month}";
+"MediaPicker.MomentsDateRangeSameMonthYearFormat" = "{day1} – {day2} {month}, {year}";
+
+"StickerPacksSettings.FeaturedPacks" = "Populaire stickers";
+"FeaturedStickerPacks.Title" = "Populaire stickers";
+
+"Invitation.JoinGroup" = "Lid worden van groep";
+"Invitation.Members_1" = "1 lid:";
+"Invitation.Members_2" = "2 leden:";
+"Invitation.Members_3_10" = "%@ leden:";
+"Invitation.Members_any" = "%@ leden:";
+
+"StickerPacksSettings.ArchivedPacks" = "Gearchiveerde stickers";
+"StickerPacksSettings.ArchivedPacks.Info" = "Je kunt 200 stickerbundels tegelijk installeren, daarboven archiveren we ongebruikte stickers.";
+
+"Conversation.CloudStorageInfo.Title" = "Je Cloudopslag is er om:";
+"Conversation.ClousStorageInfo.Description1" = "• Berichten naartoe door te sturen";
+"Conversation.ClousStorageInfo.Description2" = "• Media en bestanden te bewaren";
+"Conversation.ClousStorageInfo.Description3" = "• Te gebruiken op al je apparaten";
+"Conversation.ClousStorageInfo.Description4" = "• Snel dingen in op te zoeken";
+
+"Conversation.CloudStorage.ChatStatus" = "Je Cloudopslag";
+
+"ArchivedPacksAlert.Title" = "Een aantal ongebruikte stickerbundels zijn gearchiveerd. Je kunt deze opnieuw activeren via Stickers onder de Chatinstellingen.";
+
+"StickerSettings.ContextInfo" = "Een gearchiveerde stickerbundel kan teruggehaald worden via de \"Gearchiveerde Stickers\"-sectie.";
+
+"Contacts.TopSection" = "CONTACTEN";
+
+"Login.ResetAccountProtected.Title" = "Account resetten";
+"Login.ResetAccountProtected.Text" = "Account %@ is actief en beveiligd met een wachtwoord, het verwijderen stellen we daarom 1 week uit.\n\nJe kunt dit proces ieder moment annuleren.";
+"Login.ResetAccountProtected.TimerTitle" = "Je account kan gereset worden over:";
+"Login.ResetAccountProtected.Reset" = "Resetten";
+"Login.ResetAccountProtected.LimitExceeded" = "De actieve gebruiker heeft de recente poging om dit account te resetten geannuleerd. Probeer het over 7 dagen nog eens.";
+
+"Login.CodeSentCall" = "We bellen je om een code te dicteren.";
+
+"Login.SmsRequestState1" = "We sturen je een SMS over %d:%.2d";
+"Login.SmsRequestState2" = "SMS-verzoek versturen naar TELEGRAM_APP_NAME";
+"Login.SmsRequestState3" = "TELEGRAM_APP_NAME heeft je een SMS gestuurd.\n[Code niet ontvangen?]";
+
+"CancelResetAccount.Title" = "Account reset annuleren";
+"CancelResetAccount.TextSMS" = "Iemand met toegang tot nummer %@ heeft geprobeerd om je TELEGRAM_APP_NAME account te verwijderen en je twee-staps-verificatie wachtwoord te resetten.\n\nAls jij dit niet was, geef dan de code in die we zojuist per SMS hebben gestuurd.";
+
+"CancelResetAccount.Success" = "De verwijdering van account: %@ is geannuleerd.";
+"MediaPicker.MomentsDateRangeSameMonthYearFormat" = "{day1} – {day2} {month}, {year}";
+
+"Paint.Clear" = "Alles wissen";
+"Paint.ClearConfirm" = "Tekening wissen";
+"Paint.Delete" = "Verwijder";
+"Paint.Edit" = "Bewerk";
+"Paint.Duplicate" = "Klonen";
+"Paint.Stickers" = "Stickers";
+"Paint.RecentStickers" = "Recent";
+"Paint.Masks" = "Maskers";
+
+"Paint.Outlined" = "Omlijnd";
+"Paint.Regular" = "Normaal";
+
+"MediaPicker.VideoMuteDescription" = "Geluid is gedempt, de video speelt automatisch af en blijft herhalen, net als een GIF";
+
+
+"Group.Username.RemoveExistingUsernamesInfo" = "Het maximale aantal publieke gebruikersnamen is bereikt. Trek eerst een link van één van je oudere groepen of kanalen in, of gebruik de privé-variant.";
+
+"ServiceMessage.GameScoreExtended_1" = "{name} heeft met {game} {score} punten behaald";
+"ServiceMessage.GameScoreExtended_2" = "{name} heeft met {game} {score} punten behaald";
+"ServiceMessage.GameScoreExtended_3_10" = "{name} heeft met {game} {score} punten behaald";
+"ServiceMessage.GameScoreExtended_any" = "{name} heeft met {game} {score} punten behaald";
+
+"ServiceMessage.GameScoreSelfExtended_1" = "Je hebt met {game} {score} punten behaald";
+"ServiceMessage.GameScoreSelfExtended_2" = "Je hebt met {game} {score} punten behaald";
+"ServiceMessage.GameScoreSelfExtended_3_10" = "Je hebt met {game} {score} punten behaald";
+"ServiceMessage.GameScoreSelfExtended_any" = "Je hebt met {game} {score} punten behaald";
+
+"ServiceMessage.GameScoreSimple_1" = "{name} heeft {score} punten behaald";
+"ServiceMessage.GameScoreSimple_2" = "{name} heeft {score} punten behaald";
+"ServiceMessage.GameScoreSimple_3_10" = "{name} heeft {score} punten behaald";
+"ServiceMessage.GameScoreSimple_any" = "{name} heeft {score} punten behaald";
+
+"ServiceMessage.GameScoreSelfSimple_1" = "Je hebt {score} punten behaald";
+"ServiceMessage.GameScoreSelfSimple_2" = "Je hebt {score} punten behaald";
+"ServiceMessage.GameScoreSelfSimple_3_10" = "Je hebt {score} punten behaald";
+"ServiceMessage.GameScoreSelfSimple_any" = "Je hebt {score} punten behaald";
+
+"Notification.GameScoreExtended_1" = "{score} punten behaald met {game}";
+"Notification.GameScoreExtended_2" = "{score} punten behaald met {game}";
+"Notification.GameScoreExtended_3_10" = "{score} punten behaald met {game}";
+"Notification.GameScoreExtended_any" = "{score} punten behaald met {game}";
+
+"Notification.GameScoreSelfExtended_1" = "{score} punten behaald met {game}";
+"Notification.GameScoreSelfExtended_2" = "{score} punten behaald met {game}";
+"Notification.GameScoreSelfExtended_3_10" = "{score} punten behaald met {game}";
+"Notification.GameScoreSelfExtended_any" = "{score} punten behaald met {game}";
+
+"Notification.GameScoreSimple_1" = "{score} punten behaald";
+"Notification.GameScoreSimple_2" = "{score} punten behaald";
+"Notification.GameScoreSimple_3_10" = "{score} punten behaald";
+"Notification.GameScoreSimple_any" = "{score} punten behaald";
+
+"Notification.GameScoreSelfSimple_1" = "{score} punten behaald";
+"Notification.GameScoreSelfSimple_2" = "{score} punten behaald";
+"Notification.GameScoreSelfSimple_3_10" = "{score} punten behaald";
+"Notification.GameScoreSelfSimple_any" = "{score} punten behaald";
+
+"Stickers.Install" = "TOEVOEGEN";
+
+"MaskStickerSettings.Title" = "Maskers";
+"MaskStickerSettings.Info" = "Je kunt maskers toevoegen aan foto's en video's, gebruik de fotobewerkingsoptie en verstuur ze.";
+
+"StickerPack.MaskCount_1" = "1 masker";
+"StickerPack.MaskCount_2" = "2 maskers";
+"StickerPack.MaskCount_3_10" = "%@ maskers";
+"StickerPack.MaskCount_any" = "%@ maskers";
+
+"StickerPack.Add" = "Toevoegen";
+"StickerPack.AddMaskCount_1" = "Voeg 1 masker toe";
+"StickerPack.AddMaskCount_2" = "Voeg 2 maskers toe";
+"StickerPack.AddMaskCount_3_10" = "Voeg %@ maskers toe";
+"StickerPack.AddMaskCount_any" = "Voeg %@ maskers toe";
+
+"StickerPack.Remove" = "Verwijder";
+"StickerPack.RemoveMaskCount_1" = "1 Masker verwijderen";
+"StickerPack.RemoveMaskCount_2" = "2 Maskers verwijderen";
+"StickerPack.RemoveMaskCount_3_10" = "%@ Maskers verwijderen";
+"StickerPack.RemoveMaskCount_any" = "%@ Maskers verwijderen";
+
+"Conversation.BotInteractiveUrlAlert" = "Wil je %@ toestaan om je naam en ID (niet je telefoonnummer) door te geven aan webpagina's die je opent via deze bot?";
+"StickerPacksSettings.ArchivedMasks" = "Gearchiveerde maskers";
+"StickerSettings.MaskContextInfo" = "Een gearchiveerde maskerbundel kan teruggehaald worden via de \"Gearchiveerde Maskers\"-sectie.";
+"StickerPacksSettings.ArchivedMasks.Info" = "Je kunt 200 maskerbundels tegelijk installeren,\ndaarboven archiveren we ongebruikte stickers.";
+
+"CloudStorage.Title" = "Je Cloudopslag";
+
+"Widget.AuthRequired" = "Inloggen op TELEGRAM_APP_NAME";
+"Widget.NoUsers" = "Begin met chatten om je vrienden hier te zien";
+
+"Message.GamePreviewLabel" = "SPEL";
+
+"ShareMenu.CopyShareLinkGame" = "Link kopiëren";
+
+"Message.PinnedGame" = "heeft een spel vastgezet";
+
+"Target.ShareGameConfirmationPrivate" = "Spel delen met %@?";
+"Target.ShareGameConfirmationGroup" = "Spel delen met \"%@\"?";
+
+"Activity.PlayingGame" = "speelt een spel";
+
+"DialogList.SinglePlayingGameSuffix" = "%@ speelt een spel";
+
+"UserInfo.GroupsInCommon" = "Gedeelde Groepen";
+"Conversation.InstantPagePreview" = "SNELLE WEERGAVE";
+
+"StickerPack.ViewPack" = "Bundel bekijken";
+"InstantPage.AuthorAndDateTitle" = "Door %1$@ • %2$@";
+"InstantPage.FeedbackButton" = "Feedback over deze voorvertoning";
+"Conversation.JumpToDate" = "Ga naar datum";
+"Conversation.AddToReadingList" = "Zet in leeslijst";
+
+"AccessDenied.CallMicrophone" = "TELEGRAM_APP_NAME heeft toegang tot je microfoon nodig voor oproepen.\n\nNavigeer naar Instellingen — Privacy — Microfoon en zet TELEGRAM_APP_NAME op AAN.";
+
+"Call.EncryptionKey.Title" = "Encryptiesleutel";
+"Call.EncryptionKey.Description" = "Deze afbeelding en tekst zijn afgeleid van de encryptiesleutel voor dit telefoongesprek met %1$@.\n\nAls dit er hetzelfde uitziet op het apparaat van %2$@, dan is end-to-end-encryptie gegarandeerd.";
+
+"Application.Name" = "TELEGRAM_APP_NAME";
+"DialogList.Pin" = "Vastzetten";
+"DialogList.Unpin" = "Losmaken";
+"DialogList.PinLimitError" = "Sorry, je kunt niet meer dan %@ chats vastzetten.";
+
+"Conversation.DeleteMessagesForMe" = "Verwijder voor mij";
+"Conversation.DeleteMessagesFor" = "Verwijder voor mij en %@";
+"Conversation.DeleteMessagesForEveryone" = "Verwijder voor iedereen";
+
+"NetworkUsageSettings.Title" = "Datagebruik";
+"NetworkUsageSettings.Cellular" = "Mobiel";
+"NetworkUsageSettings.Wifi" = "Wi-Fi";
+
+"NetworkUsageSettings.GeneralDataSection" = "BERICHTEN";
+"NetworkUsageSettings.MediaImageDataSection" = "FOTO'S";
+"NetworkUsageSettings.MediaVideoDataSection" = "VIDEO'S";
+"NetworkUsageSettings.MediaAudioDataSection" = "AUDIO";
+"NetworkUsageSettings.MediaDocumentDataSection" = "BESTANDEN";
+"NetworkUsageSettings.TotalSection" = "TOTAAL AANTAL BYTES";
+"NetworkUsageSettings.BytesSent" = "Verzonden bytes";
+"NetworkUsageSettings.BytesReceived" = "Ontvangen bytes";
+
+"NetworkUsageSettings.ResetStats" = "Gegevens opnieuw instellen";
+"NetworkUsageSettings.ResetStatsConfirmation" = "Gebruiksgegevens opnieuw instellen?";
+"NetworkUsageSettings.CellularUsageSince" = "Mobiel gebruik sinds %@";
+"NetworkUsageSettings.WifiUsageSince" = "Wi-Fi gebruik sinds %@";
+
+"Settings.CallSettings" = "Spraakoproepen";
+
+"Calls.TabTitle" = "Oproepen";
+"Calls.All" = "Alle";
+"Calls.Missed" = "Gemist";
+"Calls.Clear" = "Wissen";
+
+"CallSettings.Title" = "Spraakoproepen";
+"CallSettings.RecentCalls" = "Recente oproepen";
+"CallSettings.TabIcon" = "Oproeppaneel weergeven";
+"CallSettings.TabIconDescription" = "Een oproepicoon verschijnt in het menu onderaan.";
+"CallSettings.UseLessData" = "Datagebruik beperken";
+"CallSettings.Never" = "Nooit";
+"CallSettings.OnMobile" = "Bij mobiel gebruik";
+"CallSettings.Always" = "Altijd";
+"CallSettings.UseLessDataLongDescription" = "Beperkt datagebruik verlaagt de audiokwaliteit iets, maar kan zorgen voor een betere ervaring bij slecht bereik.";
+
+"Calls.CallTabTitle" = "Oproeppaneel";
+"Calls.CallTabDescription" = "Je kunt een oproeppaneel toevoegen aan het menu.";
+"Calls.NotNow" = "Nu niet";
+"Calls.AddTab" = "Toevoegen";
+"Calls.Search" = "Oproepen zoeken";
+"Calls.NewCall" = "Nieuwe oproep";
+
+"Calls.RatingTitle" = "Beoordeel de kwaliteit\nvan je TELEGRAM_APP_NAME-oproep";
+"Calls.SubmitRating" = "Versturen";
+
+"Call.Seconds_1" = "%@ seconde";
+"Call.Seconds_2" = "%@ seconden";
+"Call.Seconds_3_10" = "%@ seconden";
+"Call.Seconds_any" = "%@ seconden";
+"Call.Minutes_1" = "%@ minuut";
+"Call.Minutes_2" = "%@ minuten";
+"Call.Minutes_3_10" = "%@ minuten";
+"Call.Minutes_any" = "%@ minuten";
+
+"Call.ShortSeconds_1" = "%@ sec";
+"Call.ShortSeconds_2" = "%@ sec";
+"Call.ShortSeconds_3_10" = "%@ sec";
+"Call.ShortSeconds_any" = "%@ sec";
+"Call.ShortMinutes_1" = "%@ min";
+"Call.ShortMinutes_2" = "%@ min";
+"Call.ShortMinutes_3_10" = "%@ min";
+"Call.ShortMinutes_any" = "%@ min";
+
+"Notification.CallTimeFormat" = "%1$@ (%2$@)"; // 1 - type, 2 - duration
+"Notification.CallOutgoing" = "Uitgaande oproep";
+"Notification.CallIncoming" = "Inkomende oproep";
+"Notification.CallMissed" = "Gemiste oproep";
+"Notification.CallCanceled" = "Oproep geannuleerd";
+"Notification.CallOutgoingShort" = "Uitgaand";
+"Notification.CallIncomingShort" = "Inkomend";
+"Notification.CallMissedShort" = "Gemist";
+"Notification.CallCanceledShort" = "Geannuleerd";
+"Notification.CallFormat" = "%1$@, %2$@"; // 1 - time, 2 - duration
+
+
+
+"Call.ConnectionErrorTitle" = "Oproep mislukt";
+"Call.ConnectionErrorMessage" = "Controleer je internetverbinding en probeer het opnieuw.";
+
+"Call.CallBack" = "Terugbellen";
+"Call.CallAgain" = "Herhaal";
+
+"Login.PhoneFloodError" = "Je hebt in korte tijd je account veelvuldig verwijderd en opnieuw aangemaakt. Probeer het over een aantal dagen nog eens.";
+
+"Checkout.Title" = "Afrekenen";
+"Checkout.TotalAmount" = "Totaal";
+"Checkout.TotalPaidAmount" = "Totaal afgerekend";
+"Checkout.PaymentMethod" = "Betalingsmethode";
+"Checkout.ShippingMethod" = "Verzendmethode";
+"Checkout.ShippingAddress" = "Verzendinformatie";
+"Checkout.Name" = "Naam";
+"Checkout.Email" = "E-mail";
+"Checkout.Phone" = "Telefoon";
+"Checkout.PayPrice" = "Betaal %@";
+"Checkout.PayNone" = "Betaal";
+
+"Checkout.PaymentMethod.Title" = "Betalingsmethode";
+"Checkout.PaymentMethod.New" = "Nieuwe kaart...";
+
+"Checkout.NewCard.Title" = "Nieuwe kaart";
+"Checkout.NewCard.PaymentCard" = "BETAALKAART";
+"Checkout.NewCard.SaveInfo" = "Betalingsinformatie opslaan";
+"Checkout.NewCard.SaveInfoEnableHelp" = "Je kunt je betalingsinformatie voor toekomstig gebruik opslaan.\nActiveer [twee-staps-verificatie] om deze functie te gebruiken. ";
+"Checkout.NewCard.SaveInfoHelp" = "Je kunt je betalingsinformatie voor toekomstig gebruik opslaan.";
+"Checkout.NewCard.CardholderNameTitle" = "KAARTHOUDER";
+"Checkout.NewCard.CardholderNamePlaceholder" = "Naam kaarthouder";
+"Checkout.NewCard.PostcodeTitle" = "FACTUURADRES";
+"Checkout.NewCard.PostcodePlaceholder" = "Postcode";
+
+"Checkout.ShippingOption.Title" = "Verzendmethode";
+"Checkout.ShippingOption.Header" = "KIES VERZENDMETHODE";
+
+"Checkout.ErrorProviderAccountInvalid" = "Deze bot kan momenteel geen betalingen accepteren, probeer het later opnieuw.";
+"Checkout.ErrorProviderAccountTimeout" = "Deze bot kan momenteel geen betalingen verwerken, probeer het later opnieuw.";
+"Checkout.ErrorInvoiceAlreadyPaid" = "Je hebt al voor dit product betaald.";
+
+"Checkout.ErrorGeneric" = "Er is iets misgegaan bij het verwerken van je betaling. Er is geen bedrag in rekening gebracht.";
+"Checkout.ErrorPaymentFailed" = "Betaling mislukt. Er is geen bedrag in rekening gebracht.";
+"Checkout.ErrorPrecheckoutFailed" = "De bot kon je betaling niet verwerken. Er is geen bedrag in rekening gebracht.";
+
+"CheckoutInfo.Title" = "Verzendinformatie";
+"CheckoutInfo.ShippingInfoTitle" = "VERZENDADRES";
+"CheckoutInfo.ShippingInfoAddress1" = "Adres 1";
+"CheckoutInfo.ShippingInfoAddress1Placeholder" = "Adres";
+"CheckoutInfo.ShippingInfoAddress2" = "Adres 2";
+"CheckoutInfo.ShippingInfoAddress2Placeholder" = "Adres";
+"CheckoutInfo.ShippingInfoState" = "Provincie";
+"CheckoutInfo.ShippingInfoStatePlaceholder" = "Provincie";
+"CheckoutInfo.ShippingInfoCity" = "Stad";
+"CheckoutInfo.ShippingInfoCityPlaceholder" = "Stad";
+"CheckoutInfo.ShippingInfoCountry" = "Land";
+"CheckoutInfo.ShippingInfoCountryPlaceholder" = "Land";
+"CheckoutInfo.ShippingInfoPostcode" = "Postcode";
+"CheckoutInfo.ShippingInfoPostcodePlaceholder" = "Postcode";
+"CheckoutInfo.ReceiverInfoTitle" = "ONTVANGER";
+"CheckoutInfo.ReceiverInfoName" = "Naam";
+"CheckoutInfo.ReceiverInfoNamePlaceholder" = "Achternaam";
+"CheckoutInfo.ReceiverInfoEmail" = "E-mail";
+"CheckoutInfo.ReceiverInfoEmailPlaceholder" = "E-mail";
+"CheckoutInfo.ReceiverInfoPhone" = "Telefoon";
+"CheckoutInfo.SaveInfo" = "Info Opslaan";
+"CheckoutInfo.SaveInfoHelp" = "Je kunt je verzendinformatie opslaan voor toekomstig gebruik.";
+"CheckoutInfo.Pay" = "Betalen";
+
+"Checkout.Receipt.Title" = "Betalingsbewijs";
+
+"Message.ReplyActionButtonShowReceipt" = "Betalingsbewijs weergeven";
+"Message.InvoiceShipmentLabel" = "VERZENDING";
+"Message.InvoiceLabel" = "FACTUUR";
+
+"CheckoutInfo.ErrorShippingNotAvailable" = "Verzending naar dit land is niet beschikbaar.";
+"CheckoutInfo.ErrorPostcodeInvalid" = "Voer een geldige postcode in.";
+"CheckoutInfo.ErrorStateInvalid" = "Voer een geldige provincie in.";
+"CheckoutInfo.ErrorCityInvalid" = "Voer een geldige stad in.";
+"CheckoutInfo.ErrorNameInvalid" = "Voer een geldige naam in.";
+"CheckoutInfo.ErrorEmailInvalid" = "Voer een geldig e-mail adres in.";
+"CheckoutInfo.ErrorPhoneInvalid" = "Voer een geldig telefoonnummer in.";
+
+"Checkout.WebConfirmation.Title" = "Betaling afronden";
+"Checkout.PasswordEntry.Title" = "Betalingsbevestiging";
+"Checkout.PasswordEntry.Pay" = "Betaal";
+"Checkout.PasswordEntry.Text" = "Kaartinformatie %@ is opgeslagen. Geef je 2-staps-verificatie-wachtwoord in om met deze kaart te betalen.";
+
+"Checkout.SavePasswordTimeout" = "Wil je je wachtwoord voor %@ opslaan?";
+"Checkout.SavePasswordTimeoutAndTouchId" = "Wil je je wachtwoord voor %@ opslaan en in plaats daarvan Touch ID gebruiken?";
+"Checkout.PayWithTouchId" = "Betalen met Touch ID";
+"Checkout.EnterPassword" = "Wachtwoord invoeren";
+
+"Your_card_has_expired" = "Je kaart is verlopen.";
+
+/* Error when the card was declined by the credit card networks */
+"Your_card_was_declined" = "Je kaart werd geweigerd.";
+
+/* Error when the card's expiration month is not valid */
+"Your_cards_expiration_month_is_invalid" ="Je hebt een ongeldige verloopmaand ingevoerd.";
+
+/* Error when the card's expiration year is not valid */
+"Your_cards_expiration_year_is_invalid" ="Je hebt een ongeldige verloopjaar ingevoerd.";
+
+/* Error when the card number is not valid */
+"Your_cards_number_is_invalid" = "Je hebt een ongeldige kaartnummer ingevoerd.";
+
+/* Error when the card's CVC is not valid */
+"Your_cards_security_code_is_invalid" = "Je hebt een ongeldige veiligheidscode ingevoerd.";
+
+"MESSAGE_INVOICE" = "%1$@ heeft je een factuur van %2$@ gestuurd";
+"CHAT_MESSAGE_INVOICE" = "%1$@ heeft factuur van %3$@ gestuurd naar de groep %2$@";
+"PINNED_INVOICE" = "%1$@ heeft een factuur vastgezet";
+
+"Message.PinnedInvoice" = "factuur vastgezet";
+
+"User.DeletedAccount" = "Verwijderd account";
+
+"Settings.SaveEditedPhotos" = "Bewerkte foto's opslaan";
+
+"Message.PaymentSent" = "Betaling: %@";
+"Notification.PaymentSent" = "Je hebt {amount} overgemaakt naar {name} voor {title}";
+
+"Common.NotNow" = "Nu niet";
+
+"Calls.RatingFeedback" = "Opmerking toevoegen";
+
+"Call.StatusIncoming" = "TELEGRAM_APP_NAME-audio...";
+"Call.StatusRequesting" = "Roept op...";
+"Call.StatusWaiting" = "Wachten...";
+"Call.StatusRinging" = "Gaat over...";
+"Call.StatusConnecting" = "Verbinden…";
+"Call.StatusOngoing" = "TELEGRAM_APP_NAME-audio %@";
+"Call.StatusEnded" = "Oproep beëindigd";
+"Call.StatusFailed" = "Oproep mislukt";
+"Call.StatusBusy" = "In gesprek";
+"Call.Accept" = "Opnemen";
+"Call.Decline" = "Weigeren";
+
+"Call.StatusBar" = "Terugkeren naar oproep: %@";
+
+"UserInfo.Call" = "Spraakoproep";
+
+"Call.ParticipantVersionOutdatedError" = "%@'s app heeft nog geen ondersteuning voor spraakoproepen en zal eerst een update moeten uitvoeren.";
+
+"Privacy.Calls" = "Spraakoproepen";
+
+"Privacy.Calls.WhoCanCallMe" = "WIE KAN MIJ BELLEN";
+"Privacy.Calls.CustomHelp" = "Je kunt nauwkeurig bepalen wie jou mag bellen.";
+"Privacy.Calls.AlwaysAllow" = "Altijd toestaan";
+"Privacy.Calls.NeverAllow" = "Nooit toestaan";
+"Privacy.Calls.CustomShareHelp" = "Deze gebruikers altijd toestaan of verbieden om je te bellen.";
+
+"Privacy.Calls.AlwaysAllow.Title" = "Altijd toestaan";
+"Privacy.Calls.AlwaysAllow.Placeholder" = "Altijd toestaan...";
+"Privacy.Calls.NeverAllow.Title" = "Nooit toestaan";
+"Privacy.Calls.NeverAllow.Placeholder" = "Nooit toestaan...";
+
+"PhotoEditor.QualityTool" = "Kwaliteit";
+"PhotoEditor.QualityVeryLow" = "Laagst";
+"PhotoEditor.QualityLow" = "Laag";
+"PhotoEditor.QualityMedium" = "Gemiddeld";
+"PhotoEditor.QualityHigh" = "Hoog";
+"PhotoEditor.QualityVeryHigh" = "Hoogst";
+
+"Settings.SaveEditedPhotos" = "Bewerkte foto's opslaan";
+
+"Calls.NoCallsPlaceholder" = "Recente oproepen verschijnen hier";
+"Calls.NoMissedCallsPlacehoder" = "Geen gemiste oproepen";
+
+"Call.CallInProgressTitle" = "Oproep actief";
+"Call.CallInProgressMessage" = "Oproep met %1$@ beëindigen en starten met %2$@?";
+
+"Call.Message" = "Bericht";
+
+"UserInfo.TapToCall" = "End-to-end-versleutelde oproep starten";
+"Call.GroupFormat" = "%1$@ (%2$@)";
+
+"NetworkUsageSettings.CallDataSection" = "OPROEPEN";
+
+"Call.PrivacyErrorMessage" = "%@ neemt geen oproepen aan.";
+
+"Notification.CallBack" = "Terugbellen";
+
+"CallSettings.PrivacyDescription" = "Kies wie jou mag bellen via de [Privacy Instellingen].";
+
+"Call.AudioRouteSpeaker" = "Luidspreker";
+"Call.AudioRouteHeadphones" = "Koptelefoon";
+"Call.AudioRouteHide" = "Verberg";
+
+"EncryptionKey.TapToEmojify" = "Tik voor emoji-weergave";
+
+"Call.PhoneCallInProgressMessage" = "Je kunt geen oproep starten als er al een gesprek actief is.";
+"Call.RecordingDisabledMessage" = "Beëindig je oproep om een spraakbericht te versturen.";
+
+"Call.EmojiDescription" = "Als deze emoji's gelijk zijn bij %@ is dit gesprek 100%% veilig.";
+
+"Message.VideoMessage" = "Videobericht";
+
+"Conversation.HoldForAudio" = "Hou vast voor audio-opname. Tik voor video";
+"Conversation.HoldForVideo" = "Hou vast voor video-opname. Tik voor audio";
+
+"UserInfo.TELEGRAM_APP_NAMECall" = "TELEGRAM_APP_NAME-oproep";
+"UserInfo.PhoneCall" = "Spraakoproep";
+
+"SharedMedia.CategoryMedia" = "Media";
+"SharedMedia.CategoryDocs" = "Bestanden";
+"SharedMedia.CategoryLinks" = "Links";
+"SharedMedia.CategoryOther" = "Audio";
+
+"AccessDenied.VideoMessageCamera" = "TELEGRAM_APP_NAME heeft toegang tot je camera nodig om videoberichten te sturen.\nNavigeer naar Instellingen > Privacy > Camera en zet TELEGRAM_APP_NAME op AAN. ";
+"AccessDenied.VideoMessageMicrophone" = "TELEGRAM_APP_NAME heeft toegang tot je microfoon nodig om videoberichten te sturen.\n\nNavigeer naar Instellingen > Privacy > Microfoon en zet TELEGRAM_APP_NAME op AAN.";
+
+"ChatSettings.AutomaticVideoMessageDownload" = "VIDEOBERICHTEN AUTOM. DOWNLOADEN";
+
+"ForwardedVideoMessages_1" = "Bijlage: videobericht";
+"ForwardedVideoMessages_2" = "Bijlage: 2 videoberichten";
+"ForwardedVideoMessages_3_10" = "Bijlage: %@ videoberichten";
+"ForwardedVideoMessages_any" = "Bijlage: %@ videoberichten";
+
+"Conversation.DiscardVoiceMessageTitle" = "Spraakbericht weggooien";
+"Conversation.DiscardVoiceMessageDescription" = "Wil je stoppen met opnemen en je spraakbericht weggooien?";
+"Conversation.DiscardVoiceMessageAction" = "Weggooien";
+
+"Message.ForwardedMessageShort" = "Doorgestuurd van\n%@";
+
+"Checkout.LiabilityAlertTitle" = "Waarschuwing";
+"Checkout.LiabilityAlert" = "Betalingen gaan direct naar de ontwikkelaar van %1$@. TELEGRAM_APP_NAME kan geen garanties afgeven, doorgaan is op eigen risico. Bij problemen kun je contact opnemen met de ontwikkelaar van %1$@ of je bank.";
+
+"InstantPage.AutoNightTheme" = "Automatische nachtmodua";
+
+"Privacy.PaymentsTitle" = "BETALINGEN";
+"Privacy.PaymentsClearInfo" = "Betaal- en verzendinfo wissen";
+"Privacy.PaymentsClearInfoHelp" = "Je kunt je verzendinformatie wissen en alle betalingsproviders opdracht geven om je bewaarde creditcards te verwijderen. Je creditcardgegevens worden nooit opgeslagen door TELEGRAM_APP_NAME.";
+"Privacy.PaymentsClear.PaymentInfo" = "Betaalinformatie";
+"Privacy.PaymentsClear.ShippingInfo" = "Verzendinformatie";

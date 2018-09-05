@@ -5,6 +5,7 @@
 @interface TGPresentationPallete : NSObject
 
 @property (nonatomic, readonly) bool isDark;
+@property (nonatomic, readonly) bool prefersLightStatusBar;
 
 @property (nonatomic, readonly) bool underlineAllIncomingLinks;
 @property (nonatomic, readonly) bool underlineAllOutgoingLinks;
