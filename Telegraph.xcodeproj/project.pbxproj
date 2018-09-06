@@ -4888,6 +4888,8 @@
 		D5C59FF72140756B00B8AAA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5C59FDE2140756A00B8AAA9 /* InfoPlist.strings */; };
 		D5C59FF92140756B00B8AAA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5C59FE32140756B00B8AAA9 /* InfoPlist.strings */; };
 		D5C59FFB2140756B00B8AAA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5C59FE82140756B00B8AAA9 /* InfoPlist.strings */; };
+		D5C5A0242141148600B8AAA9 /* check_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C5A0152141148400B8AAA9 /* check_mark@2x.png */; };
+		D5C5A0252141148600B8AAA9 /* check_mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C5A0232141148500B8AAA9 /* check_mark@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -11767,6 +11769,8 @@
 		D5C59FE42140756B00B8AAA9 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D5C59FE72140756B00B8AAA9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = InfoPlist.editable.strings; sourceTree = "<group>"; };
 		D5C59FE92140756B00B8AAA9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = InfoPlist.strings; sourceTree = "<group>"; };
+		D5C5A0152141148400B8AAA9 /* check_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@2x.png"; sourceTree = "<group>"; };
+		D5C5A0232141148500B8AAA9 /* check_mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -22828,6 +22832,8 @@
 		D5C3D22521354988002363B8 /* Bettergram */ = {
 			isa = PBXGroup;
 			children = (
+				D5C5A0152141148400B8AAA9 /* check_mark@2x.png */,
+				D5C5A0232141148500B8AAA9 /* check_mark@3x.png */,
 				D5875A1C213EC50B00ED6B61 /* logo_big@2x.png */,
 				D5875A1A213EC50900ED6B61 /* logo_big@3x.png */,
 				D5875A1B213EC50A00ED6B61 /* splash_background@2x.png */,
@@ -22869,9 +22875,9 @@
 				D5C3D22E21354988002363B8 /* tab_groups@2x.png */,
 				D5C3D22F21354988002363B8 /* tab_direct_messages@3x.png */,
 				D5C3D23021354988002363B8 /* tab_favorites@3x.png */,
+				D5C3D23321354988002363B8 /* tab_favorites@2x.png */,
 				D5C3D23121354988002363B8 /* settings@2x.png */,
 				D5C3D23221354988002363B8 /* settings@3x.png */,
-				D5C3D23321354988002363B8 /* tab_favorites@2x.png */,
 			);
 			path = Bettergram;
 			sourceTree = "<group>";
@@ -25578,6 +25584,7 @@
 				09E97B731F97E63B00526020 /* SettingsPrivacyIcon@3x.png in Resources */,
 				D0C92536194915C800E629CA /* SearchBarIconLight.png in Resources */,
 				93F3A0FF1821B6B60005EB98 /* ModernConversationInput@2x.png in Resources */,
+				D5C5A0252141148600B8AAA9 /* check_mark@3x.png in Resources */,
 				090C24781E7743D900AF4DFC /* ShareExternalIcon@3x.png in Resources */,
 				D0EFBECD1A1A7B2F00FF33C3 /* ChangePhoneHelpIcon@2x.png in Resources */,
 				68D704A91C5BDF6100F25436 /* MusicPlayerControlShuffle@2x.png in Resources */,
@@ -25855,6 +25862,7 @@
 				D5C3D24921354989002363B8 /* tab_groups@2x.png in Resources */,
 				0918B6DB1FA109D700EC302B /* SettingsCameraIcon@2x.png in Resources */,
 				D0C925B6194A024000E629CA /* ic_bubble@2x.png in Resources */,
+				D5C5A0242141148600B8AAA9 /* check_mark@2x.png in Resources */,
 				0937A5A51E9678F00093D4DA /* TempAudioPreviewPlay@3x.png in Resources */,
 				D06989A71BA5D770000CBE06 /* MessageInlineViewCountIconMedia@2x.png in Resources */,
 				D0E352761E5E4127007E6EB8 /* stp_card_discover@3x.png in Resources */,

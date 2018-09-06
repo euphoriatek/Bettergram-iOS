@@ -723,26 +723,10 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if (_editingMode)
         return nil;
+    TGModernBarButton *composeButton = [[TGModernBarButton alloc] initWithImage:TGTintedImage(TGImageNamed(@"new-message-interface-symbol.png"), self.presentation.pallete.navigationButtonColor)];
+    [composeButton addTarget:self action:@selector(composeMessageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-    UIBarButtonItem *compose = nil;
-    if (iosMajorVersion() < 7)
-    {
-        TGModernBarButton *composeButton = [[TGModernBarButton alloc] initWithImage:TGTintedImage([UIImage imageNamed:@"new-message-interface-symbol.png"], self.presentation.pallete.navigationButtonColor)];
-        composeButton.portraitAdjustment = CGPointMake(-7, -5);
-        composeButton.landscapeAdjustment = CGPointMake(-7, -4);
-        [composeButton addTarget:self action:@selector(composeMessageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        compose = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
-    }
-    else
-    {
-        compose = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeMessageButtonPressed:)];
-    }
-    
-    [items addObject:compose];
-    [items addObject:_proxyItem];
-    
-    return items;
+    return @[[[UIBarButtonItem alloc] initWithCustomView:composeButton], _proxyItem];
 }
 
 - (UIBarStyle)requiredNavigationBarStyle

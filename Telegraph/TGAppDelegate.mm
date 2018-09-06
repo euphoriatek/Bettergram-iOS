@@ -163,6 +163,8 @@
 #import <CloudKit/CloudKit.h>
 #import "TGICloudEmergencyDataSignals.h"
 
+#import "BGSubscribeViewController.h"
+
 NSString *TGDeviceProximityStateChangedNotification = @"TGDeviceProximityStateChangedNotification";
 
 CFAbsoluteTime applicationStartupTimestamp = 0;
@@ -274,7 +276,12 @@ TGTelegraph *telegraph = nil;
         if ([bundleIdentifier isEqualToString:@"co.one.Teleapp"]) {
             rootController = [[TGLoginPhoneController alloc] init];
         } else {
-            rootController = [[RMIntroViewController alloc] init];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bettergramGotEmail"]) {
+                rootController = [[RMIntroViewController alloc] init];
+            }
+            else {
+                rootController = [[BGSubscribeViewController alloc] init];
+            }
         }
         
         _loginNavigationController = [TGNavigationController navigationControllerWithControllers:@[rootController] navigationBarClass:[TGTransparentNavigationBar class] inhibitPresentation:true];
@@ -383,7 +390,7 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
-    PGTick;
+    application.statusBarHidden = NO;
     if (iosMajorVersion() >= 9) {
         if ([effectiveLocalization().code isEqualToString:@"ar"]) {
             [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;

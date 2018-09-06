@@ -3224,3 +3224,10 @@ Unused sets are archived when you add more.";
 
 "UserInfo.Favorite" = "Add To Favorites";
 "UserInfo.Unfavorite" = "Remove From Favorites";
+
+
+"Bettergram.SignUp.ButtonTitle" = "SIGN UP";
+"Bettergram.SignUp.TextfieldPlaceholder" = "Enter your email";
+"Bettergram.SignUp.Terms" = "I agree to the terms of service";
+"Bettergram.SignUp.Newsletter" = "Get our free crypto newsletter";
+

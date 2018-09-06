@@ -13,12 +13,12 @@
 
 - (bool)isDark
 {
-    return false;
+    return true;
 }
 
 - (bool)prefersLightStatusBar
 {
-    return true;
+    return false;
 }
 
 - (UIColor *)backgroundColor
