@@ -3765,7 +3765,7 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (void)application:(UIApplication *)__unused application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    [_rootController.mainTabsController setSelectedIndex:0];
+    [_rootController.mainTabsController setSelectedIndexCustom:0];
     
     if (_rootController.associatedWindowStack.count > 0)
     {

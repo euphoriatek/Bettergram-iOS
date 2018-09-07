@@ -450,6 +450,9 @@ static CGFloat kHeight = 18;
     
     id<SDisposable> _presentationDisposable;
     TGPresentation *_presentation;
+    
+    NSArray<UIViewController *> *_viewControllers;
+    NSUInteger _selectedIndex;
 }
 
 @property (nonatomic, strong) TGTabBar *customTabBar;
@@ -621,11 +624,10 @@ static CGFloat kHeight = 18;
 
 - (void)tabBarSelectedItem:(int)index
 {
-    TGViewController *selectedViewController = [self.viewControllers objectAtIndex:index];
     if ((int)self.selectedIndex != index)
     {
-        [self tabBarController:self shouldSelectViewController:selectedViewController];
-        [self setSelectedIndex:index];
+        [self tabBarController:self shouldSelectViewController:self.viewControllers[index]];
+        [self setSelectedIndexCustom:index];
     }
     else
     {
@@ -636,7 +638,7 @@ static CGFloat kHeight = 18;
 #pragma clang diagnostic pop
     }
     
-    if ([selectedViewController isKindOfClass:[TGAccountSettingsController class]]) {
+    if ((NSUInteger)index == self.viewControllers.count - 1) {
         NSTimeInterval t = CACurrentMediaTime();
         if (_lastSameIndexTapTime < DBL_EPSILON || t < _lastSameIndexTapTime + 0.5) {
             _lastSameIndexTapTime = t;
@@ -654,7 +656,7 @@ static CGFloat kHeight = 18;
     }
 }
 
-- (void)setSelectedIndex:(NSUInteger)selectedIndex
+- (void)setSelectedIndexCustom:(NSUInteger)selectedIndex
 {
     NSUInteger lastSelectedTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedTabIndex"];
     if (!_initialized && lastSelectedTabIndex < self.viewControllers.count)
@@ -662,9 +664,11 @@ static CGFloat kHeight = 18;
         selectedIndex = lastSelectedTabIndex;
         _initialized = true;
     }
-    
-    [super setSelectedIndex:selectedIndex];
-    
+    _selectedIndex = selectedIndex;
+    NSArray *selectedVC = @[_viewControllers[selectedIndex]];
+    if (![[super viewControllers] isEqual:selectedVC]) {
+        [super setViewControllers:selectedVC animated:false];
+    }
     [self _updateNavigationItemOverride:selectedIndex];
     
     [_customTabBar setSelectedIndex:(int)selectedIndex];
@@ -674,11 +678,30 @@ static CGFloat kHeight = 18;
     }
 }
 
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated
+- (void)setSelectedIndex:(NSUInteger)selectedIndex
 {
-    [super setViewControllers:viewControllers animated:animated];
+    if (!_initialized) {
+        [self setSelectedIndexCustom:selectedIndex];
+    }
+    [super setSelectedIndex:selectedIndex];
+}
+
+- (NSUInteger)selectedIndex
+{
+    return _selectedIndex;
+}
+
+- (void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers animated:(BOOL)animated
+{
+    _viewControllers = viewControllers;
+    [super setViewControllers:@[viewControllers[self.selectedIndex]] animated:animated];
     
     [self _updateNavigationItemOverride:self.selectedIndex];
+}
+
+- (NSArray<UIViewController *> *)viewControllers
+{
+    return _viewControllers;
 }
 
 - (void)_updateNavigationItemOverride:(NSUInteger)selectedIndex

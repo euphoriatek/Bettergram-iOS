@@ -21,5 +21,6 @@
 - (UIView *)viewForRightmostTab;
 
 - (void)controllerInsetUpdated:(UIEdgeInsets)newInset;
+- (void)setSelectedIndexCustom:(NSUInteger)selectedIndex;
 
 @end
