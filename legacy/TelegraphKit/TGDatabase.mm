@@ -17324,7 +17324,7 @@ static bool checkMember(TGCachedConversationData *data) {
             if (!message.outgoing && conversation != nil) {
                 if ((TGPeerIdIsSecretChat(message.cid) || message.mid > conversation.maxKnownMessageId) && [conversation isMessageUnread:message]) {
                     addedUnreadCount++;
-                } else if (message.mid >= TGMessageLocalMidBaseline && message.cid == 777000) {
+                } else if (message.mid >= TGMessageLocalMidBaseline && message.cid == TGTelegraphInstance.serviceUserUid) {
                     addedUnreadCount++;
                 }
             }
@@ -18945,7 +18945,8 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
                 previousUnreadChannelsCount += (conversation.unreadCount > 0 || conversation.unreadMark) ? 1 : 0;
             }
             for (int filter = 0; filter < TGFiltersCount; filter++) {
-                if ([TGFilterPredicateForFilter((TGDialogFilter)filter) evaluateWithObject:conversation]) {
+                NSPredicate *predicate = TGFilterPredicateForFilter((TGDialogFilter)filter);
+                if (predicate == nil || [predicate evaluateWithObject:conversation]) {
                     previousUnreadCounts[filter] = @([previousUnreadCounts[filter] integerValue] + 1);
                 }
             }

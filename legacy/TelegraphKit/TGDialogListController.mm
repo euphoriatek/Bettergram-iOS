@@ -891,7 +891,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (iosMajorVersion() >= 7) {
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.separatorColor = _presentation.pallete.separatorColor;
-        _tableView.separatorInset = UIEdgeInsetsMake(0.0f, 80.0f, 0.0f, 0.0f);
+        _tableView.separatorInset = UIEdgeInsetsMake(0.0f, cellSeparatorInset, 0.0f, 0.0f);
     }
     
     _tableView.alwaysBounceVertical = true;
@@ -1652,7 +1652,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         
         if (iosMajorVersion() >= 7) {
             [UIView animateWithDuration:0.3 animations:^{
-                _tableView.separatorInset = UIEdgeInsetsMake(0.0f, (editing ? 38.0f : 0.0f) + 80.0f, 0.0f, 0.0f);
+                _tableView.separatorInset = UIEdgeInsetsMake(0.0f, (editing ? 38.0f : 0.0f) + cellSeparatorInset, 0.0f, 0.0f);
             }];
         }
     }
@@ -1875,6 +1875,17 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         cell.isAd = conversation.isAd;
         cell.groupedInFeed = conversation.feedId.intValue != 0;
         cell.isFeedChannels = _dialogListCompanion.feedChannels;
+        
+        NSNumber *isOnline = nil;
+        if (conversation.type == TGDialogFilterDirectMessages &&
+            ![@[ @(TGTelegraphInstance.clientUserId), @(TGTelegraphInstance.serviceUserUid), @333000] containsObject:@(conversation.conversationId)])
+        {
+            TGUser *user = [TGDatabaseInstance() loadUser:(int)conversation.conversationId];
+            if (user != nil) {
+                isOnline = @(user.presence.online);
+            }
+        }
+        cell.isOnline = isOnline;
         
         if (conversation.deliveryError)
             cell.deliveryState = TGMessageDeliveryStateFailed;
@@ -2624,7 +2635,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (iosMajorVersion() >= 7) {
         tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         tableView.separatorColor = self.presentation.pallete.separatorColor;
-        tableView.separatorInset = UIEdgeInsetsMake(0.0f, 80.0f, 0.0f, 0.0f);
+        tableView.separatorInset = UIEdgeInsetsMake(0.0f, cellSeparatorInset, 0.0f, 0.0f);
     }
     
     if (tableView.tableFooterView == nil)
@@ -2884,7 +2895,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (iosMajorVersion() >= 7) {
         tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         tableView.separatorColor = TGSeparatorColor();
-        tableView.separatorInset = UIEdgeInsetsMake(0.0f, 80.0f, 0.0f, 0.0f);
+        tableView.separatorInset = UIEdgeInsetsMake(0.0f, cellSeparatorInset, 0.0f, 0.0f);
     }
     
     if (tableView.tableFooterView == nil)

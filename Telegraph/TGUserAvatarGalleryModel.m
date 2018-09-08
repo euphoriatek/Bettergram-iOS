@@ -17,6 +17,7 @@
 #import <LegacyComponents/TGProgressWindow.h>
 
 #import <LegacyComponents/TGMediaAssetsLibrary.h>
+#import "TGTelegraph.h"
 
 @interface TGUserAvatarGalleryModel () <ASWatcher>
 {
@@ -58,7 +59,7 @@
 
 - (void)_transitionCompleted
 {
-    if (_peerId == 777000 || _peerId == 333000)
+    if (_peerId == TGTelegraphInstance.serviceUserUid || _peerId == 333000)
         return;
     
     [ActionStageInstance() dispatchOnStageQueue:^

@@ -68,7 +68,7 @@
     _stripeLayer.backgroundColor = presentation.pallete.barSeparatorColor.CGColor;
     
     if (_icon == TGModernConversationActionInputPanelIconJoin)
-        _iconView.image = [self joinImage:self.presentation.pallete.accentColor];
+        _iconView.image = [self joinImage:self.presentation.pallete.conversationInputPanelActionColor];
     
     if (_destructive)
         [_actionButton setTitleColor:self.presentation.pallete.destructiveColor];
@@ -123,7 +123,7 @@
             }
             if (self.presentation != nil)
             {
-                _iconView.image = [self joinImage:self.presentation.pallete.accentColor];
+                _iconView.image = [self joinImage:self.presentation.pallete.conversationInputPanelActionColor];
                 [_iconView sizeToFit];
             }
             break;
@@ -142,7 +142,7 @@
         if (_activityIndicator == nil)
         {
             _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            _activityIndicator.color = self.presentation.pallete.secondaryTextColor;
+            _activityIndicator.color = self.presentation.pallete.conversationInputPanelActionColor;
         }
         
         if (_activityIndicator.superview == nil)

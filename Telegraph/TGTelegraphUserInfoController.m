@@ -255,7 +255,7 @@
         
         _about = [TGDatabaseInstance() _userCachedDataSync:_uid].about;
         
-        if (_uid == 777000 || _uid == 333000) {
+        if (_uid == TGTelegraphInstance.serviceUserUid || _uid == 333000) {
             self.userInfoItem.automaticallyManageUserPresence = false;
         }
         

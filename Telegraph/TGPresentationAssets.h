@@ -34,6 +34,7 @@
 + (UIImage *)chatPendingIcon:(UIColor *)color;
 + (UIImage *)chatUnsentIcon:(UIColor *)color;
 + (UIImage *)chatPinnedIcon:(UIColor *)color;
++ (UIImage *)chatFavoritedIcon:(UIColor *)color;
 + (UIImage *)chatMentionedIcon:(UIColor *)backgroundColor color:(UIColor *)color;
 
 + (UIImage *)chatEditDeleteIcon:(UIColor *)color;

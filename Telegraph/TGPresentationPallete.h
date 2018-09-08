@@ -219,6 +219,8 @@ COLOR menuDestructiveColor;
 COLOR menuSpinnerColor;
 COLOR menuSectionHeaderBackgroundColor;
 
+COLOR conversationInputPanelActionColor;
+
 + (bool)hasWallpaper;
 
 @end

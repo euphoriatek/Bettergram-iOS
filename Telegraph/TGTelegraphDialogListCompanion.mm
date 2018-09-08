@@ -229,6 +229,7 @@
         [ActionStageInstance() watchForPath:@"/tg/broadcastConversations" watcher:self];
         [ActionStageInstance() watchForGenericPath:@"/tg/dialoglist/@" watcher:self];
         [ActionStageInstance() watchForPath:@"/tg/userdatachanges" watcher:self];
+        [ActionStageInstance() watchForPath:@"/tg/userpresencechanges" watcher:self];        
         [ActionStageInstance() watchForPath:@"/tg/unreadCount" watcher:self];
         //[ActionStageInstance() watchForPath:@"/tg/unreadChatsCount" watcher:self];
         [ActionStageInstance() watchForPath:@"/tg/conversation/*/typing" watcher:self];
@@ -1221,7 +1222,8 @@
         if ((forwardMode || privacyMode) && conversation.isBroadcast)
             return nil;
         
-        if ([[self filterPredicate] evaluateWithObject:item] == NO)
+        NSPredicate *filterPredicate = [self filterPredicate];
+        if (filterPredicate != nil && [filterPredicate evaluateWithObject:item] == NO)
             return nil;
         
         [self initializeDialogListData:conversation customUser:nil selfUser:[TGDatabaseInstance() loadUser:TGTelegraphInstance.clientUserId]];
@@ -1360,7 +1362,8 @@
                     if ((forwardMode || privacyMode) && conversation.isBroadcast)
                         continue;
                     
-                    if ([[self filterPredicate] evaluateWithObject:conversation] == NO)
+                    NSPredicate *filterPredicate = [self filterPredicate];
+                    if (filterPredicate != nil && [filterPredicate evaluateWithObject:conversation] == NO)
                         continue;
                     
                     [self initializeDialogListData:conversation customUser:nil selfUser:selfUser];
@@ -2020,7 +2023,7 @@
             });
         }
     }
-    else if ([path isEqualToString:@"/tg/userdatachanges"])
+    else if ([path isEqualToString:@"/tg/userdatachanges"] || [path isEqualToString:@"/tg/userpresencechanges"])
     {
         std::map<int, int> userIdToIndex;
         int index = -1;

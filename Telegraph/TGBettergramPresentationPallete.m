@@ -26,6 +26,11 @@
     return [UIColor whiteColor];
 }
 
+- (UIColor *)conversationInputPanelActionColor
+{
+    return [UIColor whiteColor];
+}
+
 - (UIColor *)textColor
 {
     return [UIColor blackColor];
@@ -33,7 +38,7 @@
 
 - (UIColor *)secondaryTextColor
 {
-    return UIColorRGB(0x8e8e93);
+    return UIColorRGB(0x828282);
 }
 
 - (UIColor *)accentColor
@@ -208,12 +213,12 @@
 
 - (UIColor *)dialogTitleColor
 {
-    return [UIColor blackColor];
+    return UIColorRGB(0x2D2D2D);
 }
 
 - (UIColor *)dialogNameColor
 {
-    return [UIColor blackColor];
+    return [self dialogTitleColor];
 }
 
 - (UIColor *)dialogTextColor
@@ -258,12 +263,12 @@
 
 - (UIColor *)dialogEncryptedColor
 {
-    return UIColorRGB(0x00a629);
+    return [self accentColor];
 }
 
 - (UIColor *)dialogBadgeColor
 {
-    return UIColorRGB(0x0f94f3);
+    return [self accentColor];
 }
 
 - (UIColor *)dialogBadgeTextColor
@@ -273,7 +278,7 @@
 
 - (UIColor *)dialogBadgeMutedColor
 {
-    return UIColorRGB(0xb6b6bb);
+    return [self tabBarSeparatorColor];
 }
 
 - (UIColor *)dialogBadgeMutedTextColor

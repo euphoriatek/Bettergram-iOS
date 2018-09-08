@@ -141,6 +141,13 @@
     }];
 }
 
+- (UIImage *)dialogFavoritedIcon
+{
+    return [self imageWithKey:@"dialogFavorited" generator:^UIImage *{
+        return [TGPresentationAssets chatFavoritedIcon:self.pallete.dialogPinnedIconColor];
+    }];
+}
+
 - (UIImage *)dialogMentionedIcon
 {
     return [self imageWithKey:@"dialogMentioned" generator:^UIImage *{

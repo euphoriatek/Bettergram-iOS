@@ -742,7 +742,7 @@
         if (_deletePanel == nil) {
             TGModernConversationController *controller = self.controller;
             _deletePanel = [[TGModernConversationActionInputPanel alloc] init];
-            [_deletePanel setActionWithTitle:TGLocalized(@"DialogList.DeleteConversationConfirmation") action:@"delete" color:presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconNone];
+            [_deletePanel setActionWithTitle:TGLocalized(@"DialogList.DeleteConversationConfirmation") action:@"delete" color:presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconNone];
             _deletePanel.companionHandle = self.actionHandle;
             _deletePanel.delegate = controller;
         }
@@ -753,7 +753,7 @@
         {
             TGModernConversationController *controller = self.controller;
             _joinChannelPanel = [[TGModernConversationActionInputPanel alloc] init];
-            [_joinChannelPanel setActionWithTitle:TGLocalized(@"Channel.JoinChannel") action:@"joinchannel" color:presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconJoin];
+            [_joinChannelPanel setActionWithTitle:TGLocalized(@"Channel.JoinChannel") action:@"joinchannel" color:presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconJoin];
             _joinChannelPanel.companionHandle = self.actionHandle;
             _joinChannelPanel.delegate = controller;
         }
@@ -762,7 +762,7 @@
         if (_mutePanel == nil) {
             TGModernConversationController *controller = self.controller;
             _mutePanel = [[TGModernConversationActionInputPanel alloc] init];
-            [_mutePanel setActionWithTitle:!_isMuted ? TGLocalized(@"Conversation.Mute") : TGLocalized(@"Conversation.Unmute") action:@"toggleMute" color:presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconNone];
+            [_mutePanel setActionWithTitle:!_isMuted ? TGLocalized(@"Conversation.Mute") : TGLocalized(@"Conversation.Unmute") action:@"toggleMute" color:presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconNone];
             _mutePanel.companionHandle = self.actionHandle;
             _mutePanel.delegate = controller;
         }
@@ -837,7 +837,7 @@
     if (_isMuted != !enable) {
         _isMuted = !enable;
         
-        [_mutePanel setActionWithTitle:!_isMuted ? TGLocalized(@"Conversation.Mute") : TGLocalized(@"Conversation.Unmute") action:@"toggleMute" color:self.controller.presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconNone];
+        [_mutePanel setActionWithTitle:!_isMuted ? TGLocalized(@"Conversation.Mute") : TGLocalized(@"Conversation.Unmute") action:@"toggleMute" color:self.controller.presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconNone];
         
         NSNumber *muteUntil = enable ? @0: @(INT32_MAX);
         _groupNotificationSettings[@"muteUntil"] = muteUntil;
@@ -1607,7 +1607,7 @@
     else
         _isMuted = true;
     
-    [_mutePanel setActionWithTitle:!_isMuted ? TGLocalized(@"Conversation.Mute") : TGLocalized(@"Conversation.Unmute") action:@"toggleMute" color:self.controller.presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconNone];
+    [_mutePanel setActionWithTitle:!_isMuted ? TGLocalized(@"Conversation.Mute") : TGLocalized(@"Conversation.Unmute") action:@"toggleMute" color:self.controller.presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconNone];
     
     [self _updateChannelMute];
 }

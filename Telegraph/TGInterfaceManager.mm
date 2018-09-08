@@ -891,7 +891,7 @@
                     [_notificationController displayNotificationForConversation:conversation identifier:message.mid replyToMid:replyToMid duration:5.0 configure:^(TGNotificationContentView *view, bool *isRepliable, TGBotReplyMarkup **replyMarkup)
                     {
                         *isRepliable = (!conversation.isChannel || conversation.isChannelGroup) && (conversation.encryptedData == nil);
-                        *replyMarkup = conversation.conversationId == 777000 && message.replyMarkup.isInline ? message.replyMarkup : nil;
+                        *replyMarkup = conversation.conversationId == TGTelegraphInstance.serviceUserUid && message.replyMarkup.isInline ? message.replyMarkup : nil;
                         [view configureWithMessage:message conversation:conversation peers:peers];
                     }];
                 }

@@ -9,6 +9,8 @@
 @class TGDatabaseMessageDraft;
 @class TGPresentation;
 
+extern const CGFloat cellSeparatorInset;
+
 @interface TGDialogListCell : UITableViewCell
 
 @property (nonatomic, strong) id<TGDialogListCellAssetsSource> assetsSource;
@@ -51,7 +53,7 @@
 @property (nonatomic) bool unreadMark;
 
 @property (nonatomic, strong) NSString *avatarUrl;
-@property (nonatomic) bool isOnline;
+@property (nonatomic, strong) NSNumber *isOnline;
 
 @property (nonatomic) bool isMuted;
 

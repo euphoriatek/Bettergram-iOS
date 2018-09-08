@@ -16,4 +16,9 @@
     return self.isDark;
 }
 
+- (UIColor *)conversationInputPanelActionColor
+{
+    return self.accentColor;
+}
+
 @end

@@ -28,6 +28,7 @@ IMAGE dialogReadIcon;
 IMAGE dialogPendingIcon;
 IMAGE dialogUnsentIcon;
 IMAGE dialogPinnedIcon;
+IMAGE dialogFavoritedIcon;
 IMAGE dialogMentionedIcon;
 IMAGE dialogBadgeImage;
 IMAGE dialogMutedBadgeImage;

@@ -19,6 +19,9 @@
 
 #import "TGSimpleImageView.h"
 
+const CGFloat cellSeparatorInset = 20;
+const CGFloat cellTextInset = 78;
+
 @interface TGDialogListTextView : UIView
 {
     NSDictionary *_textAttributes;
@@ -177,7 +180,8 @@
     
         if (_authorName != nil && _authorName.length != 0)
         {
-            CGContextSetFillColorWithColor(context, _authorNameColor == nil ? [UIColor blackColor].CGColor : [_authorNameColor CGColor]);
+            UIColor *color = _authorNameColor == nil ? _presentation.pallete.dialogTitleColor : _authorNameColor;
+            CGContextSetFillColorWithColor(context, color.CGColor);
             if (CGRectIntersectsRect(rect, authorNameFrame))
             {
                 if (iosMajorVersion() >= 7)
@@ -190,7 +194,7 @@
                     attributes = @{
                         NSParagraphStyleAttributeName: style,
                         NSFontAttributeName: _authorNameFont,
-                        NSForegroundColorAttributeName: _authorNameColor == nil ? [UIColor blackColor] : _authorNameColor
+                        NSForegroundColorAttributeName: color
                     };
                     
                     [_authorName drawWithRect:authorNameFrame options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
@@ -209,6 +213,8 @@
 
 @end
 
+static const CGFloat kAvatarSide = 46;
+
 #pragma mark - Cell
 
 @interface TGDialogListCell () <UIGestureRecognizerDelegate>
@@ -220,6 +226,7 @@
     UIImage *_unseenMentionsImage;
     
     NSMutableArray *_avatarViews;
+    UIView *_onlineIndicator;
 }
 
 @property (nonatomic, strong) TGDialogListCellEditingControls *wrapView;
@@ -234,6 +241,7 @@
 @property (nonatomic, strong) UIImageView *unreadCountBackgrond;
 @property (nonatomic, strong) UIImageView *unseenMentionsView;
 @property (nonatomic, strong) UIImageView *pinnedBackgrond;
+@property (nonatomic, strong) UIImageView *favoritedBackgrond;
 @property (nonatomic, strong) TGLabel *unreadCountLabel;
 
 @property (nonatomic, strong) UIImageView *deliveryErrorBackgrond;
@@ -344,9 +352,9 @@
 
         _textView = [[TGDialogListTextView alloc] initWithFrame:CGRectMake(73, 2, self.frame.size.width - 73, 46)];
         _textView.contentMode = UIViewContentModeLeft;
-        _textView.titleFont = TGMediumSystemFontOfSize(16);
-        _textView.textFont = TGSystemFontOfSize(15);
-        _textView.authorNameFont = TGSystemFontOfSize(15);
+        _textView.titleFont = TGSystemFontOfSize(15);
+        _textView.textFont = TGSystemFontOfSize(14);
+        _textView.authorNameFont = TGSystemFontOfSize(14);
         _textView.opaque = false;
         _textView.backgroundColor = nil;//[UIColor whiteColor];
         
@@ -376,10 +384,16 @@
         
         bool fadeTransition = cpuCoreCount() > 1;
         
-        _avatarView = [[TGLetteredAvatarView alloc] initWithFrame:CGRectMake(10, 7, 62, 62)];
+        _avatarView = [[TGLetteredAvatarView alloc] initWithFrame:CGRectMake(20, 15, 46, 46)];
         [_avatarView setSingleFontSize:28.0f doubleFontSize:21.0f useBoldFont:false];
         _avatarView.fadeTransition = fadeTransition;
         [_wrapView addSubview:_avatarView];
+        
+        _onlineIndicator = [[UIView alloc] initWithFrame:CGRectMake(56, 51, 10, 10)];
+        _onlineIndicator.layer.masksToBounds = YES;
+        _onlineIndicator.layer.cornerRadius = 5;
+        _onlineIndicator.backgroundColor = UIColor.greenColor;
+        [_wrapView addSubview:_onlineIndicator];
         
         _unreadCountLabel = [[TGLabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _unreadCountLabel.textColor = [UIColor whiteColor];
@@ -455,6 +469,14 @@
     {
         _pinnedBackgrond.image = presentation.images.dialogPinnedIcon;
     }
+    if (_favoritedBackgrond == nil)
+    {
+        _favoritedBackgrond = [[TGSimpleImageView alloc] initWithImage:presentation.images.dialogFavoritedIcon];
+        [_wrapView addSubview:_favoritedBackgrond];
+    }
+    else {
+        _favoritedBackgrond.image = presentation.images.dialogFavoritedIcon;
+    }
     
     _muteIcon.image = presentation.images.dialogMutedIcon;
     _deliveryErrorBackgrond.image = presentation.images.dialogUnsentIcon;
@@ -480,9 +502,32 @@
     {
         _readCheckmark.image = presentation.images.dialogReadIcon;
     }
+    [self updateOnlineIndicator];
     
     if (reset)
         [self resetView:false];
+}
+
+- (void)setIsOnline:(NSNumber *)isOnline
+{
+    _isOnline = isOnline;
+    [self updateOnlineIndicator];
+}
+
+- (void)updateOnlineIndicator
+{
+    BOOL isVisible = _isOnline != nil;
+    _onlineIndicator.hidden = !isVisible;
+    _avatarView.layer.mask = isVisible ? [self avatarMask] : nil;
+    if (!isVisible) return;
+    if ([_isOnline boolValue])
+    {
+        _onlineIndicator.backgroundColor = _presentation.pallete.accentColor;
+    }
+    else
+    {
+        _onlineIndicator.backgroundColor = _presentation.pallete.tabIconColor;
+    }
 }
 
 - (void)prepareForReuse
@@ -829,14 +874,14 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     }
     
     UIColor *backgroundColor = _isAd || _isSavedMessages == 2 ? _presentation.pallete.dialogPinnedBackgroundColor : _presentation.pallete.backgroundColor;
-    if (_favorited) {
-        backgroundColor = [UIColor yellowColor];
-    }
     self.backgroundColor = backgroundColor;
     
     _dateString = _date == 0 || _isSavedMessages == 2 ? nil : [TGDateUtils stringForMessageListDate:(int)_date];
     if (_isAd) {
         _dateString = TGLocalized(@"DialogList.AdLabel");
+    }
+    
+    if (_favorited) {
     }
     
     _textView.title = _titleText;
@@ -1609,6 +1654,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     if (totalUnreadCount > 0 || _unreadMark) {
         _unreadCountBackgrond.hidden = false;
         _pinnedBackgrond.hidden = true;
+        _favoritedBackgrond.hidden = true;
         
         if (totalUnreadCount > 0)
         {
@@ -1636,7 +1682,8 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         _unreadCountBackgrond.hidden = true;
         _unreadCountLabel.hidden = true;
         
-        _pinnedBackgrond.hidden = !_pinnedToTop;
+        _pinnedBackgrond.hidden = !_pinnedToTop || _favorited;
+        _favoritedBackgrond.hidden = !_favorited;
     }
     
     if (_unreadMentionCount > 0) {
@@ -1650,6 +1697,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         _unreadCountBackgrond.hidden = true;
         _unreadCountLabel.hidden = true;
         _pinnedBackgrond.hidden = true;
+        _favoritedBackgrond.hidden = true;
         _unseenMentionsView.hidden = true;
         
         if (_deliveryErrorBackgrond == nil)
@@ -1710,10 +1758,10 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     {
         _avatarView.hidden = false;
         
-        UIImage *placeholder = [self.presentation.images avatarPlaceholderWithDiameter:62.0f];
+        UIImage *placeholder = [self.presentation.images avatarPlaceholderWithDiameter:kAvatarSide];
         if (_isSavedMessages)
         {
-            [_avatarView loadSavedMessagesWithSize:CGSizeMake(62.0f, 62.0f) placeholder:placeholder];
+            [_avatarView loadSavedMessagesWithSize:CGSizeMake(kAvatarSide, kAvatarSide) placeholder:placeholder];
         }
         else if (_avatarUrl.length != 0 && !_hasExplicitContent)
         {
@@ -1721,13 +1769,14 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
             
             if (![_avatarView.currentUrl isEqualToString:_avatarUrl])
             {
+                NSString *filter = [NSString stringWithFormat:@"circle:%dx%d",(int)kAvatarSide,(int)kAvatarSide];
                 if (keepState)
                 {
-                    [_avatarView loadImage:_avatarUrl filter:@"circle:62x62" placeholder:(_avatarView.currentImage != nil ? _avatarView.currentImage : placeholder) forceFade:true];
+                    [_avatarView loadImage:_avatarUrl filter:filter placeholder:(_avatarView.currentImage != nil ? _avatarView.currentImage : placeholder) forceFade:true];
                 }
                 else
                 {
-                    [_avatarView loadImage:_avatarUrl filter:@"circle:62x62" placeholder:placeholder forceFade:false];
+                    [_avatarView loadImage:_avatarUrl filter:filter placeholder:placeholder forceFade:false];
                 }
             }
         }
@@ -1747,11 +1796,11 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
                 else if (_titleLetters.count == 1)
                     firstName = _titleLetters[0];
                 
-                [_avatarView loadUserPlaceholderWithSize:CGSizeMake(62.0f, 62.0f) uid:_isEncrypted ? _encryptedUserId : (int32_t)_conversationId firstName:firstName lastName:lastName placeholder:placeholder];
+                [_avatarView loadUserPlaceholderWithSize:CGSizeMake(kAvatarSide, kAvatarSide) uid:_isEncrypted ? _encryptedUserId : (int32_t)_conversationId firstName:firstName lastName:lastName placeholder:placeholder];
             }
             else
             {
-                [_avatarView loadGroupPlaceholderWithSize:CGSizeMake(62.0f, 62.0f) conversationId:_conversationId title:_isBroadcast ? @"" : _titleText placeholder:placeholder];
+                [_avatarView loadGroupPlaceholderWithSize:CGSizeMake(kAvatarSide, kAvatarSide) conversationId:_conversationId title:_isBroadcast ? @"" : _titleText placeholder:placeholder];
             }
         }
     }
@@ -1937,8 +1986,8 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
                     frame.size.width = self.bounds.size.width - 116.0f;
                     frame.origin.x = 116.0f;
                 } else {
-                    frame.size.width = self.bounds.size.width - 80.0f;
-                    frame.origin.x = 80.0f;
+                    frame.size.width = self.bounds.size.width - cellSeparatorInset;
+                    frame.origin.x = cellSeparatorInset;
                 }
             }
             if (!CGRectEqualToRect(subview.frame, frame)) {
@@ -1980,6 +2029,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     if (contentOffset > safeInset + FLT_EPSILON && (_pinnedToTop || _isAd)) {
         if (_pinnedBackgrond.alpha >= FLT_EPSILON) {
             _pinnedBackgrond.alpha = 0.0f;
+            _favoritedBackgrond.alpha = 0;
             _unreadCountBackgrond.alpha = 0.0f;
             _unseenMentionsView.alpha = 0.0f;
             _dateLabel.alpha = 0.0f;
@@ -1989,6 +2039,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         }
     } else if (_pinnedBackgrond.alpha <= 1.0f - FLT_EPSILON) {
         _pinnedBackgrond.alpha = 1.0f;
+        _favoritedBackgrond.alpha = 1;
         _unreadCountBackgrond.alpha = 1.0f;
         _unseenMentionsView.alpha = 1.0f;
         _dateLabel.alpha = 1.0f;
@@ -2017,7 +2068,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     
     TG_TIMESTAMP_MEASURE(cellLayout);
     
-    CGFloat separatorOffset = 80.0f;
+    CGFloat separatorOffset = cellSeparatorInset;
     
     if (_separatorLayer != nil) {
         bool disabledActions = [CATransaction disableActions];
@@ -2032,9 +2083,11 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     {
         if (_textView != nil)
         {
-            if (!CGSizeEqualToSize(_textView.frame.size, CGRectMake(79.0f, 6, size.width - 79.0f, 62).size))
+            CGFloat textViewHeight = 56;
+            CGRect frame = CGRectMake(cellTextInset, (size.height - textViewHeight)/2, size.width - cellTextInset, textViewHeight);
+            if (!CGSizeEqualToSize(_textView.frame.size, frame.size))
             {
-                _textView.frame = CGRectMake(80.0f, 6, size.width - 80.0f, 62);
+                _textView.frame = frame;
                 [_textView setNeedsDisplay];
             }
         }
@@ -2047,11 +2100,12 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         CGRect unreadCountBackgroundFrame = CGRectMake(size.width - 11.0f - backgroundWidth, 38.0f, backgroundWidth, 20.0f);
         _unreadCountBackgrond.frame = unreadCountBackgroundFrame;
         _pinnedBackgrond.frame = CGRectMake(size.width - 14.0f - 20.0f, 39.0f, 20.0f, 20.0f);
+        _favoritedBackgrond.frame = _pinnedBackgrond.frame;
         CGRect unreadCountLabelFrame = _unreadCountLabel.frame;
         unreadCountLabelFrame.origin = CGPointMake(unreadCountBackgroundFrame.origin.x + TGScreenPixelFloor(((unreadCountBackgroundFrame.size.width - countTextWidth) / 2.0f)), unreadCountBackgroundFrame.origin.y + 1.0f - TGScreenPixel);
         _unreadCountLabel.frame = unreadCountLabelFrame;
         
-        if (_unreadCountBackgrond.hidden && _pinnedBackgrond.hidden) {
+        if (_unreadCountBackgrond.hidden && _pinnedBackgrond.hidden && _favoritedBackgrond.hidden) {
             _unseenMentionsView.frame = CGRectMake(size.width - 11.0f - 20.0f, 38.0f, 20.0f, 20.0f);
         } else {
             _unseenMentionsView.frame = CGRectMake(unreadCountBackgroundFrame.origin.x - 6.0f - 20.0f, unreadCountBackgroundFrame.origin.y, 20.0f, 20.0f);
@@ -2059,11 +2113,11 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         
         TG_TIMESTAMP_MEASURE(cellLayout);
         
-        if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden)
+        if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden || !_favoritedBackgrond.hidden)
             rightPadding += unreadCountBackgroundFrame.size.width + 16;
         
         if (!_unseenMentionsView.hidden) {
-            if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden) {
+            if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden || !_favoritedBackgrond.hidden) {
                 rightPadding += 24.0f;
             } else {
                 rightPadding += 24.0f + 16.0f;
@@ -2084,7 +2138,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         CGFloat dateWidth = _date == 0 ? 0 : (int)(dateTextSize.width);
         CGRect dateFrame = CGRectMake(size.width - dateWidth - 11.0f + (contentOffset > FLT_EPSILON ? 4.0f : 0.0f), 10.0f + TGScreenPixel - (TGIsPad() ? 1.0f : 0.0f), _isAd ? dateTextSize.width : 75, 20);
         _dateLabel.frame = dateFrame;
-        CGFloat titleLabelWidth = (int)(dateFrame.origin.x - 4 - 80.0f - 18);
+        CGFloat titleLabelWidth = (int)(dateFrame.origin.x - 4 - cellTextInset - 18);
         CGFloat groupChatIconWidth = 0.0f;
         if (_isEncrypted)
         {
@@ -2109,9 +2163,9 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         if (_pendingIndicator != nil)
             _pendingIndicator.frame = CGRectMake(dateFrame.origin.x - 16, 13, 12, 12);
         
-        CGRect titleRect = CGRectMake(80.0f + groupChatIconWidth, 8.0f, titleLabelWidth, 20);
+        CGRect titleRect = CGRectMake(cellTextInset + groupChatIconWidth, _textView.frame.origin.y, titleLabelWidth, 18);
         
-        CGRect messageRect = CGRectMake(80.0f, 30.0f - TGScreenPixel, size.width - 80.0f - 7.0f - rightPadding, 40);
+        CGRect messageRect = CGRectMake(cellTextInset, 32 - TGScreenPixel, size.width - cellTextInset - 7.0f - rightPadding, 35);
         
         CGRect typingRect = messageRect;
         typingRect.size.width -= 12;
@@ -2131,9 +2185,13 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         
         if (_authorName != nil && !_hideAuthorName)
         {
-            _textView.authorNameFrame = CGRectMake(80.0f, 29.0f + TGScreenPixel, size.width - 80.0f - 4.0f - rightPadding, 20);
+            CGRect frame = CGRectZero;
+            frame.origin = messageRect.origin;
+            frame.origin.y -= 3;
+            frame.size = CGSizeMake(size.width - cellTextInset - 4.0f - rightPadding, 17);
+            _textView.authorNameFrame = frame;
             
-            messageRect.origin.y += iosMajorVersion() >= 7 ? (10 + TGScreenPixel) : 17;
+            messageRect.origin.y += iosMajorVersion() >= 7 ? (5 + TGScreenPixel) : 17;
             messageRect.size.height -= 12;
         }
         
@@ -2167,6 +2225,48 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         
         TG_TIMESTAMP_MEASURE(cellLayout);
     }
+    _avatarView.layer.mask = _isOnline != nil ? [self avatarMask] : nil;
+}
+
+- (CALayer *)avatarMask
+{
+    CALayer *mask = _avatarView.layer.mask;
+    if (mask == nil) {
+        mask = [CALayer layer];
+    }
+    else if (!CGRectEqualToRect(mask.frame, _avatarView.bounds)) {
+        mask.frame = _avatarView.bounds;
+        mask.contents = (id)[self avatarViewMaskImageForSize:_avatarView.bounds.size].CGImage;
+    }
+    return mask;
+}
+
+- (UIImage *)avatarViewMaskImageForSize:(CGSize)size
+{
+    static NSMutableDictionary<NSString *, UIImage *> *cachedMasks;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cachedMasks = [NSMutableDictionary dictionary];
+    });
+    CGRect bounds = CGRectZero;
+    bounds.size = size;
+    NSString *key = NSStringFromCGSize(size);
+    UIImage* maskImage = cachedMasks[key];
+    if (maskImage != nil) {
+        return maskImage;
+    }
+    CGRect circleRect = CGRectMake(size.width - 12, size.height - 12, 14, 14);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextAddEllipseInRect(context, circleRect);
+    CGContextAddRect(context, bounds);
+    CGContextEOClip(context);
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextFillRect(context, bounds);
+    maskImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    cachedMasks[key] = maskImage;
+    return maskImage;
 }
 
 #pragma mark -

@@ -7,6 +7,7 @@
 #import <LegacyComponents/UIControl+HitTestEdgeInsets.h>
 
 #import "TGPresentation.h"
+#import "TGTelegraph.h"
 
 @interface TGShareSearchItemView () <TGSearchBarDelegate>
 {
@@ -170,7 +171,7 @@
         if (conversation.additionalProperties[@"user"] != nil)
         {
             TGUser *user = conversation.additionalProperties[@"user"];
-            return (user.uid == 777000) ? user.displayName : (full ? user.displayName : user.displayFirstName);
+            return (user.uid == TGTelegraphInstance.serviceUserUid) ? user.displayName : (full ? user.displayName : user.displayFirstName);
         }
         else
         {
@@ -180,7 +181,7 @@
     else if ([peer isKindOfClass:[TGUser class]])
     {
         TGUser *user = (TGUser *)peer;
-        return (user.uid == 777000) ? user.displayName : (full ? user.displayName : user.displayFirstName);
+        return (user.uid == TGTelegraphInstance.serviceUserUid) ? user.displayName : (full ? user.displayName : user.displayFirstName);
     }
     
     return @"";
