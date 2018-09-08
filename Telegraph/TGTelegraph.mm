@@ -2266,7 +2266,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
 
 - (id)doCheckUpdates:(TGCheckUpdatesActor *)actor
 {
-    TLRPChelp_getAppUpdate$help_getAppUpdate *getAppUpdate = [[TLRPChelp_getAppUpdate$help_getAppUpdate alloc] init];    
+    TLRPChelp_getAppUpdate$help_getAppUpdate *getAppUpdate = [[TLRPChelp_getAppUpdate$help_getAppUpdate alloc] init];
     return [[TGTelegramNetworking instance] performRpc:getAppUpdate completionBlock:^(id<TLObject> response, __unused int64_t responseTime, MTRpcError *error)
     {
         if (error == nil)
@@ -2854,7 +2854,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
         }
         else
         {
-            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error]];
+            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error] errorCode:[[TGTelegramNetworking instance] extractNetworkErrorCode:error]];
         }
     } progressBlock:nil quickAckBlock:^
     {
@@ -2935,7 +2935,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
         }
         else
         {
-            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error]];
+            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error] errorCode:[[TGTelegramNetworking instance] extractNetworkErrorCode:error]];
         }
     } progressBlock:nil requiresCompletion:true requestClass:TGRequestClassGeneric | TGRequestClassFailOnServerErrors];
 }
@@ -2973,7 +2973,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
         }
         else
         {
-            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error]];
+            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error] errorCode:[[TGTelegramNetworking instance] extractNetworkErrorCode:error]];
         }
     } progressBlock:nil requiresCompletion:true requestClass:TGRequestClassGeneric | TGRequestClassFailOnServerErrors];
 }
@@ -3007,7 +3007,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
             }
             else
             {
-                [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error]];
+                [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error] errorCode:[[TGTelegramNetworking instance] extractNetworkErrorCode:error]];
             }
         }
     } progressBlock:nil requiresCompletion:true requestClass:TGRequestClassGeneric | TGRequestClassFailOnServerErrors];
@@ -3051,7 +3051,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
         }
         else
         {
-            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error]];
+            [actor conversationSendMessageRequestFailed:[[TGTelegramNetworking instance] extractNetworkErrorType:error] errorCode:[[TGTelegramNetworking instance] extractNetworkErrorCode:error]];
         }
     } progressBlock:nil requiresCompletion:true requestClass:TGRequestClassGeneric | TGRequestClassFailOnServerErrors];
 }

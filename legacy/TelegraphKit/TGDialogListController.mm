@@ -883,7 +883,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         
         _tableView.tableHeaderView = _searchBar;
         
-        _searchBar.placeholder = TGLocalized(@"DialogList.SearchLabel");
+        _searchBar.placeholder = TGLocalized(self.customSearchPlaceholder ?: @"DialogList.SearchLabel");
     }
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -1545,7 +1545,8 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     NSString *savedMessagesString = [TGLocalized(@"DialogList.SavedMessages") lowercaseString];
     NSString *query = [searchString lowercaseString];
-    bool addSavedMessages = !self.dialogListCompanion.showGroupsOnly && [savedMessagesString hasPrefix:query];
+    bool inhibitSavedMessages = self.dialogListCompanion.showGroupsOnly || self.dialogListCompanion.showPrivateOnly || self.dialogListCompanion.showGroupsAndChannelsOnly;
+    bool addSavedMessages = !inhibitSavedMessages && [savedMessagesString hasPrefix:query];
     int32_t ownUid = TGTelegraphInstance.clientUserId;
     
     if ([(NSArray *)items[@"dialogs"] count] != 0)
@@ -1567,7 +1568,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 
             [dialogs insertObject:[TGDatabaseInstance() loadUser:ownUid] atIndex:0];
         }
-        [searchResultsSections addObject:@{@"title": TGLocalized(@"DialogList.SearchSectionDialogs"), @"items": dialogs, @"type": @"dialogs"}];
+        [searchResultsSections addObject:@{@"title": TGLocalized(@"DialogList.SearchSectionDialogs"), @"items": [self filteredDialogs:dialogs], @"type": @"dialogs"}];
     }
     else if (addSavedMessages)
     {
@@ -1580,15 +1581,15 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if ([(NSArray *)items[@"global"] count] != 0)
     {
-        [searchResultsSections addObject:@{@"title": TGLocalized(@"DialogList.SearchSectionGlobal"), @"items": items[@"global"], @"type": @"global"}];
+        [searchResultsSections addObject:@{@"title": TGLocalized(@"DialogList.SearchSectionGlobal"), @"items": [self filteredDialogs:items[@"global"]], @"type": @"global"}];
     }
     
-    if ([(NSArray *)items[@"messages"] count] != 0)
+    if (!inhibitSavedMessages && [(NSArray *)items[@"messages"] count] != 0)
     {
         [searchResultsSections addObject:@{@"title": TGLocalized(@"DialogList.SearchSectionMessages"), @"items": items[@"messages"], @"type": @"messages"}];
     }
     
-    if ([TGPhoneUtils maybePhone:searchString])
+    if (!inhibitSavedMessages && [TGPhoneUtils maybePhone:searchString])
     {
         [searchResultsSections addObject:@{@"title": TGLocalized(@"Contacts.PhoneNumber"), @"items": @[ searchString ], @"type": @"phonenumber"}];
     }
@@ -1703,7 +1704,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                 [_dialogListCompanion conversationSelected:conversation];
             }
             
-            if (_dialogListCompanion.forwardMode || _dialogListCompanion.privacyMode)
+            if (_dialogListCompanion.forwardMode || _dialogListCompanion.privacyMode || _dialogListCompanion.showPrivateOnly || _dialogListCompanion.showGroupsAndChannelsOnly)
                 [_tableView deselectRowAtIndexPath:indexPath animated:true];
         }
     }
@@ -2422,7 +2423,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                 }
                 else
                 {
-                    cell.avatarUrl = user.photoUrlSmall;
+                    cell.avatarUrl = user.photoFullUrlSmall;
                     if (user.firstName.length == 0)
                     {
                         cell.titleTextFirst = user.lastName;
@@ -2713,6 +2714,66 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     }
 }
 
+- (bool)filterDialog:(id)peer
+{
+    int64_t peerId = [peer isKindOfClass:[TGConversation class]] ? ((TGConversation *)peer).conversationId : ((TGUser *)peer).uid;
+    if (!TGPeerIdIsUser(peerId) && self.dialogListCompanion.showPrivateOnly)
+        return true;
+    else if ((!TGPeerIdIsGroup(peerId) && !TGPeerIdIsChannel(peerId)) && self.dialogListCompanion.showGroupsAndChannelsOnly)
+        return true;
+    else if ([self.dialogListCompanion.excludedIds containsObject:@(peerId)])
+        return true;
+    
+    return false;
+}
+
+- (NSArray *)filteredDialogs:(NSArray *)dialogs
+{
+    if (dialogs == nil)
+        return @[];
+    
+    if (!self.dialogListCompanion.showPrivateOnly && !self.dialogListCompanion.showGroupsAndChannelsOnly && self.dialogListCompanion.excludedIds.count == 0)
+        return dialogs;
+    
+    NSMutableArray *newDialogs = [[NSMutableArray alloc] init];
+    for (id peer in dialogs)
+    {
+        if ([peer isKindOfClass:[TGDialogListRecentPeers class]])
+        {
+            TGDialogListRecentPeers *recentPeers = (TGDialogListRecentPeers *)peer;
+            NSArray *newPeers = [self filteredDialogs:recentPeers.peers];
+            if (newPeers.count > 0)
+            {
+                TGDialogListRecentPeers *newRecentPeers = [[TGDialogListRecentPeers alloc] initWithIdentifier:recentPeers.identifier title:recentPeers.title peers:newPeers];
+                [newDialogs addObject:newRecentPeers];
+            }
+        }
+        else
+        {
+            if (![self filterDialog:peer])
+                [newDialogs addObject:peer];
+        }
+    }
+    return newDialogs;
+}
+
+- (NSArray *)filteredSearchSections:(NSArray *)sections
+{
+    if (!self.dialogListCompanion.showPrivateOnly && !self.dialogListCompanion.showGroupsAndChannelsOnly && self.dialogListCompanion.excludedIds.count == 0)
+        return sections;
+    
+    NSMutableArray *newSections = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in sections) {
+        NSArray *items = [self filteredDialogs:dict[@"items"]];
+        NSMutableDictionary *newDict = [dict mutableCopy];
+        newDict[@"items"] = items;
+        
+        [newSections addObject:newDict];
+    }
+    
+    return newSections;
+}
+
 - (void)searchMixinWillActivate:(bool)animated
 {
     _isDisplayingSearch = true;
@@ -2774,7 +2835,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                 }
             }
             
-            strongSelf->_recentSearchResultsSections = searchResultsSections;
+            strongSelf->_recentSearchResultsSections = [strongSelf filteredSearchSections:searchResultsSections];
             
             if (strongSelf->_searchBar.text.length == 0) {
                 strongSelf->_searchResultsSections = strongSelf->_recentSearchResultsSections;
@@ -3100,7 +3161,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 - (void)localizationUpdated
 {
     [_searchBar localizationUpdated];
-    _searchBar.placeholder = TGLocalized(@"DialogList.SearchLabel");
+    _searchBar.placeholder = TGLocalized(self.customSearchPlaceholder ?: @"DialogList.SearchLabel");
     
     [self setLeftBarButtonItem:[self controllerLeftBarButtonItem]];
     
@@ -3163,7 +3224,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (tableView == _tableView)
         return nil;
     
-    if (_searchResultsSections[section][@"title"] == nil)
+    if (_searchResultsSections[section][@"title"] == nil || [(NSArray *)_searchResultsSections[section][@"items"] count] == 0)
         return nil;
     
     bool clear = false;
@@ -3273,7 +3334,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (tableView == _tableView)
         return 0.0f;
     
-    if (((NSString *)_searchResultsSections[section][@"title"]).length == 0)
+    if (((NSString *)_searchResultsSections[section][@"title"]).length == 0 || [(NSArray *)_searchResultsSections[section][@"items"] count] == 0)
         return 0.0f;
     
     return 28.0f;
@@ -4206,7 +4267,8 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     _presentation = presentation;
     _needsUpdate = true;
 
-    self.view.backgroundColor = _presentation.pallete.backgroundColor;
+    if (self.isViewLoaded)
+        self.view.backgroundColor = _presentation.pallete.backgroundColor;
     _headerBackgroundView.backgroundColor = _presentation.pallete.backgroundColor;
     [self updateSearchBarBackground];
     

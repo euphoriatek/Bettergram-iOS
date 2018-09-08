@@ -53,8 +53,9 @@ extern const CGFloat cellSeparatorInset;
 @property (nonatomic) bool unreadMark;
 
 @property (nonatomic, strong) NSString *avatarUrl;
-@property (nonatomic, strong) NSNumber *isOnline;
+@property (nonatomic, strong) NSData *avatarFileReference;
 
+@property (nonatomic, strong) NSNumber *isOnline;
 @property (nonatomic) bool isMuted;
 
 @property (nonatomic) bool isGroupChat;
