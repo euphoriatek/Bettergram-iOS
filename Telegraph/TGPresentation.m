@@ -177,6 +177,8 @@ static id<SDisposable> autoNightDisposable;
         return 2;
     if ([pallete isKindOfClass:[TGNightBluePresentationPallete class]])
         return 3;
+    if ([pallete isKindOfClass:[TGBettergramPresentationPallete class]])
+        return 4;
     
     return 0;
 }
@@ -194,7 +196,23 @@ static id<SDisposable> autoNightDisposable;
 
 + (TGPresentationPallete *)palleteWithState:(__unused TGPresentationState *)state
 {
-    return [[TGBettergramPresentationPallete alloc] init];
+    if (state == nil)
+        return [[TGBettergramPresentationPallete alloc] init];
+
+    switch (state.pallete)
+    {
+        case 1:
+            return [TGDayPresentationPallete dayPalleteWithAccentColor:UIColorRGB(state.userInfo)];
+        case 2:
+            return [[TGNightPresentationPallete alloc] init];
+        case 3:
+            return [[TGNightBluePresentationPallete alloc] init];
+        case 4:
+            return [[TGBettergramPresentationPallete alloc] init];
+            
+        default:
+            return [[TGDefaultPresentationPallete alloc] init];
+    }
 }
 
 + (CGFloat)fontSizeWithState:(TGPresentationState *)state
@@ -203,6 +221,7 @@ static id<SDisposable> autoNightDisposable;
         return 0.0f;
     
     return state.fontSize;
+    
 }
 
 + (TGPresentationState *)loadState
@@ -377,7 +396,7 @@ static id<SDisposable> autoNightDisposable;
 {
     currentState = [self loadState];
     if (currentState == nil)
-        currentState = [[TGPresentationState alloc] initWithPallete:0 userInfo:0 fontSize:0];
+        currentState = [[TGPresentationState alloc] initWithPallete:4 userInfo:0 fontSize:0];
     presentationPipe = [[SPipe alloc] init];
     
     currentPresentation = [[TGPresentation alloc] initWithPallete:[self palleteWithState:currentState]];

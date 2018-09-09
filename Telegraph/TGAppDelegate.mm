@@ -276,12 +276,16 @@ TGTelegraph *telegraph = nil;
         if ([bundleIdentifier isEqualToString:@"co.one.Teleapp"]) {
             rootController = [[TGLoginPhoneController alloc] init];
         } else {
+#if DEBUG
+            rootController = [[RMIntroViewController alloc] init];
+#else
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bettergramGotEmail"]) {
                 rootController = [[RMIntroViewController alloc] init];
             }
             else {
                 rootController = [[BGSubscribeViewController alloc] init];
             }
+#endif
         }
         
         _loginNavigationController = [TGNavigationController navigationControllerWithControllers:@[rootController] navigationBarClass:[TGTransparentNavigationBar class] inhibitPresentation:true];

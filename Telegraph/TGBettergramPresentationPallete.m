@@ -333,7 +333,7 @@
 
 - (UIColor *)chatIncomingBubbleColor
 {
-    return [UIColor whiteColor];
+    return UIColorRGB(0xD5D5D5);
 }
 
 - (UIColor *)chatIncomingBubbleBorderColor

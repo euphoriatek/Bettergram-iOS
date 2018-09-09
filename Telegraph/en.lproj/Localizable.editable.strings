@@ -2848,6 +2848,7 @@ Unused sets are archived when you add more.";
 "Appearance.TextSize" = "TEXT SIZE";
 "Appearance.Preview" = "CHAT PREVIEW";
 "Appearance.ColorTheme" = "COLOR THEME";
+"Appearance.Bettergram" = "TELEGRAM_APP_NAME";
 "Appearance.ThemeDayClassic" = "Day Classic";
 "Appearance.ThemeDay" = "Day";
 "Appearance.ThemeNight" = "Night";

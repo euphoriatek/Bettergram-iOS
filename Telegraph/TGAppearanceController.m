@@ -13,6 +13,7 @@
 #import "TGAppearanceColorPickerItemView.h"
 
 #import "TGPresentation.h"
+#import "TGBettergramPresentationPallete.h"
 #import "TGDefaultPresentationPallete.h"
 #import "TGDayPresentationPallete.h"
 #import "TGNightPresentationPallete.h"
@@ -36,6 +37,9 @@
     TGCheckCollectionItem *_dayItem;
     TGCheckCollectionItem *_nightItem;
     TGCheckCollectionItem *_nightBlueItem;
+    TGCheckCollectionItem *_bettergramItem;
+    
+    TGDisclosureActionCollectionItem *_autoNightItem;
 }
 
 @property (nonatomic, strong) ASHandle *actionHandle;
@@ -55,10 +59,10 @@
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:TGLocalized(@"Common.Back") style:UIBarButtonItemStylePlain target:nil action:nil];
         
         TGCollectionMenuSection *fontSection = [[TGCollectionMenuSection alloc] initWithItems:@
-        [
-         [[TGHeaderCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.TextSize")],
-         _sizeItem = [[TGFontSizeCollectionItem alloc] init]
-        ]];
+                                                [
+                                                 [[TGHeaderCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.TextSize")],
+                                                 _sizeItem = [[TGFontSizeCollectionItem alloc] init]
+                                                 ]];
         
         __weak TGAppearanceController *weakSelf = self;
         _sizeItem.valueChanged = ^(int32_t value)
@@ -73,15 +77,15 @@
         };
         
         [[[TGPresentation fontSizeSignal] take:1] startWithNext:^(NSNumber *next)
-        {
-            __strong TGAppearanceController *strongSelf = weakSelf;
-            if (strongSelf != nil) {
-                int32_t position = [strongSelf positionForFontSize:next.floatValue];
-                [strongSelf->_sizeItem setValue:position];
-                
-                TGUpdateMessageViewModelLayoutConstants(next.floatValue);
-            }
-        }];
+         {
+             __strong TGAppearanceController *strongSelf = weakSelf;
+             if (strongSelf != nil) {
+                 int32_t position = [strongSelf positionForFontSize:next.floatValue];
+                 [strongSelf->_sizeItem setValue:position];
+                 
+                 TGUpdateMessageViewModelLayoutConstants(next.floatValue);
+             }
+         }];
         
         UIEdgeInsets topSectionInsets = fontSection.insets;
         topSectionInsets.top = 32.0f;
@@ -101,17 +105,30 @@
         _colorItem = [[TGAppearanceColorCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.AccentColor") action:@selector(accentColorPressed)];
         _colorItem.deselectAutomatically = true;
         
+        _autoNightItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.AutoNightTheme") action:@selector(autoNightPressed)];
+        
         TGDisclosureActionCollectionItem *backgroundItem = [[TGDisclosureActionCollectionItem alloc] initWithTitle:TGLocalized(@"Settings.ChatBackground") action:@selector(wallpapersPressed)];
         backgroundItem.ignoreSeparatorInset = true;
         _previewSection = [[TGCollectionMenuSection alloc] initWithItems:@
-        [
-         [[TGHeaderCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.Preview")],
-         _previewItem,
-         backgroundItem
-        ]];
+                           [
+                            [[TGHeaderCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.Preview")],
+                            _previewItem,
+                            backgroundItem
+                            ]];
         [self.menuSections addSection:_previewSection];
         
         [self updateColorItem:TGPresentation.currentSavedPallete];
+        
+        TGCollectionMenuSection *themeSection = [[TGCollectionMenuSection alloc] initWithItems:@
+                                                 [
+                                                  [[TGHeaderCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ColorTheme")],
+                                                  _bettergramItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.Bettergram") action:@selector(bettergramPressed)],
+                                                  _dayClassicItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeDayClassic") action:@selector(dayClassicPressed)],
+                                                  _dayItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeDay") action:@selector(dayPressed)],
+                                                  _nightBlueItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeNightBlue") action:@selector(nightBluePressed)],
+                                                  _nightItem = [[TGCheckCollectionItem alloc] initWithTitle:TGLocalized(@"Appearance.ThemeNight") action:@selector(nightPressed)]
+                                                  ]];
+        [self.menuSections addSection:themeSection];
         
         [self updateSelection];
         
@@ -169,11 +186,11 @@
         }
     };
     TGMenuSheetButtonItemView *cancelItem = [[TGMenuSheetButtonItemView alloc] initWithTitle:TGLocalized(@"Common.Cancel") type:TGMenuSheetButtonTypeCancel action:^
-    {
-        __strong TGMenuSheetController *strongController = weakController;
-        if (strongController != nil)
-            [strongController dismissAnimated:true];
-    }];
+                                             {
+                                                 __strong TGMenuSheetController *strongController = weakController;
+                                                 if (strongController != nil)
+                                                     [strongController dismissAnimated:true];
+                                             }];
     [controller setItemViews:@[colorItem, cancelItem]];
     
     controller.sourceRect = ^CGRect{
@@ -210,6 +227,7 @@
 - (void)updateColorItem:(TGPresentationPallete *)pallete
 {
     bool colorVisible = [pallete isKindOfClass:[TGDayPresentationPallete class]];
+    bool autoNightVisible = [pallete isKindOfClass:[TGDefaultPresentationPallete class]];
     bool changed = false;
     
     if (colorVisible)
@@ -229,8 +247,34 @@
         }
     }
     
+    NSUInteger indexOfAutoNightItem = [_previewSection indexOfItem:_autoNightItem];
+    if (indexOfAutoNightItem != NSNotFound) {
+        if (!autoNightVisible) {
+            [_previewSection deleteItemAtIndex:indexOfAutoNightItem];
+            changed = true;
+        }
+    } else {
+        if (autoNightVisible) {
+            NSUInteger targetIndex = indexOfColorItem != NSNotFound ? indexOfColorItem + 1 : 3;
+            [_previewSection insertItem:_autoNightItem atIndex:targetIndex];
+            changed = true;
+        }
+    }
+    
     if (changed)
         [self.collectionView reloadData];
+}
+
+- (void)bettergramPressed
+{
+    if (_bettergramItem.isChecked)
+        return;
+    
+    TGPresentationPallete *pallete = [TGBettergramPresentationPallete new];
+    [self setPallete:pallete applyColorWallpaper:true];
+    
+    TGWallpaperInfo *info = [[TGWallpaperManager instance] builtinWallpaperList].firstObject;
+    [[TGWallpaperManager instance] setCurrentWallpaperWithInfo:info];
 }
 
 - (void)dayClassicPressed
@@ -248,7 +292,7 @@
 {
     if (_dayItem.isChecked)
         return;
-
+    
     TGPresentationPallete *pallete = [TGDayPresentationPallete new];
     [self setPallete:pallete applyColorWallpaper:true];
 }
@@ -294,18 +338,19 @@
     [self.navigationController.view addSubview:snapshotView];
     
     [UIView animateWithDuration:0.2 animations:^
-    {
-        snapshotView.alpha = 0.0f;
-        [self setNeedsStatusBarAppearanceUpdate];
-    } completion:^(__unused BOOL finished)
-    {
-        [snapshotView removeFromSuperview];
-    }];
+     {
+         snapshotView.alpha = 0.0f;
+         [self setNeedsStatusBarAppearanceUpdate];
+     } completion:^(__unused BOOL finished)
+     {
+         [snapshotView removeFromSuperview];
+     }];
 }
 
 - (void)updateSelection
 {
     TGPresentationPallete *savedPallete = TGPresentation.currentSavedPallete;
+    _bettergramItem.isChecked = [savedPallete isMemberOfClass:[TGBettergramPresentationPallete class]];
     _dayClassicItem.isChecked = [savedPallete isMemberOfClass:[TGDefaultPresentationPallete class]];
     _dayItem.isChecked = [savedPallete isMemberOfClass:[TGDayPresentationPallete class]];
     _nightItem.isChecked = [savedPallete isMemberOfClass:[TGNightPresentationPallete class]];
@@ -350,11 +395,11 @@
     if ([path isEqualToString:@"/tg/assets/currentWallpaperInfo"])
     {
         TGDispatchOnMainThread(^
-        {
-            [_previewItem updateWallpaper];
-            if ([self.presentation.pallete isKindOfClass:[TGDayPresentationPallete class]])
-                [_previewItem reset];
-        });
+                               {
+                                   [_previewItem updateWallpaper];
+                                   if ([self.presentation.pallete isKindOfClass:[TGDayPresentationPallete class]])
+                                       [_previewItem reset];
+                               });
     }
 }
 

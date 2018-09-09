@@ -28,6 +28,11 @@
         [view setAccountForTransform:_accountForTransform];
 }
 
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+}
+
 - (Class)viewClass
 {
     return [TGModernImageView class];
