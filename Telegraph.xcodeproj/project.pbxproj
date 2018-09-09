@@ -304,7 +304,6 @@
 		09618D7520FA92ED00FA4EA8 /* TGPrivateDataSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09618D7320FA92ED00FA4EA8 /* TGPrivateDataSettingsController.m */; };
 		09618D8520FA934B00FA4EA8 /* TLRPCmessages_clearAllDrafts.h in Headers */ = {isa = PBXBuildFile; fileRef = 09618D8320FA934B00FA4EA8 /* TLRPCmessages_clearAllDrafts.h */; };
 		09618D8620FA934B00FA4EA8 /* TLRPCmessages_clearAllDrafts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09618D8420FA934B00FA4EA8 /* TLRPCmessages_clearAllDrafts.mm */; };
-		09618DAD20FD42D800FA4EA8 /* TLhelp_AppUpdate$help_appUpdate.h in Headers */ = {isa = PBXBuildFile; fileRef = 09618DAB20FD42D600FA4EA8 /* TLhelp_AppUpdate$help_appUpdate.h */; };
 		09618DAE20FD42D800FA4EA8 /* TLhelp_AppUpdate$help_appUpdate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09618DAC20FD42D700FA4EA8 /* TLhelp_AppUpdate$help_appUpdate.mm */; };
 		09618DB120FD9D6700FA4EA8 /* TGMediaOriginInfo+Telegraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 09618DAF20FD9D6700FA4EA8 /* TGMediaOriginInfo+Telegraph.h */; };
 		09618DB220FD9D6700FA4EA8 /* TGMediaOriginInfo+Telegraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 09618DB020FD9D6700FA4EA8 /* TGMediaOriginInfo+Telegraph.m */; };
@@ -25029,11 +25028,11 @@
 				D08805A8156E8F3600311537 /* Sources */,
 				D08805A9156E8F3600311537 /* Frameworks */,
 				D08805AA156E8F3600311537 /* Resources */,
-				932E96A716946F6A00D6EC55 /* ShellScript */,
 				687751281A16D79400AC673F /* Headers */,
 				D061F3021A9290F80031BCBE /* Embed App Extensions */,
 				6879BEE41B43683E007C9800 /* Embed Watch Content */,
 				D020FB161D99637200F279AA /* Embed Frameworks */,
+				932E96A716946F6A00D6EC55 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -26092,7 +26091,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#/usr/bin/perl -pe 's/(BUILD_NUMBER = )(\\d+)/$1.($2+1)/eg' -i buildnumber.xcconfig\nsh ${PROJECT_DIR}/tools/bump_build_number.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nsh ${PROJECT_DIR}/tools/sync_watch_version.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\" \"${PROJECT_DIR}/Watch/App/Info.plist\"\nsh ${PROJECT_DIR}/tools/sync_watch_version.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\" \"${PROJECT_DIR}/Share/Info.plist\"\nsh ${PROJECT_DIR}/tools/sync_watch_version.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\" \"${PROJECT_DIR}/SiriIntents/Info.plist\"\nsh ${PROJECT_DIR}/tools/sync_watch_version.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\" \"${PROJECT_DIR}/Watch/Extension/Info.plist\"\nsh ${PROJECT_DIR}/tools/sync_watch_version.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\" \"${PROJECT_DIR}/Widget/Info.plist\"\n\n#find \"${TARGET_BUILD_DIR}\" -type f -name \"*.strings\" | tr '\\n' '\\0' | xargs -0 perl -pi -e 's/TELEGRAM_APP_NAME/${TELEGRAM_APP_NAME}/g'\n";
+			shellScript = "build_string=$(grep 'TELEGRAPH_BUILD=' \"${PROJECT_DIR}/Common.xcconfig\")\nsed -i '' \"s/${build_string}/TELEGRAPH_BUILD=$((build_string+1))/g\" \"${PROJECT_DIR}/Common.xcconfig\"\n";
 		};
 		D5C59EE821405B6C00B8AAA9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
