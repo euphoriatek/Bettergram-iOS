@@ -86,6 +86,8 @@ IMAGE chatSearchNameIcon;
 IMAGE chatMentionsImage;
 IMAGE chatDownImage;
 IMAGE chatBadgeImage;
+IMAGE onlineBadgeImage;
+IMAGE offlineBadgeImage;
 
 IMAGE chatBubbleIncomingFullImage;
 IMAGE chatBubbleIncomingFullHighlightedImage;

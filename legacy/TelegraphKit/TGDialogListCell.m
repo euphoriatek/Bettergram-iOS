@@ -226,7 +226,7 @@ static const CGFloat kAvatarSide = 46;
     UIImage *_unseenMentionsImage;
     
     NSMutableArray *_avatarViews;
-    UIView *_onlineIndicator;
+    UIImageView *_onlineIndicator;
 }
 
 @property (nonatomic, strong) TGDialogListCellEditingControls *wrapView;
@@ -389,10 +389,7 @@ static const CGFloat kAvatarSide = 46;
         _avatarView.fadeTransition = fadeTransition;
         [_wrapView addSubview:_avatarView];
         
-        _onlineIndicator = [[UIView alloc] initWithFrame:CGRectMake(56, 51, 10, 10)];
-        _onlineIndicator.layer.masksToBounds = YES;
-        _onlineIndicator.layer.cornerRadius = 5;
-        _onlineIndicator.backgroundColor = UIColor.greenColor;
+        _onlineIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(56, 51, 10, 10)];
         [_wrapView addSubview:_onlineIndicator];
         
         _unreadCountLabel = [[TGLabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
@@ -520,14 +517,8 @@ static const CGFloat kAvatarSide = 46;
     _onlineIndicator.hidden = !isVisible;
     _avatarView.layer.mask = isVisible ? [self avatarMask] : nil;
     if (!isVisible) return;
-    if ([_isOnline boolValue])
-    {
-        _onlineIndicator.backgroundColor = _presentation.pallete.accentColor;
-    }
-    else
-    {
-        _onlineIndicator.backgroundColor = _presentation.pallete.tabIconColor;
-    }
+    TGPresentationImages *images = _presentation.images;
+    _onlineIndicator.image = [_isOnline boolValue] ? images.onlineBadgeImage : images.offlineBadgeImage;
 }
 
 - (void)prepareForReuse

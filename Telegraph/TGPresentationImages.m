@@ -463,6 +463,20 @@
     }];
 }
 
+- (UIImage *)onlineBadgeImage
+{
+    return [self imageWithKey:@"onlineBage" generator:^UIImage *{
+        return [TGPresentationAssets badgeWithDiameter:10 color:self.pallete.accentColor border:0.0f borderColor:nil];
+    }];
+}
+
+- (UIImage *)offlineBadgeImage
+{
+    return [self imageWithKey:@"offlineBage" generator:^UIImage *{
+        return TGTintedImage([self onlineBadgeImage], self.pallete.tabIconColor);
+    }];
+}
+
 - (UIImage *)chatBubbleIncomingFullImage
 {
     return [self imageWithKey:@"chatBubbleIncomingFull" generator:^UIImage *{
