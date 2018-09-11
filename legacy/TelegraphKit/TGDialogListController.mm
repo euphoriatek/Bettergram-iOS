@@ -872,9 +872,11 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         _searchBar.pallete = self.presentation.searchBarPallete;
         _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _searchBar.safeAreaInset = [self controllerSafeAreaInset];
+        _searchBar.backgroundColor = UIColor.clearColor;
         
         _searchTopBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, -320.0f, self.view.frame.size.width, 320.0f)];
         _searchTopBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _searchTopBackgroundView.backgroundColor = UIColor.clearColor;
         [_tableView insertSubview:_searchTopBackgroundView atIndex:0];
         
         _searchMixin = [[TGSearchDisplayMixin alloc] init];
@@ -1117,7 +1119,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         [_recordTooltipContainerView removeFromSuperview];
         _recordTooltipContainerView = nil;
     }
-    
+    [self.searchMixin setIsActive:false animated:true];
     [super viewDidDisappear:animated];
 }
 
@@ -1239,7 +1241,6 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     }
     [[TGRemoteImageView sharedCache] addTemporaryCachedImagesSource:temporaryImageCache autoremove:true];
     [_tableView reloadData];
-    [self updateSearchBarBackground];
     if (peerIdWithActiveEditingControls != 0 || animateFrameTransitions) {
         for (NSIndexPath *indexPath in _tableView.indexPathsForVisibleRows)
         {
@@ -1481,21 +1482,6 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         if (_listModel.count == 0)
             [self setupEditingMode:false setupTable:true];
     }
-    
-    [self updateSearchBarBackground];
-}
-
-- (void)updateSearchBarBackground {
-    bool topIsPinned = false;
-    if (_listModel.count != 0) {
-        topIsPinned = ((TGConversation *)_listModel[0]).pinnedToTop || ((TGConversation *)_listModel[0]).isAd || (_dialogListCompanion.forwardMode && ((TGConversation *)_listModel[0]).conversationId == TGTelegraphInstance.clientUserId);
-    }
-    UIColor *backgroundColor = topIsPinned ? _presentation.pallete.barBackgroundColor : _presentation.pallete.backgroundColor;
-    if (!TGObjectCompare(_searchBar.backgroundColor, backgroundColor)) {
-        _searchBar.backgroundColor = backgroundColor;
-        _searchTopBackgroundView.backgroundColor = backgroundColor;
-    }
-    _searchBar.highContrast = topIsPinned;
 }
 
 - (void)selectConversationWithId:(int64_t)conversationId
@@ -1872,7 +1858,12 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
         cell.date = conversation.unpinnedDate;
         cell.pinnedToTop = conversation.pinnedToTop && !_dialogListCompanion.feedChannels;
-        cell.favorited = conversation.isFavorited;
+        {
+            cell.favorited =
+            (![_dialogListCompanion isKindOfClass:[TGTelegraphDialogListCompanion class]] ||
+            ((TGTelegraphDialogListCompanion *)_dialogListCompanion).filter != TGDialogFilterFavorites) &&
+            conversation.isFavorited;
+        }
         cell.isAd = conversation.isAd;
         cell.groupedInFeed = conversation.feedId.intValue != 0;
         cell.isFeedChannels = _dialogListCompanion.feedChannels;
@@ -4270,7 +4261,6 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (self.isViewLoaded)
         self.view.backgroundColor = _presentation.pallete.backgroundColor;
     _headerBackgroundView.backgroundColor = _presentation.pallete.backgroundColor;
-    [self updateSearchBarBackground];
     
     [self updateProxyButton];
     _proxyButton.spinner = _presentation.images.dialogProxySpinner;

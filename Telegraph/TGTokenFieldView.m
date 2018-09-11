@@ -121,7 +121,7 @@
     _scrollView.backgroundColor = presentation.pallete.barBackgroundColor;
     _textField.backgroundColor = presentation.pallete.barBackgroundColor;
     _textField.textColor = presentation.pallete.textColor;
-    _textField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _textField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     _textField.customPlaceholderLabel.textColor = presentation.pallete.secondaryTextColor;
     
     for (TGTokenView *view in _tokenList)

@@ -276,7 +276,7 @@
                 _titleField = [[TGTextField alloc] init];
                 [_titleField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 _titleField.textColor = self.presentation.pallete.collectionMenuTextColor;
-                _titleField.keyboardAppearance = self.presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+                _titleField.keyboardAppearance = self.presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
                 _titleField.font = TGSystemFontOfSize(20);
                 _titleField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
                 _titleField.enabled = !_updatingTitle;

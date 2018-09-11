@@ -152,11 +152,11 @@
     [_countryButton setBackgroundImage:buttonHighlightedImage forState:UIControlStateHighlighted];
     
     _countryTextField.textColor = presentation.pallete.collectionMenuTextColor;
-    _countryTextField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _countryTextField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     _countryTextField.placeholderColor = presentation.pallete.collectionMenuPlaceholderColor;
     
     _phoneTextField.textColor = presentation.pallete.collectionMenuTextColor;
-    _phoneTextField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _phoneTextField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     _phoneTextField.placeholderColor = presentation.pallete.collectionMenuPlaceholderColor;
 }
 

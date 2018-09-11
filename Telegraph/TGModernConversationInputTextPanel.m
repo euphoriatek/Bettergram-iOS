@@ -461,7 +461,7 @@ static CGRect viewFrame(UIView *view)
         bool shouldFlip = _inputField.internalTextView.isFirstResponder;
         if (shouldFlip)
             [_inputField.internalTextView resignFirstResponder];
-        _inputField.internalTextView.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+        _inputField.internalTextView.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
         if (shouldFlip)
             [_inputField.internalTextView becomeFirstResponder];
     }];
@@ -674,7 +674,7 @@ static CGRect viewFrame(UIView *view)
         _inputField.maxNumberOfLines = [self _maxNumberOfLinesForSize:_parentSize];
         _inputField.delegate = self;
         _inputField.showPlaceholderWhenFocussed = true;
-        _inputField.internalTextView.keyboardAppearance = self.presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+        _inputField.internalTextView.keyboardAppearance = self.presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
         
         if (TGAppDelegateInstance.keyCommandController == nil)
             _inputField.receiveKeyCommands = true;

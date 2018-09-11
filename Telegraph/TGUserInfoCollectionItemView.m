@@ -172,8 +172,8 @@
     _lastNameField.textColor = presentation.pallete.collectionMenuTextColor;
     _lastNameField.placeholderColor = presentation.pallete.collectionMenuPlaceholderColor;
     
-    _firstNameField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
-    _lastNameField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _firstNameField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _lastNameField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     
     _editingFirstNameSeparator.backgroundColor = presentation.pallete.collectionMenuSeparatorColor;
     _editingLastNameSeparator.backgroundColor = presentation.pallete.collectionMenuSeparatorColor;

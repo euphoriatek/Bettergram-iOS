@@ -32,7 +32,7 @@
     _cardField.textColor = presentation.pallete.collectionMenuTextColor;
     _cardField.placeholderColor = presentation.pallete.collectionMenuPlaceholderColor;
     _cardField.textErrorColor = presentation.pallete.collectionMenuDestructiveColor;
-    _cardField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _cardField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
 }
 
 - (void)layoutSubviews {

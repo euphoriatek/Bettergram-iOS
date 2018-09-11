@@ -864,8 +864,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         [_wrapView setLeftButtonTypes:readable ? @[ read ? @(TGDialogListCellEditingControlsUnread) : @(TGDialogListCellEditingControlsRead) ] : @[] rightButtonTypes:editingButtonTypes(_isMuted, !_isFeedChannels, _pinnedToTop, !_isEncrypted && !_isSavedMessages && !_isFeed, groupable, _groupedInFeed, !_isFeedChannels, _favorited, _isAd)];
     }
     
-    UIColor *backgroundColor = _isAd || _isSavedMessages == 2 ? _presentation.pallete.dialogPinnedBackgroundColor : _presentation.pallete.backgroundColor;
-    self.backgroundColor = backgroundColor;
+    self.backgroundColor = _isAd || _isSavedMessages == 2 ? _presentation.pallete.dialogPinnedBackgroundColor : _presentation.pallete.backgroundColor;;
     
     _dateString = _date == 0 || _isSavedMessages == 2 ? nil : [TGDateUtils stringForMessageListDate:(int)_date];
     if (_isAd) {

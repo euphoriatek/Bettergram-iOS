@@ -66,7 +66,7 @@
     
     _textFieldBackground.backgroundColor = presentation.pallete.collectionMenuCellBackgroundColor;
     _textField.textColor = presentation.pallete.collectionMenuTextColor;
-    _textField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _textField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     _titleLabel.textColor = presentation.pallete.collectionMenuCommentColor;
 }
 

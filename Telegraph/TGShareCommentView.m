@@ -91,14 +91,14 @@
     
     _placeholderView.textColor = presentation.pallete.searchBarPlaceholderColor;
     _textView.textColor = presentation.pallete.searchBarTextColor;
-    _textView.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _textView.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     
     [UIView performWithoutAnimation:^
     {
          bool shouldFlip = _textView.isFirstResponder;
          if (shouldFlip)
              [_textView resignFirstResponder];
-         _textView.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+         _textView.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
          if (shouldFlip)
              [_textView becomeFirstResponder];
     }];

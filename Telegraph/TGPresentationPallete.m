@@ -11,14 +11,34 @@
     return ![[[TGWallpaperManager instance] currentWallpaperInfo] isKindOfClass:[TGColorWallpaperInfo class]];
 }
 
-- (bool)prefersLightStatusBar
+- (bool)prefersDarkKeyboard
 {
     return self.isDark;
+}
+
+- (UIColor *)tabBarBackgroundColor
+{
+    return self.barBackgroundColor;
+}
+
+- (UIColor *)dialogEditFavoriteColor
+{
+    return self.accentColor;
+}
+
+- (UIColor *)tabBarSeparatorColor
+{
+    return self.barSeparatorColor;
 }
 
 - (UIColor *)conversationInputPanelActionColor
 {
     return self.accentColor;
+}
+
+- (UIColor *)searchBarPlainBackgroundColor
+{
+    return self.backgroundColor;
 }
 
 @end

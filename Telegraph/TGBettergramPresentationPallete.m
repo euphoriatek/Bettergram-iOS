@@ -16,7 +16,7 @@
     return true;
 }
 
-- (bool)prefersLightStatusBar
+- (bool)prefersDarkKeyboard
 {
     return false;
 }
@@ -98,7 +98,7 @@
 
 - (UIColor *)barSeparatorColor
 {
-    return [UIColor clearColor];
+    return UIColorRGB(0x828282);
 }
 
 - (UIColor *)navigationSpinnerColor
@@ -113,7 +113,7 @@
 
 - (UIColor *)sectionHeaderTextColor
 {
-    return [self secondaryTextColor];
+    return [UIColor whiteColor];
 }
 
 - (UIColor *)navigationTitleColor
@@ -123,12 +123,12 @@
 
 - (UIColor *)navigationSubtitleColor
 {
-    return UIColorRGB(0x787878);
+    return UIColorRGB(0xD5D5D5);
 }
 
 - (UIColor *)navigationActiveSubtitleColor
 {
-    return [self accentColor];
+    return [self accentContrastColor];
 }
 
 - (UIColor *)navigationButtonColor
@@ -209,6 +209,11 @@
 - (UIColor *)searchBarClearIconColor
 {
     return [UIColor whiteColor];
+}
+
+- (UIColor *)searchBarPlainBackgroundColor
+{
+    return self.accentColor;
 }
 
 - (UIColor *)dialogTitleColor
@@ -587,7 +592,7 @@
 
 - (UIColor *)chatChecksColor
 {
-    return UIColorRGB(0x23ca0a);
+    return self.accentColor;
 }
 
 - (UIColor *)chatChecksMediaColor
@@ -617,12 +622,12 @@
 
 - (UIColor *)chatInputButtonColor
 {
-    return UIColorRGB(0x858e99);
+    return UIColor.whiteColor;
 }
 
 - (UIColor *)chatInputFieldButtonColor
 {
-    return UIColorRGB(0xa0a7b0);
+    return self.accentColor;
 }
 
 - (UIColor *)chatInputSendButtonColor

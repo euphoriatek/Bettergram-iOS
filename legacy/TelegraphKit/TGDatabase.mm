@@ -4109,7 +4109,7 @@ static inline void updateCountsIfNeededWithConversation(NSMutableArray<NSNumber 
 {
     if (TGPeerIdIsChannel(conversation.conversationId)) {
         [self dispatchOnDatabaseThread:^{
-            [self _updateChannelConversation:conversation.conversationId conversation:conversation mergeReadState:false];
+            [self _updateChannelConversation:conversation.conversationId conversation:conversation mergeReadState:false updateFeeds:false updateFavorite:true];
         } synchronous:false];
     }
     else {
@@ -12800,7 +12800,12 @@ typedef struct {
     return [self _updateChannelConversation:peerId conversation:conversation mergeReadState:mergeReadState updateFeeds:false];
 }
 
-- (TGConversation *)_updateChannelConversation:(int64_t)peerId conversation:(TGConversation *)conversation mergeReadState:(bool)mergeReadState updateFeeds:(bool)updateFeeds {
+- (TGConversation *)_updateChannelConversation:(int64_t)peerId conversation:(TGConversation *)conversation mergeReadState:(bool)mergeReadState updateFeeds:(bool)updateFeeds
+{
+   return [self _updateChannelConversation:peerId conversation:conversation mergeReadState:mergeReadState updateFeeds:updateFeeds updateFavorite:false];
+}
+
+- (TGConversation *)_updateChannelConversation:(int64_t)peerId conversation:(TGConversation *)conversation mergeReadState:(bool)mergeReadState updateFeeds:(bool)updateFeeds updateFavorite:(bool)updateFavorite {
     FMResultSet *existingResult = [_database executeQuery:[NSString stringWithFormat:@"SELECT data FROM %@ WHERE cid=?", _channelListTableName], @(peerId)];
     if ([existingResult next]) {
         TGConversation *currentConversation = [[TGConversation alloc] initWithKeyValueCoder:[[PSKeyValueDecoder alloc] initWithData:[existingResult dataForColumnIndex:0]]];
@@ -12822,6 +12827,9 @@ typedef struct {
             currentConversation.maxOutgoingReadMessageId = conversation.maxOutgoingReadMessageId;
             currentConversation.unreadCount = conversation.unreadCount;
             currentConversation.serviceUnreadCount = conversation.serviceUnreadCount;
+        }
+        if (updateFavorite) {
+            currentConversation.favoritedDate = conversation.favoritedDate;
         }
         
         [currentConversation encodeWithKeyValueCoder:encoder];

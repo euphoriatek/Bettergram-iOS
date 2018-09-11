@@ -72,7 +72,7 @@
     
     _arrowView.image = presentation.images.profilePhoneDisclosureIcon;
     
-    _phoneField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _phoneField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
 }
 
 - (void)setLabel:(NSString *)label

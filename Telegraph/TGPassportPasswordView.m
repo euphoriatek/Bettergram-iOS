@@ -126,7 +126,7 @@
     
     UIColor *insideColor = [presentation.pallete.paymentsPayButtonDisabledColor colorWithHueMultiplier:1.0 saturationMultiplier:1.0 brightnessMultiplier:0.6];
     
-    _textField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _textField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
     _textField.placeholderFont = TGSystemFontOfSize(14.0f);
     _textField.placeholderColor = insideColor;
     

@@ -41,7 +41,7 @@
     
     _textField.textColor = presentation.pallete.collectionMenuTextColor;
     _textField.placeholderColor = presentation.pallete.collectionMenuPlaceholderColor;
-    _textField.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _textField.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
 }
 
 - (void)setValue:(NSString *)value

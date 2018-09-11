@@ -55,7 +55,7 @@
     _placeholderLabel.textColor = presentation.pallete.collectionMenuPlaceholderColor;
     _countLabel.textColor = presentation.pallete.collectionMenuPlaceholderColor;
     _countLabel.backgroundColor = presentation.pallete.collectionMenuCellBackgroundColor;
-    _textView.keyboardAppearance = presentation.pallete.isDark ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
+    _textView.keyboardAppearance = presentation.pallete.prefersDarkKeyboard ? UIKeyboardAppearanceAlert : UIKeyboardAppearanceDefault;
 }
 
 + (UIFont *)font {
