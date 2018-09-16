@@ -6,7 +6,8 @@
 //
 
 #import <LegacyComponents/LegacyComponents.h>
+#import "TGMainTabsController.h"
 
-@interface TGCryptoViewController : TGViewController
+@interface TGCryptoTabViewController : TGMainTabsController
 
 @end

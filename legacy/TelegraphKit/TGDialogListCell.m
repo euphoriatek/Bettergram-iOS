@@ -227,6 +227,7 @@ static const CGFloat kAvatarSide = 46;
     
     NSMutableArray *_avatarViews;
     UIImageView *_onlineIndicator;
+    UIImageView *_favoriteIndicator;
 }
 
 @property (nonatomic, strong) TGDialogListCellEditingControls *wrapView;
@@ -241,7 +242,6 @@ static const CGFloat kAvatarSide = 46;
 @property (nonatomic, strong) UIImageView *unreadCountBackgrond;
 @property (nonatomic, strong) UIImageView *unseenMentionsView;
 @property (nonatomic, strong) UIImageView *pinnedBackgrond;
-@property (nonatomic, strong) UIImageView *favoritedBackgrond;
 @property (nonatomic, strong) TGLabel *unreadCountLabel;
 
 @property (nonatomic, strong) UIImageView *deliveryErrorBackgrond;
@@ -392,6 +392,10 @@ static const CGFloat kAvatarSide = 46;
         _onlineIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(56, 51, 10, 10)];
         [_wrapView addSubview:_onlineIndicator];
         
+        _favoriteIndicator = [[UIImageView alloc] initWithImage:TGImageNamed(@"dialog_favorite_indicator.png")];
+        _favoriteIndicator.frame = CGRectMake(55, 17, 10, 9);
+        [_wrapView addSubview:_favoriteIndicator];
+        
         _unreadCountLabel = [[TGLabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _unreadCountLabel.textColor = [UIColor whiteColor];
         _unreadCountLabel.font = TGSystemFontOfSize(14);
@@ -465,14 +469,6 @@ static const CGFloat kAvatarSide = 46;
     else
     {
         _pinnedBackgrond.image = presentation.images.dialogPinnedIcon;
-    }
-    if (_favoritedBackgrond == nil)
-    {
-        _favoritedBackgrond = [[TGSimpleImageView alloc] initWithImage:presentation.images.dialogFavoritedIcon];
-        [_wrapView addSubview:_favoritedBackgrond];
-    }
-    else {
-        _favoritedBackgrond.image = presentation.images.dialogFavoritedIcon;
     }
     
     _muteIcon.image = presentation.images.dialogMutedIcon;
@@ -871,8 +867,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         _dateString = TGLocalized(@"DialogList.AdLabel");
     }
     
-    if (_favorited) {
-    }
+    _favoriteIndicator.hidden = !_favorited;
     
     _textView.title = _titleText;
     _textView.isVerified = _isVerified;
@@ -1666,7 +1661,6 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     if (totalUnreadCount > 0 || _unreadMark) {
         _unreadCountBackgrond.hidden = false;
         _pinnedBackgrond.hidden = true;
-        _favoritedBackgrond.hidden = true;
         
         if (totalUnreadCount > 0)
         {
@@ -1694,8 +1688,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         _unreadCountBackgrond.hidden = true;
         _unreadCountLabel.hidden = true;
         
-        _pinnedBackgrond.hidden = !_pinnedToTop || _favorited;
-        _favoritedBackgrond.hidden = !_favorited;
+        _pinnedBackgrond.hidden = !_pinnedToTop;
     }
     
     if (_unreadMentionCount > 0) {
@@ -1709,7 +1702,6 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         _unreadCountBackgrond.hidden = true;
         _unreadCountLabel.hidden = true;
         _pinnedBackgrond.hidden = true;
-        _favoritedBackgrond.hidden = true;
         _unseenMentionsView.hidden = true;
         
         if (_deliveryErrorBackgrond == nil)
@@ -2041,7 +2033,6 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     if (contentOffset > safeInset + FLT_EPSILON && (_pinnedToTop || _isAd)) {
         if (_pinnedBackgrond.alpha >= FLT_EPSILON) {
             _pinnedBackgrond.alpha = 0.0f;
-            _favoritedBackgrond.alpha = 0;
             _unreadCountBackgrond.alpha = 0.0f;
             _unseenMentionsView.alpha = 0.0f;
             _dateLabel.alpha = 0.0f;
@@ -2051,7 +2042,6 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         }
     } else if (_pinnedBackgrond.alpha <= 1.0f - FLT_EPSILON) {
         _pinnedBackgrond.alpha = 1.0f;
-        _favoritedBackgrond.alpha = 1;
         _unreadCountBackgrond.alpha = 1.0f;
         _unseenMentionsView.alpha = 1.0f;
         _dateLabel.alpha = 1.0f;
@@ -2112,12 +2102,11 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         CGRect unreadCountBackgroundFrame = CGRectMake(size.width - 11.0f - backgroundWidth, 38.0f, backgroundWidth, 20.0f);
         _unreadCountBackgrond.frame = unreadCountBackgroundFrame;
         _pinnedBackgrond.frame = CGRectMake(size.width - 14.0f - 20.0f, 39.0f, 20.0f, 20.0f);
-        _favoritedBackgrond.frame = _pinnedBackgrond.frame;
         CGRect unreadCountLabelFrame = _unreadCountLabel.frame;
         unreadCountLabelFrame.origin = CGPointMake(unreadCountBackgroundFrame.origin.x + TGScreenPixelFloor(((unreadCountBackgroundFrame.size.width - countTextWidth) / 2.0f)), unreadCountBackgroundFrame.origin.y + 1.0f - TGScreenPixel);
         _unreadCountLabel.frame = unreadCountLabelFrame;
         
-        if (_unreadCountBackgrond.hidden && _pinnedBackgrond.hidden && _favoritedBackgrond.hidden) {
+        if (_unreadCountBackgrond.hidden && _pinnedBackgrond.hidden) {
             _unseenMentionsView.frame = CGRectMake(size.width - 11.0f - 20.0f, 38.0f, 20.0f, 20.0f);
         } else {
             _unseenMentionsView.frame = CGRectMake(unreadCountBackgroundFrame.origin.x - 6.0f - 20.0f, unreadCountBackgroundFrame.origin.y, 20.0f, 20.0f);
@@ -2125,11 +2114,11 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         
         TG_TIMESTAMP_MEASURE(cellLayout);
         
-        if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden || !_favoritedBackgrond.hidden)
+        if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden)
             rightPadding += unreadCountBackgroundFrame.size.width + 16;
         
         if (!_unseenMentionsView.hidden) {
-            if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden || !_favoritedBackgrond.hidden) {
+            if (!_unreadCountBackgrond.hidden || !_pinnedBackgrond.hidden) {
                 rightPadding += 24.0f;
             } else {
                 rightPadding += 24.0f + 16.0f;

@@ -1,5 +1,5 @@
 //
-//  TGCryptoViewController.m
+//  TGCryptoTabViewController.m
 //  Bettergram
 //
 //  Created by Dukhov Philip on 8/28/18.
@@ -7,11 +7,11 @@
 
 #import "TGCryptoViewController.h"
 
-@interface TGCryptoViewController ()
+@interface TGCryptoTabViewController ()
 
 @end
 
-@implementation TGCryptoViewController
+@implementation TGCryptoTabViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

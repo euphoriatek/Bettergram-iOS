@@ -4850,8 +4850,8 @@
 		D5C3D24C21354989002363B8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23121354988002363B8 /* settings@2x.png */; };
 		D5C3D24D21354989002363B8 /* settings@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23221354988002363B8 /* settings@3x.png */; };
 		D5C3D24E21354989002363B8 /* tab_favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23321354988002363B8 /* tab_favorites@2x.png */; };
-		D5C3D2522135BFB8002363B8 /* TGCryptoViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C3D2502135BFB8002363B8 /* TGCryptoViewController.h */; };
-		D5C3D2532135BFB8002363B8 /* TGCryptoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C3D2512135BFB8002363B8 /* TGCryptoViewController.m */; };
+		D5C3D2522135BFB8002363B8 /* TGCryptoTabViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C3D2502135BFB8002363B8 /* TGCryptoTabViewController.h */; };
+		D5C3D2532135BFB8002363B8 /* TGCryptoTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C3D2512135BFB8002363B8 /* TGCryptoTabViewController.m */; };
 		D5C3D2582135C083002363B8 /* header_logo_live_coin_watch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D2542135C081002363B8 /* header_logo_live_coin_watch@2x.png */; };
 		D5C3D2592135C083002363B8 /* header_logo_bettergram@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D2552135C082002363B8 /* header_logo_bettergram@3x.png */; };
 		D5C3D25A2135C083002363B8 /* header_logo_bettergram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D2562135C082002363B8 /* header_logo_bettergram@2x.png */; };
@@ -4924,6 +4924,18 @@
 		D5C59FFB2140756B00B8AAA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5C59FE82140756B00B8AAA9 /* InfoPlist.strings */; };
 		D5C5A0242141148600B8AAA9 /* check_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C5A0152141148400B8AAA9 /* check_mark@2x.png */; };
 		D5C5A0252141148600B8AAA9 /* check_mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C5A0232141148500B8AAA9 /* check_mark@3x.png */; };
+		D5F3D14C214991C1004093B7 /* dialog_favorite_indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D14A214991C0004093B7 /* dialog_favorite_indicator@3x.png */; };
+		D5F3D14D214991C1004093B7 /* dialog_favorite_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D14B214991C0004093B7 /* dialog_favorite_indicator@2x.png */; };
+		D5F3D150214A4EF6004093B7 /* splash_overlay_landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D14E214A4EF5004093B7 /* splash_overlay_landscape@2x.png */; };
+		D5F3D151214A4EF6004093B7 /* splash_overlay_landscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D14F214A4EF5004093B7 /* splash_overlay_landscape@3x.png */; };
+		D5F3D15A214E8147004093B7 /* tab_crypto_resources@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D152214E8143004093B7 /* tab_crypto_resources@3x.png */; };
+		D5F3D15B214E8147004093B7 /* tab_crypto_videos@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D153214E8143004093B7 /* tab_crypto_videos@3x.png */; };
+		D5F3D15C214E8147004093B7 /* tab_crypto_news@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D154214E8144004093B7 /* tab_crypto_news@2x.png */; };
+		D5F3D15D214E8147004093B7 /* tab_crypto_prices@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D155214E8145004093B7 /* tab_crypto_prices@3x.png */; };
+		D5F3D15E214E8147004093B7 /* tab_crypto_resources@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D156214E8146004093B7 /* tab_crypto_resources@2x.png */; };
+		D5F3D15F214E8147004093B7 /* tab_crypto_videos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D157214E8146004093B7 /* tab_crypto_videos@2x.png */; };
+		D5F3D160214E8147004093B7 /* tab_crypto_prices@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D158214E8146004093B7 /* tab_crypto_prices@2x.png */; };
+		D5F3D161214E8147004093B7 /* tab_crypto_news@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F3D159214E8147004093B7 /* tab_crypto_news@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -10424,9 +10436,9 @@
 		D08805B0156E8F3600311537 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D08805B2156E8F3600311537 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D08805B4156E8F3600311537 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D08805B8156E8F3600311537 /* Telegraph-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Telegraph-Info.plist"; sourceTree = "<group>"; };
+		D08805B8156E8F3600311537 /* Bettergram-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bettergram-Info.plist"; sourceTree = "<group>"; };
 		D08805BC156E8F3600311537 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D08805BE156E8F3600311537 /* Telegraph-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Telegraph-Prefix.pch"; sourceTree = "<group>"; };
+		D08805BE156E8F3600311537 /* Bettergram-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bettergram-Prefix.pch"; sourceTree = "<group>"; };
 		D08805BF156E8F3600311537 /* TGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGAppDelegate.h; sourceTree = "<group>"; };
 		D08805C0156E8F3600311537 /* TGAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TGAppDelegate.mm; sourceTree = "<group>"; };
 		D08805C7156E8F4D00311537 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -11730,8 +11742,8 @@
 		D5C3D23121354988002363B8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		D5C3D23221354988002363B8 /* settings@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@3x.png"; sourceTree = "<group>"; };
 		D5C3D23321354988002363B8 /* tab_favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_favorites@2x.png"; sourceTree = "<group>"; };
-		D5C3D2502135BFB8002363B8 /* TGCryptoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGCryptoViewController.h; sourceTree = "<group>"; };
-		D5C3D2512135BFB8002363B8 /* TGCryptoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGCryptoViewController.m; sourceTree = "<group>"; };
+		D5C3D2502135BFB8002363B8 /* TGCryptoTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGCryptoTabViewController.h; sourceTree = "<group>"; };
+		D5C3D2512135BFB8002363B8 /* TGCryptoTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGCryptoTabViewController.m; sourceTree = "<group>"; };
 		D5C3D2542135C081002363B8 /* header_logo_live_coin_watch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header_logo_live_coin_watch@2x.png"; sourceTree = "<group>"; };
 		D5C3D2552135C082002363B8 /* header_logo_bettergram@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header_logo_bettergram@3x.png"; sourceTree = "<group>"; };
 		D5C3D2562135C082002363B8 /* header_logo_bettergram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header_logo_bettergram@2x.png"; sourceTree = "<group>"; };
@@ -11839,6 +11851,18 @@
 		D5C59FE92140756B00B8AAA9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D5C5A0152141148400B8AAA9 /* check_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@2x.png"; sourceTree = "<group>"; };
 		D5C5A0232141148500B8AAA9 /* check_mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@3x.png"; sourceTree = "<group>"; };
+		D5F3D14A214991C0004093B7 /* dialog_favorite_indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog_favorite_indicator@3x.png"; sourceTree = "<group>"; };
+		D5F3D14B214991C0004093B7 /* dialog_favorite_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog_favorite_indicator@2x.png"; sourceTree = "<group>"; };
+		D5F3D14E214A4EF5004093B7 /* splash_overlay_landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_overlay_landscape@2x.png"; sourceTree = "<group>"; };
+		D5F3D14F214A4EF5004093B7 /* splash_overlay_landscape@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_overlay_landscape@3x.png"; sourceTree = "<group>"; };
+		D5F3D152214E8143004093B7 /* tab_crypto_resources@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_resources@3x.png"; sourceTree = "<group>"; };
+		D5F3D153214E8143004093B7 /* tab_crypto_videos@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_videos@3x.png"; sourceTree = "<group>"; };
+		D5F3D154214E8144004093B7 /* tab_crypto_news@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_news@2x.png"; sourceTree = "<group>"; };
+		D5F3D155214E8145004093B7 /* tab_crypto_prices@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_prices@3x.png"; sourceTree = "<group>"; };
+		D5F3D156214E8146004093B7 /* tab_crypto_resources@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_resources@2x.png"; sourceTree = "<group>"; };
+		D5F3D157214E8146004093B7 /* tab_crypto_videos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_videos@2x.png"; sourceTree = "<group>"; };
+		D5F3D158214E8146004093B7 /* tab_crypto_prices@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_prices@2x.png"; sourceTree = "<group>"; };
+		D5F3D159214E8147004093B7 /* tab_crypto_news@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_crypto_news@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -19993,9 +20017,9 @@
 			isa = PBXGroup;
 			children = (
 				9351565D18686E9D00621293 /* Localization */,
-				D08805B8156E8F3600311537 /* Telegraph-Info.plist */,
+				D08805B8156E8F3600311537 /* Bettergram-Info.plist */,
 				D08805BC156E8F3600311537 /* main.m */,
-				D08805BE156E8F3600311537 /* Telegraph-Prefix.pch */,
+				D08805BE156E8F3600311537 /* Bettergram-Prefix.pch */,
 				D0BB4E631F27821E00E90812 /* emoji_suggestions.h */,
 				D0BB4E611F27821E00E90812 /* emoji_suggestions.cpp */,
 				D0BB4E621F27821E00E90812 /* emoji_suggestions_data.h */,
@@ -22935,6 +22959,18 @@
 		D5C3D22521354988002363B8 /* Bettergram */ = {
 			isa = PBXGroup;
 			children = (
+				D5F3D154214E8144004093B7 /* tab_crypto_news@2x.png */,
+				D5F3D159214E8147004093B7 /* tab_crypto_news@3x.png */,
+				D5F3D158214E8146004093B7 /* tab_crypto_prices@2x.png */,
+				D5F3D155214E8145004093B7 /* tab_crypto_prices@3x.png */,
+				D5F3D156214E8146004093B7 /* tab_crypto_resources@2x.png */,
+				D5F3D152214E8143004093B7 /* tab_crypto_resources@3x.png */,
+				D5F3D157214E8146004093B7 /* tab_crypto_videos@2x.png */,
+				D5F3D153214E8143004093B7 /* tab_crypto_videos@3x.png */,
+				D5F3D14E214A4EF5004093B7 /* splash_overlay_landscape@2x.png */,
+				D5F3D14F214A4EF5004093B7 /* splash_overlay_landscape@3x.png */,
+				D5F3D14B214991C0004093B7 /* dialog_favorite_indicator@2x.png */,
+				D5F3D14A214991C0004093B7 /* dialog_favorite_indicator@3x.png */,
 				D5C5A0152141148400B8AAA9 /* check_mark@2x.png */,
 				D5C5A0232141148500B8AAA9 /* check_mark@3x.png */,
 				D5875A1C213EC50B00ED6B61 /* logo_big@2x.png */,
@@ -22988,8 +23024,8 @@
 		D5C3D24F2135BF34002363B8 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
-				D5C3D2502135BFB8002363B8 /* TGCryptoViewController.h */,
-				D5C3D2512135BFB8002363B8 /* TGCryptoViewController.m */,
+				D5C3D2502135BFB8002363B8 /* TGCryptoTabViewController.h */,
+				D5C3D2512135BFB8002363B8 /* TGCryptoTabViewController.m */,
 			);
 			name = Crypto;
 			sourceTree = "<group>";
@@ -24011,7 +24047,7 @@
 				68B63D7C1BB25B8D00205AC3 /* TGMediaSignals.h in Headers */,
 				0937AB5720CA81AD002EC294 /* TLRPCmessages_markDialogUnread.h in Headers */,
 				D0115ED01F41F12F0039383E /* TLPhoneConnection.h in Headers */,
-				D5C3D2522135BFB8002363B8 /* TGCryptoViewController.h in Headers */,
+				D5C3D2522135BFB8002363B8 /* TGCryptoTabViewController.h in Headers */,
 				D011608A1F41F1320039383E /* TLRPCphone_saveCallDebug.h in Headers */,
 				D03E44C21AAF66D300E72CAA /* TGSignalImageView.h in Headers */,
 				D01F94FD1E5E3DB5002627A1 /* STPPostalCodeValidator.h in Headers */,
@@ -25142,7 +25178,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D08805A6156E8F3600311537 /* Build configuration list for PBXProject "Telegraph" */;
+			buildConfigurationList = D08805A6156E8F3600311537 /* Build configuration list for PBXProject "Bettergram" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -25413,6 +25449,7 @@
 				D0E352751E5E4127007E6EB8 /* stp_card_discover@2x.png in Resources */,
 				D0D97D851B3B99F5003457CD /* MusicPlayerControlForward@2x.png in Resources */,
 				683766EF1E09656C0029E18E /* CallInfoIcon@2x.png in Resources */,
+				D5F3D15F214E8147004093B7 /* tab_crypto_videos@2x.png in Resources */,
 				D077B8C81F433A280046D27A /* ChatNavigateToUnseenMentionsIcon@3x.png in Resources */,
 				D0E3527F1E5E4127007E6EB8 /* stp_card_form_back@3x.png in Resources */,
 				D0C925CC194A024000E629CA /* start_arrow@2x.png in Resources */,
@@ -25436,6 +25473,7 @@
 				D0EA690C1A039F7C00D1F747 /* RecentSearchResultsItemLoupe@2x.png in Resources */,
 				09C0BF1D206B708700380399 /* SettingsPassportIcon@3x.png in Resources */,
 				09EEAA231E6E39C200246830 /* MessageCallIncomingIcon@3x.png in Resources */,
+				D5F3D161214E8147004093B7 /* tab_crypto_news@3x.png in Resources */,
 				D08696B51943A8B300770FE7 /* pad-builtin-wallpaper-2-thumbnail.jpg in Resources */,
 				934280BF1847F326004F1C2A /* DeleteWhiteIcon@2x.png in Resources */,
 				9341B01318511FE000D1195B /* ModernListsDisclosureIndicator@2x.png in Resources */,
@@ -25526,6 +25564,7 @@
 				932E00E3184AA1100001D109 /* ModernConversationActionDelete_Disabled@2x.png in Resources */,
 				D0E3529A1E5E4127007E6EB8 /* stp_icon_add@3x.png in Resources */,
 				934280BB1847F31C004F1C2A /* ActionsWhiteIcon@2x.png in Resources */,
+				D5F3D15B214E8147004093B7 /* tab_crypto_videos@3x.png in Resources */,
 				68521C851BCE80A100B8A6FA /* MediaFile@3x.png in Resources */,
 				091560631F70DBB0007F77C4 /* MusicPlayerControlShuffle@3x.png in Resources */,
 				09E97B6E1F97E63B00526020 /* SettingsSavedMessagesIcon@2x.png in Resources */,
@@ -25540,6 +25579,7 @@
 				D061F2891A928F580031BCBE /* CameraFlipButton@2x.png in Resources */,
 				D086968D1943698900770FE7 /* ModernAuthCountryButton@2x~ipad.png in Resources */,
 				D0E352881E5E4127007E6EB8 /* stp_card_jcb_template@3x.png in Resources */,
+				D5F3D15A214E8147004093B7 /* tab_crypto_resources@3x.png in Resources */,
 				D098521C1DD1F0F000A2392C /* ConversationSearchCalendar@2x.png in Resources */,
 				D0D97D871B3B99F5003457CD /* MusicPlayerControlPause@2x.png in Resources */,
 				681653B91CC24F9E006D88C2 /* OpenInUberIcon@2x.png in Resources */,
@@ -25624,6 +25664,7 @@
 				D03EF6D41A4CE4CF00ABEF35 /* StickerPanelPopupLeft@2x.png in Resources */,
 				093FD0C2209C950D003C451A /* PassportReverse@2x.png in Resources */,
 				D0C6746F1CB69E9900183765 /* botbutton_share@2x.png in Resources */,
+				D5F3D15D214E8147004093B7 /* tab_crypto_prices@3x.png in Resources */,
 				D0351A6A1B08DE3C0040533C /* private_screw@2x.png in Resources */,
 				D08696B81943A8B300770FE7 /* pad-builtin-wallpaper-0.jpg in Resources */,
 				092948671E69A7CA00621E37 /* CallKitLogo@3x.png in Resources */,
@@ -25645,6 +25686,7 @@
 				68BDD5CA1BF64FCC00D45A73 /* ModernMessageAudioCancel_Notification@2x.png in Resources */,
 				D0C6AF4E1A77F7EF0046833D /* SharedMediaEmptyIcon.png in Resources */,
 				09FAA0B81F434DDC0099E8E7 /* StickersGroupSettings@2x.png in Resources */,
+				D5F3D14C214991C1004093B7 /* dialog_favorite_indicator@3x.png in Resources */,
 				09FAA0C51F4361460099E8E7 /* StickersGroupCross@3x.png in Resources */,
 				09361CF01E7260BF007ED29C /* SearchBarIconLight@3x.png in Resources */,
 				D0E6EE741E5CA236002E89D1 /* currencies.json in Resources */,
@@ -25702,6 +25744,7 @@
 				D0E352691E5E4127007E6EB8 /* stp_card_cvc@2x.png in Resources */,
 				09E97B731F97E63B00526020 /* SettingsPrivacyIcon@3x.png in Resources */,
 				D0C92536194915C800E629CA /* SearchBarIconLight.png in Resources */,
+				D5F3D15E214E8147004093B7 /* tab_crypto_resources@2x.png in Resources */,
 				93F3A0FF1821B6B60005EB98 /* ModernConversationInput@2x.png in Resources */,
 				D5C5A0252141148600B8AAA9 /* check_mark@3x.png in Resources */,
 				090C24781E7743D900AF4DFC /* ShareExternalIcon@3x.png in Resources */,
@@ -25937,6 +25980,7 @@
 				0912626D1FE02561008071A2 /* UngroupChannel@3x.png in Resources */,
 				D069B1B61B3D94110034C967 /* MusicPlayerMinimizedPlay@1x.png in Resources */,
 				D098521D1DD1F0F000A2392C /* ConversationSearchCalendar@3x.png in Resources */,
+				D5F3D150214A4EF6004093B7 /* splash_overlay_landscape@2x.png in Resources */,
 				0976A3A420C5EB9A00CEB156 /* PassportSettingsLogo@3x.png in Resources */,
 				096CEDA81F769B2B005C5C70 /* LiveLocationTitlePin@2x.png in Resources */,
 				933AA4A31860BE79000AA848 /* ModernNavigationAddButtonIcon@2x.png in Resources */,
@@ -25950,6 +25994,7 @@
 				093FD0C1209C950D003C451A /* PassportId@2x.png in Resources */,
 				09FCB6951FB2FAE80007D2CA /* PasscodePlaceholderIcon@2x.png in Resources */,
 				D5C3D29A2139A17B002363B8 /* dialog_unfavorite@3x.png in Resources */,
+				D5F3D15C214E8147004093B7 /* tab_crypto_news@2x.png in Resources */,
 				090789941FE9232B00B5451E /* VideoPlayerForwardIcon@3x.png in Resources */,
 				D0E352A31E5E4128007E6EB8 /* stp_icon_chevron_right_small@3x.png in Resources */,
 				09FAA0C41F4361460099E8E7 /* StickersGroupCross@2x.png in Resources */,
@@ -25959,6 +26004,7 @@
 				09690A731E73236A00B54F6E /* CallRouteSpeaker@2x.png in Resources */,
 				D069B1B81B3D94110034C967 /* MusicPlayerMinimizedPlay@3x.png in Resources */,
 				68CEA6E71E089F110019EC79 /* CallsTabBarInfo@2x.png in Resources */,
+				D5F3D151214A4EF6004093B7 /* splash_overlay_landscape@3x.png in Resources */,
 				09FC7C011F4B8B2B000AF719 /* StickerPackNotFoundIcon@2x.png in Resources */,
 				9322F814178EE4E500099F0B /* Transparent@2x.png in Resources */,
 				D5C3D24421354989002363B8 /* tab_all_messages@2x.png in Resources */,
@@ -25991,10 +26037,12 @@
 				D02550551B3C75DA005F105A /* MusicPlayerControlPlay@3x.png in Resources */,
 				D0C6AEFF1A726F2A0046833D /* SharedMediaDocumentStatusDownload.png in Resources */,
 				D069B1B51B3D94110034C967 /* MusicPlayerMinimizedPause@3x.png in Resources */,
+				D5F3D14D214991C1004093B7 /* dialog_favorite_indicator@2x.png in Resources */,
 				D0590B011AC3193300B22F1E /* ModernMessageDocumentIconIncoming@3x.png in Resources */,
 				D5C3D2662137F8BD002363B8 /* twitter_logo@3x.png in Resources */,
 				D0FC07501B1E6899008CC3BB /* ConversationInputFieldCommandIcon@2x.png in Resources */,
 				68EE34741C84A772002F5419 /* ShareCommentCloseIcon@2x.png in Resources */,
+				D5F3D160214E8147004093B7 /* tab_crypto_prices@2x.png in Resources */,
 				D5C59F94214074E100B8AAA9 /* InfoPlist.strings in Resources */,
 				09BC509920C9AF4F00B28F9D /* anim_read.json in Resources */,
 				0973F3601F90E0F100EE2749 /* ConversationGoToIcon@2x.png in Resources */,
@@ -26491,7 +26539,7 @@
 				D064EF971F69A62B00AC0398 /* TLRPCmessages_getRecentLocations.mm in Sources */,
 				D01F94A81E5E3DB4002627A1 /* NSString+Stripe.m in Sources */,
 				D07EA294199E28D5002ED76D /* TGModernMediaListCell.m in Sources */,
-				D5C3D2532135BFB8002363B8 /* TGCryptoViewController.m in Sources */,
+				D5C3D2532135BFB8002363B8 /* TGCryptoTabViewController.m in Sources */,
 				D08C71501C522FA200779C0F /* TGAudioWaveformSignal.m in Sources */,
 				D0115F1D1F41F12F0039383E /* TLRPCaccount_updateDeviceLocked.mm in Sources */,
 				D05556181944E2E3008B69A6 /* TGDocumentMessageIconModel.m in Sources */,
@@ -29902,8 +29950,8 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "fbd1a548-ec64-4a11-abca-77679b664259";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fbd1a548-ec64-4a11-abca-77679b664259";
 				SDKROOT = iphoneos;
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -29949,8 +29997,8 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "96bedf39-098f-4873-bcf1-daeb854dde06";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96bedf39-098f-4873-bcf1-daeb854dde06";
+				PROVISIONING_PROFILE = "7f04d3ca-7feb-4790-9713-87e55f2a2a7d";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7f04d3ca-7feb-4790-9713-87e55f2a2a7d";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				WARNING_CFLAGS = (
@@ -29995,7 +30043,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Telegraph/Telegraph-Prefix.pch";
+				GCC_PREFIX_HEADER = "Telegraph/Bettergram-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -30017,7 +30065,7 @@
 					submodules/libtgvoip,
 					"thirdparty/Lottie/lottie-ios/Classes/PublicHeaders",
 				);
-				INFOPLIST_FILE = "Telegraph/Telegraph-Info.plist";
+				INFOPLIST_FILE = "Telegraph/Bettergram-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -30084,7 +30132,7 @@
 					"$(PROJECT_DIR)/submodules/libtgvoip/build/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Telegraph/Telegraph-Prefix.pch";
+				GCC_PREFIX_HEADER = "Telegraph/Bettergram-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -30106,7 +30154,7 @@
 					submodules/libtgvoip,
 					"thirdparty/Lottie/lottie-ios/Classes/PublicHeaders",
 				);
-				INFOPLIST_FILE = "Telegraph/Telegraph-Info.plist";
+				INFOPLIST_FILE = "Telegraph/Bettergram-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -30197,7 +30245,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Debug Hockeyapp";
 		};
-		D08805A6156E8F3600311537 /* Build configuration list for PBXProject "Telegraph" */ = {
+		D08805A6156E8F3600311537 /* Build configuration list for PBXProject "Bettergram" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D08805C2156E8F3600311537 /* Debug Hockeyapp */,
