@@ -203,4 +203,7 @@
 
 + (UIImage *)modernButtonImageWithColor:(UIColor *)color solid:(bool)solid;
 
++ (UIImage *)cryptoPricesFavoriteImageSelected:(BOOL)selected withBackgound:(UIColor *)backgroundColor color:(UIColor *)color;
++ (UIImage *)cryptoPricesSortArrowsTopArrowColor:(UIColor *)topArrowColor bottomArrowColor:(UIColor *)bottomArrowColor;
+
 @end

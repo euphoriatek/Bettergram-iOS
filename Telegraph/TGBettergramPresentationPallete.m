@@ -11,6 +11,21 @@
 
 @implementation TGBettergramPresentationPallete
 
+- (UIColor *)cryptoSortArrowColor
+{
+    return UIColorRGB(0xDEDEDE);
+}
+
+- (UIColor *)marketInfoMarkValueColor
+{
+    return UIColor.blackColor;
+}
+
+- (UIColor *)cryptoFavoritedCoinColor
+{
+    return UIColorRGB(0xF5A623);
+}
+
 - (bool)isDark
 {
     return true;
@@ -88,7 +103,7 @@
 
 - (UIColor *)tabBarSeparatorColor
 {
-    return UIColorRGB(0x828282);
+    return [self secondaryTextColor];
 }
 
 - (UIColor *)barBackgroundColor
@@ -98,7 +113,7 @@
 
 - (UIColor *)barSeparatorColor
 {
-    return UIColorRGB(0x828282);
+    return [self secondaryTextColor];
 }
 
 - (UIColor *)navigationSpinnerColor
@@ -158,7 +173,7 @@
 
 - (UIColor *)tabIconColor
 {
-    return UIColorRGB(0x828282);
+    return [self secondaryTextColor];
 }
 
 - (UIColor *)tabTextColor
@@ -188,7 +203,7 @@
 
 - (UIColor *)searchBarBackgroundColor
 {
-    return UIColorRGB(0xf1f1f1);
+    return UIColorRGB(0xF4F6FA);
 }
 
 - (UIColor *)searchBarTextColor

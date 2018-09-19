@@ -1,13 +1,12 @@
 //
-//  TGCryptoViewController.h
+//  TGCryptoTabViewController.h
 //  Bettergram
 //
 //  Created by Dukhov Philip on 8/28/18.
 //
 
-#import <LegacyComponents/LegacyComponents.h>
-#import "TGMainTabsController.h"
+#import "TGTabBarViewController.h"
 
-@interface TGCryptoTabViewController : TGMainTabsController
+@interface TGCryptoTabViewController : TGTabBarViewController
 
 @end

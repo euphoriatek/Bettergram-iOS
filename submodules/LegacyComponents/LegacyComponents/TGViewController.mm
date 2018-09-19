@@ -1112,8 +1112,20 @@ static id<LegacyComponentsContext> _defaultContext = nil;
     edgeInset.right += _parentInsets.right;
     edgeInset.bottom += _parentInsets.bottom;
     
-    if ([self.parentViewController isKindOfClass:[UITabBarController class]])
+    for (UIViewController *parentViewController = self.parentViewController; parentViewController != nil; parentViewController = parentViewController.parentViewController)
+    {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        if ([parentViewController respondsToSelector:@selector(isBarBarOnTop)]) {
+            if ([parentViewController performSelector:@selector(isBarBarOnTop)]) {
+                edgeInset.top += [self tabBarHeight:UIInterfaceOrientationIsLandscape(orientation)];
+            }
+            else {
         edgeInset.bottom += [self tabBarHeight:UIInterfaceOrientationIsLandscape(orientation)];
+            }
+        }
+#pragma clang diagnostic pop
+    }
     
     if (!_ignoreKeyboardWhenAdjustingScrollViewInsets)
         edgeInset.bottom = MAX(edgeInset.bottom, keyboardHeight);

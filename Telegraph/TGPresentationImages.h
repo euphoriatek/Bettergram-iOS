@@ -8,6 +8,19 @@
 
 + (instancetype)imagesWithPallete:(TGPresentationPallete *)pallete;
 
+IMAGE dialogFavoritedIcon;
+IMAGE onlineBadgeImage;
+IMAGE offlineBadgeImage;
+
+IMAGE cryptoPricesFilterFavoriteSelectedImage;
+IMAGE cryptoPricesFilterFavoriteDeselectedImage;
+
+IMAGE cryptoPricesSortImage;
+IMAGE cryptoPricesSortAscendingImage;
+IMAGE cryptoPricesSortDescendingImage;
+IMAGE cryptoPricesFavoritedImage;
+IMAGE cryptoPricesUnfavoritedImage;
+
 IMAGE tabBarBadgeImage;
 
 IMAGE contactsInviteIcon;
@@ -28,7 +41,6 @@ IMAGE dialogReadIcon;
 IMAGE dialogPendingIcon;
 IMAGE dialogUnsentIcon;
 IMAGE dialogPinnedIcon;
-IMAGE dialogFavoritedIcon;
 IMAGE dialogMentionedIcon;
 IMAGE dialogBadgeImage;
 IMAGE dialogMutedBadgeImage;
@@ -86,8 +98,6 @@ IMAGE chatSearchNameIcon;
 IMAGE chatMentionsImage;
 IMAGE chatDownImage;
 IMAGE chatBadgeImage;
-IMAGE onlineBadgeImage;
-IMAGE offlineBadgeImage;
 
 IMAGE chatBubbleIncomingFullImage;
 IMAGE chatBubbleIncomingFullHighlightedImage;

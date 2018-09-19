@@ -11,6 +11,21 @@
     return ![[[TGWallpaperManager instance] currentWallpaperInfo] isKindOfClass:[TGColorWallpaperInfo class]];
 }
 
+- (UIColor *)marketInfoMarkTitleColor
+{
+    return [self secondaryTextColor];
+}
+
+- (UIColor *)marketInfoMarkChangeGainColor
+{
+    return [self accentColor];
+}
+
+- (UIColor *)marketInfoMarkChangeLossColor
+{
+    return [self destructiveColor];
+}
+
 - (bool)prefersDarkKeyboard
 {
     return self.isDark;

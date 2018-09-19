@@ -4828,6 +4828,14 @@
 		D0FD89A3156FD4FC00CC3714 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FD89A2156FD4FB00CC3714 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D0FFBDDF1BAB0E7300F532C9 /* TGChannelMembersController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0FFBDDD1BAB0E7300F532C9 /* TGChannelMembersController.h */; };
 		D0FFBDE01BAB0E7300F532C9 /* TGChannelMembersController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FFBDDE1BAB0E7300F532C9 /* TGChannelMembersController.m */; };
+		D50D798F214F90B70008D124 /* TGCryptoPricesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D798D214F90B70008D124 /* TGCryptoPricesViewController.h */; };
+		D50D7990214F90B70008D124 /* TGCryptoPricesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D798E214F90B70008D124 /* TGCryptoPricesViewController.m */; };
+		D50D7993214FDB780008D124 /* CALayer+SketchShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D7991214FDB780008D124 /* CALayer+SketchShadow.h */; };
+		D50D7994214FDB780008D124 /* CALayer+SketchShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D7992214FDB780008D124 /* CALayer+SketchShadow.m */; };
+		D5606F1C214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h in Headers */ = {isa = PBXBuildFile; fileRef = D5606F1A214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h */; };
+		D5606F1D214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = D5606F1B214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m */; };
+		D5606F20214ED67000CF2C0C /* TGTabBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5606F1E214ED67000CF2C0C /* TGTabBarViewController.h */; };
+		D5606F21214ED67000CF2C0C /* TGTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5606F1F214ED67000CF2C0C /* TGTabBarViewController.m */; };
 		D5875A17213EB66800ED6B61 /* new-message-interface-symbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A15213EB66700ED6B61 /* new-message-interface-symbol@2x.png */; };
 		D5875A18213EB66800ED6B61 /* new-message-interface-symbol@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A16213EB66800ED6B61 /* new-message-interface-symbol@3x.png */; };
 		D5875A1F213EC50C00ED6B61 /* splash_overlay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A19213EC50900ED6B61 /* splash_overlay@3x.png */; };
@@ -11720,6 +11728,14 @@
 		D0FD89A2156FD4FB00CC3714 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D0FFBDDD1BAB0E7300F532C9 /* TGChannelMembersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGChannelMembersController.h; sourceTree = "<group>"; };
 		D0FFBDDE1BAB0E7300F532C9 /* TGChannelMembersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGChannelMembersController.m; sourceTree = "<group>"; };
+		D50D798D214F90B70008D124 /* TGCryptoPricesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGCryptoPricesViewController.h; sourceTree = "<group>"; };
+		D50D798E214F90B70008D124 /* TGCryptoPricesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGCryptoPricesViewController.m; sourceTree = "<group>"; };
+		D50D7991214FDB780008D124 /* CALayer+SketchShadow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+SketchShadow.h"; sourceTree = "<group>"; };
+		D50D7992214FDB780008D124 /* CALayer+SketchShadow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+SketchShadow.m"; sourceTree = "<group>"; };
+		D5606F1A214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TGViewController+SafeAreaInsetsSwizzling.h"; sourceTree = "<group>"; };
+		D5606F1B214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TGViewController+SafeAreaInsetsSwizzling.m"; sourceTree = "<group>"; };
+		D5606F1E214ED67000CF2C0C /* TGTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGTabBarViewController.h; sourceTree = "<group>"; };
+		D5606F1F214ED67000CF2C0C /* TGTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGTabBarViewController.m; sourceTree = "<group>"; };
 		D5875A15213EB66700ED6B61 /* new-message-interface-symbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-message-interface-symbol@2x.png"; sourceTree = "<group>"; };
 		D5875A16213EB66800ED6B61 /* new-message-interface-symbol@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-message-interface-symbol@3x.png"; sourceTree = "<group>"; };
 		D5875A19213EC50900ED6B61 /* splash_overlay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_overlay@3x.png"; sourceTree = "<group>"; };
@@ -17407,6 +17423,8 @@
 				D0F2E10D1E3B722600759C97 /* Payment */,
 				090F3D61205C01D50088A3FA /* Passport */,
 				D5C3D24F2135BF34002363B8 /* Crypto */,
+				D5606F1A214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h */,
+				D5606F1B214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -21369,6 +21387,8 @@
 				D02566AB1AD2C28F007C19C1 /* TLRPCmessages_sendMessage_manual.mm */,
 				D02566AE1AD2C2A2007C19C1 /* TLRPCmessages_sendMedia_manual.h */,
 				D02566AF1AD2C2A2007C19C1 /* TLRPCmessages_sendMedia_manual.mm */,
+				D50D7991214FDB780008D124 /* CALayer+SketchShadow.h */,
+				D50D7992214FDB780008D124 /* CALayer+SketchShadow.m */,
 			);
 			name = TL;
 			path = legacy/TL;
@@ -22952,6 +22972,8 @@
 			children = (
 				D0FD8993156FCA3D00CC3714 /* TGMainTabsController.h */,
 				D0FD8994156FCA3D00CC3714 /* TGMainTabsController.m */,
+				D5606F1E214ED67000CF2C0C /* TGTabBarViewController.h */,
+				D5606F1F214ED67000CF2C0C /* TGTabBarViewController.m */,
 			);
 			name = Tabs;
 			sourceTree = "<group>";
@@ -23026,6 +23048,8 @@
 			children = (
 				D5C3D2502135BFB8002363B8 /* TGCryptoTabViewController.h */,
 				D5C3D2512135BFB8002363B8 /* TGCryptoTabViewController.m */,
+				D50D798D214F90B70008D124 /* TGCryptoPricesViewController.h */,
+				D50D798E214F90B70008D124 /* TGCryptoPricesViewController.m */,
 			);
 			name = Crypto;
 			sourceTree = "<group>";
@@ -23401,6 +23425,7 @@
 				D011612C1F41F1330039383E /* NSArray_Dialog.h in Headers */,
 				091DAEF4208AF9C50049FFD1 /* TLRPChelp_getDeepLinkInfo.h in Headers */,
 				D01F94F51E5E3DB5002627A1 /* STPPaymentMethodsViewController+Private.h in Headers */,
+				D50D798F214F90B70008D124 /* TGCryptoPricesViewController.h in Headers */,
 				D01160AA1F41F1320039383E /* TLRPCrpc_drop_answer.h in Headers */,
 				D0115FF81F41F1310039383E /* TLRPCmessages_getAllChats.h in Headers */,
 				09D5B0EB2060E7F300D8E777 /* TGPassportForm.h in Headers */,
@@ -23757,6 +23782,7 @@
 				D04ED6CB1D67488A00C541E0 /* TGWebAppController.h in Headers */,
 				D01160861F41F1320039383E /* TLRPCphone_receivedCall.h in Headers */,
 				D01162501F41F1350039383E /* TLInputBotInlineResult.h in Headers */,
+				D50D7993214FDB780008D124 /* CALayer+SketchShadow.h in Headers */,
 				D051B0131AFA2A24003AFD52 /* TGStickerPackPreviewWindow.h in Headers */,
 				D0C09C791A6E974D008369D7 /* TGSharedMediaImageItemView.h in Headers */,
 				D01F951F1E5E3DB5002627A1 /* UIView+Stripe_FirstResponder.h in Headers */,
@@ -23838,6 +23864,7 @@
 				D01161EA1F41F1340039383E /* TLcontacts_Blocked.h in Headers */,
 				0910D5362128512000C5FC95 /* TGPassportLanguageMap.h in Headers */,
 				D01160361F41F1310039383E /* TLRPCmessages_installStickerSet.h in Headers */,
+				D5606F20214ED67000CF2C0C /* TGTabBarViewController.h in Headers */,
 				09551C6A201781450097218A /* TLRPCchannels_searchFeed.h in Headers */,
 				09C0BF05206A7A9D00380399 /* TLRPCaccount_verifyEmail.h in Headers */,
 				689505AA1DCC4D0E00D68920 /* TGCallUtils.h in Headers */,
@@ -24290,6 +24317,7 @@
 				D0115F3A1F41F1300039383E /* TLRPCauth_resetAuthorizations.h in Headers */,
 				D0DEE5931AA9D63900B04AAA /* TGModenConcersationReplyAssociatedPanel.h in Headers */,
 				D0115EAC1F41F12F0039383E /* TLPageBlock.h in Headers */,
+				D5606F1C214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h in Headers */,
 				D051B1061B04EB85003AFD52 /* TGPhonebookSignals.h in Headers */,
 				68D3C1B81BD936D2003F8131 /* TGNotificationMediaPreviewView.h in Headers */,
 				D0514EF71DD1D0590008DF17 /* TLPhoneCall$phoneCallWaiting.h in Headers */,
@@ -26165,7 +26193,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ./tools/replaceAppNameLocalizations.sh;
+			shellScript = "./tools/replaceAppNameLocalizations.sh\n";
 		};
 		D5C5A00E2140776400B8AAA9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -26612,8 +26640,10 @@
 				D011605D1F41F1310039383E /* TLRPCmessages_sendEncrypted.mm in Sources */,
 				D0B2C8D8195B14EA00CA9F1E /* MP4Atom.m in Sources */,
 				681EF7821D12CBAB00B0DC38 /* TGModernGalleryVideoPlayerView.m in Sources */,
+				D5606F21214ED67000CF2C0C /* TGTabBarViewController.m in Sources */,
 				D01160CB1F41F1320039383E /* TLScheme.mm in Sources */,
 				D0983D4C19CB9A4300CE5BB0 /* TGContactBinding.m in Sources */,
+				D50D7990214F90B70008D124 /* TGCryptoPricesViewController.m in Sources */,
 				936DE19F1850D34800D90029 /* TGCommentCollectionItemView.m in Sources */,
 				D01161B31F41F1340039383E /* TLCdnConfig.mm in Sources */,
 				D004C3AF157E57F50084AE3F /* TGSignUpRequestBuilder.m in Sources */,
@@ -26660,6 +26690,7 @@
 				689505AF1DCC5B2200D68920 /* Reachability.m in Sources */,
 				930808DB185A758900E62B42 /* TGUserInfoPhoneCollectionItemView.m in Sources */,
 				D0AD63DB159D21F80092BB50 /* TGUserNode.m in Sources */,
+				D50D7994214FDB780008D124 /* CALayer+SketchShadow.m in Sources */,
 				D0115E711F41F12F0039383E /* TLmessages_DhConfig.mm in Sources */,
 				D01161271F41F1330039383E /* NSArray_DcNetworkStats.mm in Sources */,
 				D0AD63E9159D3D3F0092BB50 /* TGTimelineHistoryRequestBuilder.m in Sources */,
@@ -26986,6 +27017,7 @@
 				D0A4D7E81C10DEF600537E74 /* TGInternalGifSearchResultGalleryItem.m in Sources */,
 				D0498FDC1978885A0080A679 /* TGGenericPeerMediaGalleryImageItem.m in Sources */,
 				D05DE8021AB8666800293D10 /* TGHashtagSearchController.m in Sources */,
+				D5606F1D214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m in Sources */,
 				D01F95141E5E3DB5002627A1 /* STPWebViewController.m in Sources */,
 				D0C6AF031A7270E40046833D /* TGSharedMediaFileThumbnailView.m in Sources */,
 				D0983D5319CB9A4300CE5BB0 /* TGDeleteProfilePhotoFutureAction.m in Sources */,

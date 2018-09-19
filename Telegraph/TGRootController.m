@@ -12,12 +12,12 @@
 #import "TGAccountSettingsController.h"
 #import "TGRecentCallsController.h"
 #import "TGMainTabsController.h"
+#import "TGCryptoTabViewController.h"
 #import "TGModernConversationController.h"
-#import "TGCryptoViewController.h"
-
 #import "TGCallStatusBarView.h"
 #import "TGVolumeBarView.h"
 #import "TGProxyWindow.h"
+#import "TGCryptoPricesViewController.h"
 
 #import "TGPresentation.h"
 
@@ -77,8 +77,16 @@
         _callsController = [[TGRecentCallsController alloc] init];
         _callsController.presentation = _presentation;
         
-        _cryptoController = [[TGCryptoViewController alloc] init];
-        
+        {
+            _cryptoController = [[TGCryptoTabViewController alloc] initWithPresentation:_presentation];
+            [_cryptoController setViewControllers:@[
+                                                    [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
+                                                    [[TGViewController alloc] init],
+                                                    [[TGViewController alloc] init],
+                                                    [[TGViewController alloc] init],
+                                                    ]];
+            [_cryptoController setSelectedIndexCustom:0];
+        }
         _mainTabsController = [[TGMainTabsController alloc] initWithPresentation:_presentation];
         [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:_cryptoController]];
         _mainTabsController.onControllerInsetUpdated = ^(CGFloat inset)
@@ -128,6 +136,7 @@
     [(TGNavigationBar *)_masterNavigationController.navigationBar setPallete:presentation.navigationBarPallete];
     [(TGNavigationBar *)_detailNavigationController.navigationBar setPallete:presentation.navigationBarPallete];
     [_mainTabsController setPresentation:presentation];
+    [_cryptoController setPresentation:presentation];
     [_contactsController setPresentation:presentation];
     [_callsController setPresentation:presentation];
     for (TGDialogListController *dialogListController in _dialogListControllers) {

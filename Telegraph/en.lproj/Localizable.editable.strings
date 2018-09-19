@@ -1,3 +1,31 @@
+// Bettergram
+
+"Appearance.Bettergram" = "TELEGRAM_APP_NAME";
+
+"Bettergram.SignUp.ButtonTitle" = "SIGN UP";
+"Bettergram.SignUp.TextfieldPlaceholder" = "Enter your email";
+"Bettergram.SignUp.Terms" = "I agree to the terms of service";
+"Bettergram.SignUp.Newsletter" = "Get our free crypto newsletter";
+
+"UserInfo.Favorite" = "Add To Favorites";
+"UserInfo.Unfavorite" = "Remove From Favorites";
+
+"DialogList.Favorite" = "Favorite";
+"DialogList.Unfavorite" = "Unfavorite";
+
+"Crypto.Prices.TabTitle" = "Prices";
+"Crypto.Prices.MarketCap" = "MARKET CAP:";
+"Crypto.Prices.24Volume" = "24H VOLUME:";
+"Crypto.Prices.BTCDominance" = "BTC DOMINANCE";
+"Crypto.Prices.SearchLabel" = "Search cryptocurrencies";
+"Crypto.Prices.SortCoin" = "COIN";
+"Crypto.Prices.SortPrice" = "PRICE";
+"Crypto.Prices.Sort24h" = "24h";
+
+"Crypto.News.TabTitle" = "News";
+"Crypto.Videos.TabTitle" = "Videos";
+"Crypto.Resources.TabTitle" = "Recources";
+
 // Notifications
 "MESSAGE_TEXT" = "%1$@: %2$@";
 "MESSAGE_NOTEXT" = "%1$@ sent you a message";
@@ -1999,9 +2027,6 @@ Unused sets are archived when you add more.";
 "DialogList.Unpin" = "Unpin";
 "DialogList.PinLimitError" = "Sorry, you can pin no more than %@ chats to the top.";
 
-"DialogList.Favorite" = "Favorite";
-"DialogList.Unfavorite" = "Unfavorite";
-
 "Conversation.DeleteMessagesForMe" = "Delete for me";
 "Conversation.DeleteMessagesFor" = "Delete for me and %@";
 "Conversation.DeleteMessagesForEveryone" = "Delete for everyone";
@@ -2848,7 +2873,6 @@ Unused sets are archived when you add more.";
 "Appearance.TextSize" = "TEXT SIZE";
 "Appearance.Preview" = "CHAT PREVIEW";
 "Appearance.ColorTheme" = "COLOR THEME";
-"Appearance.Bettergram" = "TELEGRAM_APP_NAME";
 "Appearance.ThemeDayClassic" = "Day Classic";
 "Appearance.ThemeDay" = "Day";
 "Appearance.ThemeNight" = "Night";
@@ -3226,15 +3250,6 @@ Unused sets are archived when you add more.";
 "PrivateDataSettings.Title" = "Data Settings";
 "Privacy.ChatsTitle" = "CHATS";
 "Privacy.DeleteDrafts" = "Delete All Cloud Drafts";
-
-"UserInfo.Favorite" = "Add To Favorites";
-"UserInfo.Unfavorite" = "Remove From Favorites";
-
-
-"Bettergram.SignUp.ButtonTitle" = "SIGN UP";
-"Bettergram.SignUp.TextfieldPlaceholder" = "Enter your email";
-"Bettergram.SignUp.Terms" = "I agree to the terms of service";
-"Bettergram.SignUp.Newsletter" = "Get our free crypto newsletter";
 
 "UserInfo.NotificationsDefaultEnabled" = "Default (Enabled)";
 "UserInfo.NotificationsDefaultDisabled" = "Default (Disabled)";

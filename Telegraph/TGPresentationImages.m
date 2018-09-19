@@ -20,6 +20,87 @@
 
 @implementation TGPresentationImages
 
+- (UIImage *)dialogFavoritedIcon
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets chatFavoritedIcon:self.pallete.dialogPinnedIconColor];
+    }];
+}
+
+- (UIImage *)onlineBadgeImage
+{
+    return [self imageWithKey:@"onlineBage" generator:^UIImage *{
+        return [TGPresentationAssets badgeWithDiameter:10 color:self.pallete.accentColor border:0.0f borderColor:nil];
+    }];
+}
+
+- (UIImage *)offlineBadgeImage
+{
+    return [self imageWithKey:@"offlineBage" generator:^UIImage *{
+        return TGTintedImage([self onlineBadgeImage], self.pallete.tabIconColor);
+    }];
+}
+
+- (UIImage *)cryptoPricesFilterFavoriteSelectedImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesFavoriteImageSelected:YES
+                                                         withBackgound:self.pallete.accentColor
+                                                                 color:self.pallete.accentContrastColor];
+    }];
+}
+
+- (UIImage *)cryptoPricesFilterFavoriteDeselectedImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesFavoriteImageSelected:NO
+                                                         withBackgound:self.pallete.searchBarBackgroundColor
+                                                                 color:self.pallete.searchBarPlaceholderColor];
+    }];
+}
+
+- (UIImage *)cryptoPricesSortImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesSortArrowsTopArrowColor:self.pallete.cryptoSortArrowColor
+                                                        bottomArrowColor:self.pallete.cryptoSortArrowColor];
+    }];
+}
+
+- (UIImage *)cryptoPricesSortAscendingImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesSortArrowsTopArrowColor:self.pallete.accentColor
+                                                        bottomArrowColor:self.pallete.cryptoSortArrowColor];
+    }];
+}
+
+- (UIImage *)cryptoPricesSortDescendingImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesSortArrowsTopArrowColor:self.pallete.cryptoSortArrowColor
+                                                        bottomArrowColor:self.pallete.accentColor];
+    }];
+}
+
+- (UIImage *)cryptoPricesFavoritedImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesFavoriteImageSelected:YES
+                                                         withBackgound:nil
+                                                                 color:self.pallete.cryptoFavoritedCoinColor];
+    }];
+}
+
+- (UIImage *)cryptoPricesUnfavoritedImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets cryptoPricesFavoriteImageSelected:NO
+                                                         withBackgound:nil
+                                                                 color:self.pallete.searchBarPlaceholderColor];
+    }];
+}
+
 #pragma mark - Tabs
 
 - (UIImage *)tabBarBadgeImage
@@ -138,13 +219,6 @@
 {
     return [self imageWithKey:@"dialogPinned" generator:^UIImage *{
         return [TGPresentationAssets chatPinnedIcon:self.pallete.dialogPinnedIconColor];
-    }];
-}
-
-- (UIImage *)dialogFavoritedIcon
-{
-    return [self imageWithKey:@"dialogFavorited" generator:^UIImage *{
-        return [TGPresentationAssets chatFavoritedIcon:self.pallete.dialogPinnedIconColor];
     }];
 }
 
@@ -460,20 +534,6 @@
 {
     return [self imageWithKey:@"chatBadge" generator:^UIImage *{
         return [TGPresentationAssets badgeWithDiameter:22.0f color:self.pallete.accentColor border:0.0f borderColor:nil];
-    }];
-}
-
-- (UIImage *)onlineBadgeImage
-{
-    return [self imageWithKey:@"onlineBage" generator:^UIImage *{
-        return [TGPresentationAssets badgeWithDiameter:10 color:self.pallete.accentColor border:0.0f borderColor:nil];
-    }];
-}
-
-- (UIImage *)offlineBadgeImage
-{
-    return [self imageWithKey:@"offlineBage" generator:^UIImage *{
-        return TGTintedImage([self onlineBadgeImage], self.pallete.tabIconColor);
     }];
 }
 
@@ -1440,6 +1500,11 @@
         _cache = [[NSCache alloc] init];
     }
     return self;
+}
+
+- (UIImage *)imageWithSel:(SEL)sel generator:(UIImage *(^)(void))generator
+{
+    return [self imageWithKey:NSStringFromSelector(sel) generator:generator];
 }
 
 - (UIImage *)imageWithKey:(NSString *)key generator:(UIImage *(^)(void))generator

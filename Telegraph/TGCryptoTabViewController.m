@@ -5,32 +5,35 @@
 //  Created by Dukhov Philip on 8/28/18.
 //
 
-#import "TGCryptoViewController.h"
-
-@interface TGCryptoTabViewController ()
-
-@end
+#import "TGCryptoTabViewController.h"
 
 @implementation TGCryptoTabViewController
 
-- (void)viewDidLoad {
+- (void)loadView
+{
+    [super loadView];
+    
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:TGImageNamed(@"header_logo_live_coin_watch")];
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSArray<TGTabBarButtonInfo *> *)buttonInfos
+{
+    return @[
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_crypto_prices") title:TGLocalized(@"Crypto.Prices.TabTitle")],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_crypto_news") title:TGLocalized(@"Crypto.News.TabTitle")],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_crypto_videos") title:TGLocalized(@"Crypto.Videos.TabTitle")],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_crypto_resources") title:TGLocalized(@"Crypto.Resources.TabTitle")],
+             ];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)isBarBarOnTop
+{
+    return YES;
 }
-*/
 
 @end

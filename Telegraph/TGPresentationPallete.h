@@ -222,6 +222,14 @@ COLOR menuSectionHeaderBackgroundColor;
 
 COLOR conversationInputPanelActionColor;
 
+COLOR marketInfoMarkTitleColor;
+COLOR marketInfoMarkValueColor;
+COLOR marketInfoMarkChangeGainColor;
+COLOR marketInfoMarkChangeLossColor;
+
+COLOR cryptoSortArrowColor;
+COLOR cryptoFavoritedCoinColor;
+
 + (bool)hasWallpaper;
 
 @end

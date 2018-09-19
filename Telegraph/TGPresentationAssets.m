@@ -2277,4 +2277,62 @@
     return [image resizableImageWithCapInsets:UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f)];
 }
 
++ (UIImage *)cryptoPricesFavoriteImageSelected:(BOOL)selected withBackgound:(UIColor *)backgroundColor color:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0, 0, 34, 34);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (backgroundColor != nil) {
+        CGContextSetFillColorWithColor(context, backgroundColor.CGColor);
+        CGContextAddEllipseInRect(context, rect);
+        CGContextFillPath(context);
+    }
+    
+    CGContextSetLineWidth(context, 1);
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextSetStrokeColorWithColor(context, color.CGColor);
+    CGContextTranslateCTM(context, 29.0/3, 29.0/3);
+    TGDrawSvgPath(context, selected ? [self selectedStarCode] : [self deselectedStarCode]);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
++ (NSString *)selectedStarCode
+{
+    return @"M14.0248526,4.74958678 L9.98683605,4.3677686 C9.73229059,4.3446281 9.51245588,4.18264463 9.40832365,3.93966942 L7.96204266,0.433884298 C7.7306377,-0.144628099 6.9091501,-0.144628099 6.67774514,0.433884298 L5.24303439,3.93966942 C5.15047241,4.18264463 4.91906745,4.3446281 4.664522,4.3677686 L0.626505468,4.74958678 C0.0248525752,4.80743802 -0.218122631,5.55950413 0.233117038,5.96446281 L3.27609224,8.63719008 C3.47278646,8.8107438 3.5537782,9.06528926 3.49592696,9.31983471 L2.58187737,13.068595 C2.44303439,13.6586777 3.07939803,14.1446281 3.61162943,13.8322314 L6.97857158,11.853719 C7.19840629,11.7264463 7.464522,11.7264463 7.68435671,11.853719 L11.0512989,13.8322314 C11.5835303,14.1446281 12.2198939,13.6702479 12.0810509,13.068595 L11.1785716,9.31983471 C11.1207203,9.06528926 11.2017121,8.8107438 11.3984063,8.63719008 L14.4413815,5.96446281 C14.8810509,5.55950413 14.6265055,4.80743802 14.0248526,4.74958678 Z";
+}
+
++ (NSString *)deselectedStarCode
+{
+    return @"M14.138843,4.76694215 L10.1008264,4.38512397 C9.84628099,4.36198347 9.62644628,4.2 9.52231405,3.95702479 L8.07603306,0.451239669 C7.8446281,-0.127272727 7.0231405,-0.127272727 6.79173554,0.451239669 L5.35702479,3.95702479 C5.26446281,4.2 5.03305785,4.36198347 4.7785124,4.38512397 L0.740495868,4.76694215 C0.138842975,4.82479339 -0.104132231,5.5768595 0.347107438,5.98181818 L3.39008264,8.65454545 C3.58677686,8.82809917 3.6677686,9.08264463 3.60991736,9.33719008 L2.69586777,13.0859504 C2.55702479,13.6760331 3.19338843,14.1619835 3.72561983,13.8495868 L7.09256198,11.8710744 C7.31239669,11.7438017 7.5785124,11.7438017 7.79834711,11.8710744 L11.1652893,13.8495868 C11.6975207,14.1619835 12.3338843,13.6876033 12.1950413,13.0859504 L11.292562,9.33719008 C11.2347107,9.08264463 11.3157025,8.82809917 11.5123967,8.65454545 L14.5553719,5.98181818 C14.9950413,5.5768595 14.7404959,4.82479339 14.138843,4.76694215 S";
+}
+
++ (UIImage *)cryptoPricesSortArrowsTopArrowColor:(UIColor *)topArrowColor bottomArrowColor:(UIColor *)bottomArrowColor
+{
+    NSString *topArrowCode = @"M0,4 L3,0 L6,4 Z";
+    NSString *bottomArrowCode = @"M0,6 L3,10 L6,6 Z";
+    
+    CGRect rect = CGRectMake(0, 0, 6, 10);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, topArrowColor.CGColor);
+    TGDrawSvgPath(context, topArrowCode);
+    
+    CGContextSetFillColorWithColor(context, bottomArrowColor.CGColor);
+    TGDrawSvgPath(context, bottomArrowCode);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 @end

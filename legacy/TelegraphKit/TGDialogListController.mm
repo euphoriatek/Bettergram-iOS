@@ -658,7 +658,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 
 - (bool)isVisible
 {
-    return self.navigationController.topViewController == TGAppDelegateInstance.rootController.mainTabsController && TGAppDelegateInstance.rootController.mainTabsController.selectedIndex == 2;
+    return self.navigationController.topViewController == TGAppDelegateInstance.rootController.mainTabsController && TGAppDelegateInstance.rootController.mainTabsController.selectedViewController == self;
 }
 
 - (void)updateDatabasePassword
@@ -723,10 +723,10 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if (_editingMode)
         return nil;
-    TGModernBarButton *composeButton = [[TGModernBarButton alloc] initWithImage:TGTintedImage(TGImageNamed(@"new-message-interface-symbol.png"), self.presentation.pallete.navigationButtonColor)];
-    [composeButton addTarget:self action:@selector(composeMessageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    return @[[[UIBarButtonItem alloc] initWithCustomView:composeButton], _proxyItem];
+    return @[[[UIBarButtonItem alloc] initWithImage:TGTintedImage(TGImageNamed(@"new-message-interface-symbol.png"), self.presentation.pallete.navigationButtonColor)
+                                              style:UIBarButtonItemStylePlain target:self action:@selector(composeMessageButtonPressed:)],
+             _proxyItem];
 }
 
 - (UIBarStyle)requiredNavigationBarStyle
@@ -836,6 +836,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     CGRect tableFrame = self.view.bounds;
     _tableView = [[TGListsTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
+    _tableView.controller = self;
     if (iosMajorVersion() >= 11)
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -1170,14 +1171,14 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     [self _layoutTitleViews:toInterfaceOrientation];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
     
-    if (_searchMixin != nil)
-        [_searchMixin controllerLayoutUpdated:[TGViewController screenSizeForInterfaceOrientation:toInterfaceOrientation]];
-    
-    if (_emptyListContainer != nil)
-    {
-        _emptyListContainer.frame = CGRectMake(CGFloor((self.view.frame.size.width - 250) / 2), CGFloor((self.view.frame.size.height - _emptyListContainer.frame.size.height) / 2), _emptyListContainer.frame.size.width, _emptyListContainer.frame.size.height);
-    }
+    [_searchMixin controllerLayoutUpdated:self.view.frame.size];    
+    _emptyListContainer.frame = CGRectMake(CGFloor((self.view.frame.size.width - 250) / 2), CGFloor((self.view.frame.size.height - _emptyListContainer.frame.size.height) / 2), _emptyListContainer.frame.size.width, _emptyListContainer.frame.size.height);
 }
 
 - (void)significantTimeChange:(NSNotification *)__unused notification
