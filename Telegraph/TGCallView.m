@@ -541,7 +541,7 @@ const CGFloat TGCallSwipeDistanceThreshold = 128.0f;
             CGSize screenSize = TGScreenSize();
             int width = (int)screenSize.width;
             int height = (int)screenSize.height;
-            if (height == 812)
+            if (height == 812 || height == 896)
                 staticOffset = 125;
             else if (height == 736)
                 staticOffset = 80; //plus
@@ -580,7 +580,7 @@ const CGFloat TGCallSwipeDistanceThreshold = 128.0f;
         dispatch_once(&onceToken, ^
         {
             int height = (int)screenHeight;
-            if (height == 812)
+            if (height == 812 || height == 896)
                 staticOffset = 440;
             else if (height == 736)
                 staticOffset = 410;

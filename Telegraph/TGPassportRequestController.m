@@ -2254,6 +2254,7 @@
             break;
             
         case 812:
+        case 896:
             topOffset = 276.0f;
             break;
             

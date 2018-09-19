@@ -622,7 +622,7 @@ const CGFloat TGShareBottomInset = 0.0f;
 + (UIEdgeInsets)safeAreaInsetForOrientation:(UIInterfaceOrientation)orientation
 {
     CGFloat height = MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || (int)height != 812)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || ((int)height != 812 && (int)height != 896))
         return UIEdgeInsetsMake(20.0f, 0.0f, 0.0f, 0.0f);
     
     switch (orientation)

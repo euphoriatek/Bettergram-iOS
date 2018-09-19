@@ -360,7 +360,7 @@
     _showCallStatusBar = showCallStatusBar;
     
     
-    CGFloat statusBarHeight = (int)TGScreenSize().height == 812 ? 0.0f : 20.0f;
+    CGFloat statusBarHeight = (int)TGScreenSize().height == 812 || (int)TGScreenSize().height == 896 ? 0.0f : 20.0f;
     
     _currentAdditionalStatusBarHeight = _showCallStatusBar ? statusBarHeight : 0.0f;
     [(TGNavigationBar *)self.navigationBar setVerticalOffset:_currentAdditionalStatusBarHeight];

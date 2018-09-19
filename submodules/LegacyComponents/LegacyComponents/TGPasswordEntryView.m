@@ -149,7 +149,7 @@
             simpleButtonInsetHorizontal = 26.0f;
             simpleButtonInsetVertical = 21.0f;
         }
-        else if ((int)screenSize.height == 812)
+        else if ((int)screenSize.height == 812 || (int)screenSize.height == 896)
         {
             simpleButtonInsetHorizontal = 54.0f;
             simpleButtonInsetVertical = 67.0f;
@@ -233,7 +233,7 @@
         return 21.0f;
     else if ((int)screenSize.height == 736)
         return 19.0f;
-    else if ((int)screenSize.height == 667 || (int)screenSize.height == 812)
+    else if ((int)screenSize.height == 667 || (int)screenSize.height == 812 || (int)screenSize.height == 896)
         return 19.0f;
     else if ((int)screenSize.height == 568)
         return 18.0f;
@@ -532,7 +532,7 @@
         pinOffset = 89.0f;
         infoOffset = 7.0f;
     }
-    else if ((int)screenSize.height == 812)
+    else if ((int)screenSize.height == 812 || (int)screenSize.height == 896)
     {
         keyboardOffset = 300.0f;
         titleOffset = 116.0f;

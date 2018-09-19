@@ -1049,7 +1049,7 @@ static id<LegacyComponentsContext> _defaultContext = nil;
     {
         CGSize screenSize = TGScreenSize();
         CGFloat widescreenWidth = MAX(screenSize.width, screenSize.height);
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && ABS(widescreenWidth - 736) > FLT_EPSILON)
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && (ABS(widescreenWidth - 736) > FLT_EPSILON && ABS(widescreenWidth - 896) > FLT_EPSILON))
         {
             portraitHeight = 44.0f;
             landscapeHeight = 32.0f;
@@ -1083,7 +1083,7 @@ static id<LegacyComponentsContext> _defaultContext = nil;
 
 + (UIEdgeInsets)safeAreaInsetForOrientation:(UIInterfaceOrientation)orientation
 {
-    if (TGIsPad() || (int)TGScreenSize().height != 812)
+    if (TGIsPad() || ((int)TGScreenSize().height != 812 && (int)TGScreenSize().height != 896))
         return UIEdgeInsetsZero;
         
     switch (orientation)

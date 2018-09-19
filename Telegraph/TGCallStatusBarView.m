@@ -46,7 +46,7 @@
         _label.textColor = [UIColor whiteColor];
         [_backgroundView addSubview:_label];
         
-        if ((int)TGScreenSize().height == 812)
+        if ((int)TGScreenSize().height == 812 || (int)TGScreenSize().height == 896)
         {
             _label.hidden = true;
         }

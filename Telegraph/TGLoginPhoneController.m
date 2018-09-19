@@ -410,7 +410,7 @@
         else
             keyboardHeight = (screenSize.width > screenSize.height) ? 435.0f : 350.0f;
     }
-    else if (fabs(longSize - 812.0f) < FLT_EPSILON)
+    else if (fabs(longSize - 812.0f) < FLT_EPSILON || fabs(longSize - 896.0f) < FLT_EPSILON)
         keyboardHeight = 291.0f;
     
     CGFloat topOrigin = 20.0f + 44.0f + 10.0f + titleAdditionalOffset;

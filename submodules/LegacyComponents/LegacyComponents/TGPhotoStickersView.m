@@ -304,7 +304,7 @@ typedef enum {
                 if (parentViewController != nil)
                 {
                     TGStickerItemPreviewView *previewView = [[TGStickerItemPreviewView alloc] initWithContext:_context frame:CGRectZero];
-                    if ((NSInteger)TGScreenSize().height == 736)
+                    if ((NSInteger)TGScreenSize().height == 736 || (NSInteger)TGScreenSize().height == 896)
                         previewView.eccentric = false;
                     
                     TGItemPreviewController *controller = [[TGItemPreviewController alloc] initWithContext:_context parentController:parentViewController previewView:previewView];
