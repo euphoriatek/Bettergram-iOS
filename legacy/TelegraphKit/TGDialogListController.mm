@@ -172,6 +172,8 @@ static int32_t maxPinnedChats = 200;
     TGDialogListState _state;
     
     bool _needsUpdate;
+    
+    BOOL _appeared;
 }
 
 @property (nonatomic, strong) TGSearchBar *searchBar;
@@ -836,7 +838,6 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     CGRect tableFrame = self.view.bounds;
     _tableView = [[TGListsTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    _tableView.controller = self;
     if (iosMajorVersion() >= 11)
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -935,6 +936,11 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 {
     if (!_doNotHideSearchAutomatically)
         _tableView.contentOffset = CGPointMake(0.0f, -_tableView.contentInset.top + [TGSearchBar searchBarBaseHeight] + self.explicitTableInset.top);
+}
+
+- (NSString *)debugDescription
+{
+    return [NSString stringWithFormat:@"<%@: %p> filter:%@", [self class], self, @(((TGTelegraphDialogListCompanion *)self.dialogListCompanion).filter)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1078,6 +1084,10 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (_suggestedLocalization != nil && !_displayedSuggestedLocalization) {
         _displayedSuggestedLocalization = true;
         [self displaySuggestedLocalization];
+    }
+    if (!_appeared) {
+        _appeared = YES;        
+        [self resetInitialOffset];
     }
 }
 
@@ -1301,8 +1311,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 
 - (void)dialogListFullyReloaded:(NSArray *)items
 {
-    if (_listModel.count == 0)
-        [self resetInitialOffset];
+    BOOL shouldResetInitialOffset = !_appeared || _listModel.count == 0;
 
     _isLoading = false;
     
@@ -1322,6 +1331,9 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     [_listModel addObjectsFromArray:items];
     
     [self reloadData:_reloadWithAnimations];
+    if (shouldResetInitialOffset) {
+        [self resetInitialOffset];
+    }
     _reloadWithAnimations = false;
     
     if (selectedConversation != INT64_MAX && selectedConversation != 0)
@@ -1859,12 +1871,12 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
         cell.date = conversation.unpinnedDate;
         cell.pinnedToTop = conversation.pinnedToTop && !_dialogListCompanion.feedChannels;
-        {
-            cell.favorited =
-            (![_dialogListCompanion isKindOfClass:[TGTelegraphDialogListCompanion class]] ||
-            ((TGTelegraphDialogListCompanion *)_dialogListCompanion).filter != TGDialogFilterFavorites) &&
-            conversation.isFavorited;
-        }
+        cell.favorited = conversation.isFavorited;
+//        {
+//            (![_dialogListCompanion isKindOfClass:[TGTelegraphDialogListCompanion class]] ||
+//            ((TGTelegraphDialogListCompanion *)_dialogListCompanion).filter != TGDialogFilterFavorites) &&
+//            conversation.isFavorited;
+//        }
         cell.isAd = conversation.isAd;
         cell.groupedInFeed = conversation.feedId.intValue != 0;
         cell.isFeedChannels = _dialogListCompanion.feedChannels;

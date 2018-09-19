@@ -1085,7 +1085,7 @@ static id<LegacyComponentsContext> _defaultContext = nil;
 {
     if (TGIsPad() || ((int)TGScreenSize().height != 812 && (int)TGScreenSize().height != 896))
         return UIEdgeInsetsZero;
-        
+    
     switch (orientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
@@ -1121,7 +1121,7 @@ static id<LegacyComponentsContext> _defaultContext = nil;
                 edgeInset.top += [self tabBarHeight:UIInterfaceOrientationIsLandscape(orientation)];
             }
             else {
-        edgeInset.bottom += [self tabBarHeight:UIInterfaceOrientationIsLandscape(orientation)];
+                edgeInset.bottom += [self tabBarHeight:UIInterfaceOrientationIsLandscape(orientation)];
             }
         }
 #pragma clang diagnostic pop
@@ -1164,6 +1164,11 @@ static id<LegacyComponentsContext> _defaultContext = nil;
     }
     
     return false;
+}
+
+- (NSString *)debugDescription
+{
+    return [NSString stringWithFormat:@"<%@: %p>\n_controllerInset: %@\n_controllerCleanInset: %@\n_controllerScrollInset: %@\\\n_controllerSafeAreaInset: %@\n_controllerStatusBarHeight: %@", [self class], self, NSStringFromUIEdgeInsets(_controllerInset), NSStringFromUIEdgeInsets(_controllerCleanInset), NSStringFromUIEdgeInsets(_controllerScrollInset), NSStringFromUIEdgeInsets(_controllerSafeAreaInset), @(_controllerStatusBarHeight)];
 }
 
 - (void)_autoAdjustInsetsForScrollView:(UIScrollView *)scrollView previousInset:(UIEdgeInsets)previousInset
