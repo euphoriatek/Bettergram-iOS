@@ -26,6 +26,9 @@
 "Crypto.Videos.TabTitle" = "Videos";
 "Crypto.Resources.TabTitle" = "Recources";
 
+"Rate.Header" = "Enjoy TELEGRAM_APP_NAME?";
+"Rate.Body" = "Take a moment to rate it on the App Store";
+
 // Notifications
 "MESSAGE_TEXT" = "%1$@: %2$@";
 "MESSAGE_NOTEXT" = "%1$@ sent you a message";

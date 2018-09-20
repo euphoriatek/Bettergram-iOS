@@ -45,3 +45,8 @@ Telegram is an essential part of our lives as tech entrepreneurs. Over 200+ mill
    ```
 
 4. Open `Telegram.xcworkspace` file in Xcode. Choose any Simulator, for example, iPhone 8 (but not a real iOS device connected to Mac). Build the project.
+
+
+5. Create Debug and Release configurations for SSignalKit
+
+6. Change Signing Automatically & Team None for SSignalKit and MtProtoKit (this both are submodules so you're we can't push it)

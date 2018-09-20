@@ -165,6 +165,11 @@
 
 #import "BGSubscribeViewController.h"
 
+#import <AirshipKit/AirshipKit.h>
+
+#import "Harpy.h"
+#import "TGSpentTimeManager.h"
+
 NSString *TGDeviceProximityStateChangedNotification = @"TGDeviceProximityStateChangedNotification";
 
 CFAbsoluteTime applicationStartupTimestamp = 0;
@@ -225,6 +230,9 @@ TGTelegraph *telegraph = nil;
     PKPushRegistry *_pushRegistry;
     SPipe *_localizationUpdatedPipe;
     SPipe *_statusBarPressedPipe;
+    
+    TGSpentTimeManager *_spentTimeManager;
+    UARateAppAction *_rateAppAction;
 }
 
 @property (nonatomic) bool tokenAlreadyRequested;
@@ -394,6 +402,26 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [UAirship takeOff];
+    [UAirship push].userPushNotificationsEnabled = YES;
+    [UAirship push].defaultPresentationOptions = UNNotificationPresentationOptionAlert;
+    
+    _spentTimeManager = [[TGSpentTimeManager alloc] init];
+    _rateAppAction = [[UARateAppAction alloc] init];
+    switch (_rateAppAction.rateAppLinkPromptTimestamps.count + _rateAppAction.rateAppPromptTimestamps.count) {
+        case 0:
+            [_spentTimeManager notifyReachingTime:1 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            
+        case 1:
+            [_spentTimeManager notifyReachingTime:5 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            
+        case 2:
+            [_spentTimeManager notifyReachingTime:30 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            
+        default:
+            break;
+    }
+    
     application.statusBarHidden = NO;
     if (iosMajorVersion() >= 9) {
         if ([effectiveLocalization().code isEqualToString:@"ar"]) {
@@ -877,11 +905,18 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
         @catch (__unused NSException *exception)
         {
         }
-    });
+    });    
     
     [[[TGBridgeServer instanceSignal] onNext:^(TGBridgeServer *server) {
         [server startServices];
     }] startWithNext:nil];
+    
+    [[Harpy sharedInstance] setPresentingViewController:_rootController];
+    [[Harpy sharedInstance] setAlertType:HarpyAlertTypeSkip];
+#if DEBUG
+    [[Harpy sharedInstance] setDebugEnabled:true];
+#endif
+    [[Harpy sharedInstance] checkVersion];
     
     return true;
 }
@@ -1224,6 +1259,7 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     [TGDatabaseInstance() processAndScheduleSelfDestruct];
     [TGDatabaseInstance() processAndScheduleMediaCleanup];
     [TGDatabaseInstance() processAndScheduleMute];
+    [[Harpy sharedInstance] checkVersion];
 }
 
 - (SSignal *)isActive
@@ -2005,6 +2041,18 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     [userDefaults setObject:[NSNumber numberWithInt:_stickersSuggestMode] forKey:@"stickersSuggestMode"];
     
     [userDefaults synchronize];
+}
+
+- (void)spentTimeReached
+{
+    [_rateAppAction performWithArguments:[UAActionArguments argumentsWithValue:@{ UARateAppShowLinkPromptKey:@YES,
+                                                                                  UARateAppLinkPromptTitleKey:TGLocalized(@"Rate.Header"),
+                                                                                  UARateAppLinkPromptBodyKey:TGLocalized(@"Rate.Body"),
+                                                                                  UARateAppItunesIDKey: TELEGRAPH_APPSTORE_ID.stringValue
+                                                                                  }
+                                                                 withSituation:UASituationManualInvocation]
+                       completionHandler:^(__unused UAActionResult * result) {
+                       }];
 }
 
 #pragma mark -
