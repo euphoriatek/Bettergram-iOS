@@ -9,4 +9,6 @@
 
 @interface TGCryptoTabViewController : TGTabBarViewController
 
+- (void)setTargetNavigationItem:(UINavigationItem *)targetNavigationItem titleController:(UIViewController *)titleController;
+
 @end

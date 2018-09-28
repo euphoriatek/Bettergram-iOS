@@ -101,6 +101,31 @@
     }];
 }
 
+- (UIImage *)chooseCurrencyButtonImageForCurrencySymbol:(NSString *)symbol
+{
+    return [self imageWithKey:[NSString stringWithFormat:@"%@%@",NSStringFromSelector(_cmd),symbol]
+                    generator:^UIImage *{
+                        return [TGPresentationAssets chooseCurrencyButtonImageWithSymbol:symbol color:self.pallete.accentContrastColor];
+                    }];
+}
+
+- (UIImage *)seeAllButtonBackground
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        CGSize size = CGSizeMake(16, 44);
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0f);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, self.pallete.accentColor.CGColor);
+        CGContextFillEllipseInRect(context, CGRectMake(0, (size.height - size.width) / 2, size.width, size.width));
+        UIImage *image = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(size.height / 2,
+                                                                                                                   size.width / 2,
+                                                                                                                   size.height / 2,
+                                                                                                                   size.width / 2)];
+        UIGraphicsEndImageContext();
+        return image;
+    }];
+}
+
 #pragma mark - Tabs
 
 - (UIImage *)tabBarBadgeImage

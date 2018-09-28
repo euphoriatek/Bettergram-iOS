@@ -21,10 +21,20 @@
 "Crypto.Prices.SortCoin" = "COIN";
 "Crypto.Prices.SortPrice" = "PRICE";
 "Crypto.Prices.Sort24h" = "24h";
+"Crypto.Prices.ChooseCurrency.SearchPlaceholder" = "Search currencies";
 
 "Crypto.News.TabTitle" = "News";
+"Crypto.News.Title" = "Crypto news";
+"Crypto.News.OlderNews" = "OLDER NEWS";
+
 "Crypto.Videos.TabTitle" = "Videos";
-"Crypto.Resources.TabTitle" = "Recources";
+"Crypto.Videos.Title" = "Crypto videos";
+"Crypto.Videos.Views" = "views";
+"Crypto.Videos.OlderNews" = "OLDER VIDEOS";
+
+"Crypto.Resources.TabTitle" = "Resources";
+"Crypto.Resources.Title" = "Crypto resources";
+"Crypto.Resources.SeeAllButton" = "SEE ALL";
 
 "Rate.Header" = "Enjoy TELEGRAM_APP_NAME?";
 "Rate.Body" = "Take a moment to rate it on the App Store";

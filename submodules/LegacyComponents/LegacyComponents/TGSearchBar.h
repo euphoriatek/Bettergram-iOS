@@ -13,7 +13,7 @@ typedef enum {
 } TGSearchBarStyle;
 
 @protocol TGSearchBarDelegate <UISearchBarDelegate>
-
+@optional
 - (void)searchBar:(TGSearchBar *)searchBar willChangeHeight:(CGFloat)newHeight;
 
 @end

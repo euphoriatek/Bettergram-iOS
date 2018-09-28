@@ -1196,6 +1196,10 @@
 		D0F9720A1FFDA2A7002595C8 /* TGClipboardPreviewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F972041FFDA2A6002595C8 /* TGClipboardPreviewCell.h */; };
 		D0F9720B1FFDA2A7002595C8 /* TGClipboardPreviewItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F972051FFDA2A6002595C8 /* TGClipboardPreviewItemView.h */; };
 		D0F9720C1FFDA2A7002595C8 /* TGClipboardMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F972061FFDA2A7002595C8 /* TGClipboardMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D516AAAB2159374200EF63A1 /* NSObject+CleanedJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = D516AAA92159374200EF63A1 /* NSObject+CleanedJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D516AAAC2159374200EF63A1 /* NSObject+CleanedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D516AAAA2159374200EF63A1 /* NSObject+CleanedJSON.m */; };
+		D536483921542CBD0074CBD0 /* UIView+AddSubviews.h in Headers */ = {isa = PBXBuildFile; fileRef = D536483721542CBD0074CBD0 /* UIView+AddSubviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D536483A21542CBD0074CBD0 /* UIView+AddSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = D536483821542CBD0074CBD0 /* UIView+AddSubviews.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2391,6 +2395,10 @@
 		D0F972041FFDA2A6002595C8 /* TGClipboardPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGClipboardPreviewCell.h; sourceTree = "<group>"; };
 		D0F972051FFDA2A6002595C8 /* TGClipboardPreviewItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGClipboardPreviewItemView.h; sourceTree = "<group>"; };
 		D0F972061FFDA2A7002595C8 /* TGClipboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGClipboardMenu.h; sourceTree = "<group>"; };
+		D516AAA92159374200EF63A1 /* NSObject+CleanedJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+CleanedJSON.h"; sourceTree = "<group>"; };
+		D516AAAA2159374200EF63A1 /* NSObject+CleanedJSON.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CleanedJSON.m"; sourceTree = "<group>"; };
+		D536483721542CBD0074CBD0 /* UIView+AddSubviews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AddSubviews.h"; sourceTree = "<group>"; };
+		D536483821542CBD0074CBD0 /* UIView+AddSubviews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddSubviews.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2558,6 +2566,8 @@
 				D01777711F1F92420044446D /* TGPhoneUtils.m */,
 				D01777781F1F927A0044446D /* NSObject+TGLock.h */,
 				D01777791F1F927A0044446D /* NSObject+TGLock.m */,
+				D516AAA92159374200EF63A1 /* NSObject+CleanedJSON.h */,
+				D516AAAA2159374200EF63A1 /* NSObject+CleanedJSON.m */,
 				D01777741F1F92570044446D /* RMPhoneFormat.h */,
 				D01777751F1F92570044446D /* RMPhoneFormat.m */,
 				D01778671F1F99180044446D /* NSInputStream+TL.h */,
@@ -2805,6 +2815,8 @@
 				D02660891F34B9F9000E2DC5 /* TGSearchDisplayMixin.m */,
 				D0BFAE5220AB33F800793CF2 /* TGIconSwitchView.h */,
 				D0BFAE5120AB33F700793CF2 /* TGIconSwitchView.m */,
+				D536483721542CBD0074CBD0 /* UIView+AddSubviews.h */,
+				D536483821542CBD0074CBD0 /* UIView+AddSubviews.m */,
 			);
 			name = "Basic UI Components";
 			sourceTree = "<group>";
@@ -3923,6 +3935,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D516AAAB2159374200EF63A1 /* NSObject+CleanedJSON.h in Headers */,
+				D536483921542CBD0074CBD0 /* UIView+AddSubviews.h in Headers */,
 				09750FCD1F30E53A001B9886 /* TGClipboardGalleryMixin.h in Headers */,
 				09750FB71F30DB0E001B9886 /* TGClipboardGalleryModel.h in Headers */,
 				D07BC9A61F2A49E300ED97AA /* TGItemPreviewView.h in Headers */,
@@ -4662,6 +4676,7 @@
 				D07BCBF81F2B72DC00ED97AA /* STKQueueEntry.m in Sources */,
 				D07BC81F1F2A2C0B00ED97AA /* PGPhotoSharpenPass.m in Sources */,
 				D0BFAE5320AB33F900793CF2 /* TGIconSwitchView.m in Sources */,
+				D516AAAC2159374200EF63A1 /* NSObject+CleanedJSON.m in Sources */,
 				D02660871F34B9B1000E2DC5 /* TGSearchBar.m in Sources */,
 				D07BC9591F2A3EBF00ED97AA /* TGModernConversationAssociatedInputPanel.m in Sources */,
 				D01778561F1F961D0044446D /* TGLocalMessageMetaMediaAttachment.m in Sources */,
@@ -4928,6 +4943,7 @@
 				D07BC7A91F2A2B8900ED97AA /* GPUImageFramebuffer.m in Sources */,
 				D07BC6EE1F2A19A700ED97AA /* TGCameraFlashControl.m in Sources */,
 				D017797C1F21075C0044446D /* TGModernCache.m in Sources */,
+				D536483A21542CBD0074CBD0 /* UIView+AddSubviews.m in Sources */,
 				09E97B581F97C11700526020 /* TGTooltipView.m in Sources */,
 				D07BCBF21F2B72DC00ED97AA /* STKDataSourceWrapper.m in Sources */,
 				09F36E571F748E040022A5FE /* TGLocationLiveSessionItemView.m in Sources */,

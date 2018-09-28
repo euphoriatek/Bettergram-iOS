@@ -35,4 +35,6 @@
 - (void)controllerInsetUpdated:(UIEdgeInsets)newInset;
 - (void)setSelectedIndexCustom:(NSUInteger)selectedIndex;
 
+- (void)updateNavigationItemOverride:(NSUInteger)selectedIndex;
+
 @end

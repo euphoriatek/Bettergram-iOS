@@ -13,3 +13,6 @@ url=https://github.com/peter-iakovlev/Signals.git
 [submodule "submodules/Harpy"]
 	path = submodules/Harpy
 	url = https://github.com/ArtSabintsev/Harpy
+[submodule "submodules/AFNetworking"]
+	path = submodules/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking

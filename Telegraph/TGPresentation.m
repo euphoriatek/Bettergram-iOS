@@ -93,7 +93,7 @@
 
 - (TGConversationAssociatedInputPanelPallete *)associatedInputPanelPallete
 {
-    return [TGConversationAssociatedInputPanelPallete palleteWithDark:self.pallete.isDark backgroundColor:self.pallete.backgroundColor separatorColor:self.pallete.separatorColor selectionColor:self.pallete.selectionColor barBackgroundColor:self.pallete.barBackgroundColor barSeparatorColor:self.pallete.barSeparatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:self.pallete.accentColor placeholderBackgroundColor:nil placeholderIconColor:nil avatarPlaceholder:[self.images avatarPlaceholderWithDiameter:32.0f] closeIcon:self.images.replyCloseIcon largeCloseIcon:self.images.pinCloseIcon];
+    return [TGConversationAssociatedInputPanelPallete palleteWithDark:self.pallete.isDark backgroundColor:self.pallete.backgroundColor separatorColor:self.pallete.separatorColor selectionColor:self.pallete.selectionColor barBackgroundColor:self.pallete.barBackgroundColor barSeparatorColor:self.pallete.barSeparatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:self.pallete.accentContrastColor placeholderBackgroundColor:nil placeholderIconColor:nil avatarPlaceholder:[self.images avatarPlaceholderWithDiameter:32.0f] closeIcon:self.images.replyCloseIcon largeCloseIcon:self.images.pinCloseIcon];
 }
 
 - (TGImageBorderPallete *)imageBorderPallete

@@ -2,6 +2,13 @@
 
 @interface TGPresentationAssets : NSObject
 
++ (UIImage *)chatFavoritedIcon:(UIColor *)color;
+
++ (UIImage *)cryptoPricesFavoriteImageSelected:(BOOL)selected withBackgound:(UIColor *)backgroundColor color:(UIColor *)color;
++ (UIImage *)cryptoPricesSortArrowsTopArrowColor:(UIColor *)topArrowColor bottomArrowColor:(UIColor *)bottomArrowColor;
+
++ (UIImage *)chooseCurrencyButtonImageWithSymbol:(NSString *)symbol color:(UIColor *)color;
+
 // Tabs
 + (UIImage *)tabBarContactsIcon:(UIColor *)color;
 + (UIImage *)tabBarCallsIcon:(UIColor *)color;
@@ -34,7 +41,6 @@
 + (UIImage *)chatPendingIcon:(UIColor *)color;
 + (UIImage *)chatUnsentIcon:(UIColor *)color;
 + (UIImage *)chatPinnedIcon:(UIColor *)color;
-+ (UIImage *)chatFavoritedIcon:(UIColor *)color;
 + (UIImage *)chatMentionedIcon:(UIColor *)backgroundColor color:(UIColor *)color;
 
 + (UIImage *)chatEditDeleteIcon:(UIColor *)color;
@@ -202,8 +208,5 @@
 + (UIImage *)segmentedControlDividerImage:(UIColor *)color;
 
 + (UIImage *)modernButtonImageWithColor:(UIColor *)color solid:(bool)solid;
-
-+ (UIImage *)cryptoPricesFavoriteImageSelected:(BOOL)selected withBackgound:(UIColor *)backgroundColor color:(UIColor *)color;
-+ (UIImage *)cryptoPricesSortArrowsTopArrowColor:(UIColor *)topArrowColor bottomArrowColor:(UIColor *)bottomArrowColor;
 
 @end

@@ -586,7 +586,10 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if (!_editingMode)
     {
-        return [[UIBarButtonItem alloc]  initWithImage:TGImageNamed(@"settings") style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed)];
+        return [[UIBarButtonItem alloc] initWithImage:TGTintedImage(TGImageNamed(@"settings"), _presentation.pallete.accentContrastColor)
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonPressed)];
     }
     else
     {

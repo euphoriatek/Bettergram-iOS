@@ -10,6 +10,8 @@
 #import "TGDebugController.h"
 #import "CALayer+SketchShadow.h"
 
+#import "TGCryptoTabViewController.h"
+
 #import "TGPresentation.h"
 
 @protocol TGTabBarDelegate <NSObject>
@@ -151,24 +153,20 @@ static CGFloat kHeight = 18;
 
 @implementation TGTabBarButton
 
-- (instancetype)initWithImage:(UIImage *)image title:(NSString *)title isBarBarOnTop:(BOOL)isBarBarOnTop presentation:(TGPresentation *)presentation
+- (instancetype)initWithImage:(UIImage *)image title:(NSString *)title isBarBarOnTop:(BOOL)isBarBarOnTop
 {
     self = [super init];
     if (self != nil)
     {
-        _presentation = presentation;
-        
         self.accessibilityTraits = UIAccessibilityTraitButton;
         self.accessibilityLabel = title;
         
-        _imageView = [[UIImageView alloc] initWithImage:TGTintedImage(image, presentation.pallete.tabIconColor)];
+        _imageView = [[UIImageView alloc] initWithImage:image];
         [self addSubview:_imageView];
         
         if (title != nil) {
             _label = [[UILabel alloc] init];
             _label.backgroundColor = [UIColor clearColor];
-            _label.textColor = presentation.pallete.tabTextColor;
-            _label.highlightedTextColor = presentation.pallete.tabActiveIconColor;
             _label.font = [TGTabBarButton labelFont];
             _label.text = title;
             _label.textAlignment = NSTextAlignmentLeft;
@@ -209,7 +207,7 @@ static CGFloat kHeight = 18;
     if (_imageView.highlightedImage == nil && selected)
         _imageView.highlightedImage = TGTintedImage(_imageView.image, _presentation.pallete.tabActiveIconColor);
     _imageView.highlighted = selected;
-    _underscoreView.hidden = _underscoreView == nil || !selected;
+    _underscoreView.hidden = !selected;
     _label.highlighted = selected;
 }
 
@@ -350,8 +348,6 @@ static CGFloat kHeight = 18;
 }
 
 @property (nonatomic, weak) id<TGTabBarDelegate> tabDelegate;
-
-@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIView *stripeView;
 
 @property (nonatomic, strong) NSArray<TGTabBarButton *> *tabButtons;
@@ -381,29 +377,25 @@ static CGFloat kHeight = 18;
         _presentation = presentation;
         _isBarBarOnTop = isBarBarOnTop;
         
-        _backgroundView = [[UIView alloc] init];
-        _backgroundView.backgroundColor = presentation.pallete.tabBarBackgroundColor;
-        _backgroundView.frame = self.bounds;
-        [self addSubview:_backgroundView];
-        
         _stripeView = [[UIView alloc] init];
-        _stripeView.backgroundColor = presentation.pallete.tabBarSeparatorColor;
         [self addSubview:_stripeView];
         
         NSMutableArray<TGTabBarButton *> *tabButtons = [NSMutableArray arrayWithCapacity:buttonInfos.count];
         for (TGTabBarButtonInfo *buttonInfo in buttonInfos)
         {
-            TGTabBarButton *button = [[TGTabBarButton alloc] initWithImage:buttonInfo.icon title:buttonInfo.title isBarBarOnTop:isBarBarOnTop presentation:presentation];
-            [tabButtons addObject:button];
-            [self addSubview:button];
+            [tabButtons addObject:[[TGTabBarButton alloc] initWithImage:buttonInfo.icon title:buttonInfo.title isBarBarOnTop:isBarBarOnTop]];
         }
         _tabButtons = [tabButtons copy];
+        
+        [self addSubviews:tabButtons];
         
         UILongPressGestureRecognizer *pressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlePress:)];
         pressGestureRecognizer.minimumPressDuration = 0.0;
         pressGestureRecognizer.allowableMovement = 1.0f;
         pressGestureRecognizer.delegate = self;
         [self addGestureRecognizer:pressGestureRecognizer];
+        
+        [self setPresentation:presentation];
     }
     return self;
 }
@@ -412,7 +404,7 @@ static CGFloat kHeight = 18;
 {
     _presentation = presentation;
     
-    _backgroundView.backgroundColor = presentation.pallete.tabBarBackgroundColor;
+    self.backgroundColor = presentation.pallete.tabBarBackgroundColor;
     _stripeView.backgroundColor = presentation.pallete.tabBarSeparatorColor;
     
     for (TGTabBarButton *button in _tabButtons) {
@@ -453,8 +445,6 @@ static CGFloat kHeight = 18;
             return;
         
         int index = MAX(0, MIN((int)buttonsCount - 1, (int)(location.x / (self.frame.size.width / buttonsCount))));
-        if (buttonsCount == 3 && index > 0)
-            index += 1;
         [self setSelectedIndex:index];
         
         __strong id<TGTabBarDelegate> delegate = _tabDelegate;
@@ -509,11 +499,8 @@ static CGFloat kHeight = 18;
 {
     [super layoutSubviews];
     
-    CGSize viewSize = self.frame.size;
-    
-    _backgroundView.frame = CGRectMake(0, 0, viewSize.width, viewSize.height);
     CGFloat stripeHeight = TGScreenPixel;
-    _stripeView.frame = CGRectMake(0, -stripeHeight, viewSize.width, stripeHeight);
+    _stripeView.frame = CGRectMake(0, -stripeHeight, self.frame.size.width, stripeHeight);
     
     [self layoutButtons];
 }
@@ -798,7 +785,7 @@ static CGFloat kHeight = 18;
     if (![[super viewControllers] isEqual:selectedVC]) {
         [super setViewControllers:selectedVC animated:false];
     }
-    [self _updateNavigationItemOverride:selectedIndex];
+    [self updateNavigationItemOverride:selectedIndex];
     
     [_customTabBar setSelectedIndex:(int)selectedIndex];
 }
@@ -813,7 +800,7 @@ static CGFloat kHeight = 18;
     _viewControllers = viewControllers;
     [super setViewControllers:@[viewControllers[self.selectedIndex]] animated:animated];
     
-    [self _updateNavigationItemOverride:self.selectedIndex];
+    [self updateNavigationItemOverride:self.selectedIndex];
 }
 
 - (NSArray<UIViewController *> *)viewControllers
@@ -821,19 +808,21 @@ static CGFloat kHeight = 18;
     return _viewControllers;
 }
 
-- (void)_updateNavigationItemOverride:(NSUInteger)selectedIndex
+- (void)updateNavigationItemOverride:(NSUInteger)selectedIndex
 {
     int index = -1;
     for (UIViewController *viewController in self.viewControllers)
     {
         index++;
-        
+        BOOL selected = index == (int)selectedIndex;
         if ([viewController isKindOfClass:[TGViewController class]])
         {
-            if (index == (int)selectedIndex)
-                [(TGViewController *)viewController setTargetNavigationItem:self.navigationItem titleController:self];
-            else
-                [(TGViewController *)viewController setTargetNavigationItem:nil titleController:nil];
+            [(TGViewController *)viewController setTargetNavigationItem:selected ? self.navigationItem : nil
+                                                        titleController:selected ? self : nil];
+        }
+        else if ([viewController isKindOfClass:[TGCryptoTabViewController class]]) {
+            [(TGCryptoTabViewController *)viewController setTargetNavigationItem:selected ? self.navigationItem : nil
+                                                                 titleController:selected ? self : nil];
         }
     }
 }

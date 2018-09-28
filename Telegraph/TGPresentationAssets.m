@@ -6,6 +6,138 @@
 
 @implementation TGPresentationAssets
 
++ (UIImage *)chatFavoritedIcon:(UIColor *)color
+{
+    NSString *code = @"M8.15217391,15 L7.01086957,13.8586957 C2.77173913,10.1086957 0,7.58152174 0,4.48369565 C0,1.95652174 1.95652174,0 4.48369565,0 C5.86956522,0 7.25543478,0.652173913 8.15217391,1.71195652 C9.04891304,0.652173913 10.4347826,0 11.8206522,0 C14.3478261,0 16.3043478,1.95652174 16.3043478,4.48369565 C16.3043478,7.58152174 13.5326087,10.1086957 9.29347826,13.8586957 L8.15217391,15 Z";
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(17*TGScreenScaling(), 17*TGScreenScaling()), false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(context, 1, 3);
+    CGContextScaleCTM(context, TGScreenScaling(), TGScreenScaling());
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    TGDrawSvgPath(context, code);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
++ (UIImage *)cryptoPricesFavoriteImageSelected:(BOOL)selected withBackgound:(UIColor *)backgroundColor color:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0, 0, 34, 34);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (backgroundColor != nil) {
+        CGContextSetFillColorWithColor(context, backgroundColor.CGColor);
+        CGContextAddEllipseInRect(context, rect);
+        CGContextFillPath(context);
+    }
+    
+    CGContextSetLineWidth(context, 1);
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextSetStrokeColorWithColor(context, color.CGColor);
+    CGContextTranslateCTM(context, 29.0/3, 29.0/3);
+    TGDrawSvgPath(context, selected ? [self selectedStarCode] : [self deselectedStarCode]);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
++ (NSString *)selectedStarCode
+{
+    return @"M14.0248526,4.74958678 L9.98683605,4.3677686 C9.73229059,4.3446281 9.51245588,4.18264463 9.40832365,3.93966942 L7.96204266,0.433884298 C7.7306377,-0.144628099 6.9091501,-0.144628099 6.67774514,0.433884298 L5.24303439,3.93966942 C5.15047241,4.18264463 4.91906745,4.3446281 4.664522,4.3677686 L0.626505468,4.74958678 C0.0248525752,4.80743802 -0.218122631,5.55950413 0.233117038,5.96446281 L3.27609224,8.63719008 C3.47278646,8.8107438 3.5537782,9.06528926 3.49592696,9.31983471 L2.58187737,13.068595 C2.44303439,13.6586777 3.07939803,14.1446281 3.61162943,13.8322314 L6.97857158,11.853719 C7.19840629,11.7264463 7.464522,11.7264463 7.68435671,11.853719 L11.0512989,13.8322314 C11.5835303,14.1446281 12.2198939,13.6702479 12.0810509,13.068595 L11.1785716,9.31983471 C11.1207203,9.06528926 11.2017121,8.8107438 11.3984063,8.63719008 L14.4413815,5.96446281 C14.8810509,5.55950413 14.6265055,4.80743802 14.0248526,4.74958678 Z";
+}
+
++ (NSString *)deselectedStarCode
+{
+    return @"M14.138843,4.76694215 L10.1008264,4.38512397 C9.84628099,4.36198347 9.62644628,4.2 9.52231405,3.95702479 L8.07603306,0.451239669 C7.8446281,-0.127272727 7.0231405,-0.127272727 6.79173554,0.451239669 L5.35702479,3.95702479 C5.26446281,4.2 5.03305785,4.36198347 4.7785124,4.38512397 L0.740495868,4.76694215 C0.138842975,4.82479339 -0.104132231,5.5768595 0.347107438,5.98181818 L3.39008264,8.65454545 C3.58677686,8.82809917 3.6677686,9.08264463 3.60991736,9.33719008 L2.69586777,13.0859504 C2.55702479,13.6760331 3.19338843,14.1619835 3.72561983,13.8495868 L7.09256198,11.8710744 C7.31239669,11.7438017 7.5785124,11.7438017 7.79834711,11.8710744 L11.1652893,13.8495868 C11.6975207,14.1619835 12.3338843,13.6876033 12.1950413,13.0859504 L11.292562,9.33719008 C11.2347107,9.08264463 11.3157025,8.82809917 11.5123967,8.65454545 L14.5553719,5.98181818 C14.9950413,5.5768595 14.7404959,4.82479339 14.138843,4.76694215 S";
+}
+
++ (UIImage *)cryptoPricesSortArrowsTopArrowColor:(UIColor *)topArrowColor bottomArrowColor:(UIColor *)bottomArrowColor
+{
+    NSString *topArrowCode = @"M0,4 L3,0 L6,4 Z";
+    NSString *bottomArrowCode = @"M0,6 L3,10 L6,6 Z";
+    
+    CGRect rect = CGRectMake(0, 0, 6, 10);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, topArrowColor.CGColor);
+    TGDrawSvgPath(context, topArrowCode);
+    
+    CGContextSetFillColorWithColor(context, bottomArrowColor.CGColor);
+    TGDrawSvgPath(context, bottomArrowCode);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
++ (UIImage *)chooseCurrencyButtonImageWithSymbol:(NSString *)symbol color:(UIColor *)color
+{
+    NSString *arrowCode = @"M31,10 L35.5,16 L40,10 Z";
+    CGFloat circleWidth = 1.62;
+    
+    CGRect rect = CGRectMake(0, 0, 40, 26);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextSetStrokeColorWithColor(context, color.CGColor);
+    CGContextSetLineWidth(context, circleWidth);
+    
+    CGRect ellipseRect = CGRectMake(circleWidth / 2, circleWidth / 2,
+                                    rect.size.height - circleWidth,
+                                    rect.size.height - circleWidth);
+    CGContextStrokeEllipseInRect(context, ellipseRect);
+    
+    TGDrawSvgPath(context, arrowCode);
+    
+    CGFloat fontSize = rect.size.height - circleWidth;
+    UIFont *font;
+    CGSize symbolSize;
+    CGFloat maxHypot = (rect.size.height - circleWidth * 2);
+    do {
+        font = TGSystemFontOfSize(fontSize);
+        NSDictionary *attributes = @{NSFontAttributeName : font};
+        symbolSize = [symbol sizeWithAttributes:attributes];
+        CGSize realSize;
+        realSize.width = CTLineGetTypographicBounds(CTLineCreateWithAttributedString((CFAttributedStringRef)[[NSAttributedString alloc] initWithString:symbol attributes:attributes]),
+                                                    &realSize.height, NULL, NULL);
+        CGFloat d = hypot(realSize.width, realSize.height);
+        if (d > maxHypot) {
+            fontSize -= TGScreenPixel;
+        }
+        else {
+            break;
+        }
+    } while (true);
+    [symbol drawInRect:CGRectMake((rect.size.height - symbolSize.width) / 2,
+                                  (rect.size.height - symbolSize.height) / 2,
+                                  symbolSize.width,
+                                  symbolSize.height)
+        withAttributes:@{ NSFontAttributeName : font,
+                          NSForegroundColorAttributeName : color }];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+#pragma mark -
+
 + (UIImage *)tabBarContactsIcon:(UIColor *)color
 {
     NSString *code = @"M46.5,13 C27.428409,13 12,28.428409 12,47.5 C12,57.512776 16.2627225,66.5135605 23.0625,72.8125 C28.754193,68.7098485 37.4142195,68.0640625 39.1875,63.296875 C39.4065,60.878875 39.328125,59.17825 39.328125,56.96875 C38.230125,56.39425 36.189375,52.74925 35.859375,49.65625 C34.998375,49.58575 33.633375,48.754 33.234375,45.4375 C33.021375,43.657 33.88875,42.65875 34.40625,42.34375 C31.49475,31.13875 33.078375,21.353875 46.359375,21.109375 C49.678875,21.109375 52.2525,21.982375 53.25,23.734375 C62.943,25.081375 59.99475,38.13025 58.59375,42.34375 C59.11275,42.65875 59.980125,43.657 59.765625,45.4375 C59.368125,48.754 58.001625,49.58575 57.140625,49.65625 C56.809125,52.75075 54.860625,56.39425 53.765625,56.96875 C53.765625,59.17825 53.68725,60.878875 53.90625,63.296875 C55.6750635,68.0575585 64.270464,68.728288 69.9375,72.8125 C76.7372775,66.5135605 81,57.512776 81,47.5 C81,28.428409 65.571591,13 46.5,13 Z";
@@ -395,24 +527,6 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    return image;
-}
-
-+ (UIImage *)chatFavoritedIcon:(UIColor *)color
-{
-    NSString *code = @"M8.15217391,15 L7.01086957,13.8586957 C2.77173913,10.1086957 0,7.58152174 0,4.48369565 C0,1.95652174 1.95652174,0 4.48369565,0 C5.86956522,0 7.25543478,0.652173913 8.15217391,1.71195652 C9.04891304,0.652173913 10.4347826,0 11.8206522,0 C14.3478261,0 16.3043478,1.95652174 16.3043478,4.48369565 C16.3043478,7.58152174 13.5326087,10.1086957 9.29347826,13.8586957 L8.15217391,15 Z";
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(17*TGScreenScaling(), 17*TGScreenScaling()), false, 0.0f);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextTranslateCTM(context, 1, 3);
-    CGContextScaleCTM(context, TGScreenScaling(), TGScreenScaling());
-    CGContextSetFillColorWithColor(context, color.CGColor);
-    TGDrawSvgPath(context, code);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
     return image;
 }
 
@@ -2275,64 +2389,6 @@
     UIGraphicsEndImageContext();
     
     return [image resizableImageWithCapInsets:UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f)];
-}
-
-+ (UIImage *)cryptoPricesFavoriteImageSelected:(BOOL)selected withBackgound:(UIColor *)backgroundColor color:(UIColor *)color
-{
-    CGRect rect = CGRectMake(0, 0, 34, 34);
-    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (backgroundColor != nil) {
-        CGContextSetFillColorWithColor(context, backgroundColor.CGColor);
-        CGContextAddEllipseInRect(context, rect);
-        CGContextFillPath(context);
-    }
-    
-    CGContextSetLineWidth(context, 1);
-    CGContextSetFillColorWithColor(context, color.CGColor);
-    CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGContextTranslateCTM(context, 29.0/3, 29.0/3);
-    TGDrawSvgPath(context, selected ? [self selectedStarCode] : [self deselectedStarCode]);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-
-+ (NSString *)selectedStarCode
-{
-    return @"M14.0248526,4.74958678 L9.98683605,4.3677686 C9.73229059,4.3446281 9.51245588,4.18264463 9.40832365,3.93966942 L7.96204266,0.433884298 C7.7306377,-0.144628099 6.9091501,-0.144628099 6.67774514,0.433884298 L5.24303439,3.93966942 C5.15047241,4.18264463 4.91906745,4.3446281 4.664522,4.3677686 L0.626505468,4.74958678 C0.0248525752,4.80743802 -0.218122631,5.55950413 0.233117038,5.96446281 L3.27609224,8.63719008 C3.47278646,8.8107438 3.5537782,9.06528926 3.49592696,9.31983471 L2.58187737,13.068595 C2.44303439,13.6586777 3.07939803,14.1446281 3.61162943,13.8322314 L6.97857158,11.853719 C7.19840629,11.7264463 7.464522,11.7264463 7.68435671,11.853719 L11.0512989,13.8322314 C11.5835303,14.1446281 12.2198939,13.6702479 12.0810509,13.068595 L11.1785716,9.31983471 C11.1207203,9.06528926 11.2017121,8.8107438 11.3984063,8.63719008 L14.4413815,5.96446281 C14.8810509,5.55950413 14.6265055,4.80743802 14.0248526,4.74958678 Z";
-}
-
-+ (NSString *)deselectedStarCode
-{
-    return @"M14.138843,4.76694215 L10.1008264,4.38512397 C9.84628099,4.36198347 9.62644628,4.2 9.52231405,3.95702479 L8.07603306,0.451239669 C7.8446281,-0.127272727 7.0231405,-0.127272727 6.79173554,0.451239669 L5.35702479,3.95702479 C5.26446281,4.2 5.03305785,4.36198347 4.7785124,4.38512397 L0.740495868,4.76694215 C0.138842975,4.82479339 -0.104132231,5.5768595 0.347107438,5.98181818 L3.39008264,8.65454545 C3.58677686,8.82809917 3.6677686,9.08264463 3.60991736,9.33719008 L2.69586777,13.0859504 C2.55702479,13.6760331 3.19338843,14.1619835 3.72561983,13.8495868 L7.09256198,11.8710744 C7.31239669,11.7438017 7.5785124,11.7438017 7.79834711,11.8710744 L11.1652893,13.8495868 C11.6975207,14.1619835 12.3338843,13.6876033 12.1950413,13.0859504 L11.292562,9.33719008 C11.2347107,9.08264463 11.3157025,8.82809917 11.5123967,8.65454545 L14.5553719,5.98181818 C14.9950413,5.5768595 14.7404959,4.82479339 14.138843,4.76694215 S";
-}
-
-+ (UIImage *)cryptoPricesSortArrowsTopArrowColor:(UIColor *)topArrowColor bottomArrowColor:(UIColor *)bottomArrowColor
-{
-    NSString *topArrowCode = @"M0,4 L3,0 L6,4 Z";
-    NSString *bottomArrowCode = @"M0,6 L3,10 L6,6 Z";
-    
-    CGRect rect = CGRectMake(0, 0, 6, 10);
-    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0f);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetFillColorWithColor(context, topArrowColor.CGColor);
-    TGDrawSvgPath(context, topArrowCode);
-    
-    CGContextSetFillColorWithColor(context, bottomArrowColor.CGColor);
-    TGDrawSvgPath(context, bottomArrowCode);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return image;
 }
 
 @end

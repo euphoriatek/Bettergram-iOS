@@ -211,8 +211,8 @@
     CGSize pixelSize = renderSize;
     if (TGIsRetina())
     {
-        pixelSize.width *= 2.0f;
-        pixelSize.height *= 2.0f;
+        pixelSize.width *= TGScreenScaling();
+        pixelSize.height *= TGScreenScaling();
     }
     
     CGSize thumbnailSize = CGSizeZero;

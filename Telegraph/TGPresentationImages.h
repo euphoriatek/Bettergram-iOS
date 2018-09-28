@@ -14,6 +14,8 @@ IMAGE offlineBadgeImage;
 
 IMAGE cryptoPricesFilterFavoriteSelectedImage;
 IMAGE cryptoPricesFilterFavoriteDeselectedImage;
+- (UIImage *)chooseCurrencyButtonImageForCurrencySymbol:(NSString *)symbol;
+IMAGE seeAllButtonBackground;
 
 IMAGE cryptoPricesSortImage;
 IMAGE cryptoPricesSortAscendingImage;

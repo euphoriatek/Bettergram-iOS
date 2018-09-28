@@ -12,12 +12,15 @@
 #import "TGAccountSettingsController.h"
 #import "TGRecentCallsController.h"
 #import "TGMainTabsController.h"
-#import "TGCryptoTabViewController.h"
 #import "TGModernConversationController.h"
 #import "TGCallStatusBarView.h"
 #import "TGVolumeBarView.h"
 #import "TGProxyWindow.h"
+
+#import "TGCryptoTabViewController.h"
 #import "TGCryptoPricesViewController.h"
+#import "TGCryptoRssViewController.h"
+#import "TGResourcesViewController.h"
 
 #import "TGPresentation.h"
 
@@ -81,9 +84,13 @@
             _cryptoController = [[TGCryptoTabViewController alloc] initWithPresentation:_presentation];
             [_cryptoController setViewControllers:@[
                                                     [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
-                                                    [[TGViewController alloc] init],
-                                                    [[TGViewController alloc] init],
-                                                    [[TGViewController alloc] init],
+                                                    [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
+                                                                                                 feedParser:TGCryptoManager.manager.newsFeedParser
+                                                                                             isVideoContent:NO],
+                                                    [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
+                                                                                                 feedParser:TGCryptoManager.manager.videosFeedParser
+                                                                                             isVideoContent:YES],
+                                                    [[TGResourcesViewController alloc] initWithPresentation:_presentation],
                                                     ]];
             [_cryptoController setSelectedIndexCustom:0];
         }
