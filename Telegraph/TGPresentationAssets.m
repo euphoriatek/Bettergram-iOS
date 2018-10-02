@@ -136,6 +136,33 @@
     return image;
 }
 
++ (UIImage *)settingsImage:(UIColor *)color
+{
+    CGSize size = CGSizeMake(23, 20);
+    UIGraphicsBeginImageContextWithOptions(size, false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    
+    CGRect rect = CGRectMake(0, 0, size.width, 2);
+    CGFloat cornerRadius = rect.size.height * 0.3;
+    [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius] fill];
+    
+    rect.origin.y = size.height - rect.size.height;
+    [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius] fill];
+    
+    rect.size.width = size.width * 17 / 23;
+    rect.origin.y /= 2;
+    [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius] fill];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 #pragma mark -
 
 + (UIImage *)tabBarContactsIcon:(UIColor *)color

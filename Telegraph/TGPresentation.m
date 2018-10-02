@@ -93,7 +93,14 @@
 
 - (TGConversationAssociatedInputPanelPallete *)associatedInputPanelPallete
 {
-    return [TGConversationAssociatedInputPanelPallete palleteWithDark:self.pallete.isDark backgroundColor:self.pallete.backgroundColor separatorColor:self.pallete.separatorColor selectionColor:self.pallete.selectionColor barBackgroundColor:self.pallete.barBackgroundColor barSeparatorColor:self.pallete.barSeparatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:self.pallete.accentContrastColor placeholderBackgroundColor:nil placeholderIconColor:nil avatarPlaceholder:[self.images avatarPlaceholderWithDiameter:32.0f] closeIcon:self.images.replyCloseIcon largeCloseIcon:self.images.pinCloseIcon];
+    UIColor *accentColor = self.pallete.accentColor;
+    UIColor *textColor = self.pallete.textColor;
+    if ([accentColor isEqual:self.pallete.barBackgroundColor]) {
+        accentColor = self.pallete.accentContrastColor;
+        textColor = self.pallete.secondaryTextColor;
+    }
+    return [TGConversationAssociatedInputPanelPallete palleteWithDark:self.pallete.isDark backgroundColor:self.pallete.backgroundColor separatorColor:self.pallete.separatorColor selectionColor:self.pallete.selectionColor barBackgroundColor:self.pallete.barBackgroundColor barSeparatorColor:self.pallete.barSeparatorColor textColor:textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:accentColor placeholderBackgroundColor:nil placeholderIconColor:nil avatarPlaceholder:[self.images avatarPlaceholderWithDiameter:32.0f] closeIcon:self.images.replyCloseIcon largeCloseIcon:self.images.pinCloseIcon];
+
 }
 
 - (TGImageBorderPallete *)imageBorderPallete

@@ -31,14 +31,12 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     TGFeedParser *_videosFeedParser;
     AFHTTPSessionManager *_livecoinSessionManager;
     AFHTTPSessionManager *_bettergramSessionManager;
-    AFHTTPSessionManager *_httpParserSessionManager;
     NSDictionary<NSString *, TGCryptoCurrency *> *_currencies;
     NSMutableArray<NSString *> *_favoriteCurrencyCodes;
     NSTimeInterval _lastUpdateDate;
     
     NSMutableDictionary<NSString *, NSDictionary<NSString *, id> *> *_httpHeaderImageURLs;
     
-    dispatch_queue_t _processingQueue;
 }
 
 - (void)updateBettergramResourceForKey:(NSString *)key completion:(void (^)(id json))completion;
@@ -49,8 +47,15 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 @interface TGFeedParser () <MWFeedParserDelegate> {
     NSArray<MWFeedParser *> *_feedParsers;
     NSMutableArray<MWFeedItem *> *_feedItems;
-    NSInteger _lastReportedFeedItemIndex;
+    NSUInteger _lastReportedFeedItemIndex;
     __weak NSTimer *_updateFeedTimer;
+    
+    NSMutableDictionary<NSString *, NSDate *> *_parsersOldestDate;
+    
+    __weak NSTimer *_archiveFeedItemsTimer;
+    AFHTTPSessionManager *_httpParserSessionManager;
+    
+    dispatch_queue_t _processingQueue;
 }
 
 @end
@@ -60,23 +65,33 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 - (instancetype)initWithKey:(NSString *)key
 {
     if (self = [super init]) {
+        _processingQueue = dispatch_queue_create("FeedParserProcessingQueue", NULL);
+        _httpParserSessionManager = [[AFHTTPSessionManager alloc] init];
+        _httpParserSessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        _parsersOldestDate = [NSMutableDictionary dictionary];
         _key = key;
         _lastReportedFeedItemIndex = NSNotFound;
         _feedItems = [self cachedFeedItemsForRssKey:key].mutableCopy;
         
         NSTimeInterval lastReadDate = [NSUserDefaults.standardUserDefaults doubleForKey:self.lastReadDateKey];
         _lastReadDate = lastReadDate > 0 ? [NSDate dateWithTimeIntervalSince1970:lastReadDate] : NSDate.date;
-        [TGCryptoManager.manager updateBettergramResourceForKey:key completion:^(NSArray<NSString *> *urls) {
-            _urls = urls;
+        [TGCryptoManager.manager updateBettergramResourceForKey:key completion:^(id urls) {
+            if ([urls isKindOfClass:[NSSet class]]) {
+                _urls = urls;
+            }
+            else if ([urls isKindOfClass:[NSArray class]]) {
+                _urls = [NSSet setWithArray:urls];
+            }
             [self clearRemovedURLs];
             
             NSMutableArray<MWFeedParser *> *feedParsers = [NSMutableArray array];
-            for (NSString *url in urls) {
+            for (NSString *url in _urls) {
                 [feedParsers addObject:[self parserWithFeedURLString:url]];
             }
             _feedParsers = feedParsers;
             
-            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(__unused NSTimer * _Nonnull timer) {
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 * 20 repeats:YES block:^(__unused NSTimer * _Nonnull timer) {
                 for (MWFeedParser *parser in _feedParsers) {
                     [parser parse];
                 }
@@ -94,7 +109,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 
 - (void)setLastReadDate:(NSDate *)lastReadDate
 {
-    if ( [_lastReadDate compare:lastReadDate] != NSOrderedAscending) return;
+    if ([_lastReadDate compare:lastReadDate] != NSOrderedAscending) return;
     _lastReadDate = lastReadDate;
     [NSUserDefaults.standardUserDefaults setDouble:lastReadDate.timeIntervalSince1970 forKey:self.lastReadDateKey];
     [NSUserDefaults.standardUserDefaults synchronize];
@@ -119,9 +134,34 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     }
 }
 
+- (void)feedItemReadStateUpdated:(MWFeedItem *)__unused feedItem
+{
+    [self setNeedsArchiveFeedItems];
+}
+
+- (void)setNeedsArchiveFeedItems
+{
+    TGDispatchOnMainThread(^{
+        [_archiveFeedItemsTimer invalidate];
+        _archiveFeedItemsTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                                 repeats:NO
+                                                                   block:^(__unused NSTimer * _Nonnull timer) {
+                                                                       [NSKeyedArchiver archiveRootObject:_feedItems toFile:[self feedItemsFileForRssKey:self.key]];
+                                                                   }];
+    });
+}
+
 #pragma mark - MWFeedParserDelegate
 
-- (void)feedParser:(MWFeedParser *)__unused parser didParseFeedItem:(MWFeedItem *)item {
+- (void)feedParserDidStart:(MWFeedParser *)parser
+{
+    _parsersOldestDate[parser.url.absoluteString] = [NSDate date];
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
+    if ([_parsersOldestDate[parser.url.absoluteString] compare:item.date] == NSOrderedDescending) {
+        _parsersOldestDate[parser.url.absoluteString] = item.date;
+    }
     for (MWFeedItem *feedItem in _feedItems) {
         if ([feedItem.identifier isEqualToString:item.identifier]) {
             return;
@@ -132,19 +172,26 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     _updateFeedTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reportNewFeedItems) userInfo:nil repeats:NO];
 }
 
-- (void)feedParserDidFinish:(MWFeedParser *)__unused parser
+- (void)feedParserDidFinish:(MWFeedParser *)parser
 {
+    [_feedItems.copy enumerateObjectsWithOptions:NSEnumerationReverse
+                                      usingBlock:^(MWFeedItem * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
+                                          if ([parser.url.absoluteString isEqualToString:obj.feedURL] &&
+                                              [_parsersOldestDate[obj.feedURL] compare:obj.date] == NSOrderedDescending)
+                                          {
+                                              [_feedItems removeObjectAtIndex:idx];
+                                              if (_lastReportedFeedItemIndex < _feedItems.count && idx <= _lastReportedFeedItemIndex) {
+                                                  _lastReportedFeedItemIndex--;
+                                              }
+                                          }
+                                 }];
     __block BOOL parsing = NO;
     [_feedParsers enumerateObjectsUsingBlock:^(MWFeedParser * _Nonnull obj, __unused NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.parsing) {
-            parsing = YES;
-            *stop = YES;
-        }
+        *stop = parsing = obj.parsing;
     }];
+    [self setNeedsArchiveFeedItems];
     if (!parsing) {
-        [self reportNewFeedItems];
-        [_updateFeedTimer invalidate];
-        [NSKeyedArchiver archiveRootObject:_feedItems toFile:[self feedItemsFileForRssKey:self.key]];
+        [_updateFeedTimer fire];
     }
 }
 
@@ -173,8 +220,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 {
     NSMutableArray<MWFeedItem *> *feedItems = [NSMutableArray array];
     for (MWFeedItem *feedItem in [NSKeyedUnarchiver unarchiveObjectWithFile:[self feedItemsFileForRssKey:rssKey]]) {
-        if (![feedItem isKindOfClass:[MWFeedItem class]]) continue;
-        if (-feedItem.date.timeIntervalSinceNow < kDaySecons * 7) {
+        if ([feedItem isKindOfClass:[MWFeedItem class]]) {
             [feedItems addObject:feedItem];
         }
     }
@@ -185,6 +231,49 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 {
     return [NSFileManager.defaultManager.temporaryDirectory
             URLByAppendingPathComponent:[NSString stringWithFormat:@"%@FeedItems",rssKey]].path;
+}
+
+- (NSString *)linkHeadersCacheFile
+{
+    static NSString *path;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        path = [NSFileManager.defaultManager.temporaryDirectory URLByAppendingPathComponent:@"linkHeaders"].path;
+    });
+    return path;
+}
+
+- (NSURLSessionDataTask *)fillFeedItemThumbnailFromOGImage:(MWFeedItem *)feedItem completion:(void (^)(NSString *url))completion
+{
+    if (feedItem.thumbnailURL) {
+        completion(feedItem.thumbnailURL);
+        return nil;
+    }
+    return [_httpParserSessionManager GET:feedItem.link
+                               parameters:nil
+                                  headers:nil
+                                 progress:nil
+                                  success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                      dispatch_async(_processingQueue, ^{
+                                          NSString *contentType = nil;
+                                          if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                              NSDictionary *headers = [(NSHTTPURLResponse *)task.response allHeaderFields];
+                                              contentType = headers[@"Content-Type"];
+                                          }
+                                          HTMLDocument *home = [HTMLDocument documentWithData:responseObject
+                                                                            contentTypeHeader:contentType];
+                                          for (HTMLElement *element in [home nodesMatchingSelector:@"meta"]) {
+                                              if ([element.attributes[@"property"] isEqualToString:@"og:image"]) {
+                                                  feedItem.thumbnailURL = element.attributes[@"content"];
+                                                  completion(feedItem.thumbnailURL);
+                                                  [self setNeedsArchiveFeedItems];
+                                                  return;
+                                              }
+                                          }
+                                      });
+                                  } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                      TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
+                                  }];
 }
 
 @end
@@ -203,11 +292,8 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 - (instancetype)init
 {
     if (self = [super init]) {
-        _processingQueue = dispatch_queue_create("CryptoManagerProcessingQueue", NULL);
         _livecoinSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://http-api.livecoinwatch.com/"]];
         _bettergramSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.bettergram.io/v1/"]];
-        _httpParserSessionManager = [[AFHTTPSessionManager alloc] init];
-        _httpParserSessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
         id responseObject = [NSKeyedUnarchiver unarchiveObjectWithFile:[self currenciesResponseObjectFile]];
         if ([responseObject isKindOfClass:[NSDictionary class]] &&
@@ -216,13 +302,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
         {
             [self parseCurrenciesResponseObject:responseObject];
         }
-        
-        _httpHeaderImageURLs = [([NSKeyedUnarchiver unarchiveObjectWithFile:[self linkHeadersCacheFile]] ?: @{}) mutableCopy];
-        [_httpHeaderImageURLs.copy enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSDictionary<NSString *,id> * _Nonnull obj, __unused BOOL * _Nonnull stop) {
-            if (NSDate.date.timeIntervalSince1970 - [obj[kDateKey] doubleValue] > kDaySecons * 5) {
-                [_httpHeaderImageURLs removeObjectForKey:key];
-            }
-        }];
     }
     return self;
 }
@@ -241,48 +320,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
         _videosFeedParser = [[TGFeedParser alloc] initWithKey:@"videos"];
     }
     return _videosFeedParser;
-}
-
-- (NSURLSessionDataTask *)metaOgImageURLFromURL:(NSString *)url completion:(void (^)(NSString *url))completion
-{
-    NSString *imageUrl = _httpHeaderImageURLs[url][kImageKey];
-    if (imageUrl != nil) {
-        completion(imageUrl);
-        return nil;
-    }
-    return [_httpParserSessionManager GET:url
-                               parameters:nil
-                                  headers:nil
-                                 progress:nil
-                                  success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                      dispatch_async(_processingQueue, ^{
-                                          NSString *contentType = nil;
-                                          if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                              NSDictionary *headers = [(NSHTTPURLResponse *)task.response allHeaderFields];
-                                              contentType = headers[@"Content-Type"];
-                                          }
-                                          HTMLDocument *home = [HTMLDocument documentWithData:responseObject
-                                                                            contentTypeHeader:contentType];
-                                          for (HTMLElement *element in [home nodesMatchingSelector:@"meta"]) {
-                                              if ([element.attributes[@"property"] isEqualToString:@"og:image"]) {
-                                                  NSString *imageURL = element.attributes[@"content"];
-                                                  completion(imageURL);
-                                                  _httpHeaderImageURLs[url] = @{
-                                                                                kImageKey: imageURL,
-                                                                                kDateKey: @(NSDate.date.timeIntervalSince1970)
-                                                                                };
-                                                  static NSTimer *timer = nil;
-                                                  [timer invalidate];
-                                                  timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:NO block:^(__unused NSTimer * _Nonnull timer) {
-                                                      [NSKeyedArchiver archiveRootObject:_httpHeaderImageURLs toFile:[self linkHeadersCacheFile]];
-                                                  }];
-                                                  return;
-                                              }
-                                          }
-                                      });
-                                  } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                      TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
-                                  }];
 }
 
 - (void)fetchResources:(void (^)(NSArray<TGResourceSection *> *resourceSections))completion
@@ -348,11 +385,11 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                              parameters:@{
                                           @"sort":[self sortParamForSorting:sorting],
                                           @"order":[self orderParamForSorting:sorting],
-                                          @"offset":@(offset),
-                                          @"limit":@(favorites ? 0 : limit),
+                                            @"offset":@(offset),
+                                            @"limit":@(favorites ? 0 : limit),
                                           @"favorites":favorites ? [_favoriteCurrencyCodes componentsJoinedByString:@","] : @"",
-                                          @"currency":self.selectedCurrency.code,
-                                          }
+                                            @"currency":self.selectedCurrency.code,
+            }
                                 headers:nil
                                progress:nil
                                 success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -536,16 +573,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 }
 
 #pragma mark - Support
-
-- (NSString *)linkHeadersCacheFile
-{
-    static NSString *path;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        path = [NSFileManager.defaultManager.temporaryDirectory URLByAppendingPathComponent:@"linkHeaders"].path;
-    });
-    return path;
-}
 
 - (NSString *)currenciesResponseObjectFile
 {

@@ -87,12 +87,6 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     }
 }
 
-- (void)setPresentation:(TGPresentation *)presentation
-{
-    _titleLabel.textColor = presentation.pallete.marketInfoMarkValueColor;
-    _subtitleLabel.textColor = presentation.pallete.secondaryTextColor;
-}
-
 @end
 
 @interface TGOlderNewsHeaderView : UITableViewHeaderFooterView {
@@ -158,6 +152,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     BOOL _isVideoContent;
     TGCryptoNumberFormatter *_numberFormatter;
     __weak NSTimer *_readedTimer;
+    UIBarButtonItem *_leftButtonItem;
     
     NSMutableDictionary<NSIndexPath *, NSURLSessionDataTask *> *_dataTasks;
 }
@@ -193,7 +188,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = UIColor.clearColor;
+    _tableView.backgroundColor = nil;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.sectionFooterHeight = 0;
@@ -202,8 +197,13 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _tableView.rowHeight = 90;
     [_tableView registerClass:[TGRssCell class] forCellReuseIdentifier:TGRssCell.reuseIdentifier];
     
+    [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(settingsButtonTap)]
+                      animated:false];
+    
     _olderNewsHeaderView = [[TGOlderNewsHeaderView alloc] initWithReuseIdentifier:TGOlderNewsHeaderView.reuseIdentifier];
-    [_olderNewsHeaderView setPresentation:_presentation];
     
     [self.view addSubviews:@[
                              _tableView
@@ -233,10 +233,9 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     
     self.view.backgroundColor = presentation.pallete.backgroundColor;
     
-    [_tableView.visibleCells enumerateObjectsUsingBlock:^(__kindof TGRssCell * _Nonnull cell, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
-        [cell setPresentation:presentation];
-    }];
+    [_tableView reloadData];
     [_olderNewsHeaderView setPresentation:_presentation];
+    _leftButtonItem.image = _presentation.images.settingsButton;
 }
 
 - (void)localizationUpdated
@@ -257,6 +256,14 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     [_tableView scrollToTop];
 }
 
+- (void)settingsButtonTap
+{
+    TGViewController *accountSettingsController = TGAppDelegateInstance.rootController.accountSettingsController;
+    [TGAppDelegateInstance.rootController pushContentController:accountSettingsController];
+    
+    [accountSettingsController setTargetNavigationItem:accountSettingsController.navigationItem titleController:TGAppDelegateInstance.rootController];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)__unused tableView
@@ -273,7 +280,6 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 {
     MWFeedItem *feedItem = _feedItems[indexPath.section];
     TGRssCell *cell = (TGRssCell *)[tableView dequeueReusableCellWithIdentifier:TGRssCell.reuseIdentifier forIndexPath:indexPath];
-    [cell setPresentation:_presentation];
     NSInteger tag = ++cell.tag;
     if (feedItem.thumbnailURL != nil) {
         [cell.iconImageView loadImage:feedItem.thumbnailURL filter:nil placeholder:nil];
@@ -281,7 +287,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     else {
         [cell.iconImageView cancelLoading];
         cell.iconImageView.image = nil;
-        NSURLSessionDataTask *task = [TGCryptoManager.manager metaOgImageURLFromURL:feedItem.link
+        NSURLSessionDataTask *task = [_feedParser fillFeedItemThumbnailFromOGImage:feedItem
                                                                          completion:^(NSString *url) {
                                                                              TGDispatchOnMainThread(^{
                                                                                  if (tag == cell.tag) {
@@ -301,6 +307,8 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     }
     cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@ • %@",feedItem.author, middleSubtitle, [TGStringUtils stringForShortMessageTimerSeconds:(NSUInteger)-feedItem.date.timeIntervalSinceNow]];
     cell.isVideoContent = _isVideoContent;
+    cell.titleLabel.textColor = feedItem.isViewed ? _presentation.pallete.secondaryTextColor : _presentation.pallete.textColor;
+    cell.subtitleLabel.textColor = _presentation.pallete.secondaryTextColor;
     return cell;
 }
 
@@ -319,7 +327,12 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:_feedItems[indexPath.row].link]
+    MWFeedItem *feedItem = _feedItems[indexPath.section];
+    if (!feedItem.isViewed) {
+        feedItem.isViewed = YES;
+        [_feedParser feedItemReadStateUpdated:feedItem];
+    }
+    [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:feedItem.link]
                                                     forceNative:true
                                                       keepStack:true];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

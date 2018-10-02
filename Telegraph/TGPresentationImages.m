@@ -126,6 +126,13 @@
     }];
 }
 
+- (UIImage *)settingsButton
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets settingsImage:self.pallete.accentContrastColor];
+    }];
+}
+
 #pragma mark - Tabs
 
 - (UIImage *)tabBarBadgeImage

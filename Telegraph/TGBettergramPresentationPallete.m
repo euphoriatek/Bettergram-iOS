@@ -43,7 +43,7 @@
 
 - (UIColor *)conversationInputPanelActionColor
 {
-    return [UIColor whiteColor];
+    return self.accentContrastColor;
 }
 
 - (UIColor *)textColor

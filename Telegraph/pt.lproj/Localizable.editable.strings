@@ -301,7 +301,6 @@
 "Contacts.contact" = "contato";
 "Contacts.contacts" = "contatos";
 "Contacts.contactsvar" = "contatos";
-"Contacts.InvitationText" = "Ei, vamos mudar para o TELEGRAM_APP_NAME http://TELEGRAM_APP_NAME.org/dl";
 "Contacts.FailedToSendInvitesMessage" = "Ocorreu um erro.";
 "Contacts.AccessDeniedError" = "O TELEGRAM_APP_NAME não tem acesso à seus contatos.";
 "Contacts.AccessDeniedHelpLandscape" = "Por favor, vá para %@ Ajustes — Privacidade — Contatos.\nEm seguida, selecione ON para TELEGRAM_APP_NAME.";

@@ -11,21 +11,6 @@
     return ![[[TGWallpaperManager instance] currentWallpaperInfo] isKindOfClass:[TGColorWallpaperInfo class]];
 }
 
-- (UIColor *)marketInfoMarkTitleColor
-{
-    return [self secondaryTextColor];
-}
-
-- (UIColor *)marketInfoMarkChangeGainColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)marketInfoMarkChangeLossColor
-{
-    return [self destructiveColor];
-}
-
 - (bool)prefersDarkKeyboard
 {
     return self.isDark;
@@ -54,6 +39,11 @@
 - (UIColor *)searchBarPlainBackgroundColor
 {
     return self.backgroundColor;
+}
+
+- (UIColor *)cryptoSortArrowColor
+{
+    return self.secondaryTextColor;
 }
 
 @end

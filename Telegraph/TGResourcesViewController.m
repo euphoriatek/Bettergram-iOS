@@ -11,6 +11,7 @@
 #import "TGResourceSection.h"
 #import "TGCryptoManager.h"
 #import "TGApplication.h"
+#import "TGAppDelegate.h"
 
 @interface TGCryptoResourceCell : UITableViewCell
 
@@ -159,7 +160,7 @@ const static CGFloat kSeeAllButtonOffset = 30;
         _seeAllButton.frame = frame;
     }
     else {
-        labelFrame.size.width = MIN(labelFrame.size.width, self.contentView.frame.size.width - kBaseCellOffset.width - labelFrame.size.width);
+        labelFrame.size.width = MIN(labelFrame.size.width, self.contentView.frame.size.width - kBaseCellOffset.width - labelFrame.origin.x);
     }
     _label.frame = labelFrame;
     
@@ -195,6 +196,7 @@ const static CGFloat kSeeAllButtonOffset = 30;
     NSArray<TGResourceSection *> *_resourceSections;
     NSMutableIndexSet *_uncoveredSectionIndexes;
     
+    UIBarButtonItem *_leftButtonItem;
 }
 
 @property (nonatomic, strong) TGPresentation *presentation;
@@ -219,7 +221,7 @@ const static CGFloat kSeeAllButtonOffset = 30;
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = UIColor.clearColor;
+    _tableView.backgroundColor = nil;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.sectionFooterHeight = 0;
@@ -229,6 +231,12 @@ const static CGFloat kSeeAllButtonOffset = 30;
     [_tableView registerClass:[TGCryptoResourceCell class] forCellReuseIdentifier:TGCryptoResourceCell.reuseIdentifier];
     [_tableView registerClass:[TGCryptoResourceHeaderView class] forHeaderFooterViewReuseIdentifier:TGCryptoResourceHeaderView.reuseIdentifier];
     [self.view addSubview:_tableView];
+    
+    [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(settingsButtonTap)]
+                      animated:false];
     
     [self setPresentation:_presentation];
     [self localizationUpdated];
@@ -247,6 +255,7 @@ const static CGFloat kSeeAllButtonOffset = 30;
     _presentation = presentation;
     
     self.view.backgroundColor = presentation.pallete.backgroundColor;
+    _leftButtonItem.image = _presentation.images.settingsButton;
 }
 
 - (void)localizationUpdated
@@ -258,6 +267,14 @@ const static CGFloat kSeeAllButtonOffset = 30;
 - (void)scrollToTopRequested
 {
     [_tableView scrollToTop];
+}
+
+- (void)settingsButtonTap
+{
+    TGViewController *accountSettingsController = TGAppDelegateInstance.rootController.accountSettingsController;
+    [TGAppDelegateInstance.rootController pushContentController:accountSettingsController];
+    
+    [accountSettingsController setTargetNavigationItem:accountSettingsController.navigationItem titleController:TGAppDelegateInstance.rootController];
 }
 
 #pragma mark - UITableViewDataSource
@@ -306,7 +323,6 @@ const static CGFloat kSeeAllButtonOffset = 30;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TGResourceItem *resourceItem = _resourceSections[indexPath.section].resourceItems[indexPath.row];
-    
     [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:resourceItem.urlString]
                                                     forceNative:true
                                                       keepStack:true];

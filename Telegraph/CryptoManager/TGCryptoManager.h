@@ -33,11 +33,14 @@ typedef enum : NSUInteger {
 @interface TGFeedParser : NSObject 
 
 @property (nonatomic, strong, readonly) NSString *key;
-@property (nonatomic, strong, readonly) NSArray<NSString *> *urls;
+@property (nonatomic, strong, readonly) NSSet<NSString *> *urls;
 
 @property (nonatomic, strong) NSDate *lastReadDate;
 
 @property (nonatomic, weak) id<TGFeedParserDelegate> delegate;
+
+- (void)feedItemReadStateUpdated:(MWFeedItem *)feedItem;
+- (NSURLSessionDataTask *)fillFeedItemThumbnailFromOGImage:(MWFeedItem *)feedItem completion:(void (^)(NSString *url))completion;
 
 @end
 
@@ -61,7 +64,6 @@ typedef enum : NSUInteger {
 - (void)updateCoin:(TGCryptoCurrency *)coin favorite:(BOOL)favorite;
 - (void)loadCurrencies:(void (^)(void))completion;
 - (TGCryptoCurrency *)cachedCurrencyWithCode:(NSString *)code;
-- (NSURLSessionDataTask *)metaOgImageURLFromURL:(NSString *)url completion:(void (^)(NSString *url))completion;
 
 @end
 

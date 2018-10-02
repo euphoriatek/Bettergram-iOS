@@ -626,6 +626,11 @@ static CGFloat kHeight = 18;
 {
     _presentation = presentation;
     [_customTabBar setPresentation:presentation];
+    for (UIViewController *viewController in self.viewControllers) {
+        if ([viewController respondsToSelector:@selector(setPresentation:)]) {
+            [(id)viewController setPresentation:presentation];
+        }
+    }
 }
 
 - (void)viewWillLayoutSubviews

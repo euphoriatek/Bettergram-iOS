@@ -4889,8 +4889,6 @@
 		D5C3D24921354989002363B8 /* tab_groups@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D22E21354988002363B8 /* tab_groups@2x.png */; };
 		D5C3D24A21354989002363B8 /* tab_direct_messages@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D22F21354988002363B8 /* tab_direct_messages@3x.png */; };
 		D5C3D24B21354989002363B8 /* tab_favorites@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23021354988002363B8 /* tab_favorites@3x.png */; };
-		D5C3D24C21354989002363B8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23121354988002363B8 /* settings@2x.png */; };
-		D5C3D24D21354989002363B8 /* settings@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23221354988002363B8 /* settings@3x.png */; };
 		D5C3D24E21354989002363B8 /* tab_favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D23321354988002363B8 /* tab_favorites@2x.png */; };
 		D5C3D2522135BFB8002363B8 /* TGCryptoTabViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C3D2502135BFB8002363B8 /* TGCryptoTabViewController.h */; };
 		D5C3D2532135BFB8002363B8 /* TGCryptoTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C3D2512135BFB8002363B8 /* TGCryptoTabViewController.m */; };
@@ -12016,8 +12014,6 @@
 		D5C3D22E21354988002363B8 /* tab_groups@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_groups@2x.png"; sourceTree = "<group>"; };
 		D5C3D22F21354988002363B8 /* tab_direct_messages@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_direct_messages@3x.png"; sourceTree = "<group>"; };
 		D5C3D23021354988002363B8 /* tab_favorites@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_favorites@3x.png"; sourceTree = "<group>"; };
-		D5C3D23121354988002363B8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
-		D5C3D23221354988002363B8 /* settings@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@3x.png"; sourceTree = "<group>"; };
 		D5C3D23321354988002363B8 /* tab_favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_favorites@2x.png"; sourceTree = "<group>"; };
 		D5C3D2502135BFB8002363B8 /* TGCryptoTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGCryptoTabViewController.h; sourceTree = "<group>"; };
 		D5C3D2512135BFB8002363B8 /* TGCryptoTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGCryptoTabViewController.m; sourceTree = "<group>"; };
@@ -23402,8 +23398,6 @@
 				D5C3D22F21354988002363B8 /* tab_direct_messages@3x.png */,
 				D5C3D23021354988002363B8 /* tab_favorites@3x.png */,
 				D5C3D23321354988002363B8 /* tab_favorites@2x.png */,
-				D5C3D23121354988002363B8 /* settings@2x.png */,
-				D5C3D23221354988002363B8 /* settings@3x.png */,
 			);
 			path = Bettergram;
 			sourceTree = "<group>";
@@ -25378,9 +25372,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 099120CD1EEAA63400F1366E /* Build configuration list for PBXNativeTarget "Widget" */;
 			buildPhases = (
+				D5C5A00D214076BC00B8AAA9 /* Preprocess localizations */,
 				099120BC1EEAA63400F1366E /* Sources */,
 				099120BD1EEAA63400F1366E /* Frameworks */,
-				D5C5A00D214076BC00B8AAA9 /* ShellScript */,
 				099120BE1EEAA63400F1366E /* Resources */,
 			);
 			buildRules = (
@@ -25467,9 +25461,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D02601E31A55CA2400716290 /* Build configuration list for PBXNativeTarget "Share" */;
 			buildPhases = (
+				D5C5A00E2140776400B8AAA9 /* Preprocess localizations */,
 				D02601D31A55CA2300716290 /* Sources */,
 				D0CB06831ADC8C6D005E298F /* Frameworks */,
-				D5C5A00E2140776400B8AAA9 /* ShellScript */,
 				D02601D51A55CA2300716290 /* Resources */,
 			);
 			buildRules = (
@@ -26290,7 +26284,6 @@
 				09A9825D1F28B8A5007FF90D /* SecretTimerFlame@2x.png in Resources */,
 				D04324AA1DC0EA5300E0C528 /* InstantPageBackArrow@2x.png in Resources */,
 				D5C3D29D2139A17B002363B8 /* dialog_mute@3x.png in Resources */,
-				D5C3D24D21354989002363B8 /* settings@3x.png in Resources */,
 				D0BAF3F8193E8AC400A0093F /* ModernConversationActionDelete_Disabled.png in Resources */,
 				D0FC353C1B3D52560041A938 /* MusicPlayerAlbumArtPlaceholder@2x.png in Resources */,
 				936219D8186460F600C52870 /* 111.m4a in Resources */,
@@ -26386,7 +26379,6 @@
 				68D704A71C5BDF6100F25436 /* MusicPlayerControlRepeat@2x.png in Resources */,
 				09498C321F7186E100EB9E4D /* MusicPlayerArrow@3x.png in Resources */,
 				D0E3525E1E5E4127007E6EB8 /* stp_card_amex@3x.png in Resources */,
-				D5C3D24C21354989002363B8 /* settings@2x.png in Resources */,
 				09690807204459D000E943AF /* ShareSearchIcon@2x.png in Resources */,
 				D5C3D2942139A17B002363B8 /* dialog_pin@3x.png in Resources */,
 				933AA4C7186101A5000AA848 /* SearchBarIconLight@2x.png in Resources */,
@@ -26768,31 +26760,33 @@
 			shellPath = /bin/sh;
 			shellScript = "./tools/replaceAppNameLocalizations.sh\n";
 		};
-		D5C5A00D214076BC00B8AAA9 /* ShellScript */ = {
+		D5C5A00D214076BC00B8AAA9 /* Preprocess localizations */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Preprocess localizations";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./tools/replaceAppNameLocalizations.sh\n";
 		};
-		D5C5A00E2140776400B8AAA9 /* ShellScript */ = {
+		D5C5A00E2140776400B8AAA9 /* Preprocess localizations */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Preprocess localizations";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ./tools/replaceAppNameLocalizations.sh;
+			shellScript = "./tools/replaceAppNameLocalizations.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

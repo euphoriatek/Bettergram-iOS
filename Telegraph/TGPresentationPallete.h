@@ -10,6 +10,20 @@
 @property (nonatomic, readonly) bool underlineAllIncomingLinks;
 @property (nonatomic, readonly) bool underlineAllOutgoingLinks;
 
+// Bettergram collors
+
+COLOR tabBarBackgroundColor;
+COLOR tabBarSeparatorColor;
+COLOR dialogEditFavoriteColor;
+
+COLOR cryptoSortArrowColor;
+COLOR cryptoFavoritedCoinColor;
+COLOR searchBarPlainBackgroundColor;
+
+COLOR conversationInputPanelActionColor;
+
+//
+
 COLOR backgroundColor;
 COLOR textColor;
 COLOR secondaryTextColor;
@@ -28,9 +42,6 @@ COLOR checkButtonCheckColor;
 COLOR checkButtonBlueColor;
 
 COLOR padSeparatorColor;
-
-COLOR tabBarBackgroundColor;
-COLOR tabBarSeparatorColor;
 
 COLOR barBackgroundColor;
 COLOR barSeparatorColor;
@@ -60,7 +71,6 @@ COLOR searchBarTextColor;
 COLOR searchBarPlaceholderColor;
 COLOR searchBarMergedBackgroundColor;
 COLOR searchBarClearIconColor;
-COLOR searchBarPlainBackgroundColor;
 
 COLOR dialogTitleColor;
 COLOR dialogNameColor;
@@ -83,7 +93,6 @@ COLOR dialogEditTextColor;
 COLOR dialogEditDeleteColor;
 COLOR dialogEditMuteColor;
 COLOR dialogEditPinColor;
-COLOR dialogEditFavoriteColor;
 COLOR dialogEditGroupColor;
 COLOR dialogEditReadColor;
 COLOR dialogEditUnreadColor;
@@ -219,16 +228,6 @@ COLOR menuAccentColor;
 COLOR menuDestructiveColor;
 COLOR menuSpinnerColor;
 COLOR menuSectionHeaderBackgroundColor;
-
-COLOR conversationInputPanelActionColor;
-
-COLOR marketInfoMarkTitleColor;
-COLOR marketInfoMarkValueColor;
-COLOR marketInfoMarkChangeGainColor;
-COLOR marketInfoMarkChangeLossColor;
-
-COLOR cryptoSortArrowColor;
-COLOR cryptoFavoritedCoinColor;
 
 + (bool)hasWallpaper;
 

@@ -301,7 +301,6 @@
 "Contacts.contact" = "contact";
 "Contacts.contacts" = "contacten";
 "Contacts.contactsvar" = "contacten";
-"Contacts.InvitationText" = "Hey! Zullen we overstappen op TELEGRAM_APP_NAME? http://TELEGRAM_APP_NAME.org/dl";
 "Contacts.FailedToSendInvitesMessage" = "Er is een fout opgetreden.";
 "Contacts.AccessDeniedError" = "TELEGRAM_APP_NAME heeft geen toegang tot je contacten.";
 "Contacts.AccessDeniedHelpLandscape" = "Ga naar je %@ Instellingen — Privacy — Contacten.\nKies hier 'AAN' voor TELEGRAM_APP_NAME.";

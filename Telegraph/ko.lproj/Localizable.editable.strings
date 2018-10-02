@@ -301,7 +301,6 @@
 "Contacts.contact" = "대화상대";
 "Contacts.contacts" = "대화상대";
 "Contacts.contactsvar" = "대화상대";
-"Contacts.InvitationText" = "TELEGRAM_APP_NAME으로 갈아타세요! http://TELEGRAM_APP_NAME.org/dl";
 "Contacts.FailedToSendInvitesMessage" = "오류가 발생했습니다.";
 "Contacts.AccessDeniedError" = "TELEGRAM_APP_NAME이 연락처에 접근할 수 없습니다.";
 "Contacts.AccessDeniedHelpLandscape" = "%@의 '설정' — '개인 정보 보호' — '연락처'로 이동하여\nTELEGRAM_APP_NAME을 활성화하세요.";

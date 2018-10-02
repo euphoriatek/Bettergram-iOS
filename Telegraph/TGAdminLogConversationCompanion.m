@@ -238,7 +238,7 @@ static bool isEventFilterAllSet(TGChannelEventFilter filter) {
     if (_joinChannelPanel == nil) {
         TGModernConversationController *controller = self.controller;
         _joinChannelPanel = [[TGModernConversationActionInputPanel alloc] init];
-        [_joinChannelPanel setActionWithTitle:TGLocalized(@"Channel.AdminLog.InfoPanelTitle") action:@"info" color:self.controller.presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconNone];
+        [_joinChannelPanel setActionWithTitle:TGLocalized(@"Channel.AdminLog.InfoPanelTitle") action:@"info" color:self.controller.presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconNone];
         _joinChannelPanel.companionHandle = self.actionHandle;
         _joinChannelPanel.delegate = controller;
     }
@@ -249,7 +249,7 @@ static bool isEventFilterAllSet(TGChannelEventFilter filter) {
     if (_joinChannelPanel == nil) {
         TGModernConversationController *controller = self.controller;
         _joinChannelPanel = [[TGModernConversationActionInputPanel alloc] init];
-        [_joinChannelPanel setActionWithTitle:TGLocalized(@"Channel.AdminLog.InfoPanelTitle") action:@"info" color:self.controller.presentation.pallete.accentColor icon:TGModernConversationActionInputPanelIconNone];
+        [_joinChannelPanel setActionWithTitle:TGLocalized(@"Channel.AdminLog.InfoPanelTitle") action:@"info" color:self.controller.presentation.pallete.conversationInputPanelActionColor icon:TGModernConversationActionInputPanelIconNone];
         _joinChannelPanel.companionHandle = self.actionHandle;
         _joinChannelPanel.delegate = controller;
     }

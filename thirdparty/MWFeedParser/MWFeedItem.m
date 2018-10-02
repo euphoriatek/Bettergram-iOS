@@ -33,7 +33,7 @@
 
 @implementation MWFeedItem
 
-@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, thumbnailURL, viewsCount, feedURL;
+@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, thumbnailURL, viewsCount, feedURL, isViewed;
 
 #pragma mark NSObject
 
@@ -63,6 +63,7 @@
         feedURL = [decoder decodeObjectForKey:@"feedURL"];
         thumbnailURL = [decoder decodeObjectForKey:@"thumbnailURL"];
         viewsCount = [decoder decodeObjectForKey:@"viewsCount"];
+        isViewed = [decoder decodeBoolForKey:@"isViewed"];
 	}
 	return self;
 }
@@ -80,6 +81,7 @@
     if (feedURL) [encoder encodeObject:feedURL forKey:@"feedURL"];
     if (thumbnailURL) [encoder encodeObject:thumbnailURL forKey:@"thumbnailURL"];
     if (viewsCount) [encoder encodeObject:viewsCount forKey:@"viewsCount"];
+    [encoder encodeBool:isViewed forKey:@"isViewed"];
 }
 
 @end

@@ -301,7 +301,6 @@
 "Contacts.contact" = "جهة اتصال";
 "Contacts.contacts" = "جهة اتصال";
 "Contacts.contactsvar" = "جهة اتصال";
-"Contacts.InvitationText" = "مرحبا! هيا نستخدم TELEGRAM_APP_NAME http://TELEGRAM_APP_NAME.org/dl";
 "Contacts.FailedToSendInvitesMessage" = "حدث خطأ.";
 "Contacts.AccessDeniedError" = "TELEGRAM_APP_NAME لا يستطيع الدخول لجهات الاتصال الخاصة بك";
 "Contacts.AccessDeniedHelpLandscape" = "الرجاء الذهاب إلى إعدادات الـ %@ — الخصوصية — جهات الاتصال.\nثم قم بتفعيل TELEGRAM_APP_NAME.";

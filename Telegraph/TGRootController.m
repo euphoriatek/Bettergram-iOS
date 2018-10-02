@@ -80,22 +80,21 @@
         _callsController = [[TGRecentCallsController alloc] init];
         _callsController.presentation = _presentation;
         
-        {
-            _cryptoController = [[TGCryptoTabViewController alloc] initWithPresentation:_presentation];
-            [_cryptoController setViewControllers:@[
-                                                    [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
-                                                    [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
-                                                                                                 feedParser:TGCryptoManager.manager.newsFeedParser
-                                                                                             isVideoContent:NO],
-                                                    [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
-                                                                                                 feedParser:TGCryptoManager.manager.videosFeedParser
-                                                                                             isVideoContent:YES],
-                                                    [[TGResourcesViewController alloc] initWithPresentation:_presentation],
-                                                    ]];
-            [_cryptoController setSelectedIndexCustom:0];
-        }
+        TGCryptoTabViewController *cryptoController = [[TGCryptoTabViewController alloc] initWithPresentation:_presentation];
+        [cryptoController setViewControllers:@[
+                                                [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
+                                                [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
+                                                                                             feedParser:TGCryptoManager.manager.newsFeedParser
+                                                                                         isVideoContent:NO],
+                                                [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
+                                                                                             feedParser:TGCryptoManager.manager.videosFeedParser
+                                                                                         isVideoContent:YES],
+                                                [[TGResourcesViewController alloc] initWithPresentation:_presentation],
+                                                ]];
+        [cryptoController setSelectedIndexCustom:0];
+        
         _mainTabsController = [[TGMainTabsController alloc] initWithPresentation:_presentation];
-        [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:_cryptoController]];
+        [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:cryptoController]];
         _mainTabsController.onControllerInsetUpdated = ^(CGFloat inset)
         {
             __strong TGRootController *strongSelf = weakSelf;
@@ -143,7 +142,6 @@
     [(TGNavigationBar *)_masterNavigationController.navigationBar setPallete:presentation.navigationBarPallete];
     [(TGNavigationBar *)_detailNavigationController.navigationBar setPallete:presentation.navigationBarPallete];
     [_mainTabsController setPresentation:presentation];
-    [_cryptoController setPresentation:presentation];
     [_contactsController setPresentation:presentation];
     [_callsController setPresentation:presentation];
     for (TGDialogListController *dialogListController in _dialogListControllers) {

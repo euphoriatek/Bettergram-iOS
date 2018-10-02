@@ -38,10 +38,11 @@
     [super viewDidLoad];
     
     _tableView = [[UITableView alloc] init];
-    _tableView.backgroundColor = UIColor.clearColor;
+    _tableView.backgroundColor = nil;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.tableFooterView = [[UIView alloc] init];
     
     _searchBar = [[TGSearchBar alloc] init];
     _searchBar.style = TGSearchBarStyleLight;

@@ -586,7 +586,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if (!_editingMode)
     {
-        return [[UIBarButtonItem alloc] initWithImage:TGTintedImage(TGImageNamed(@"settings"), _presentation.pallete.accentContrastColor)
+        return [[UIBarButtonItem alloc] initWithImage:_presentation.images.settingsButton
                                                 style:UIBarButtonItemStylePlain
                                                target:self
                                                action:@selector(settingsButtonPressed)];
@@ -1875,11 +1875,6 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         cell.date = conversation.unpinnedDate;
         cell.pinnedToTop = conversation.pinnedToTop && !_dialogListCompanion.feedChannels;
         cell.favorited = conversation.isFavorited;
-//        {
-//            (![_dialogListCompanion isKindOfClass:[TGTelegraphDialogListCompanion class]] ||
-//            ((TGTelegraphDialogListCompanion *)_dialogListCompanion).filter != TGDialogFilterFavorites) &&
-//            conversation.isFavorited;
-//        }
         cell.isAd = conversation.isAd;
         cell.groupedInFeed = conversation.feedId.intValue != 0;
         cell.isFeedChannels = _dialogListCompanion.feedChannels;

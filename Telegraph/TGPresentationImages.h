@@ -16,6 +16,7 @@ IMAGE cryptoPricesFilterFavoriteSelectedImage;
 IMAGE cryptoPricesFilterFavoriteDeselectedImage;
 - (UIImage *)chooseCurrencyButtonImageForCurrencySymbol:(NSString *)symbol;
 IMAGE seeAllButtonBackground;
+IMAGE settingsButton;
 
 IMAGE cryptoPricesSortImage;
 IMAGE cryptoPricesSortAscendingImage;

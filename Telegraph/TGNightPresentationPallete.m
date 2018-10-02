@@ -3,6 +3,11 @@
 
 @implementation TGNightPresentationPallete
 
+- (UIColor *)dialogEditFavoriteColor
+{
+    return UIColorRGB(0x666666);
+}
+
 - (bool)isDark
 {
     return true;
@@ -285,7 +290,7 @@
 
 - (UIColor *)dialogEditPinColor
 {
-    return UIColorRGB(0x666666);
+    return UIColorRGB(0x505050);
 }
 
 - (UIColor *)dialogEditGroupColor

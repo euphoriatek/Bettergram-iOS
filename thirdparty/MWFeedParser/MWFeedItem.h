@@ -60,6 +60,7 @@
 @property (nonatomic, copy) NSArray *enclosures;
 @property (nonatomic, copy) NSString *feedURL;
 @property (nonatomic, copy) NSString *thumbnailURL;
-@property (nonatomic, assign) NSNumber *viewsCount;
+@property (nonatomic, copy) NSNumber *viewsCount;
+@property (nonatomic, assign) BOOL isViewed;
 
 @end

@@ -8,6 +8,7 @@
                                  y:(CGFloat)y
                               blur:(CGFloat)blur
 {
+    self.masksToBounds = NO;
     self.shadowColor = color.CGColor;
     self.shadowOpacity = (float)opacity;
     self.shadowRadius = blur / 2;

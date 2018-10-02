@@ -20,7 +20,6 @@
 @property (nonatomic, strong, readonly) TGContactsController *contactsController;
 @property (nonatomic, strong) TGAccountSettingsController *accountSettingsController;
 @property (nonatomic, strong, readonly) TGRecentCallsController *callsController;
-@property (nonatomic, strong, readonly) TGCryptoTabViewController *cryptoController;
 @property (nonatomic, strong, readonly) TGCallStatusBarView *callStatusBarView;
 @property (nonatomic, strong, readonly) TGVolumeBarView *volumeBarView;
 
