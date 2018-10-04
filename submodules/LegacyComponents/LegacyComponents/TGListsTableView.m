@@ -40,6 +40,18 @@
     return self;
 }
 
+- (void)setFixedContentSize:(CGSize *)fixedContentSize
+{
+    _fixedContentSize = fixedContentSize;
+    [super setContentSize:*fixedContentSize];
+}
+
+- (void)setContentSize:(CGSize)contentSize
+{
+    if (_fixedContentSize == NULL)
+        [super setContentSize:contentSize];        
+}
+
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     [super setBackgroundColor:backgroundColor];

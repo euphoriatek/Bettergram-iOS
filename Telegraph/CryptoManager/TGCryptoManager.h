@@ -39,7 +39,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, weak) id<TGFeedParserDelegate> delegate;
 
-- (void)feedItemReadStateUpdated:(MWFeedItem *)feedItem;
+- (void)setNeedsArchiveFeedItems;
 - (NSURLSessionDataTask *)fillFeedItemThumbnailFromOGImage:(MWFeedItem *)feedItem completion:(void (^)(NSString *url))completion;
 
 @end

@@ -120,7 +120,6 @@ static NSString * const kUserDefaultKey = @"totalElapsedTime";
         [timeAction invoce];
         return;
     }
-//    NSLog(@"trolala %@",[NSThread callStackSymbols]);
     [_timers addObject:[NSTimer scheduledTimerWithTimeInterval:timeAction.time - self.totalElapsedTime
                                                        repeats:NO
                                                          block:^(__unused NSTimer * _Nonnull timer) {

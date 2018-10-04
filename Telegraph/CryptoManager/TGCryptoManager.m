@@ -134,11 +134,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     }
 }
 
-- (void)feedItemReadStateUpdated:(MWFeedItem *)__unused feedItem
-{
-    [self setNeedsArchiveFeedItems];
-}
-
 - (void)setNeedsArchiveFeedItems
 {
     TGDispatchOnMainThread(^{
@@ -184,7 +179,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                                                   _lastReportedFeedItemIndex--;
                                               }
                                           }
-                                 }];
+                                      }];
     __block BOOL parsing = NO;
     [_feedParsers enumerateObjectsUsingBlock:^(MWFeedParser * _Nonnull obj, __unused NSUInteger idx, BOOL * _Nonnull stop) {
         *stop = parsing = obj.parsing;
@@ -390,36 +385,36 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                                           @"favorites":favorites ? [_favoriteCurrencyCodes componentsJoinedByString:@","] : @"",
                                             @"currency":self.selectedCurrency.code,
             }
-                                headers:nil
-                               progress:nil
-                                success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                    responseObject = [responseObject cleanedJSON];
-                                    if (responseObject == nil ||
-                                        ![responseObject isKindOfClass:[NSDictionary class]] ||
-                                        ![[responseObject objectForKey:kSuccessKey] boolValue])
-                                    {
-                                        TGLog(@"TGCMError: Crypto currencies list invalid response: %@",responseObject);
-                                        completion(nil);
-                                        return;
-                                    }
-                                    TGCryptoPricesInfo *pricesInfo = [[TGCryptoPricesInfo alloc] initWithJSON:responseObject
-                                                                                           ignoreUnknownCoins:NO
-                                                                                                    favorites:favorites];
-                                    if (pricesInfo != nil) {
-                                        completion(pricesInfo);
-                                        return;
-                                    }
-                                    // new coin added case
-                                    [self loadCurrencies:^{
-                                        completion([[TGCryptoPricesInfo alloc] initWithJSON:responseObject
-                                                                         ignoreUnknownCoins:YES
-                                                                                  favorites:favorites]);
-                                    }
-                                                   force:YES];
-                                } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                    TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
-                                    completion(nil);
-                                }];
+                                        headers:nil
+                                       progress:nil
+                                        success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                            responseObject = [responseObject cleanedJSON];
+                                            if (responseObject == nil ||
+                                                ![responseObject isKindOfClass:[NSDictionary class]] ||
+                                                ![[responseObject objectForKey:kSuccessKey] boolValue])
+                                            {
+                                                TGLog(@"TGCMError: Crypto currencies list invalid response: %@",responseObject);
+                                                completion(nil);
+                                                return;
+                                            }
+                                            TGCryptoPricesInfo *pricesInfo = [[TGCryptoPricesInfo alloc] initWithJSON:responseObject
+                                                                                                   ignoreUnknownCoins:NO
+                                                                                                            favorites:favorites];
+                                            if (pricesInfo != nil) {
+                                                completion(pricesInfo);
+                                                return;
+                                            }
+                                            // new coin added case
+                                            [self loadCurrencies:^{
+                                                completion([[TGCryptoPricesInfo alloc] initWithJSON:responseObject
+                                                                                 ignoreUnknownCoins:YES
+                                                                                          favorites:favorites]);
+                                            }
+                                                           force:YES];
+                                        } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                            TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
+                                            completion(nil);
+                                        }];
         dataTask.priority = NSURLSessionTaskPriorityHigh;
     }];
 }
@@ -508,30 +503,30 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
         return;
     }
     getCurrenciesTask = [_livecoinSessionManager GET:@"currencies"
-                                  parameters:nil
-                                     headers:nil
-                                    progress:nil
-                                     success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                         responseObject = [responseObject cleanedJSON];
-                                         if ([self parseCurrenciesResponseObject:responseObject]) {
-                                             _lastUpdateDate = NSDate.date.timeIntervalSince1970;
-                                             NSMutableDictionary *object = [responseObject mutableCopy];
-                                             [object setObject:@(_lastUpdateDate) forKey:kLastUpdateDateKey];
-                                             [NSKeyedArchiver archiveRootObject:object toFile:[self currenciesResponseObjectFile]];
-                                             
-                                             TGDispatchOnMainThread(^{
-                                                 completion();
-                                                 if (pendingBlocks != nil) {
-                                                     for (void (^block)()  in pendingBlocks) {
-                                                         block();
-                                                     }
-                                                     pendingBlocks = nil;
+                                          parameters:nil
+                                             headers:nil
+                                            progress:nil
+                                             success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                                 responseObject = [responseObject cleanedJSON];
+                                                 if ([self parseCurrenciesResponseObject:responseObject]) {
+                                                     _lastUpdateDate = NSDate.date.timeIntervalSince1970;
+                                                     NSMutableDictionary *object = [responseObject mutableCopy];
+                                                     [object setObject:@(_lastUpdateDate) forKey:kLastUpdateDateKey];
+                                                     [NSKeyedArchiver archiveRootObject:object toFile:[self currenciesResponseObjectFile]];
+                                                     
+                                                     TGDispatchOnMainThread(^{
+                                                         completion();
+                                                         if (pendingBlocks != nil) {
+                                                             for (void (^block)()  in pendingBlocks) {
+                                                                 block();
+                                                             }
+                                                             pendingBlocks = nil;
+                                                         }
+                                                     });
                                                  }
-                                             });
-                                         }
-                                     } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                         TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
-                                     }];
+                                             } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                                 TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
+                                             }];
 }
 
 - (BOOL)parseCurrenciesResponseObject:(id)responseObject

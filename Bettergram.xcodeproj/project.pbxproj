@@ -6890,60 +6890,60 @@
 		68B50AA51B434E9900935172 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		68B639081BB1B00400205AC3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Watch/App/Info.plist; sourceTree = "<group>"; };
 		68B639091BB1B00400205AC3 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Resources.xcassets; path = Watch/App/Resources.xcassets; sourceTree = "<group>"; };
-		68B639281BB2506F00205AC3 /* SAtomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAtomic.h; path = thirdparty/SSignalKit/SSignalKit/SAtomic.h; sourceTree = "<group>"; };
-		68B639291BB2506F00205AC3 /* SAtomic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAtomic.m; path = thirdparty/SSignalKit/SSignalKit/SAtomic.m; sourceTree = "<group>"; };
-		68B6392A1BB2506F00205AC3 /* SBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBag.h; path = thirdparty/SSignalKit/SSignalKit/SBag.h; sourceTree = "<group>"; };
-		68B6392B1BB2506F00205AC3 /* SBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBag.m; path = thirdparty/SSignalKit/SSignalKit/SBag.m; sourceTree = "<group>"; };
-		68B6392C1BB2506F00205AC3 /* SBlockDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBlockDisposable.h; path = thirdparty/SSignalKit/SSignalKit/SBlockDisposable.h; sourceTree = "<group>"; };
-		68B6392D1BB2506F00205AC3 /* SBlockDisposable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBlockDisposable.m; path = thirdparty/SSignalKit/SSignalKit/SBlockDisposable.m; sourceTree = "<group>"; };
-		68B6392E1BB2506F00205AC3 /* SDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDisposable.h; path = thirdparty/SSignalKit/SSignalKit/SDisposable.h; sourceTree = "<group>"; };
-		68B6392F1BB2506F00205AC3 /* SDisposableSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDisposableSet.h; path = thirdparty/SSignalKit/SSignalKit/SDisposableSet.h; sourceTree = "<group>"; };
-		68B639301BB2506F00205AC3 /* SDisposableSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDisposableSet.m; path = thirdparty/SSignalKit/SSignalKit/SDisposableSet.m; sourceTree = "<group>"; };
-		68B639311BB2506F00205AC3 /* SMetaDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMetaDisposable.h; path = thirdparty/SSignalKit/SSignalKit/SMetaDisposable.h; sourceTree = "<group>"; };
-		68B639321BB2506F00205AC3 /* SMetaDisposable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMetaDisposable.m; path = thirdparty/SSignalKit/SSignalKit/SMetaDisposable.m; sourceTree = "<group>"; };
-		68B639331BB2506F00205AC3 /* SMulticastSignalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMulticastSignalManager.h; path = thirdparty/SSignalKit/SSignalKit/SMulticastSignalManager.h; sourceTree = "<group>"; };
-		68B639341BB2506F00205AC3 /* SMulticastSignalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMulticastSignalManager.m; path = thirdparty/SSignalKit/SSignalKit/SMulticastSignalManager.m; sourceTree = "<group>"; };
-		68B639351BB2506F00205AC3 /* SQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQueue.h; path = thirdparty/SSignalKit/SSignalKit/SQueue.h; sourceTree = "<group>"; };
-		68B639361BB2506F00205AC3 /* SQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQueue.m; path = thirdparty/SSignalKit/SSignalKit/SQueue.m; sourceTree = "<group>"; };
-		68B639371BB2506F00205AC3 /* SSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSignal.h; path = thirdparty/SSignalKit/SSignalKit/SSignal.h; sourceTree = "<group>"; };
-		68B639381BB2506F00205AC3 /* SSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSignal.m; path = thirdparty/SSignalKit/SSignalKit/SSignal.m; sourceTree = "<group>"; };
-		68B639391BB2506F00205AC3 /* SSignal+Accumulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Accumulate.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Accumulate.h"; sourceTree = "<group>"; };
-		68B6393A1BB2506F00205AC3 /* SSignal+Accumulate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Accumulate.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Accumulate.m"; sourceTree = "<group>"; };
-		68B6393B1BB2506F00205AC3 /* SSignal+Catch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Catch.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Catch.h"; sourceTree = "<group>"; };
-		68B6393C1BB2506F00205AC3 /* SSignal+Catch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Catch.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Catch.m"; sourceTree = "<group>"; };
-		68B6393D1BB2506F00205AC3 /* SSignal+Combine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Combine.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Combine.h"; sourceTree = "<group>"; };
-		68B6393E1BB2506F00205AC3 /* SSignal+Combine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Combine.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Combine.m"; sourceTree = "<group>"; };
-		68B6393F1BB2506F00205AC3 /* SSignal+Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Dispatch.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Dispatch.h"; sourceTree = "<group>"; };
-		68B639401BB2506F00205AC3 /* SSignal+Dispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Dispatch.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Dispatch.m"; sourceTree = "<group>"; };
-		68B639411BB2506F00205AC3 /* SSignal+Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Mapping.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Mapping.h"; sourceTree = "<group>"; };
-		68B639421BB2506F00205AC3 /* SSignal+Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Mapping.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Mapping.m"; sourceTree = "<group>"; };
-		68B639431BB2506F00205AC3 /* SSignal+Meta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Meta.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Meta.h"; sourceTree = "<group>"; };
-		68B639441BB2506F00205AC3 /* SSignal+Meta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Meta.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Meta.m"; sourceTree = "<group>"; };
-		68B639451BB2506F00205AC3 /* SSignal+Multicast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Multicast.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Multicast.h"; sourceTree = "<group>"; };
-		68B639461BB2506F00205AC3 /* SSignal+Multicast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Multicast.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Multicast.m"; sourceTree = "<group>"; };
-		68B639471BB2506F00205AC3 /* SSignal+Pipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Pipe.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Pipe.h"; sourceTree = "<group>"; };
-		68B639481BB2506F00205AC3 /* SSignal+Pipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Pipe.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Pipe.m"; sourceTree = "<group>"; };
-		68B639491BB2506F00205AC3 /* SSignal+SideEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+SideEffects.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+SideEffects.h"; sourceTree = "<group>"; };
-		68B6394A1BB2506F00205AC3 /* SSignal+SideEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+SideEffects.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+SideEffects.m"; sourceTree = "<group>"; };
-		68B6394B1BB2506F00205AC3 /* SSignal+Single.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Single.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Single.h"; sourceTree = "<group>"; };
-		68B6394C1BB2506F00205AC3 /* SSignal+Single.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Single.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Single.m"; sourceTree = "<group>"; };
-		68B6394D1BB2506F00205AC3 /* SSignal+Take.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Take.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Take.h"; sourceTree = "<group>"; };
-		68B6394E1BB2506F00205AC3 /* SSignal+Take.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Take.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Take.m"; sourceTree = "<group>"; };
-		68B6394F1BB2506F00205AC3 /* SSignal+Timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Timing.h"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Timing.h"; sourceTree = "<group>"; };
-		68B639501BB2506F00205AC3 /* SSignal+Timing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Timing.m"; path = "thirdparty/SSignalKit/SSignalKit/SSignal+Timing.m"; sourceTree = "<group>"; };
-		68B639511BB2506F00205AC3 /* SSignalKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSignalKit.h; path = thirdparty/SSignalKit/SSignalKit/SSignalKit.h; sourceTree = "<group>"; };
-		68B639521BB2506F00205AC3 /* SSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSubscriber.h; path = thirdparty/SSignalKit/SSignalKit/SSubscriber.h; sourceTree = "<group>"; };
-		68B639531BB2506F00205AC3 /* SSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSubscriber.m; path = thirdparty/SSignalKit/SSignalKit/SSubscriber.m; sourceTree = "<group>"; };
-		68B639541BB2506F00205AC3 /* SThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SThreadPool.h; path = thirdparty/SSignalKit/SSignalKit/SThreadPool.h; sourceTree = "<group>"; };
-		68B639551BB2506F00205AC3 /* SThreadPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SThreadPool.m; path = thirdparty/SSignalKit/SSignalKit/SThreadPool.m; sourceTree = "<group>"; };
-		68B639561BB2506F00205AC3 /* SThreadPoolQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SThreadPoolQueue.h; path = thirdparty/SSignalKit/SSignalKit/SThreadPoolQueue.h; sourceTree = "<group>"; };
-		68B639571BB2506F00205AC3 /* SThreadPoolQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SThreadPoolQueue.m; path = thirdparty/SSignalKit/SSignalKit/SThreadPoolQueue.m; sourceTree = "<group>"; };
-		68B639581BB2506F00205AC3 /* SThreadPoolTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SThreadPoolTask.h; path = thirdparty/SSignalKit/SSignalKit/SThreadPoolTask.h; sourceTree = "<group>"; };
-		68B639591BB2506F00205AC3 /* SThreadPoolTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SThreadPoolTask.m; path = thirdparty/SSignalKit/SSignalKit/SThreadPoolTask.m; sourceTree = "<group>"; };
-		68B6395A1BB2506F00205AC3 /* STimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STimer.h; path = thirdparty/SSignalKit/SSignalKit/STimer.h; sourceTree = "<group>"; };
-		68B6395B1BB2506F00205AC3 /* STimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STimer.m; path = thirdparty/SSignalKit/SSignalKit/STimer.m; sourceTree = "<group>"; };
-		68B6395C1BB2506F00205AC3 /* SVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVariable.h; path = thirdparty/SSignalKit/SSignalKit/SVariable.h; sourceTree = "<group>"; };
-		68B6395D1BB2506F00205AC3 /* SVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVariable.m; path = thirdparty/SSignalKit/SSignalKit/SVariable.m; sourceTree = "<group>"; };
+		68B639281BB2506F00205AC3 /* SAtomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAtomic.h; path = submodules/SSignalKit/SSignalKit/SAtomic.h; sourceTree = "<group>"; };
+		68B639291BB2506F00205AC3 /* SAtomic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAtomic.m; path = submodules/SSignalKit/SSignalKit/SAtomic.m; sourceTree = "<group>"; };
+		68B6392A1BB2506F00205AC3 /* SBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBag.h; path = submodules/SSignalKit/SSignalKit/SBag.h; sourceTree = "<group>"; };
+		68B6392B1BB2506F00205AC3 /* SBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBag.m; path = submodules/SSignalKit/SSignalKit/SBag.m; sourceTree = "<group>"; };
+		68B6392C1BB2506F00205AC3 /* SBlockDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBlockDisposable.h; path = submodules/SSignalKit/SSignalKit/SBlockDisposable.h; sourceTree = "<group>"; };
+		68B6392D1BB2506F00205AC3 /* SBlockDisposable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBlockDisposable.m; path = submodules/SSignalKit/SSignalKit/SBlockDisposable.m; sourceTree = "<group>"; };
+		68B6392E1BB2506F00205AC3 /* SDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDisposable.h; path = submodules/SSignalKit/SSignalKit/SDisposable.h; sourceTree = "<group>"; };
+		68B6392F1BB2506F00205AC3 /* SDisposableSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDisposableSet.h; path = submodules/SSignalKit/SSignalKit/SDisposableSet.h; sourceTree = "<group>"; };
+		68B639301BB2506F00205AC3 /* SDisposableSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDisposableSet.m; path = submodules/SSignalKit/SSignalKit/SDisposableSet.m; sourceTree = "<group>"; };
+		68B639311BB2506F00205AC3 /* SMetaDisposable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMetaDisposable.h; path = submodules/SSignalKit/SSignalKit/SMetaDisposable.h; sourceTree = "<group>"; };
+		68B639321BB2506F00205AC3 /* SMetaDisposable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMetaDisposable.m; path = submodules/SSignalKit/SSignalKit/SMetaDisposable.m; sourceTree = "<group>"; };
+		68B639331BB2506F00205AC3 /* SMulticastSignalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMulticastSignalManager.h; path = submodules/SSignalKit/SSignalKit/SMulticastSignalManager.h; sourceTree = "<group>"; };
+		68B639341BB2506F00205AC3 /* SMulticastSignalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMulticastSignalManager.m; path = submodules/SSignalKit/SSignalKit/SMulticastSignalManager.m; sourceTree = "<group>"; };
+		68B639351BB2506F00205AC3 /* SQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQueue.h; path = submodules/SSignalKit/SSignalKit/SQueue.h; sourceTree = "<group>"; };
+		68B639361BB2506F00205AC3 /* SQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQueue.m; path = submodules/SSignalKit/SSignalKit/SQueue.m; sourceTree = "<group>"; };
+		68B639371BB2506F00205AC3 /* SSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSignal.h; path = submodules/SSignalKit/SSignalKit/SSignal.h; sourceTree = "<group>"; };
+		68B639381BB2506F00205AC3 /* SSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSignal.m; path = submodules/SSignalKit/SSignalKit/SSignal.m; sourceTree = "<group>"; };
+		68B639391BB2506F00205AC3 /* SSignal+Accumulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Accumulate.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Accumulate.h"; sourceTree = "<group>"; };
+		68B6393A1BB2506F00205AC3 /* SSignal+Accumulate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Accumulate.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Accumulate.m"; sourceTree = "<group>"; };
+		68B6393B1BB2506F00205AC3 /* SSignal+Catch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Catch.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Catch.h"; sourceTree = "<group>"; };
+		68B6393C1BB2506F00205AC3 /* SSignal+Catch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Catch.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Catch.m"; sourceTree = "<group>"; };
+		68B6393D1BB2506F00205AC3 /* SSignal+Combine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Combine.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Combine.h"; sourceTree = "<group>"; };
+		68B6393E1BB2506F00205AC3 /* SSignal+Combine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Combine.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Combine.m"; sourceTree = "<group>"; };
+		68B6393F1BB2506F00205AC3 /* SSignal+Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Dispatch.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Dispatch.h"; sourceTree = "<group>"; };
+		68B639401BB2506F00205AC3 /* SSignal+Dispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Dispatch.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Dispatch.m"; sourceTree = "<group>"; };
+		68B639411BB2506F00205AC3 /* SSignal+Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Mapping.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Mapping.h"; sourceTree = "<group>"; };
+		68B639421BB2506F00205AC3 /* SSignal+Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Mapping.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Mapping.m"; sourceTree = "<group>"; };
+		68B639431BB2506F00205AC3 /* SSignal+Meta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Meta.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Meta.h"; sourceTree = "<group>"; };
+		68B639441BB2506F00205AC3 /* SSignal+Meta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Meta.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Meta.m"; sourceTree = "<group>"; };
+		68B639451BB2506F00205AC3 /* SSignal+Multicast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Multicast.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Multicast.h"; sourceTree = "<group>"; };
+		68B639461BB2506F00205AC3 /* SSignal+Multicast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Multicast.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Multicast.m"; sourceTree = "<group>"; };
+		68B639471BB2506F00205AC3 /* SSignal+Pipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Pipe.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Pipe.h"; sourceTree = "<group>"; };
+		68B639481BB2506F00205AC3 /* SSignal+Pipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Pipe.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Pipe.m"; sourceTree = "<group>"; };
+		68B639491BB2506F00205AC3 /* SSignal+SideEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+SideEffects.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+SideEffects.h"; sourceTree = "<group>"; };
+		68B6394A1BB2506F00205AC3 /* SSignal+SideEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+SideEffects.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+SideEffects.m"; sourceTree = "<group>"; };
+		68B6394B1BB2506F00205AC3 /* SSignal+Single.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Single.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Single.h"; sourceTree = "<group>"; };
+		68B6394C1BB2506F00205AC3 /* SSignal+Single.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Single.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Single.m"; sourceTree = "<group>"; };
+		68B6394D1BB2506F00205AC3 /* SSignal+Take.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Take.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Take.h"; sourceTree = "<group>"; };
+		68B6394E1BB2506F00205AC3 /* SSignal+Take.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Take.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Take.m"; sourceTree = "<group>"; };
+		68B6394F1BB2506F00205AC3 /* SSignal+Timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSignal+Timing.h"; path = "submodules/SSignalKit/SSignalKit/SSignal+Timing.h"; sourceTree = "<group>"; };
+		68B639501BB2506F00205AC3 /* SSignal+Timing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSignal+Timing.m"; path = "submodules/SSignalKit/SSignalKit/SSignal+Timing.m"; sourceTree = "<group>"; };
+		68B639511BB2506F00205AC3 /* SSignalKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSignalKit.h; path = submodules/SSignalKit/SSignalKit/SSignalKit.h; sourceTree = "<group>"; };
+		68B639521BB2506F00205AC3 /* SSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSubscriber.h; path = submodules/SSignalKit/SSignalKit/SSubscriber.h; sourceTree = "<group>"; };
+		68B639531BB2506F00205AC3 /* SSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSubscriber.m; path = submodules/SSignalKit/SSignalKit/SSubscriber.m; sourceTree = "<group>"; };
+		68B639541BB2506F00205AC3 /* SThreadPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SThreadPool.h; path = submodules/SSignalKit/SSignalKit/SThreadPool.h; sourceTree = "<group>"; };
+		68B639551BB2506F00205AC3 /* SThreadPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SThreadPool.m; path = submodules/SSignalKit/SSignalKit/SThreadPool.m; sourceTree = "<group>"; };
+		68B639561BB2506F00205AC3 /* SThreadPoolQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SThreadPoolQueue.h; path = submodules/SSignalKit/SSignalKit/SThreadPoolQueue.h; sourceTree = "<group>"; };
+		68B639571BB2506F00205AC3 /* SThreadPoolQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SThreadPoolQueue.m; path = submodules/SSignalKit/SSignalKit/SThreadPoolQueue.m; sourceTree = "<group>"; };
+		68B639581BB2506F00205AC3 /* SThreadPoolTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SThreadPoolTask.h; path = submodules/SSignalKit/SSignalKit/SThreadPoolTask.h; sourceTree = "<group>"; };
+		68B639591BB2506F00205AC3 /* SThreadPoolTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SThreadPoolTask.m; path = submodules/SSignalKit/SSignalKit/SThreadPoolTask.m; sourceTree = "<group>"; };
+		68B6395A1BB2506F00205AC3 /* STimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STimer.h; path = submodules/SSignalKit/SSignalKit/STimer.h; sourceTree = "<group>"; };
+		68B6395B1BB2506F00205AC3 /* STimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STimer.m; path = submodules/SSignalKit/SSignalKit/STimer.m; sourceTree = "<group>"; };
+		68B6395C1BB2506F00205AC3 /* SVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVariable.h; path = submodules/SSignalKit/SSignalKit/SVariable.h; sourceTree = "<group>"; };
+		68B6395D1BB2506F00205AC3 /* SVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVariable.m; path = submodules/SSignalKit/SSignalKit/SVariable.m; sourceTree = "<group>"; };
 		68B639B61BB2511A00205AC3 /* TGExtensionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGExtensionDelegate.h; path = Watch/Extension/TGExtensionDelegate.h; sourceTree = "<group>"; };
 		68B639B71BB2511A00205AC3 /* TGExtensionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TGExtensionDelegate.m; path = Watch/Extension/TGExtensionDelegate.m; sourceTree = "<group>"; };
 		68B639BB1BB2514100205AC3 /* File@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "File@2x.png"; path = "Watch/Extension/Resources/File@2x.png"; sourceTree = "<group>"; };
@@ -10659,7 +10659,7 @@
 		D08696B01943A8B300770FE7 /* pad-builtin-wallpaper-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pad-builtin-wallpaper-2.jpg"; sourceTree = "<group>"; };
 		D08696B11943A8B300770FE7 /* pad-builtin-wallpaper-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pad-builtin-wallpaper-1.jpg"; sourceTree = "<group>"; };
 		D08696B21943A8B300770FE7 /* pad-builtin-wallpaper-0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pad-builtin-wallpaper-0.jpg"; sourceTree = "<group>"; };
-		D087631F1A83963900632240 /* SSignalKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSignalKit.xcodeproj; path = thirdparty/SSignalKit/SSignalKit.xcodeproj; sourceTree = SOURCE_ROOT; };
+		D087631F1A83963900632240 /* SSignalKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSignalKit.xcodeproj; path = submodules/SSignalKit/SSignalKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D08763411A83C47600632240 /* TGModernConversationControllerDynamicTypeSignals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGModernConversationControllerDynamicTypeSignals.h; sourceTree = "<group>"; };
 		D08763421A83C47600632240 /* TGModernConversationControllerDynamicTypeSignals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGModernConversationControllerDynamicTypeSignals.m; sourceTree = "<group>"; };
 		D0876FE4196F4C33005740CE /* TGGenericPeerMediaGalleryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGGenericPeerMediaGalleryModel.h; sourceTree = "<group>"; };
@@ -30164,10 +30164,10 @@
 				GCC_PREFIX_HEADER = "Watch/Extension/WatchExtension-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = thirdparty/SSignalKit;
+				HEADER_SEARCH_PATHS = submodules/SSignalKit;
 				INFOPLIST_FILE = Watch/Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = thirdparty/SSignalKit;
+				LIBRARY_SEARCH_PATHS = submodules/SSignalKit;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "";
@@ -30200,10 +30200,10 @@
 				GCC_PREFIX_HEADER = "Watch/Extension/WatchExtension-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = thirdparty/SSignalKit;
+				HEADER_SEARCH_PATHS = submodules/SSignalKit;
 				INFOPLIST_FILE = Watch/Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = thirdparty/SSignalKit;
+				LIBRARY_SEARCH_PATHS = submodules/SSignalKit;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "";
@@ -30702,7 +30702,7 @@
 					thirdparty/pop,
 					thirdparty/libbpg,
 					/Users/peter/Dropbox/workspace/ModernTelegram/MtProtoKit/openssl,
-					thirdparty/SSignalKit,
+					submodules/SSignalKit,
 					submodules/libtgvoip,
 					"thirdparty/Lottie/lottie-ios/Classes/PublicHeaders",
 					submodules/urbanairship/AirshipKit/AirshipKit/ios,
@@ -30793,7 +30793,7 @@
 					legacy/TL,
 					thirdparty/pop,
 					"$(SRCROOT)/../MtProtoKit/thirdparty/openssl",
-					thirdparty/SSignalKit,
+					submodules/SSignalKit,
 					submodules/libtgvoip,
 					"thirdparty/Lottie/lottie-ios/Classes/PublicHeaders",
 				);

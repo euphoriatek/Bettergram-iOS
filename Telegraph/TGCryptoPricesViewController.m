@@ -182,21 +182,21 @@ const CGFloat kCellIconOffset = 10;
     return @[_marketCapView, _24VolumeView, _btcDominanceView];
 }
 
-- (void)setMarketCapValue:(CGFloat)value change:(CGFloat)change
+- (void)setMarketCapValue:(double)value change:(double)change
 {
     [_marketCapView setValueString:[self.currencyFormatter stringFromNumber:@(value)]];
     [_marketCapView setChange:change];
     [self setNeedsLayout];
 }
 
-- (void)set24VolumeValue:(CGFloat)value change:(CGFloat)change
+- (void)set24VolumeValue:(double)value change:(double)change
 {
     [_24VolumeView setValueString:[self.currencyFormatter stringFromNumber:@(value)]];
     [_24VolumeView setChange:change];
     [self setNeedsLayout];
 }
 
-- (void)setBTCDominanceValue:(CGFloat)value change:(CGFloat)change
+- (void)setBTCDominanceValue:(double)value change:(double)change
 {
     [_btcDominanceView setValueString:[NSString stringWithFormat:@"%.2f%%",value * 100]];
     [_btcDominanceView setChange:change];
@@ -708,9 +708,10 @@ const CGFloat kCellIconOffset = 10;
     
     TGListsTableView *_tableView;
     NSArray<UITableViewCell *> *_topSectionCells;
-    TGCryptoPricesInfo *_pricesInfo;
+    CGFloat _topSectionCellsHeight;
     NSArray<TGCryptoCoinInfo *> *_filteredCoinInfos;
     __weak NSTimer *_fetchingTimer;
+    CGPoint _lastContentOffset;
     
     NSNumberFormatter *_percentFormatter;
     NSNumberFormatter *_currencyFormatter;
@@ -724,6 +725,7 @@ const CGFloat kCellIconOffset = 10;
 }
 
 @property (nonatomic, strong) TGPresentation *presentation;
+@property (nonatomic, strong) TGCryptoPricesInfo *pricesInfo;
 
 @end
 
@@ -761,6 +763,7 @@ const CGFloat kCellIconOffset = 10;
     _sortCell.delegate = self;
     
     [self.view addSubview:(_tableView = [[TGListsTableView alloc] init])];
+    _tableView.decelerationRate = UIScrollViewDecelerationRateFast;
     _tableView.backgroundColor = nil;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -792,6 +795,7 @@ const CGFloat kCellIconOffset = 10;
     
     [self updateRightButtonItemImage];
     [self fetchData];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -805,7 +809,7 @@ const CGFloat kCellIconOffset = 10;
 {
     if (self.parentViewController == nil) return;
     [_fetchingTimer invalidate];
-    [TGCryptoManager.manager fetchCoins:(NSUInteger)(_tableView.frame.size.height / _tableView.rowHeight * 3)
+    [TGCryptoManager.manager fetchCoins:(NSUInteger)(_tableView.frame.size.height / _tableView.rowHeight * 2.5)
                                  offset:0
                                 sorting:_sortCell.sorting
                               favorites:_filterCell.favoritesFilterButton.isSelected
@@ -817,22 +821,38 @@ const CGFloat kCellIconOffset = 10;
                                                                                      userInfo:nil
                                                                                       repeats:NO];
                                      if (pricesInfo != nil) {
-                                         _pricesInfo = pricesInfo;
-                                         _currencyFormatter.currencySymbol = pricesInfo.currency.symbol ?: @"";
-                                         [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
-                                         [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
-                                         [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
-                                         if (_filterCell.searchMixin.isActive) {
-                                             [self filterCoinInfos];
-                                         }
-                                         [_tableView reloadData];
-                                         if (_resetScrollPosition) {
-                                             [_tableView scrollsToTop];
-                                             _resetScrollPosition = YES;
-                                         }
+                                         self.pricesInfo = pricesInfo;
                                      }
                                  });
                              }];
+}
+
+- (void)setPricesInfo:(TGCryptoPricesInfo *)pricesInfo
+{
+    _pricesInfo = pricesInfo;
+    _currencyFormatter.currencySymbol = pricesInfo.currency.symbol ?: @"";
+    [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
+    [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
+    [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
+    if (_filterCell.searchMixin.isActive) {
+        [self filterCoinInfos];
+    }
+    [self reloadTableView:_tableView];
+    if (_resetScrollPosition) {
+        [_tableView scrollsToTop];
+        _resetScrollPosition = YES;
+    }
+}
+
+- (void)reloadTableView:(TGListsTableView *)tableView
+{
+    [tableView reloadData];
+    CGSize contentSize = tableView.contentSize;
+    NSUInteger basePageRowsCount = (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
+    CGFloat partCellSize = tableView.bounds.size.height - basePageRowsCount * tableView.rowHeight;
+    CGFloat basePageHeight = tableView.rowHeight * basePageRowsCount;
+    contentSize.height = _topSectionCellsHeight + ceil((double)[self coinInfosForTableView:tableView].count / basePageRowsCount) * basePageHeight + partCellSize;
+    tableView.fixedContentSize = &contentSize;
 }
 
 - (void)setPresentation:(TGPresentation *)presentation
@@ -876,9 +896,9 @@ const CGFloat kCellIconOffset = 10;
         [cells insertObject:_marketInfoCell atIndex:0];
     }
     _topSectionCells = cells.copy;
-    
-    if (_tableView.numberOfSections != [self numberOfSectionsInTableView:_tableView]) {
-        [_tableView reloadData];
+    _topSectionCellsHeight = 0;
+    for (NSUInteger i = 0; i < _topSectionCells.count; i++) {
+        _topSectionCellsHeight += [self tableView:_tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
     }
     CGFloat contentHeight = self.view.frame.size.height - self.controllerInset.top - self.controllerInset.bottom;
     if (UIInterfaceOrientationIsPortrait(self.currentInterfaceOrientation)) {
@@ -892,6 +912,9 @@ const CGFloat kCellIconOffset = 10;
         _tableView.frame = CGRectMake(CGRectGetMaxX(_marketInfoCell.frame), self.controllerInset.top,
                                       self.view.frame.size.width - CGRectGetMaxX(_marketInfoCell.frame) - self.controllerInset.right,
                                       contentHeight + 1);
+    }
+    if (_tableView.numberOfSections != [self numberOfSectionsInTableView:_tableView]) {
+        [self reloadTableView:_tableView];
     }
 }
 
@@ -1001,6 +1024,45 @@ const CGFloat kCellIconOffset = 10;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _lastContentOffset = scrollView.contentOffset;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)__unused velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if (![scrollView isKindOfClass:[UITableView class]]) return;
+    UITableView *tableView = (id)scrollView;
+    
+    CGFloat targetOffsetY = (*targetContentOffset).y;
+    CGFloat scrollDelta = targetOffsetY - _lastContentOffset.y;    
+    NSUInteger basePageRowsCount = (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
+    CGFloat basePageHeight = tableView.rowHeight * basePageRowsCount;
+    
+    NSInteger selectedPage = 0;
+    if (_lastContentOffset.y >= _topSectionCellsHeight) {
+        selectedPage = (NSInteger)floor((_lastContentOffset.y - _topSectionCellsHeight) / basePageHeight + 0.1) + 1;
+    }
+    if (ABS(scrollDelta) > _topSectionCellsHeight / 5) {
+        if (scrollDelta > 0) {
+            selectedPage++;
+        }
+        else {
+            selectedPage--;
+        }
+    }
+    if (selectedPage > 0) {
+        *targetContentOffset = [tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:basePageRowsCount * (selectedPage - 1)
+                                                                                   inSection:tableView.numberOfSections - 1]].origin;
+    }
+    else {
+        *targetContentOffset = [tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                                   inSection:0]].origin;
+    }
+}
+
 #pragma mark - TGCoinCellDelegate
 
 - (void)coinCell:(TGCoinCell *)cell didTapFavoriteButton:(UIButton *)favoriteButton
@@ -1012,7 +1074,7 @@ const CGFloat kCellIconOffset = 10;
                                favorite:favoriteButton.selected];
     if (_filterCell.favoritesFilterButton.isSelected) {
         [_pricesInfo coinInfoAtIndexUnfavorited:indexPath.row];
-        [_tableView reloadData];
+        [self reloadTableView:_tableView];
     }
 }
 

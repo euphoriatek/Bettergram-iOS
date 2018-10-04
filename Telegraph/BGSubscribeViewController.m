@@ -163,6 +163,8 @@ static const CGFloat kButtonTFHeight = 54;
         [self shake:_emailTextField direction:1 shakes:0];
     }
     if (isValid) {
+        [[NSUserDefaults standardUserDefaults] setObject:self.cleanEmailString forKey:@"bettergramSubscriptionEmailBase"];
+        [[NSUserDefaults standardUserDefaults] setObject:self.cleanEmailString forKey:@"bettergramSubscriptionEmailCrypto"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"bettergramGotEmail"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.navigationController setViewControllers:@[[[RMIntroViewController alloc] init]] animated:YES];
@@ -171,16 +173,16 @@ static const CGFloat kButtonTFHeight = 54;
 
 #pragma mark - UITextFieldDelegate
 
-- (void)textFieldDidChange:(UITextField *)textField
+- (void)textFieldDidChange:(UITextField *)__unused textField
 {
-    BOOL isValid = [STPEmailAddressValidator stringIsValidPartialEmailAddress:textField.text];
+    BOOL isValid = [STPEmailAddressValidator stringIsValidPartialEmailAddress:self.cleanEmailString];
     _emailTextField.textColor = isValid ? UIColorRGB(0x828282) : UIColorRGB(0xFF7764);
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-    if (![STPEmailAddressValidator stringIsValidEmailAddress:textField.text]) {
+    if (![STPEmailAddressValidator stringIsValidEmailAddress:self.cleanEmailString]) {
         _emailTextField.textColor = UIColorRGB(0xFF7764);
         return NO;
     }
@@ -188,6 +190,11 @@ static const CGFloat kButtonTFHeight = 54;
 }
 
 #pragma mark - Helpers
+
+- (NSString *)cleanEmailString
+{
+    return [_emailTextField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
 
 - (UIButton *)createCheckboxButton
 {

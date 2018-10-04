@@ -40,13 +40,10 @@ Telegram is an essential part of our lives as tech entrepreneurs. Over 200+ mill
    `config.h` contains next 2 lines:
 
    ```
-   #define SETUP_API_ID(apiId) apiId = 17349;
-   #define SETUP_API_HASH(apiHash) apiHash = @"344583e45741c457fe1862106095a5eb";
+   #define SETUP_API_ID(apiId) apiId = ...;
+   #define SETUP_API_HASH(apiHash) apiHash = @"...";
    ```
 
-4. Open `Telegram.xcworkspace` file in Xcode. Choose any Simulator, for example, iPhone 8 (but not a real iOS device connected to Mac). Build the project.
+3. Create Debug and Release configurations for SSignalKit (this's a submodule we can't push it)
 
-
-5. Create Debug and Release configurations for SSignalKit
-
-6. Change Signing Automatically & Team None for SSignalKit and MtProtoKit (this both are submodules so you're we can't push it)
+4. To build the project for a real device or to archive change Signing Automatically & Team None for SSignalKit and MtProtoKit (these are submodules so we can't push it)

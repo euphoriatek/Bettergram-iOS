@@ -25,7 +25,6 @@
 
 const static CGFloat kCellIconSize = 30;
 static const CGSize kBaseCellOffset = (CGSize){.width = 20, .height = 7};
-const static CGFloat kSeeAllButtonOffset = 30;
 
 @implementation TGCryptoResourceCell
 
@@ -91,8 +90,6 @@ const static CGFloat kSeeAllButtonOffset = 30;
 @class TGCryptoResourceHeaderView;
 @protocol TGCryptoResourceHeaderViewDelegate <NSObject>
 
-- (void)headerViewDidTapSeeAllButton:(TGCryptoResourceHeaderView *)headerView;
-
 @end
 
 @interface TGCryptoResourceHeaderView : UITableViewHeaderFooterView {
@@ -103,7 +100,6 @@ const static CGFloat kSeeAllButtonOffset = 30;
 
 @property (nonatomic, strong, readonly) UILabel *label;
 @property (nonatomic, strong, readonly) TGPresentation *presentation;
-@property (nonatomic, strong, readonly) UIButton *seeAllButton;
 
 @end
 
@@ -124,19 +120,9 @@ const static CGFloat kSeeAllButtonOffset = 30;
         
         _rightLineView = [[UIView alloc] init];
         
-        _seeAllButton = [[UIButton alloc] init];
-        _seeAllButton.adjustsImageWhenHighlighted = NO;
-        _seeAllButton.titleLabel.font = TGSystemFontOfSize(10);
-        [_seeAllButton addTarget:self action:@selector(seeAllButtonTap) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.contentView addSubviews:@[_label, _seeAllButton, _rightLineView]];
+        [self.contentView addSubviews:@[_label, _rightLineView]];
     }
     return self;
-}
-
-- (void)seeAllButtonTap
-{
-    [_delegate headerViewDidTapSeeAllButton:self];
 }
 
 - (void)layoutSubviews
@@ -147,26 +133,12 @@ const static CGFloat kSeeAllButtonOffset = 30;
     labelFrame.size = [_label sizeThatFits:CGSizeZero];
     labelFrame.origin.x = kBaseCellOffset.width;
     labelFrame.origin.y = (self.contentView.frame.size.height - labelFrame.size.height) / 2;
-    
-    if (!_seeAllButton.isHidden) {
-        CGRect frame = CGRectZero;
-        frame.size.width = MAX(44, [_seeAllButton sizeThatFits:CGSizeZero].width + 12);
-        frame.size.height = self.contentView.frame.size.height;
-        frame.origin.x = MIN(kSeeAllButtonOffset + CGRectGetMaxX(labelFrame),
-                             self.contentView.frame.size.width - kBaseCellOffset.width - frame.size.width);
-        
-        labelFrame.size.width = MIN(labelFrame.size.width, frame.origin.x - kSeeAllButtonOffset);
-        
-        _seeAllButton.frame = frame;
-    }
-    else {
-        labelFrame.size.width = MIN(labelFrame.size.width, self.contentView.frame.size.width - kBaseCellOffset.width - labelFrame.origin.x);
-    }
+    labelFrame.size.width = MIN(labelFrame.size.width, self.contentView.frame.size.width - kBaseCellOffset.width - labelFrame.origin.x);
     _label.frame = labelFrame;
     
     {
         CGRect frame = CGRectZero;
-        frame.origin.x = CGRectGetMaxX((_seeAllButton.isHidden ? _label : _seeAllButton).frame) + kSeeAllButtonOffset / 2;
+        frame.origin.x = CGRectGetMaxX(_label.frame) + 15;
         frame.size.height = 1;
         frame.origin.y = (self.contentView.frame.size.height - frame.size.height) / 2;
         frame.size.width = self.contentView.frame.size.width - kBaseCellOffset.width - frame.origin.x;
@@ -179,13 +151,6 @@ const static CGFloat kSeeAllButtonOffset = 30;
     if ([_presentation isEqual:presentation]) return;
     _label.textColor = presentation.pallete.dialogTitleColor;
     _rightLineView.backgroundColor = presentation.pallete.cryptoSortArrowColor;
-    [_seeAllButton setBackgroundImage:presentation.images.seeAllButtonBackground forState:UIControlStateNormal];
-    [_seeAllButton setTitleColor:presentation.pallete.accentContrastColor forState:UIControlStateNormal];
-}
-
-- (void)localizationUpdated
-{
-    [_seeAllButton setTitle:TGLocalized(@"Crypto.Resources.SeeAllButton") forState:UIControlStateNormal];
 }
 
 @end
@@ -194,7 +159,6 @@ const static CGFloat kSeeAllButtonOffset = 30;
 @interface TGResourcesViewController () <UITableViewDelegate, UITableViewDataSource, TGCryptoResourceHeaderViewDelegate> {
     TGListsTableView *_tableView;
     NSArray<TGResourceSection *> *_resourceSections;
-    NSMutableIndexSet *_uncoveredSectionIndexes;
     
     UIBarButtonItem *_leftButtonItem;
 }
@@ -243,11 +207,17 @@ const static CGFloat kSeeAllButtonOffset = 30;
     
     [TGCryptoManager.manager fetchResources:^(NSArray<TGResourceSection *> *resourceSections) {
         TGDispatchOnMainThread(^{
-            _uncoveredSectionIndexes = [[NSMutableIndexSet alloc] init];
             _resourceSections = resourceSections;
             [_tableView reloadData];
         });
     }];
+}
+
+- (void)controllerInsetUpdated:(__unused UIEdgeInsets)previousInset
+{
+    if (!self.isViewLoaded) return;
+    
+    _tableView.frame = UIEdgeInsetsInsetRect(self.view.frame, self.controllerInset);
 }
 
 - (void)setPresentation:(TGPresentation *)presentation
@@ -286,11 +256,7 @@ const static CGFloat kSeeAllButtonOffset = 30;
 
 - (NSInteger)tableView:(UITableView *)__unused tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numberOfRowsInSection = _resourceSections[section].resourceItems.count;
-    if (![_uncoveredSectionIndexes containsIndex:section] && numberOfRowsInSection > 2) {
-        return 2;
-    }
-    return numberOfRowsInSection;
+    return _resourceSections[section].resourceItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -312,10 +278,8 @@ const static CGFloat kSeeAllButtonOffset = 30;
 {
     TGCryptoResourceHeaderView *view = (TGCryptoResourceHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:TGCryptoResourceHeaderView.reuseIdentifier];
     view.presentation = _presentation;
-    [view localizationUpdated];
     TGResourceSection *resourceSections = _resourceSections[section];
     view.label.text = resourceSections.title;
-    view.seeAllButton.hidden = _resourceSections[section].resourceItems.count < 3 || [_uncoveredSectionIndexes containsIndex:section];
     view.delegate = self;
     return view;
 }
@@ -327,19 +291,6 @@ const static CGFloat kSeeAllButtonOffset = 30;
                                                     forceNative:true
                                                       keepStack:true];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-}
-
-#pragma mark - TGCryptoResourceHeaderViewDelegate
-
-- (void)headerViewDidTapSeeAllButton:(TGCryptoResourceHeaderView *)headerView
-{
-    for (NSInteger section = 0; section < _tableView.numberOfSections; section++) {
-        if ([_tableView headerViewForSection:section] == headerView) {
-            [_uncoveredSectionIndexes addIndex:section];
-            [_tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
-            return;
-        }
-    }
 }
 
 @end

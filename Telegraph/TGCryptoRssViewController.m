@@ -10,6 +10,7 @@
 #import "TGApplication.h"
 #import "TGPresentation.h"
 #import "MWFeedParser.h"
+#import "TGAppDelegate.h"
 
 static const CGFloat kBaseCellImageOffset = 20;
 static const CGFloat kCellSmallOffset = 10;
@@ -330,7 +331,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     MWFeedItem *feedItem = _feedItems[indexPath.section];
     if (!feedItem.isViewed) {
         feedItem.isViewed = YES;
-        [_feedParser feedItemReadStateUpdated:feedItem];
+        [_feedParser setNeedsArchiveFeedItems];
     }
     [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:feedItem.link]
                                                     forceNative:true

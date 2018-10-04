@@ -1,9 +1,3 @@
-[submodule "thirdparty/ActionSheetPicker"]
-	path = thirdparty/ActionSheetPicker
-	url = https://github.com/skywinder/ActionSheetPicker-3.0.git
-[submodule "thirdparty/SSignalKit"]
-	path = thirdparty/SSignalKit
-url=https://github.com/peter-iakovlev/Signals.git
 [submodule "submodules/MtProtoKit"]
 	path = submodules/MtProtoKit
 	url = git@github.com:iakovlev-peter/MtProtoKit.git
@@ -16,3 +10,9 @@ url=https://github.com/peter-iakovlev/Signals.git
 [submodule "submodules/AFNetworking"]
 	path = submodules/AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking
+[submodule "submodules/HTMLReader"]
+	path = submodules/HTMLReader
+	url = https://github.com/nolanw/HTMLReader
+[submodule "submodules/SSignalKit"]
+	path = submodules/SSignalKit
+	url = https://github.com/peter-iakovlev/Signals.git

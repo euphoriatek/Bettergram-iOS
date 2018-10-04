@@ -8,6 +8,8 @@
 
 @property (nonatomic, copy) void (^onHitTest)(CGPoint);
 
+@property (nonatomic, assign) CGSize* fixedContentSize;
+
 - (void)adjustBehaviour;
 - (void)scrollToTop;
 

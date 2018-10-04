@@ -402,34 +402,6 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UAirship takeOff];
-    [UAirship push].userPushNotificationsEnabled = YES;
-    [UAirship push].defaultPresentationOptions = UNNotificationPresentationOptionAlert;
-    
-    _spentTimeManager = [[TGSpentTimeManager alloc] init];
-    _rateAppAction = [[UARateAppAction alloc] init];
-    switch (_rateAppAction.rateAppLinkPromptTimestamps.count + _rateAppAction.rateAppPromptTimestamps.count) {
-        case 0:
-            [_spentTimeManager notifyReachingTime:1 * 60 * 60 target:self selector:@selector(spentTimeReached)];
-            
-        case 1:
-            [_spentTimeManager notifyReachingTime:5 * 60 * 60 target:self selector:@selector(spentTimeReached)];
-            
-        case 2:
-            [_spentTimeManager notifyReachingTime:30 * 60 * 60 target:self selector:@selector(spentTimeReached)];
-            
-        default:
-            break;
-    }
-    
-    application.statusBarHidden = NO;
-    if (iosMajorVersion() >= 9) {
-        if ([effectiveLocalization().code isEqualToString:@"ar"]) {
-            [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
-        } else {
-            [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
-        }
-    }
     [LegacyComponentsGlobals setProvider:[[TGLegacyComponentsGlobalsProvider alloc] init]];
     [TGViewController setDefaultContext:[TGLegacyComponentsContext shared]];
     [TGNavigationBar setMusicPlayerProvider:[[TGNavigationBarMusicPlayerProvider alloc] init]];
@@ -918,6 +890,35 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 #endif
     [[Harpy sharedInstance] checkVersion];
     
+    
+    [UAirship takeOff];
+    [UAirship push].userPushNotificationsEnabled = YES;
+    [UAirship push].defaultPresentationOptions = UNNotificationPresentationOptionAlert;
+    
+    _spentTimeManager = [[TGSpentTimeManager alloc] init];
+    _rateAppAction = [[UARateAppAction alloc] init];
+    switch (_rateAppAction.rateAppLinkPromptTimestamps.count + _rateAppAction.rateAppPromptTimestamps.count) {
+        case 0:
+            [_spentTimeManager notifyReachingTime:1 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            
+        case 1:
+            [_spentTimeManager notifyReachingTime:5 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            
+        case 2:
+            [_spentTimeManager notifyReachingTime:30 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            
+        default:
+            break;
+    }
+    
+    application.statusBarHidden = NO;
+    if (iosMajorVersion() >= 9) {
+        if ([effectiveLocalization().code isEqualToString:@"ar"]) {
+            [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+        } else {
+            [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
+        }
+    }
     return true;
 }
 
