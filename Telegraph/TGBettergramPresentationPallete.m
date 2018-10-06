@@ -11,20 +11,37 @@
 
 @implementation TGBettergramPresentationPallete
 
+- (UIColor *)tabBarBackgroundColor
+{
+    return [UIColor whiteColor];
+}
+
+- (UIColor *)tabBarSeparatorColor
+{
+    return [self secondaryTextColor];
+}
+
 - (UIColor *)cryptoSortArrowColor
 {
     return UIColorRGB(0xDEDEDE);
-}
-
-- (UIColor *)marketInfoMarkValueColor
-{
-    return UIColor.blackColor;
 }
 
 - (UIColor *)cryptoFavoritedCoinColor
 {
     return UIColorRGB(0xF5A623);
 }
+
+- (UIColor *)searchBarPlainBackgroundColor
+{
+    return self.accentColor;
+}
+
+- (UIColor *)conversationInputPanelActionColor
+{
+    return self.accentContrastColor;
+}
+
+//
 
 - (bool)isDark
 {
@@ -39,11 +56,6 @@
 - (UIColor *)backgroundColor
 {
     return [UIColor whiteColor];
-}
-
-- (UIColor *)conversationInputPanelActionColor
-{
-    return self.accentContrastColor;
 }
 
 - (UIColor *)textColor
@@ -94,16 +106,6 @@
 - (UIColor *)padSeparatorColor
 {
     return UIColorRGBA(0x575757, 0.43f);
-}
-
-- (UIColor *)tabBarBackgroundColor
-{
-    return [UIColor whiteColor];
-}
-
-- (UIColor *)tabBarSeparatorColor
-{
-    return [self secondaryTextColor];
 }
 
 - (UIColor *)barBackgroundColor
@@ -226,11 +228,6 @@
     return [UIColor whiteColor];
 }
 
-- (UIColor *)searchBarPlainBackgroundColor
-{
-    return self.accentColor;
-}
-
 - (UIColor *)dialogTitleColor
 {
     return UIColorRGB(0x2D2D2D);
@@ -329,11 +326,6 @@
 - (UIColor *)dialogEditPinColor
 {
     return UIColorRGB(0x2094fa);
-}
-
-- (UIColor *)dialogEditFavoriteColor
-{
-    return self.accentColor;
 }
 
 - (UIColor *)dialogEditGroupColor

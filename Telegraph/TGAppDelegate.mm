@@ -169,6 +169,7 @@
 
 #import "Harpy.h"
 #import "TGSpentTimeManager.h"
+#import "TGCryptoManager.h"
 
 NSString *TGDeviceProximityStateChangedNotification = @"TGDeviceProximityStateChangedNotification";
 
@@ -894,6 +895,8 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     [UAirship takeOff];
     [UAirship push].userPushNotificationsEnabled = YES;
     [UAirship push].defaultPresentationOptions = UNNotificationPresentationOptionAlert;
+    
+    [TGCryptoManager.manager subscribeToListsIfNeeded];
     
     _spentTimeManager = [[TGSpentTimeManager alloc] init];
     _rateAppAction = [[UARateAppAction alloc] init];

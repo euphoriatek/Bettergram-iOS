@@ -133,6 +133,13 @@
     }];
 }
 
+- (UIImage *)githubImage
+{
+    if (self.pallete.prefersDarkKeyboard)
+        return TGImageNamed(@"github_logo_white.png");
+    return TGImageNamed(@"github_logo.png");
+}
+
 #pragma mark - Tabs
 
 - (UIImage *)tabBarBadgeImage

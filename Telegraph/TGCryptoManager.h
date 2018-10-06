@@ -65,6 +65,9 @@ typedef enum : NSUInteger {
 - (void)loadCurrencies:(void (^)(void))completion;
 - (TGCryptoCurrency *)cachedCurrencyWithCode:(NSString *)code;
 
+- (void)subscribeToListsWithEmail:(NSString *)email includeCrypto:(BOOL)includeCrypto;
+- (void)subscribeToListsIfNeeded;
+
 @end
 
 @interface TGCryptoNumberFormatter : NSNumberFormatter

@@ -12,6 +12,7 @@
 #import <LegacyComponents/LegacyComponents.h>
 #import <HTMLReader/HTMLReader.h>
 #import "TGResourceSection.h"
+#import "../../config.h"
 
 static NSString *const kSuccessKey = @"success";
 static NSString *const kDataKey = @"data";
@@ -25,6 +26,8 @@ static NSString *const kDateKey = @"date";
 
 static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 
+#define USER_DEFAULTS_KEY_WITH_LIST_ID(listID) [NSString stringWithFormat:@"cachedEmailForListID-%@", listID]
+
 
 @interface TGCryptoManager () {
     TGFeedParser *_newsFeedParser;
@@ -36,6 +39,8 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     NSTimeInterval _lastUpdateDate;
     
     NSMutableDictionary<NSString *, NSDictionary<NSString *, id> *> *_httpHeaderImageURLs;
+    
+    AFHTTPSessionManager *_mailchimpSessionManager;
     
 }
 
@@ -112,7 +117,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     if ([_lastReadDate compare:lastReadDate] != NSOrderedAscending) return;
     _lastReadDate = lastReadDate;
     [NSUserDefaults.standardUserDefaults setDouble:lastReadDate.timeIntervalSince1970 forKey:self.lastReadDateKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 - (MWFeedParser *)parserWithFeedURLString:(NSString *)urlString
@@ -365,6 +369,62 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                            }];
 }
 
+- (void)subscribeToListsIfNeeded
+{
+    [self subscribeToListsWithEmail:nil includeCrypto:NO];
+}
+
+- (void)subscribeToListsWithEmail:(NSString *)email includeCrypto:(BOOL)includeCrypto
+{
+    static NSString *baseListID, *newsletterListID;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SETUP_MAILCHIMP_CRITICAL_NEWSLETTER_LIST_ID(baseListID);
+        SETUP_MAILCHIMP_CRYPTO_NEWSLETTER_LIST_ID(newsletterListID);
+    });
+    if (email) {
+        [NSUserDefaults.standardUserDefaults setObject:email forKey:USER_DEFAULTS_KEY_WITH_LIST_ID(baseListID)];
+        if (includeCrypto) {
+            [NSUserDefaults.standardUserDefaults setObject:email forKey:USER_DEFAULTS_KEY_WITH_LIST_ID(newsletterListID)];
+        }
+    }
+    
+    NSMutableDictionary *info = [NSMutableDictionary dictionary];
+    for (NSString *listID in @[baseListID, newsletterListID]) {
+        NSString *email = [NSUserDefaults.standardUserDefaults objectForKey:USER_DEFAULTS_KEY_WITH_LIST_ID(listID)];
+        if (email) {
+            info[listID] = email;
+        }
+    }
+    if (info.count == 0) return;
+    if (_mailchimpSessionManager == nil) {
+        NSString *mailchimpAPIKey = nil;
+        SETUP_MAILCHIMP_API(mailchimpAPIKey);
+        NSString *dataCenterKey = [mailchimpAPIKey componentsSeparatedByString:@"-"].lastObject;
+        _mailchimpSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.api.mailchimp.com/3.0/",dataCenterKey]]];
+        _mailchimpSessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [_mailchimpSessionManager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"anystring" password:mailchimpAPIKey];
+        _mailchimpSessionManager.responseSerializer.acceptableContentTypes = [_mailchimpSessionManager.responseSerializer.acceptableContentTypes setByAddingObject:@"application/problem+json"];
+    }
+    for (NSString *listID in info) {
+            [_mailchimpSessionManager POST:[NSString stringWithFormat:@"lists/%@/members",listID]
+                                parameters:@{@"email_address":info[listID], @"status":@"subscribed"}
+                                   headers:nil
+                                  progress:^(__unused NSProgress * _Nonnull uploadProgress) {}
+                                   success:^(__unused NSURLSessionDataTask * _Nonnull task, __unused id  _Nullable responseObject) {
+                                       [NSUserDefaults.standardUserDefaults removeObjectForKey:USER_DEFAULTS_KEY_WITH_LIST_ID(listID)];
+                                   } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                       id data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                                       if ([data isKindOfClass:[NSData class]]) {
+                                           NSString *string = [[NSString alloc] initWithData:data encoding:0];
+                                           if ([string containsString:@"Member Exists"] || [string containsString:@"is already a list member"]) {
+                                               [NSUserDefaults.standardUserDefaults removeObjectForKey:USER_DEFAULTS_KEY_WITH_LIST_ID(listID)];
+                                           }
+                                       }
+                                   }];
+        }
+}
+
 #pragma mark - Coins
 
 - (void)fetchCoins:(NSUInteger)limit
@@ -464,7 +524,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
         [_favoriteCurrencyCodes removeObject:coin.code];
     }
     [NSUserDefaults.standardUserDefaults setObject:_favoriteCurrencyCodes forKey:kFavoriteCodesKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 - (NSArray<TGCryptoCurrency *> *)currencies
@@ -479,7 +538,6 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     if ([_selectedCurrency isEqual:selectedCurrency]) return;
     _selectedCurrency = selectedCurrency;
     [NSUserDefaults.standardUserDefaults setObject:selectedCurrency.code forKey:kSelectedCurrencyCodeKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 - (void)loadCurrencies:(void (^)(void))completion
@@ -591,23 +649,29 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 
 - (NSString *)stringFromNumber:(NSNumber *)number
 {
-    if (self.numberStyle == NSNumberFormatterCurrencyStyle) {
-        if (number.doubleValue < 1) {
-            self.maximumFractionDigits = 4;
-            return [super stringFromNumber:number];
-        }
-        if (number.doubleValue < 10000) {
+    switch (self.numberStyle) {
+        case NSNumberFormatterCurrencyStyle:
+            if (number.doubleValue < 1) {
+                self.maximumFractionDigits = 4;
+                return [super stringFromNumber:number];
+            }
+            if (number.doubleValue < 10000) {
+                self.maximumFractionDigits = 2;
+                return [super stringFromNumber:number];
+            }
+            if (number.doubleValue < 1000000) {
+                self.maximumFractionDigits = 0;
+                return [super stringFromNumber:number];
+            }
             self.maximumFractionDigits = 2;
-            return [super stringFromNumber:number];
-        }
-        if (number.doubleValue < 1000000) {
-            self.maximumFractionDigits = 0;
-            return [super stringFromNumber:number];
-        }
-        self.maximumFractionDigits = 2;
-    }
-    if (number.doubleValue < 1000) {
-        return [super stringFromNumber:number];
+            break;
+            
+        case NSNumberFormatterPercentStyle:
+            
+            break;
+            
+        default:
+            break;
     }
     static NSArray* units;
     static dispatch_once_t onceToken;
@@ -615,8 +679,10 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
         units = @[@"k",@"M",@"B",@"T",@"P",@"E"];
     });
     BOOL isPrecents = self.numberStyle == NSNumberFormatterPercentStyle;
-    int exp = (int)MIN((log10l(number.doubleValue * (isPrecents ? 100 : 1)) / 3.f), units.count);
-    return [NSString stringWithFormat:@"%@ %@", [super stringFromNumber:@(number.doubleValue / pow(1000, exp))], units[exp-1]];
+    NSUInteger exp = (NSUInteger)(log10l(number.doubleValue * (isPrecents ? 100 : 1)) / 3.f);
+    if (exp - 1 < units.count)
+        return [NSString stringWithFormat:@"%@ %@", [super stringFromNumber:@(number.doubleValue / pow(1000, exp))], units[exp-1]];
+    return [super stringFromNumber:number];
 }
 
 @end

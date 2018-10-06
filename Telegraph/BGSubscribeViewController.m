@@ -6,8 +6,10 @@
 //
 
 #import "BGSubscribeViewController.h"
+
 #import "STPEmailAddressValidator.h"
 #import "RMIntroViewController.h"
+#import "TGCryptoManager.h"
 
 @interface BGSubscribeViewController () <UITextFieldDelegate> {
     UIView *_backgroudView;
@@ -163,10 +165,8 @@ static const CGFloat kButtonTFHeight = 54;
         [self shake:_emailTextField direction:1 shakes:0];
     }
     if (isValid) {
-        [[NSUserDefaults standardUserDefaults] setObject:self.cleanEmailString forKey:@"bettergramSubscriptionEmailBase"];
-        [[NSUserDefaults standardUserDefaults] setObject:self.cleanEmailString forKey:@"bettergramSubscriptionEmailCrypto"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"bettergramGotEmail"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"bettergramGotEmail"];
+        [TGCryptoManager.manager subscribeToListsWithEmail:self.cleanEmailString includeCrypto:_newsletterButton.isSelected];
         [self.navigationController setViewControllers:@[[[RMIntroViewController alloc] init]] animated:YES];
     }
 }
@@ -193,7 +193,7 @@ static const CGFloat kButtonTFHeight = 54;
 
 - (NSString *)cleanEmailString
 {
-    return [_emailTextField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    return [_emailTextField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].lowercaseString;
 }
 
 - (UIButton *)createCheckboxButton

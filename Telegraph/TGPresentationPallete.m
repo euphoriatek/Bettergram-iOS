@@ -6,6 +6,41 @@
 
 @implementation TGPresentationPallete
 
+- (UIColor *)tabBarBackgroundColor
+{
+    return self.barBackgroundColor;
+}
+
+- (UIColor *)tabBarSeparatorColor
+{
+    return self.barSeparatorColor;
+}
+
+- (UIColor *)dialogEditFavoriteColor
+{
+    return self.accentColor;
+}
+
+- (UIColor *)cryptoSortArrowColor
+{
+    return self.secondaryTextColor;
+}
+
+- (UIColor *)cryptoFavoritedCoinColor
+{
+    return UIColorRGB(0xF5A623);
+}
+
+- (UIColor *)searchBarPlainBackgroundColor
+{
+    return self.backgroundColor;
+}
+
+- (UIColor *)conversationInputPanelActionColor
+{
+    return self.accentColor;
+}
+
 + (bool)hasWallpaper
 {
     return ![[[TGWallpaperManager instance] currentWallpaperInfo] isKindOfClass:[TGColorWallpaperInfo class]];
@@ -14,36 +49,6 @@
 - (bool)prefersDarkKeyboard
 {
     return self.isDark;
-}
-
-- (UIColor *)tabBarBackgroundColor
-{
-    return self.barBackgroundColor;
-}
-
-- (UIColor *)dialogEditFavoriteColor
-{
-    return self.accentColor;
-}
-
-- (UIColor *)tabBarSeparatorColor
-{
-    return self.barSeparatorColor;
-}
-
-- (UIColor *)conversationInputPanelActionColor
-{
-    return self.accentColor;
-}
-
-- (UIColor *)searchBarPlainBackgroundColor
-{
-    return self.backgroundColor;
-}
-
-- (UIColor *)cryptoSortArrowColor
-{
-    return self.secondaryTextColor;
 }
 
 @end

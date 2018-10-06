@@ -81,6 +81,8 @@
 
 #import "TGLegacyComponentsContext.h"
 
+#import "TGPresentation.h"
+
 @interface TGAccountSettingsController ()
 {
     int32_t _uid;
@@ -300,8 +302,8 @@
     _watchItem.icon = TGImageNamed(@"SettingsWatchIcon.png");
     _supportItem.icon = TGImageNamed(@"SettingsSupportIcon.png");
     _faqItem.icon = TGImageNamed(@"SettingsFaqIcon.png");
-    _githubItem.icon = TGImageNamed(@"github_logo.png");
     _twitterItem.icon = TGImageNamed(@"twitter_logo.png");
+    _githubItem.icon = self.presentation.images.githubImage;
     if (_callSettingsItem != nil)
         _callSettingsItem.icon = TGImageNamed(@"SettingsCallsIcon.png");
     
@@ -434,6 +436,12 @@
 }
 
 #pragma mark -
+
+- (void)setPresentation:(TGPresentation *)presentation
+{
+    [super setPresentation:presentation];
+    _githubItem.icon = presentation.images.githubImage;
+}
 
 - (void)editButtonPressed
 {

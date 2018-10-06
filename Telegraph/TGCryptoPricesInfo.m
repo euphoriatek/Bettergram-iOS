@@ -19,10 +19,10 @@
 - (instancetype)initWithJSON:(NSDictionary *)dictionary ignoreUnknownCoins:(BOOL)ignoreUnknownCoins favorites:(BOOL)favorites
 {
     if (self = [super init]) {
+        _currency = [TGCryptoManager.manager cachedCurrencyWithCode:dictionary[@"currency"]];
         _marketCap = [dictionary[@"cap"] doubleValue];
         _volume = [dictionary[@"volume"] doubleValue];
         _btcDominance = [dictionary[@"btcDominance"] doubleValue];
-        _currency = [TGCryptoManager.manager cachedCurrencyWithCode:dictionary[@"currency"]];
         
         _coinInfos = [NSMutableArray array];
         for (id json in dictionary[@"data"][favorites ? @"favorites" : @"list"]) {

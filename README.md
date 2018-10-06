@@ -37,11 +37,15 @@ Telegram is an essential part of our lives as tech entrepreneurs. Over 200+ mill
    config.h // Required to add
    ```
 
-   `config.h` contains next 2 lines:
+   `config.h` contains next lines:
 
    ```
-   #define SETUP_API_ID(apiId) apiId = ...;
-   #define SETUP_API_HASH(apiHash) apiHash = @"...";
+   #define SETUP_TELEGRAM_API_ID(apiId) apiId = ...;
+   #define SETUP_TELEGRAM_API_HASH(apiHash) apiHash = @"...";
+   
+   #define SETUP_MAILCHIMP_API(key) key = @"...";
+   #define SETUP_MAILCHIMP_CRITICAL_NEWSLETTER_LIST_ID(key) key = @"...";
+   #define SETUP_MAILCHIMP_CRYPTO_NEWSLETTER_LIST_ID(key) key = @"...";
    ```
 
 3. Create Debug and Release configurations for SSignalKit (this's a submodule we can't push it)
