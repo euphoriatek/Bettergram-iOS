@@ -289,7 +289,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
         [cell.iconImageView cancelLoading];
         cell.iconImageView.image = nil;
         NSURLSessionDataTask *task = [_feedParser fillFeedItemThumbnailFromOGImage:feedItem
-                                                                         completion:^(NSString *url) {
+                                                                        completion:^(NSString *url) {
                                                                              TGDispatchOnMainThread(^{
                                                                                  if (tag == cell.tag) {
                                                                                      [cell.iconImageView loadImage:url filter:nil placeholder:nil];
@@ -322,7 +322,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 }
 
 - (void)tableView:(UITableView *)__unused tableView willDisplayCell:(UITableViewCell *)__unused cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{    
+{
     _feedParser.lastReadDate = _feedItems[indexPath.section].date;
 }
 

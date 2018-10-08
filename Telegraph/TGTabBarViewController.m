@@ -636,7 +636,14 @@ static CGFloat kHeight = 18;
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    
+    _customTabBar.frame = [self tabBarFrame];
+    if (_customTabBar.layer.animationKeys.count > 0) {
+        [self setTabBarHidden:_tabBarHidden animated:YES force:YES];
+    }
+}
+
+- (CGRect)tabBarFrame
+{
     UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
     if (self.view.frame.size.width > self.view.frame.size.height)
         orientation = UIInterfaceOrientationLandscapeLeft;
@@ -657,7 +664,54 @@ static CGFloat kHeight = 18;
         frame.origin.y = self.view.frame.size.height - [TGTabBar tabBarHeight:landscape] - safeAreaInset.bottom;
         frame.size.height += safeAreaInset.bottom;
     }
-    _customTabBar.frame = frame;
+    return frame;
+}
+
+- (void)setTabBarHidden:(BOOL)tabBarHidden
+{
+    [self setTabBarHidden:tabBarHidden animated:NO];
+}
+
+- (void)setTabBarHidden:(bool)tabBarHidden animated:(BOOL)animated
+{
+    [self setTabBarHidden:tabBarHidden animated:animated force:NO];
+}
+
+- (void)setTabBarHidden:(bool)tabBarHidden animated:(BOOL)animated force:(BOOL)force
+{
+    if (!force && _tabBarHidden == tabBarHidden) return;
+    _tabBarHidden = tabBarHidden;
+    if (!animated) {
+        _customTabBar.hidden = tabBarHidden;
+        _customTabBar.frame = [self tabBarFrame];
+        return;
+    }
+    UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
+    CGRect hiddenFrame = _customTabBar.frame;
+    hiddenFrame.origin.y = -hiddenFrame.size.height;
+    void(^animations)() = ^() {
+        _customTabBar.frame = tabBarHidden ? hiddenFrame : [self tabBarFrame];;
+    };
+    void(^completion)(BOOL) = NULL;
+    if (tabBarHidden) {
+        completion = ^(BOOL finished) {
+            _customTabBar.hidden = finished;
+        };
+        options |= UIViewAnimationOptionCurveEaseIn;
+    }
+    else {
+        _customTabBar.hidden = NO;
+        _customTabBar.frame = hiddenFrame;
+        options |= UIViewAnimationOptionCurveEaseOut;
+    }
+    if (!force) {
+        [self.view setNeedsLayout];
+    }
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:options
+                     animations:animations
+                     completion:completion];
 }
 
 - (void)setIgnoreKeyboardFrameChange:(bool)ignoreKeyboardFrameChange restoringFocus:(bool)restoringFocus
@@ -883,6 +937,11 @@ static CGFloat kHeight = 18;
             return UIStatusBarStyleDefault;
         }
     }
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return self.selectedViewController.prefersStatusBarHidden;
 }
 
 - (CGRect)frameForRightmostTab {

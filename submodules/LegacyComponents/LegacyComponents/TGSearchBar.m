@@ -865,25 +865,18 @@
 
 - (BOOL)becomeFirstResponder
 {
-    if (![_customTextField isFirstResponder])
-    {
-        bool shouldBeginEditing = true;
-        id<UISearchBarDelegate> delegate = self.delegate;
-        if ([delegate respondsToSelector:@selector(searchBarShouldBeginEditing:)])
-            shouldBeginEditing = [delegate searchBarShouldBeginEditing:(UISearchBar *)self];
-        
-        if (shouldBeginEditing)
-        {
-            [self.customTextField becomeFirstResponder];
-            
-            if ([delegate respondsToSelector:@selector(searchBarTextDidBeginEditing:)])
-                [delegate searchBarTextDidBeginEditing:(UISearchBar *)self];
-            
-            return true;
-        }
-    }
+    if ([_customTextField isFirstResponder] ||
+        ([self.delegate respondsToSelector:@selector(searchBarShouldBeginEditing:)] &&
+         [self.delegate searchBarShouldBeginEditing:(UISearchBar *)self] == NO))
+        return false;
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [self.customTextField becomeFirstResponder];
+                     }];
+    if ([self.delegate respondsToSelector:@selector(searchBarTextDidBeginEditing:)])
+        [self.delegate searchBarTextDidBeginEditing:(UISearchBar *)self];
     
-    return false;
+    return true;    
 }
 
 - (BOOL)resignFirstResponder
@@ -956,21 +949,7 @@
 {
     if (recognizer.state == UIGestureRecognizerStateRecognized)
     {
-        if (![_customTextField isFirstResponder])
-        {
-            bool shouldBeginEditing = true;
-            id<UISearchBarDelegate> delegate = self.delegate;
-            if ([delegate respondsToSelector:@selector(searchBarShouldBeginEditing:)])
-                shouldBeginEditing = [delegate searchBarShouldBeginEditing:(UISearchBar *)self];
-            
-            if (shouldBeginEditing)
-            {
-                [self.customTextField becomeFirstResponder];
-                
-                if ([delegate respondsToSelector:@selector(searchBarTextDidBeginEditing:)])
-                    [delegate searchBarTextDidBeginEditing:(UISearchBar *)self];
-            }
-        }
+        [self becomeFirstResponder];
     }
 }
 

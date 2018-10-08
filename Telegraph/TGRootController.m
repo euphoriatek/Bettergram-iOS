@@ -440,6 +440,12 @@
     if (!TGIsPad() && iosMajorVersion() >= 11 && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
         return true;
     
+    if (_detailNavigationController.topViewController != nil) {
+        return [_detailNavigationController.topViewController prefersStatusBarHidden];
+    }
+    if (_masterNavigationController.topViewController != nil) {
+        return [_masterNavigationController.topViewController prefersStatusBarHidden];
+    }
     return [super prefersStatusBarHidden];
 }
 

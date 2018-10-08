@@ -12,7 +12,11 @@
 
 @property (nonatomic, assign) NSTimeInterval elapsedTime;
 @property (nonatomic, assign) NSTimeInterval totalElapsedTime;
+@property (nonatomic, assign) NSTimeInterval installationTime;
 
-- (void)notifyReachingTime:(NSTimeInterval)time target:(id)target selector:(SEL)selector;
+- (void)notifyReachingInAppTime:(NSTimeInterval)inAppTime
+          sinceInstallationTime:(NSTimeInterval)sinceInstallationTime
+                         target:(id)target
+                       selector:(SEL)selector;
 
 @end

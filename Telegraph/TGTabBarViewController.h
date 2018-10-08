@@ -37,4 +37,7 @@
 
 - (void)updateNavigationItemOverride:(NSUInteger)selectedIndex;
 
+@property (nonatomic, assign) BOOL tabBarHidden;
+- (void)setTabBarHidden:(bool)tabBarHidden animated:(BOOL)animated;
+
 @end

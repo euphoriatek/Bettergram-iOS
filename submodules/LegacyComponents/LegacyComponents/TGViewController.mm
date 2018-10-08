@@ -1116,7 +1116,10 @@ static id<LegacyComponentsContext> _defaultContext = nil;
     {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        if ([parentViewController respondsToSelector:@selector(isBarBarOnTop)]) {
+        if ([parentViewController respondsToSelector:@selector(tabBarHidden)] &&
+            ![parentViewController performSelector:@selector(tabBarHidden)] &&
+            [parentViewController respondsToSelector:@selector(isBarBarOnTop)])
+        {
             if ([parentViewController performSelector:@selector(isBarBarOnTop)]) {
                 edgeInset.top += [self tabBarHeight:UIInterfaceOrientationIsLandscape(orientation)];
             }

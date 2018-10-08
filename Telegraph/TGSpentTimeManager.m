@@ -9,7 +9,8 @@
 
 @interface TGTimeAction : NSObject
 
-@property (nonatomic, readonly, assign) NSTimeInterval time;
+@property (nonatomic, readonly, assign) NSTimeInterval inAppTime;
+@property (nonatomic, readonly, assign) NSTimeInterval sinceInstallationTime;
 @property (nonatomic, readonly, weak) id target;
 @property (nonatomic, readonly, assign) SEL selector;
 
@@ -17,10 +18,14 @@
 
 @implementation TGTimeAction
 
-- (instancetype)initWithTime:(NSTimeInterval)time target:(id)target selector:(SEL)selector
+- (instancetype)initWithInAppTime:(NSTimeInterval)inAppTime
+            sinceInstallationTime:(NSTimeInterval)sinceInstallationTime
+                           target:(id)target
+                         selector:(SEL)selector
 {
     if (self = [super init]) {
-        _time = time;
+        _inAppTime = inAppTime;
+        _sinceInstallationTime = sinceInstallationTime;
         _target = target;
         _selector = selector;
     }
@@ -29,7 +34,11 @@
 
 - (void)invoce
 {
-    [_target performSelector:_selector];
+    if ([_target respondsToSelector:_selector]) {
+        IMP imp = [_target methodForSelector:_selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(_target, _selector);
+    }
 }
 
 @end
@@ -44,7 +53,8 @@
 
 @implementation TGSpentTimeManager
 
-static NSString * const kUserDefaultKey = @"totalElapsedTime";
+static NSString * const kUserTotalElapsedTimeKey = @"totalElapsedTime";
+static NSString * const kUserInstallationTimeKey = @"installationTime";
 
 - (instancetype)init {
     self = [super init];
@@ -64,7 +74,14 @@ static NSString * const kUserDefaultKey = @"totalElapsedTime";
                                                      name:UIApplicationWillTerminateNotification
                                                    object:nil];
         
-        _totalElapsedTime = [NSUserDefaults.standardUserDefaults doubleForKey:kUserDefaultKey];
+        _totalElapsedTime = [NSUserDefaults.standardUserDefaults doubleForKey:kUserTotalElapsedTimeKey];
+        if (![NSUserDefaults.standardUserDefaults valueForKey:kUserInstallationTimeKey]) {
+            _installationTime = NSDate.date.timeIntervalSince1970;
+            [NSUserDefaults.standardUserDefaults setDouble:_installationTime forKey:kUserInstallationTimeKey];
+        }
+        else {
+            _installationTime = [NSUserDefaults.standardUserDefaults doubleForKey:kUserInstallationTimeKey];
+        }
         _activeStartDate = [NSDate date];
         _timeActions = [NSMutableArray array];
         _timers = [NSMutableArray array];
@@ -90,8 +107,7 @@ static NSString * const kUserDefaultKey = @"totalElapsedTime";
             [obj invalidate];
         }];
         [_timers removeAllObjects];
-        [NSUserDefaults.standardUserDefaults setDouble:_elapsedTime forKey:kUserDefaultKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [NSUserDefaults.standardUserDefaults setDouble:_elapsedTime forKey:kUserTotalElapsedTimeKey];
     }
 }
 
@@ -107,25 +123,39 @@ static NSString * const kUserDefaultKey = @"totalElapsedTime";
     return _totalElapsedTime + self.elapsedTime;
 }
 
-- (void)notifyReachingTime:(NSTimeInterval)time target:(id)target selector:(SEL)selector
+- (void)notifyReachingInAppTime:(NSTimeInterval)inAppTime
+          sinceInstallationTime:(NSTimeInterval)sinceInstallationTime
+                         target:(id)target
+                       selector:(SEL)selector
 {
-    TGTimeAction *timeAction = [[TGTimeAction alloc] initWithTime:time target:target selector:selector];
+    TGTimeAction *timeAction = [[TGTimeAction alloc] initWithInAppTime:inAppTime
+                                                 sinceInstallationTime:sinceInstallationTime
+                                                                target:target
+                                                              selector:selector];
     [_timeActions addObject:timeAction];
     [self createTimerWithTimeAction:timeAction];
 }
 
 - (void)createTimerWithTimeAction:(TGTimeAction *)timeAction
 {
-    if (timeAction.time + 1 < self.totalElapsedTime) {
+    if (timeAction.inAppTime + 1 < self.totalElapsedTime || timeAction.sinceInstallationTime + self.installationTime + 1 < NSDate.date.timeIntervalSince1970) {
+        
         [timeAction invoce];
         return;
     }
-    [_timers addObject:[NSTimer scheduledTimerWithTimeInterval:timeAction.time - self.totalElapsedTime
-                                                       repeats:NO
-                                                         block:^(__unused NSTimer * _Nonnull timer) {
-                                                             [timeAction invoce];
-                                                             [_timeActions removeObject:timeAction];
-                                                         }]];
+    void(^block)(__unused NSTimer * _Nonnull) = ^(__unused NSTimer * _Nonnull timer) {
+        [timeAction invoce];
+        [_timeActions removeObject:timeAction];
+    };
+    NSArray<NSTimer *> *actionTimers = @[
+                                         [NSTimer scheduledTimerWithTimeInterval:timeAction.inAppTime - self.totalElapsedTime
+                                                                         repeats:NO
+                                                                           block:block],
+                                         [NSTimer scheduledTimerWithTimeInterval:timeAction.sinceInstallationTime + self.installationTime - NSDate.date.timeIntervalSince1970
+                                                                         repeats:NO
+                                                                           block:block]
+                                         ];
+    [_timers addObjectsFromArray:actionTimers];
 }
 
 @end

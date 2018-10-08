@@ -16,6 +16,7 @@
 #import "TGCryptoChoosePriceViewController.h"
 #import "TGCryptoManager.h"
 #import "TGAppDelegate.h"
+#import "TGCryptoTabViewController.h"
 
 const CGFloat kMarketInfoOffset = 2;
 const CGFloat kMarketInfoInset = 20;
@@ -53,13 +54,13 @@ const CGFloat kCellIconOffset = 10;
     if (self = [super init]) {
         _percentFormatter = percentFormatter;
         
-        _titleLabel = [[UILabel alloc] init];
+        _titleLabel = [UILabel.alloc init];
         _titleLabel.font = TGSystemFontOfSize(10);
         
-        _valueLabel = [[UILabel alloc] init];
+        _valueLabel = [UILabel.alloc init];
         _valueLabel.font = TGSystemFontOfSize(16);
         
-        _changeLabel = [[UILabel alloc] init];
+        _changeLabel = [UILabel.alloc init];
         _changeLabel.font = TGSystemFontOfSize(10);
         
         [self addSubviews:self.labels];
@@ -156,6 +157,8 @@ const CGFloat kCellIconOffset = 10;
 
 @property (nonatomic, strong) TGPresentation *presentation;
 
+@property (nonatomic, assign) BOOL ignoreTableView;
+
 @end
 
 @implementation TGMarketInfoCell
@@ -168,13 +171,25 @@ const CGFloat kCellIconOffset = 10;
         _percentFormatter = percentFormatter;
         _currencyFormatter = currencyFormatter;
         
-        _marketCapView = [[TGMarketInfoMarkView alloc] initWithPercentFormatter:percentFormatter];
-        _24VolumeView = [[TGMarketInfoMarkView alloc] initWithPercentFormatter:percentFormatter];
-        _btcDominanceView = [[TGMarketInfoMarkView alloc] initWithPercentFormatter:percentFormatter];
+        _marketCapView = [TGMarketInfoMarkView.alloc initWithPercentFormatter:percentFormatter];
+        _24VolumeView = [TGMarketInfoMarkView.alloc initWithPercentFormatter:percentFormatter];
+        _btcDominanceView = [TGMarketInfoMarkView.alloc initWithPercentFormatter:percentFormatter];
         
         [self.contentView addSubviews:self.views];
     }
     return self;
+}
+
+- (void)setAlpha:(CGFloat)alpha
+{
+    if (_ignoreTableView && ![self.superview isKindOfClass:[UITableView class]]) return;
+    [super setAlpha:alpha];
+}
+
+- (void)removeFromSuperview
+{
+    if (_ignoreTableView && ![self.superview isKindOfClass:[UITableView class]]) return;
+    [super removeFromSuperview];
 }
 
 - (NSArray<TGMarketInfoMarkView *> *)views
@@ -345,7 +360,7 @@ const CGFloat kCellIconOffset = 10;
 
 @class TGFilterCell;
 
-@protocol TGFilterCellDelegate <TGSearchDisplayMixinDelegate>
+@protocol TGFilterCellDelegate <TGSearchBarDelegate>
 
 - (void)filterCellDidUpdateFilterState:(TGFilterCell *)filterCell;
 
@@ -354,10 +369,11 @@ const CGFloat kCellIconOffset = 10;
 @interface TGFilterCell : UITableViewCell
 
 @property (nonatomic, strong, readonly) TGSearchBar *searchBar;
-@property (nonatomic, strong, readonly) TGSearchDisplayMixin *searchMixin;
 @property (nonatomic, strong, readonly) UIButton *favoritesFilterButton;
 
 @property (nonatomic, weak) id<TGFilterCellDelegate> delegate;
+
+@property (nonatomic, readonly) BOOL isFiltered;
 
 @end
 
@@ -368,15 +384,11 @@ const CGFloat kCellIconOffset = 10;
     if (self = [super init]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = UIColor.clearColor;
-        _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectZero style:TGSearchBarStyleLightPlain];
+        _searchBar = [TGSearchBar.alloc initWithFrame:CGRectZero style:TGSearchBarStyleLightPlain];
         _searchBar.backgroundColor = UIColor.clearColor;
         _searchBar.clipsToBounds = YES;
-        _searchBar.userInteractionEnabled = NO;
         
-        _searchMixin = [[TGSearchDisplayMixin alloc] init];
-        _searchMixin.searchBar = _searchBar;
-        
-        _favoritesFilterButton = [[UIButton alloc] init];
+        _favoritesFilterButton = [UIButton.alloc init];
         _favoritesFilterButton.adjustsImageWhenHighlighted = NO;
         [_favoritesFilterButton addTarget:self action:@selector(favoritesFilterButtonTap) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubviews:@[_favoritesFilterButton, _searchBar]];
@@ -387,7 +399,7 @@ const CGFloat kCellIconOffset = 10;
 - (void)setDelegate:(id<TGFilterCellDelegate>)delegate
 {
     _delegate = delegate;
-    _searchMixin.delegate = delegate;
+    _searchBar.delegate = delegate;
 }
 
 - (void)layoutSubviews
@@ -409,6 +421,11 @@ const CGFloat kCellIconOffset = 10;
 {
     _favoritesFilterButton.selected = !_favoritesFilterButton.selected;
     [self.delegate filterCellDidUpdateFilterState:self];
+}
+
+- (BOOL)isFiltered
+{
+    return _searchBar.isFirstResponder || _searchBar.text.length > 0;
 }
 
 @end
@@ -444,13 +461,13 @@ const CGFloat kCellIconOffset = 10;
     if (self = [super init]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = UIColor.clearColor;
-        _topSeparatorView = [[UIView alloc] init];
-        _bottomSeparatorView = [[UIView alloc] init];
+        _topSeparatorView = [UIView.alloc init];
+        _bottomSeparatorView = [UIView.alloc init];
         [self addSubviews:@[_bottomSeparatorView, _topSeparatorView]];
         
-        _sortCoinButton = [[TGSortButton alloc] init];
-        _sortPriceButton = [[TGSortButton alloc] init];
-        _sort24hButton = [[TGSortButton alloc] init];
+        _sortCoinButton = [TGSortButton.alloc init];
+        _sortPriceButton = [TGSortButton.alloc init];
+        _sort24hButton = [TGSortButton.alloc init];
         [self addSubviews:self.buttons];
         [self.buttons enumerateObjectsUsingBlock:^(TGSortButton * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
             [obj addTarget:self action:@selector(sortButtopTap:) forControlEvents:UIControlEventTouchUpInside];
@@ -600,21 +617,21 @@ const CGFloat kCellIconOffset = 10;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = UIColor.clearColor;
         
-        _favoriteButton = [[UIButton alloc] init];
+        _favoriteButton = [UIButton.alloc init];
         _favoriteButton.adjustsImageWhenHighlighted = NO;
         [_favoriteButton addTarget:self action:@selector(favoriteButtonTap) forControlEvents:UIControlEventTouchUpInside];
         
-        _iconImageView = [[TGRemoteImageView alloc] init];
+        _iconImageView = [TGRemoteImageView.alloc init];
         _iconImageView.contentMode = UIViewContentModeScaleAspectFill;
         _iconImageView.contentHints = TGRemoteImageContentHintLoadFromDiskSynchronously;
         
-        _nameLabel = [[UILabel alloc] init];
+        _nameLabel = [UILabel.alloc init];
         _nameLabel.font = TGSystemFontOfSize(16);
         
-        _priceLabel = [[UILabel alloc] init];
+        _priceLabel = [UILabel.alloc init];
         _priceLabel.font = TGSystemFontOfSize(14);
         
-        _h24Label = [[UILabel alloc] init];
+        _h24Label = [UILabel.alloc init];
         _h24Label.font = TGSystemFontOfSize(14);
         
         [self.contentView addSubviews:@[
@@ -623,7 +640,7 @@ const CGFloat kCellIconOffset = 10;
                                         _nameLabel,
                                         _priceLabel,
                                         _h24Label,
-                                        _separatorView = [[UIView alloc] init],
+                                        _separatorView = [UIView.alloc init],
                                         ]];
     }
     return self;
@@ -699,7 +716,7 @@ const CGFloat kCellIconOffset = 10;
 
 @end
 
-@interface TGCryptoPricesViewController () <TGSortCellDelegate, UITableViewDelegate, UITableViewDataSource, TGCoinCellDelegate, TGFilterCellDelegate> {
+@interface TGCryptoPricesViewController () <UITableViewDelegate, UITableViewDataSource, TGSortCellDelegate, TGFilterCellDelegate, TGCoinCellDelegate> {
     TGMarketInfoCell *_marketInfoCell;
     
     TGFilterCell *_filterCell;
@@ -722,6 +739,8 @@ const CGFloat kCellIconOffset = 10;
     BOOL _resetScrollPosition;
     
     UIImageView *_titleView;
+    
+    BOOL _filterActivated;
 }
 
 @property (nonatomic, strong) TGPresentation *presentation;
@@ -745,42 +764,42 @@ const CGFloat kCellIconOffset = 10;
     
     self.ignoreKeyboardWhenAdjustingScrollViewInsets = YES;
     
-    _percentFormatter = [[TGCryptoNumberFormatter alloc] init];
+    _percentFormatter = [TGCryptoNumberFormatter.alloc init];
     _percentFormatter.positivePrefix = @"+";
     _percentFormatter.numberStyle = NSNumberFormatterPercentStyle;
     _percentFormatter.minimumFractionDigits = 2;
     
-    _currencyFormatter = [[TGCryptoNumberFormatter alloc] init];
+    _currencyFormatter = [TGCryptoNumberFormatter.alloc init];
     _currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
     
-    _marketInfoCell = [[TGMarketInfoCell alloc] initWithPercentFormatter:_percentFormatter currencyFormatter:_currencyFormatter];
+    _marketInfoCell = [TGMarketInfoCell.alloc initWithPercentFormatter:_percentFormatter currencyFormatter:_currencyFormatter];
     
-    _filterCell = [[TGFilterCell alloc] init];
+    _filterCell = [TGFilterCell.alloc init];
     _filterCell.delegate = self;
 
-    _sortCell = [[TGSortCell alloc] init];
+    _sortCell = [TGSortCell.alloc init];
     _sortCell.sorting = TGSortingPriceDescending;
     _sortCell.delegate = self;
     
-    [self.view addSubview:(_tableView = [[TGListsTableView alloc] init])];
+    [self.view addSubview:(_tableView = [TGListsTableView.alloc init])];
     _tableView.decelerationRate = UIScrollViewDecelerationRateFast;
-    _tableView.backgroundColor = nil;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.rowHeight = 50;
-    [_tableView registerClass:[TGCoinCell class] forCellReuseIdentifier:TGCoinCell.reuseIdentifier];
+    [_tableView registerClass:TGCoinCell.class forCellReuseIdentifier:TGCoinCell.reuseIdentifier];
+    [_tableView reloadData];
     
-    self.titleView = _titleView = [[UIImageView alloc] init];
+    self.titleView = _titleView = [UIImageView.alloc init];
     
-    [self setRightBarButtonItem:_rightButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+    [self setRightBarButtonItem:_rightButtonItem = [UIBarButtonItem.alloc initWithImage:nil
                                                                                     style:UIBarButtonItemStylePlain
                                                                                    target:self
                                                                                    action:@selector(currencyButtonTap)]
                         animated:false];
     
-    [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+    [self setLeftBarButtonItem:_leftButtonItem = [UIBarButtonItem.alloc initWithImage:nil
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
                                                                                  action:@selector(settingsButtonTap)]
@@ -805,54 +824,35 @@ const CGFloat kCellIconOffset = 10;
     [super viewDidDisappear:animated];
 }
 
-- (void)fetchData
+- (BOOL)prefersStatusBarHidden
 {
-    if (self.parentViewController == nil) return;
-    [_fetchingTimer invalidate];
-    [TGCryptoManager.manager fetchCoins:(NSUInteger)(_tableView.frame.size.height / _tableView.rowHeight * 2.5)
-                                 offset:0
-                                sorting:_sortCell.sorting
-                              favorites:_filterCell.favoritesFilterButton.isSelected
-                             completion:^(TGCryptoPricesInfo *pricesInfo) {
-                                 TGDispatchOnMainThread(^{
-                                     _fetchingTimer = [NSTimer scheduledTimerWithTimeInterval:pricesInfo != nil ? 60 : 10
-                                                                                       target:self
-                                                                                     selector:@selector(fetchData)
-                                                                                     userInfo:nil
-                                                                                      repeats:NO];
-                                     if (pricesInfo != nil) {
-                                         self.pricesInfo = pricesInfo;
-                                     }
-                                 });
-                             }];
+    return _filterCell.isFiltered;
 }
 
-- (void)setPricesInfo:(TGCryptoPricesInfo *)pricesInfo
+- (void)controllerInsetUpdated:(__unused UIEdgeInsets)previousInset
 {
-    _pricesInfo = pricesInfo;
-    _currencyFormatter.currencySymbol = pricesInfo.currency.symbol ?: @"";
-    [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
-    [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
-    [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
-    if (_filterCell.searchMixin.isActive) {
-        [self filterCoinInfos];
+    if (!self.isViewLoaded) return;
+    
+    if (_filterCell.isFiltered && !_filterActivated) return;
+    _marketInfoCell.ignoreTableView = UIInterfaceOrientationIsLandscape(self.currentInterfaceOrientation);
+    [self updateTopSectionCells];
+    {
+        CGRect frame = CGRectMake(0, self.controllerInset.top,
+                                  self.view.frame.size.width,
+                                  self.view.frame.size.height - self.controllerInset.top - self.controllerInset.bottom + 1);
+        
+        if (_marketInfoCell.ignoreTableView) {
+            [self.view addSubview:_marketInfoCell];
+            _marketInfoCell.frame = CGRectMake(self.controllerSafeAreaInset.left,
+                                               self.controllerInset.top,
+                                               kMarketViewWidth,
+                                               frame.size.height - 1);
+            frame.origin.x = CGRectGetMaxX(_marketInfoCell.frame);
+            frame.size.width -= CGRectGetMaxX(_marketInfoCell.frame) + self.controllerSafeAreaInset.right;
+        }
+        _tableView.frame = frame;
     }
-    [self reloadTableView:_tableView];
-    if (_resetScrollPosition) {
-        [_tableView scrollsToTop];
-        _resetScrollPosition = YES;
-    }
-}
-
-- (void)reloadTableView:(TGListsTableView *)tableView
-{
-    [tableView reloadData];
-    CGSize contentSize = tableView.contentSize;
-    NSUInteger basePageRowsCount = (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
-    CGFloat partCellSize = tableView.bounds.size.height - basePageRowsCount * tableView.rowHeight;
-    CGFloat basePageHeight = tableView.rowHeight * basePageRowsCount;
-    contentSize.height = _topSectionCellsHeight + ceil((double)[self coinInfosForTableView:tableView].count / basePageRowsCount) * basePageHeight + partCellSize;
-    tableView.fixedContentSize = &contentSize;
+    [self updateTableViewContentSizeReloadDataCells:NO];
 }
 
 - (void)setPresentation:(TGPresentation *)presentation
@@ -861,7 +861,7 @@ const CGFloat kCellIconOffset = 10;
     
     self.view.backgroundColor = presentation.pallete.backgroundColor;
     
-    _filterCell.searchBar.pallete = presentation.searchBarPallete;
+    _filterCell.searchBar.pallete = presentation.keyboardSearchBarPallete;
     [_filterCell.favoritesFilterButton setImage:presentation.images.cryptoPricesFilterFavoriteDeselectedImage forState:UIControlStateNormal];
     [_filterCell.favoritesFilterButton setImage:presentation.images.cryptoPricesFilterFavoriteSelectedImage forState:UIControlStateSelected];
     
@@ -876,48 +876,6 @@ const CGFloat kCellIconOffset = 10;
     _titleView.image = TGTintedImage(TGImageNamed(@"header_logo_live_coin_watch"), _presentation.pallete.navigationTitleColor);
 }
 
-- (void)updateRightButtonItemImage
-{
-    [TGCryptoManager.manager loadCurrencies:^{
-        TGCryptoCurrency *selectedCurrency = TGCryptoManager.manager.selectedCurrency;
-        if (selectedCurrency) {
-            NSString *currencySymbol = selectedCurrency.symbol ?: selectedCurrency.code;
-            _rightButtonItem.image = [_presentation.images chooseCurrencyButtonImageForCurrencySymbol:currencySymbol];
-        }
-    }];
-}
-
-- (void)controllerInsetUpdated:(__unused UIEdgeInsets)previousInset
-{
-    if (!self.isViewLoaded) return;
-    
-    NSMutableArray *cells = @[_filterCell, _sortCell].mutableCopy;
-    if (UIInterfaceOrientationIsPortrait(self.currentInterfaceOrientation)) {
-        [cells insertObject:_marketInfoCell atIndex:0];
-    }
-    _topSectionCells = cells.copy;
-    _topSectionCellsHeight = 0;
-    for (NSUInteger i = 0; i < _topSectionCells.count; i++) {
-        _topSectionCellsHeight += [self tableView:_tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
-    }
-    CGFloat contentHeight = self.view.frame.size.height - self.controllerInset.top - self.controllerInset.bottom;
-    if (UIInterfaceOrientationIsPortrait(self.currentInterfaceOrientation)) {
-        _tableView.frame = CGRectMake(0, self.controllerInset.top,
-                                      self.view.frame.size.width, contentHeight + 1);
-    }
-    else {
-        [self.view addSubview:_marketInfoCell];
-        _marketInfoCell.frame = CGRectMake(self.controllerSafeAreaInset.left, self.controllerInset.top,
-                                           kMarketViewWidth, contentHeight);
-        _tableView.frame = CGRectMake(CGRectGetMaxX(_marketInfoCell.frame), self.controllerInset.top,
-                                      self.view.frame.size.width - CGRectGetMaxX(_marketInfoCell.frame) - self.controllerInset.right,
-                                      contentHeight + 1);
-    }
-    if (_tableView.numberOfSections != [self numberOfSectionsInTableView:_tableView]) {
-        [self reloadTableView:_tableView];
-    }
-}
-
 - (void)localizationUpdated
 {
     _filterCell.searchBar.placeholder = TGLocalized(@"Crypto.Prices.SearchLabel");
@@ -927,7 +885,7 @@ const CGFloat kCellIconOffset = 10;
 
 - (void)currencyButtonTap
 {
-    [self.navigationController pushViewController:[[TGCryptoChoosePriceViewController alloc] initWithPresentation:_presentation] animated:YES];
+    [self.navigationController pushViewController:[TGCryptoChoosePriceViewController.alloc initWithPresentation:_presentation] animated:YES];
 }
 
 - (void)settingsButtonTap
@@ -941,14 +899,6 @@ const CGFloat kCellIconOffset = 10;
 - (void)scrollToTopRequested
 {
     [_tableView scrollToTop];
-}
-
-- (NSArray<TGCryptoCoinInfo *> *)coinInfosForTableView:(UITableView *)tableView
-{
-    if (tableView == _tableView) {
-        return _pricesInfo.coinInfos;
-    }
-    return _filteredCoinInfos;
 }
 
 #pragma mark - TGSortCellDelegate
@@ -971,19 +921,20 @@ const CGFloat kCellIconOffset = 10;
     if (section < (NSInteger)_topSectionCells.count) {
         return 1;
     }
-    return [self coinInfosForTableView:tableView].count;
+    return self.coinInfos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section < (NSInteger)_topSectionCells.count) {
-        return _topSectionCells[indexPath.section];
+    NSArray<UITableViewCell *> *topSectionCells = _topSectionCells;
+    if (indexPath.section < (NSInteger)topSectionCells.count) {
+        return topSectionCells[indexPath.section];
     }
     TGCoinCell *cell = (TGCoinCell *)[tableView dequeueReusableCellWithIdentifier:TGCoinCell.reuseIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     [cell setPresentation:_presentation];
 
-    TGCryptoCoinInfo *coinInfo = [self coinInfosForTableView:tableView][indexPath.row];
+    TGCryptoCoinInfo *coinInfo = self.coinInfos[indexPath.row];
     [cell.iconImageView loadImage:coinInfo.currency.iconURL filter:@"circle:30x30" placeholder:nil];
     cell.nameLabel.text = coinInfo.currency.name;
     cell.priceLabel.text = [_currencyFormatter stringFromNumber:@(coinInfo.price)];
@@ -1017,7 +968,7 @@ const CGFloat kCellIconOffset = 10;
 {
     if (indexPath.section != tableView.numberOfSections - 1) return;
     
-    TGCryptoCoinInfo *coinInfo = [self coinInfosForTableView:tableView][indexPath.row];
+    TGCryptoCoinInfo *coinInfo = self.coinInfos[indexPath.row];
     [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:coinInfo.currency.url]
                                                     forceNative:true
                                                       keepStack:true];
@@ -1029,6 +980,9 @@ const CGFloat kCellIconOffset = 10;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     _lastContentOffset = scrollView.contentOffset;
+    if (_filteredCoinInfos.count > 0) {
+        [_filterCell.searchBar resignFirstResponder];
+    }
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)__unused velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -1036,15 +990,9 @@ const CGFloat kCellIconOffset = 10;
     if (![scrollView isKindOfClass:[UITableView class]]) return;
     UITableView *tableView = (id)scrollView;
     
-    CGFloat targetOffsetY = (*targetContentOffset).y;
-    CGFloat scrollDelta = targetOffsetY - _lastContentOffset.y;    
-    NSUInteger basePageRowsCount = (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
-    CGFloat basePageHeight = tableView.rowHeight * basePageRowsCount;
+    CGFloat scrollDelta = (*targetContentOffset).y - _lastContentOffset.y;
     
-    NSInteger selectedPage = 0;
-    if (_lastContentOffset.y >= _topSectionCellsHeight) {
-        selectedPage = (NSInteger)floor((_lastContentOffset.y - _topSectionCellsHeight) / basePageHeight + 0.1) + 1;
-    }
+    NSInteger selectedPage = [self tableView:tableView pageAtOffset:_lastContentOffset.y];
     if (ABS(scrollDelta) > _topSectionCellsHeight / 5) {
         if (scrollDelta > 0) {
             selectedPage++;
@@ -1054,6 +1002,7 @@ const CGFloat kCellIconOffset = 10;
         }
     }
     if (selectedPage > 0) {
+        NSUInteger basePageRowsCount = (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
         *targetContentOffset = [tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:basePageRowsCount * (selectedPage - 1)
                                                                                    inSection:tableView.numberOfSections - 1]].origin;
     }
@@ -1074,7 +1023,7 @@ const CGFloat kCellIconOffset = 10;
                                favorite:favoriteButton.selected];
     if (_filterCell.favoritesFilterButton.isSelected) {
         [_pricesInfo coinInfoAtIndexUnfavorited:indexPath.row];
-        [self reloadTableView:_tableView];
+        [self updateTableViewContentSizeReloadDataCells:YES];
     }
 }
 
@@ -1086,61 +1035,210 @@ const CGFloat kCellIconOffset = 10;
     [self fetchData];
 }
 
-#pragma mark - TGSearchDisplayMixinDelegate
+#pragma mark - UISearchBarDelegate
 
-- (UITableView *)createTableViewForSearchMixin:(TGSearchDisplayMixin *)__unused searchMixin
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    UITableView *tableView = [[UITableView alloc] init];
-    
-    tableView.showsVerticalScrollIndicator = NO;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    tableView.rowHeight = 50;
-    
-    tableView.backgroundColor = self.presentation.pallete.backgroundColor;
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    
-    [tableView registerClass:[TGCoinCell class] forCellReuseIdentifier:TGCoinCell.reuseIdentifier];
-    
-    return tableView;
+    [self updateTopSectionCellsIncludeInBatch:^{
+        [self filterCoinInfos];
+    }];
+    [searchBar setShowsCancelButton:YES animated:YES];
+    TGCryptoTabViewController *tabBarController;
+    if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
+        tabBarController = (id)self.tabBarController;
+        [tabBarController setTabBarHidden:YES animated:YES];
+    }
+    if (iosMajorVersion() >= 11) {
+        [self setNavigationBarHidden:YES withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
+    }
+    else {
+        [self setNavigationBarHidden:YES animated:YES];
+    }
+    _filterActivated = YES;
+    [self controllerInsetUpdated:UIEdgeInsetsZero];
 }
 
-- (UIView *)referenceViewForSearchResults
-{
-    return self.view;
-}
-
-- (void)searchMixin:(TGSearchDisplayMixin *)__unused searchMixin hasChangedSearchQuery:(NSString *)__unused searchQuery withScope:(int)__unused scope
+- (void)searchBar:(UISearchBar *)__unused searchBar textDidChange:(NSString *)__unused searchText
 {
     [self filterCoinInfos];
 }
 
-- (void)searchMixinWillActivate:(bool)animated
+- (void)searchBarCancelButtonClicked:(UISearchBar *)__unused searchBar
 {
-//    _filterView.backgroundColor = _presentation.searchBarPallete.plainBackgroundColor;
-//    _tableView.scrollEnabled = NO;
-//    if (iosMajorVersion() >= 11 && animated)
-//        [self setNavigationBarHidden:YES withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
-//    else
-//        [self setNavigationBarHidden:YES animated:animated];
-//    [self filterCoinInfos];
-//    [_searchMixin setSearchResultsTableViewHidden:NO animated:animated];
+    _filterActivated = NO;
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [self updateTopSectionCellsIncludeInBatch:^{
+        [self updateTableViewContentSizeReloadDataCells:YES];
+    }];
+    TGCryptoTabViewController *tabBarController;
+    if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
+        tabBarController = (id)self.tabBarController;
+        [tabBarController setTabBarHidden:NO animated:YES];
+    }
+    [self setNavigationBarHidden:NO animated:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)searchMixinWillDeactivate:(bool)animated
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-//    _filterView.backgroundColor = UIColor.clearColor;
-//    _tableView.scrollEnabled = YES;
-//    [_searchMixin setSearchResultsTableViewHidden:YES animated:animated];
-//    [self setNavigationBarHidden:NO animated:animated];
+    [searchBar resignFirstResponder];
 }
+
+#pragma mark - Helpers
 
 - (void)filterCoinInfos
 {
     _filteredCoinInfos = [_pricesInfo.coinInfos filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TGCryptoCoinInfo *  _Nullable evaluatedObject, __unused NSDictionary<NSString *,id> * _Nullable bindings) {
         return [evaluatedObject.currency validateFilter:_filterCell.searchBar.text];
     }]];
-    [_filterCell.searchMixin reloadSearchResults];
+    [self updateTableViewContentSizeReloadDataCells:YES];
+}
+
+- (NSUInteger)tableView:(UITableView *)tableView pageAtOffset:(CGFloat)offset
+{
+    NSUInteger basePageRowsCount = [self baseRowsCountForTableView:tableView];
+    
+    NSInteger selectedPage = 0;
+    if (offset + 0.1 >= _topSectionCellsHeight) {
+        selectedPage = (NSInteger)floor((offset - _topSectionCellsHeight) / (tableView.rowHeight * basePageRowsCount) + 0.1) + 1;
+    }
+    return selectedPage;
+}
+
+- (NSUInteger)baseRowsCountForTableView:(UITableView *)tableView
+{
+    return (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
+}
+
+- (void)fetchData
+{
+    if (self.parentViewController == nil) return;
+    [_fetchingTimer invalidate];
+    NSUInteger baseRowsCount = [self baseRowsCountForTableView:_tableView];
+    NSUInteger offset = 0;//baseRowsCount * MAX(0, selectedPage - 1);
+    [TGCryptoManager.manager fetchCoins:baseRowsCount * 2
+                                 offset:offset
+                                sorting:_sortCell.sorting
+                              favorites:_filterCell.favoritesFilterButton.isSelected
+                             completion:^(TGCryptoPricesInfo *pricesInfo) {
+                                 TGDispatchOnMainThread(^{
+                                     _fetchingTimer = [NSTimer scheduledTimerWithTimeInterval:pricesInfo != nil ? 60 : 10
+                                                                                       target:self
+                                                                                     selector:@selector(fetchData)
+                                                                                     userInfo:nil
+                                                                                      repeats:NO];
+                                     if (pricesInfo != nil) {
+                                         self.pricesInfo = pricesInfo;
+                                     }
+                                 });
+                             }];
+}
+
+- (void)setPricesInfo:(TGCryptoPricesInfo *)pricesInfo
+{
+    _pricesInfo = pricesInfo;
+    _currencyFormatter.currencySymbol = pricesInfo.currency.symbol ?: @"";
+    [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
+    [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
+    [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
+    if (_filterCell.isFiltered) {
+        [self filterCoinInfos];
+    }
+    else {
+        [self updateTableViewContentSizeReloadDataCells:YES];
+    }
+    if (_resetScrollPosition) {
+        [_tableView scrollsToTop];
+        _resetScrollPosition = YES;
+    }
+}
+
+- (void)updateTableViewContentSizeReloadDataCells:(BOOL)reloadDataCells
+{
+    if (reloadDataCells) {
+        [UIView performWithoutAnimation:^{
+            [_tableView reloadSections:[NSIndexSet indexSetWithIndex:_tableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }
+    CGSize contentSize = CGSizeZero;
+    NSUInteger basePageRowsCount = [self baseRowsCountForTableView:_tableView];
+    CGFloat partCellSize = _tableView.bounds.size.height - basePageRowsCount * _tableView.rowHeight;
+    CGFloat basePageHeight = _tableView.rowHeight * basePageRowsCount;
+    contentSize.height = _topSectionCellsHeight + ceil((double)self.coinInfos.count / basePageRowsCount) * basePageHeight + partCellSize;
+    contentSize.width = _tableView.bounds.size.width;
+    _tableView.fixedContentSize = &contentSize;
+}
+
+- (void)updateTopSectionCells
+{
+    [self updateTopSectionCellsIncludeInBatch:NULL];
+}
+
+- (void)updateTopSectionCellsIncludeInBatch:(void (NS_NOESCAPE ^ _Nullable)(void))batch
+{
+    NSMutableArray<UITableViewCell *> *oldTopSectionCells = _topSectionCells.mutableCopy;
+    if (_filterCell.isFiltered) {
+        _topSectionCells = @[_filterCell];
+    }
+    else {
+        NSMutableArray *cells = @[_filterCell, _sortCell].mutableCopy;
+        if (UIInterfaceOrientationIsPortrait(self.currentInterfaceOrientation)) {
+            [cells insertObject:_marketInfoCell atIndex:0];
+        }
+        _topSectionCells = cells.copy;
+    }
+    if ([oldTopSectionCells isEqualToArray:_topSectionCells]) return;
+    NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
+    [oldTopSectionCells enumerateObjectsUsingBlock:^(UITableViewCell * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        if (![_topSectionCells containsObject:obj]) {
+            if (obj.superview == _tableView)
+                [obj removeFromSuperview];
+            [deletedSections addIndex:idx];
+        }
+    }];
+    [_topSectionCells enumerateObjectsUsingBlock:^(UITableViewCell * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        if (![oldTopSectionCells containsObject:obj]) {
+            [insertedSections addIndex:idx];
+        }
+    }];
+    void(^updates)() = ^() {
+        if (insertedSections.count > 0) [_tableView insertSections:insertedSections withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (deletedSections.count > 0) [_tableView deleteSections:deletedSections withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (batch != NULL)
+            batch();
+    };
+    if (@available(iOS 11.0, *)) {
+        [_tableView performBatchUpdates:updates completion:NULL];
+    } else {
+        [_tableView beginUpdates];
+        updates();
+        [_tableView endUpdates];
+    }
+    _topSectionCellsHeight = 0;
+    for (NSUInteger i = 0; i < _topSectionCells.count; i++) {
+        _topSectionCellsHeight += [self tableView:_tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+    }
+}
+
+- (void)updateRightButtonItemImage
+{
+    [TGCryptoManager.manager loadCurrencies:^{
+        TGCryptoCurrency *selectedCurrency = TGCryptoManager.manager.selectedCurrency;
+        if (selectedCurrency) {
+            NSString *currencySymbol = selectedCurrency.symbol ?: selectedCurrency.code;
+            _rightButtonItem.image = [_presentation.images chooseCurrencyButtonImageForCurrencySymbol:currencySymbol];
+        }
+    }];
+}
+
+- (NSArray<TGCryptoCoinInfo *> *)coinInfos
+{
+    if (_filterCell.isFiltered) {
+        return _filteredCoinInfos;
+    }
+    return _pricesInfo.coinInfos;
 }
 
 @end

@@ -902,13 +902,22 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     _rateAppAction = [[UARateAppAction alloc] init];
     switch (_rateAppAction.rateAppLinkPromptTimestamps.count + _rateAppAction.rateAppPromptTimestamps.count) {
         case 0:
-            [_spentTimeManager notifyReachingTime:1 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            [_spentTimeManager notifyReachingInAppTime:1 * 60 * 60
+                                 sinceInstallationTime:7 * 24 * 60 * 60
+                                                target:self
+                                              selector:@selector(spentTimeReached)];
             
         case 1:
-            [_spentTimeManager notifyReachingTime:5 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            [_spentTimeManager notifyReachingInAppTime:5 * 60 * 60
+                                 sinceInstallationTime:30 * 24 * 60 * 60
+                                                target:self
+                                              selector:@selector(spentTimeReached)];
             
         case 2:
-            [_spentTimeManager notifyReachingTime:30 * 60 * 60 target:self selector:@selector(spentTimeReached)];
+            [_spentTimeManager notifyReachingInAppTime:30 * 60 * 60
+                                 sinceInstallationTime:182 * 24 * 60 * 60
+                                                target:self
+                                              selector:@selector(spentTimeReached)];
             
         default:
             break;
