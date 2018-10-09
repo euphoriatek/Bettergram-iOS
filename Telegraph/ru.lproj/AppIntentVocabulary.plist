@@ -6,6 +6,14 @@
 	<array>
 		<dict>
 			<key>IntentName</key>
+			<string>INStartAudioCallIntent</string>
+			<key>IntentExamples</key>
+			<array>
+				<string>Позвони Алисе с помощью Bettergram</string>
+			</array>
+		</dict>
+		<dict>
+			<key>IntentName</key>
 			<string>INSendMessageIntent</string>
 			<key>IntentExamples</key>
 			<array>

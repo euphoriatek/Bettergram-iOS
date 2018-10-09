@@ -6,6 +6,14 @@
 	<array>
 		<dict>
 			<key>IntentName</key>
+			<string>INStartAudioCallIntent</string>
+			<key>IntentExamples</key>
+			<array>
+				<string>Bettergram을 사용해서 충헌이한테 전화해</string>
+			</array>
+		</dict>
+		<dict>
+			<key>IntentName</key>
 			<string>INSendMessageIntent</string>
 			<key>IntentExamples</key>
 			<array>
