@@ -147,13 +147,14 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 @interface TGCryptoRssViewController () <TGFeedParserDelegate> {
     TGListsTableView *_tableView;
+    TGOlderNewsHeaderView *_olderNewsHeaderView;
+    UIBarButtonItem *_leftButtonItem;
+    
     NSInteger _lastReadNewsIndex;
     NSMutableArray<MWFeedItem *> *_feedItems;
-    TGOlderNewsHeaderView *_olderNewsHeaderView;
     BOOL _isVideoContent;
     TGCryptoNumberFormatter *_numberFormatter;
     __weak NSTimer *_readedTimer;
-    UIBarButtonItem *_leftButtonItem;
     
     NSMutableDictionary<NSIndexPath *, NSURLSessionDataTask *> *_dataTasks;
 }
@@ -206,9 +207,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     
     _olderNewsHeaderView = [[TGOlderNewsHeaderView alloc] initWithReuseIdentifier:TGOlderNewsHeaderView.reuseIdentifier];
     
-    [self.view addSubviews:@[
-                             _tableView
-                             ]];
+    [self.view addSubview:_tableView];
     [self setPresentation:_presentation];
     [self localizationUpdated];
 }

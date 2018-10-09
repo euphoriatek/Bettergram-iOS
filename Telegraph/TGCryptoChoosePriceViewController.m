@@ -57,11 +57,13 @@
     
     [self.view addSubviews:@[_tableView, _searchBar]];
     
-    [TGCryptoManager.manager loadCurrencies:^{
+    [TGCryptoManager.manager loadCurrencies:^(BOOL success) {
         TGDispatchOnMainThread(^{
-            _currencies = TGCryptoManager.manager.currencies;
-            _selectedIndex = [_currencies indexOfObject:TGCryptoManager.manager.selectedCurrency];
-            [_tableView reloadData];
+            if (success) {
+                _currencies = TGCryptoManager.manager.currencies;
+                _selectedIndex = [_currencies indexOfObject:TGCryptoManager.manager.selectedCurrency];
+                [_tableView reloadData];
+            }
         });
     }];
 }

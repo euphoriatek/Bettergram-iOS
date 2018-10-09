@@ -36,48 +36,28 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super init]) {
+        _currency = [TGCryptoManager.manager cachedCurrencyWithCode:[decoder decodeObjectForKey:@"code"]];
+        _marketCap = [[decoder decodeObjectForKey:@"marketCap"] doubleValue];
+        _volume = [[decoder decodeObjectForKey:@"volume"] doubleValue];
+        _btcDominance = [[decoder decodeObjectForKey:@"btcDominance"] doubleValue];
+        _coinInfos = [decoder decodeObjectForKey:@"coinInfos"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    if (_currency) [encoder encodeObject:_currency.code forKey:@"code"];
+    [encoder encodeDouble:_marketCap forKey:@"marketCap"];
+    [encoder encodeDouble:_volume forKey:@"volume"];
+    [encoder encodeDouble:_btcDominance forKey:@"btcDominance"];
+    [encoder encodeObject:_coinInfos forKey:@"coinInfos"];
+}
+
 - (void)coinInfoAtIndexUnfavorited:(NSUInteger)index
 {
     [_coinInfos removeObjectAtIndex:index];
 }
-
-//- (NSArray *)mergedCoinsFromJSON:(NSDictionary *)dictionary
-//{
-//    NSArray *list = dictionary[@"data"][@"list"];
-//    NSArray *favorites = dictionary[@"data"][@"favorites"];
-//    NSString *sortKey = dictionary[@"sort"];
-//    NSComparisonResult order = NSOrderedSame;
-//    {
-//        NSString *orderString = dictionary[@"order"];
-//        if ([orderString isEqualToString:@"ascending"]) {
-//            order = NSOrderedAscending;
-//        }
-//        else if ([orderString isEqualToString:@"descending"]) {
-//            order = NSOrderedDescending;
-//        }
-//    }
-//    NSMutableArray *coins = [NSMutableArray array];
-//    NSUInteger i = 0, j = 0;
-//    while (i < list.count && j < favorites.count) {
-//        if ([list[i][@"code"] isEqualToString:favorites[j][@"code"]]) {
-//            [coins addObject:list[i]];
-//            i++; j++;
-//            continue;
-//        }
-//        if ([list[i][sortKey] compare:favorites[j][sortKey]] != order) {
-//            [coins addObject:list[i++]];
-//        }
-//        else {
-//            [coins addObject:favorites[j++]];
-//        }
-//    }
-//    while (i < list.count) {
-//        [coins addObject:list[i++]];
-//    }
-//    while (j < favorites.count) {
-//        [coins addObject:favorites[j++]];
-//    }
-//    return coins;
-//}
 
 @end

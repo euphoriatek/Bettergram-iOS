@@ -20,13 +20,13 @@
         _price = [dictionary[@"price"] doubleValue];
 
         id dayDelta = dictionary[@"delta"][@"day"];
-        if (dayDelta && [dayDelta isKindOfClass:[NSNumber class]]) {
-            _dayDelta = [dayDelta doubleValue] - 1;
+        if ([dayDelta isKindOfClass:[NSNumber class]]) {
+            _dayDelta = @([dayDelta doubleValue] - 1);
         }
         
         id minuteDelta = dictionary[@"delta"][@"minute"];
-        if (minuteDelta && minuteDelta != [NSNull null]) {
-            _minDelta = [minuteDelta doubleValue] - 1;
+        if ([minuteDelta isKindOfClass:[NSNumber class]]) {
+            _minDelta = @([minuteDelta doubleValue] - 1);
         }
 #if DEBUG
         NSMutableArray<NSString *> *unknownKeys = dictionary.allKeys.mutableCopy;
@@ -40,25 +40,32 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super init]) {
+        _currency = [TGCryptoManager.manager cachedCurrencyWithCode:[decoder decodeObjectForKey:@"code"]];
+        _volume = [[decoder decodeObjectForKey:@"volume"] doubleValue];
+        _cap = [[decoder decodeObjectForKey:@"cap"] doubleValue];
+        _rank = [[decoder decodeObjectForKey:@"rank"] integerValue];
+        _price = [[decoder decodeObjectForKey:@"price"] doubleValue];
+        _dayDelta = [decoder decodeObjectForKey:@"dayDelta"];
+        _minDelta = [decoder decodeObjectForKey:@"minDelta"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    if (_currency) [encoder encodeObject:_currency.code forKey:@"code"];
+    [encoder encodeDouble:_volume forKey:@"volume"];
+    [encoder encodeDouble:_cap forKey:@"cap"];
+    [encoder encodeInteger:_rank forKey:@"rank"];
+    [encoder encodeDouble:_price forKey:@"price"];
+    [encoder encodeObject:_dayDelta forKey:@"dayDelta"];
+    [encoder encodeObject:_minDelta forKey:@"minDelta"];
+}
+
 - (NSString *)debugDescription
 {
     return [NSString stringWithFormat:@"<%@: %p> code: %@; price: %@", [self class], self, _currency.code, @(_price)];
 }
-
-//{
-//    "code": "BTC",
-//    "volume": 512340.70359812863,
-//    "cap": 17280211.99995429,
-//    "rank": 1,
-//    "price": 1,
-//    "delta": {
-//        "second": 1,
-//        "minute": 1,
-//        "hour": 1,
-//        "day": 1,
-//        "week": 1,
-//        "month": 1
-//    }
-//},
 
 @end

@@ -10,7 +10,7 @@
 @class TGCryptoCoinInfo;
 @class TGCryptoCurrency;
 
-@interface TGCryptoPricesInfo : NSObject
+@interface TGCryptoPricesInfo : NSObject <NSCoding>
 
 @property (readonly, nonatomic, assign) double marketCap;
 @property (readonly, nonatomic, assign) double volume;

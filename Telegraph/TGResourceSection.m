@@ -7,21 +7,6 @@
 
 #import "TGResourceSection.h"
 
-//"title": "Our favorite exchanges",
-//"items": [
-//{
-//    "title": "Binance",
-//    "description": "The undisputed leader for crypto trading",
-//    "url": "https://www.binance.com",
-//    "iconUrl": "https://assets.coingecko.com/coins/images/825/small/binance-coin-logo.png"
-//},
-//{
-//    "title": "Bitmax",
-//    "description": "Up 100x leverage for margin trading",
-//    "url": "https://bitmax.ch",
-//    "iconUrl": "https://qolczpnfu7-flywheel.netdna-ssl.com/wp-content/uploads/2014/02/bitoin.png"
-//}
-//          ]
 
 @interface TGResourceItem ()
 

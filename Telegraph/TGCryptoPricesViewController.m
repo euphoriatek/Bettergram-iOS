@@ -599,8 +599,8 @@ const CGFloat kCellIconOffset = 10;
 @property (nonatomic, strong) TGPresentation *presentation;
 @property (nonatomic, weak) id<TGCoinCellDelegate> delegate;
 
-@property (nonatomic, assign) BOOL priceRising;
-@property (nonatomic, assign) BOOL h24Rising;
+@property (nonatomic, assign) NSComparisonResult priceDelta;
+@property (nonatomic, assign) NSComparisonResult h24Delta;
 
 @end
 
@@ -690,16 +690,16 @@ const CGFloat kCellIconOffset = 10;
     }
 }
 
-- (void)setPriceRising:(BOOL)priceRising
+- (void)setPriceDelta:(NSComparisonResult)priceDelta
 {
-    _priceRising = priceRising;
-    [_priceLabel setTextColor:priceRising ? _presentation.pallete.accentColor : _presentation.pallete.destructiveColor];
+    _priceDelta = priceDelta;
+    _priceLabel.textColor = [self textColorForDelta:_priceDelta];
 }
 
-- (void)setH24Rising:(BOOL)h24Rising
+- (void)setH24Delta:(NSComparisonResult)h24Delta
 {
-    _h24Rising = h24Rising;
-    [_h24Label setTextColor:h24Rising ? _presentation.pallete.accentColor : _presentation.pallete.destructiveColor];
+    _h24Delta = h24Delta;
+    _h24Label.textColor = [self textColorForDelta:_h24Delta];
 }
 
 - (void)setPresentation:(TGPresentation *)presentation
@@ -710,8 +710,22 @@ const CGFloat kCellIconOffset = 10;
     [_favoriteButton setImage:presentation.images.cryptoPricesFavoritedImage forState:UIControlStateSelected];
     [_nameLabel setTextColor:presentation.pallete.textColor];
     _separatorView.backgroundColor = presentation.pallete.separatorColor;
-    [_priceLabel setTextColor:_priceRising ? _presentation.pallete.accentColor : _presentation.pallete.destructiveColor];
-    [_h24Label setTextColor:_h24Rising ? _presentation.pallete.accentColor : _presentation.pallete.destructiveColor];
+    _priceLabel.textColor = [self textColorForDelta:_priceDelta];
+    _h24Label.textColor = [self textColorForDelta:_h24Delta];
+}
+
+- (UIColor *)textColorForDelta:(NSComparisonResult)delta
+{
+    switch (delta) {
+        case NSOrderedAscending:
+            return _presentation.pallete.accentColor;
+            
+        case NSOrderedDescending:
+            return _presentation.pallete.destructiveColor;
+            
+        default:
+            return _presentation.pallete.secondaryTextColor;
+    }
 }
 
 @end
@@ -727,7 +741,6 @@ const CGFloat kCellIconOffset = 10;
     NSArray<UITableViewCell *> *_topSectionCells;
     CGFloat _topSectionCellsHeight;
     NSArray<TGCryptoCoinInfo *> *_filteredCoinInfos;
-    __weak NSTimer *_fetchingTimer;
     CGPoint _lastContentOffset;
     
     NSNumberFormatter *_percentFormatter;
@@ -813,13 +826,24 @@ const CGFloat kCellIconOffset = 10;
     [super viewWillAppear:animated];
     
     [self updateRightButtonItemImage];
-    [self fetchData];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    [self pageInfoUpdated];
+    __weak TGCryptoPricesViewController *weakSelf = self;
+    TGCryptoManager.manager.pageUpdateBlock = ^(TGCryptoPricesInfo *pricesInfo) {
+        __strong TGCryptoPricesViewController *strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        TGDispatchOnMainThread(^{
+            if (pricesInfo != nil) {
+                strongSelf.pricesInfo = pricesInfo;
+            }
+        });
+    };
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [_fetchingTimer invalidate];
+    TGCryptoManager.manager.pageUpdateBlock = NULL;
     
     [super viewDidDisappear:animated];
 }
@@ -906,7 +930,7 @@ const CGFloat kCellIconOffset = 10;
 - (void)sortView:(__unused TGSortCell *)sortView didUpdateSorting:(__unused TGCoinSorting)sorting
 {
     _resetScrollPosition = YES;
-    [self fetchData];
+    [self pageInfoUpdated];
 }
 
 #pragma mark - UITableViewDataSource
@@ -938,9 +962,9 @@ const CGFloat kCellIconOffset = 10;
     [cell.iconImageView loadImage:coinInfo.currency.iconURL filter:@"circle:30x30" placeholder:nil];
     cell.nameLabel.text = coinInfo.currency.name;
     cell.priceLabel.text = [_currencyFormatter stringFromNumber:@(coinInfo.price)];
-    cell.priceRising = coinInfo.minDelta > 0;
-    cell.h24Label.text = [_percentFormatter stringFromNumber:@(coinInfo.dayDelta)];
-    cell.h24Rising = coinInfo.dayDelta > 0;
+    cell.priceDelta = [coinInfo.minDelta compare:@0];
+    cell.h24Label.text = coinInfo.dayDelta ? [_percentFormatter stringFromNumber:coinInfo.dayDelta] : @"N/A";
+    cell.h24Delta = [coinInfo.dayDelta compare:@0];
     cell.favoriteButton.selected = coinInfo.currency.favorite;
     return cell;
 }
@@ -1032,7 +1056,7 @@ const CGFloat kCellIconOffset = 10;
 - (void)filterCellDidUpdateFilterState:(TGFilterCell *)__unused filterCell
 {
     _resetScrollPosition = YES;
-    [self fetchData];
+    [self pageInfoUpdated];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -1109,30 +1133,6 @@ const CGFloat kCellIconOffset = 10;
 - (NSUInteger)baseRowsCountForTableView:(UITableView *)tableView
 {
     return (NSUInteger)floor(tableView.bounds.size.height / tableView.rowHeight);
-}
-
-- (void)fetchData
-{
-    if (self.parentViewController == nil) return;
-    [_fetchingTimer invalidate];
-    NSUInteger baseRowsCount = [self baseRowsCountForTableView:_tableView];
-    NSUInteger offset = 0;//baseRowsCount * MAX(0, selectedPage - 1);
-    [TGCryptoManager.manager fetchCoins:baseRowsCount * 2
-                                 offset:offset
-                                sorting:_sortCell.sorting
-                              favorites:_filterCell.favoritesFilterButton.isSelected
-                             completion:^(TGCryptoPricesInfo *pricesInfo) {
-                                 TGDispatchOnMainThread(^{
-                                     _fetchingTimer = [NSTimer scheduledTimerWithTimeInterval:pricesInfo != nil ? 60 : 10
-                                                                                       target:self
-                                                                                     selector:@selector(fetchData)
-                                                                                     userInfo:nil
-                                                                                      repeats:NO];
-                                     if (pricesInfo != nil) {
-                                         self.pricesInfo = pricesInfo;
-                                     }
-                                 });
-                             }];
 }
 
 - (void)setPricesInfo:(TGCryptoPricesInfo *)pricesInfo
@@ -1224,7 +1224,7 @@ const CGFloat kCellIconOffset = 10;
 
 - (void)updateRightButtonItemImage
 {
-    [TGCryptoManager.manager loadCurrencies:^{
+    [TGCryptoManager.manager loadCurrencies:^(__unused BOOL success) {
         TGCryptoCurrency *selectedCurrency = TGCryptoManager.manager.selectedCurrency;
         if (selectedCurrency) {
             NSString *currencySymbol = selectedCurrency.symbol ?: selectedCurrency.code;
@@ -1239,6 +1239,16 @@ const CGFloat kCellIconOffset = 10;
         return _filteredCoinInfos;
     }
     return _pricesInfo.coinInfos;
+}
+
+- (void)pageInfoUpdated
+{
+    TGCryptoManager.manager.pricePageInfo = (struct TGCryptoPricePageInfo){
+        .limit = [self baseRowsCountForTableView:_tableView] * 2,
+        .offset = 0,
+        .sorting = _sortCell.sorting,
+        .favorites = _filterCell.favoritesFilterButton.isSelected,
+    };
 }
 
 @end

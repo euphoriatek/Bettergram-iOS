@@ -45,6 +45,14 @@ typedef enum : NSUInteger {
 @end
 
 
+struct TGCryptoPricePageInfo {
+    NSUInteger limit;
+    NSUInteger offset;
+    TGCoinSorting sorting;
+    BOOL favorites;
+};
+
+
 @interface TGCryptoManager : NSObject
 
 @property (nonatomic, strong, readonly) NSArray<TGCryptoCurrency *> *currencies;
@@ -55,14 +63,12 @@ typedef enum : NSUInteger {
 
 + (instancetype)manager;
 
-- (void)fetchCoins:(NSUInteger)limit
-            offset:(NSUInteger)offset
-           sorting:(TGCoinSorting)sorting
-         favorites:(BOOL)favorites
-        completion:(void (^)(TGCryptoPricesInfo *pricesInfo))completion;
+@property (nonatomic, assign) struct TGCryptoPricePageInfo pricePageInfo;
+@property (nonatomic, copy) void (^pageUpdateBlock)(TGCryptoPricesInfo *pricesInfo);
+
 - (void)fetchResources:(void (^)(NSArray<TGResourceSection *> *resourceSections))completion;
 - (void)updateCoin:(TGCryptoCurrency *)coin favorite:(BOOL)favorite;
-- (void)loadCurrencies:(void (^)(void))completion;
+- (void)loadCurrencies:(void (^)(BOOL success))completion;
 - (TGCryptoCurrency *)cachedCurrencyWithCode:(NSString *)code;
 
 - (void)subscribeToListsWithEmail:(NSString *)email includeCrypto:(BOOL)includeCrypto;

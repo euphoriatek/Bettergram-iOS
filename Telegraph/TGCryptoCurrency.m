@@ -7,12 +7,6 @@
 
 #import "TGCryptoCurrency.h"
 
-//@interface NSString (ValidateFilter)
-//
-//- (BOOL)validateFilter:(NSString *)filter;
-//
-//@end
-
 @implementation NSString (ValidateFilter)
 
 - (BOOL)validateFilter:(NSString *)filter
