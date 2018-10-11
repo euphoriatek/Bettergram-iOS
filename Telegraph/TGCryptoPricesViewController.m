@@ -754,6 +754,8 @@ const CGFloat kCellIconOffset = 10;
     UIImageView *_titleView;
     
     BOOL _filterActivated;
+    
+    UILabel *_apiOutOfDateLabel;
 }
 
 @property (nonatomic, strong) TGPresentation *presentation;
@@ -795,6 +797,7 @@ const CGFloat kCellIconOffset = 10;
     _sortCell.delegate = self;
     
     [self.view addSubview:(_tableView = [TGListsTableView.alloc init])];
+    _tableView.backgroundColor = nil;
     _tableView.decelerationRate = UIScrollViewDecelerationRateFast;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -819,6 +822,16 @@ const CGFloat kCellIconOffset = 10;
                       animated:false];
     [self setPresentation:_presentation];
     [self localizationUpdated];
+    
+    if (TGCryptoManager.manager.apiOutOfDate) {
+        [self apiOutOfDate];
+    }
+    else {
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(apiOutOfDate)
+                                                   name:TGCryptoManagerAPIOutOfDate
+                                                 object:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -857,6 +870,10 @@ const CGFloat kCellIconOffset = 10;
 {
     if (!self.isViewLoaded) return;
     
+    if (_apiOutOfDateLabel) {
+        _apiOutOfDateLabel.frame = self.view.bounds;
+        return;
+    }
     if (_filterCell.isFiltered && !_filterActivated) return;
     _marketInfoCell.ignoreTableView = UIInterfaceOrientationIsLandscape(self.currentInterfaceOrientation);
     [self updateTopSectionCells];
@@ -866,7 +883,7 @@ const CGFloat kCellIconOffset = 10;
                                   self.view.frame.size.height - self.controllerInset.top - self.controllerInset.bottom + 1);
         
         if (_marketInfoCell.ignoreTableView) {
-            [self.view addSubview:_marketInfoCell];
+                [self.view addSubview:_marketInfoCell];
             _marketInfoCell.frame = CGRectMake(self.controllerSafeAreaInset.left,
                                                self.controllerInset.top,
                                                kMarketViewWidth,
@@ -898,6 +915,7 @@ const CGFloat kCellIconOffset = 10;
     [self updateRightButtonItemImage];
     _leftButtonItem.image = _presentation.images.settingsButton;
     _titleView.image = TGTintedImage(TGImageNamed(@"header_logo_live_coin_watch"), _presentation.pallete.navigationTitleColor);
+    _apiOutOfDateLabel.textColor = _presentation.pallete.textColor;
 }
 
 - (void)localizationUpdated
@@ -905,6 +923,7 @@ const CGFloat kCellIconOffset = 10;
     _filterCell.searchBar.placeholder = TGLocalized(@"Crypto.Prices.SearchLabel");
     [_marketInfoCell localizationUpdated];
     [_sortCell localizationUpdated];
+    _apiOutOfDateLabel.text = TGLocalized(@"Crypto.Prices.API.Out.Of.Date");
 }
 
 - (void)currencyButtonTap
@@ -937,6 +956,8 @@ const CGFloat kCellIconOffset = 10;
 
 - (NSInteger)numberOfSectionsInTableView:(__unused UITableView *)tableView
 {
+    if (_apiOutOfDateLabel)
+        return 0;
     return _topSectionCells.count + 1;
 }
 
@@ -1249,6 +1270,20 @@ const CGFloat kCellIconOffset = 10;
         .sorting = _sortCell.sorting,
         .favorites = _filterCell.favoritesFilterButton.isSelected,
     };
+}
+
+- (void)apiOutOfDate
+{
+    if (_apiOutOfDateLabel == nil) {
+        _apiOutOfDateLabel = [[UILabel alloc] initWithFrame:self.view.bounds];
+        _apiOutOfDateLabel.textColor = _presentation.pallete.textColor;
+        _apiOutOfDateLabel.textAlignment = NSTextAlignmentCenter;
+        _apiOutOfDateLabel.numberOfLines = 0;
+        _apiOutOfDateLabel.userInteractionEnabled = YES;
+        _apiOutOfDateLabel.text = TGLocalized(@"Crypto.Prices.API.Out.Of.Date");
+        [self.view addSubview:_apiOutOfDateLabel];
+        [_tableView reloadData];
+    }
 }
 
 @end

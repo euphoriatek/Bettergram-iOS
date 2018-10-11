@@ -22,6 +22,8 @@ typedef enum : NSUInteger {
 
 @class MWFeedItem, TGFeedParser, TGResourceSection;
 
+FOUNDATION_EXPORT NSString * const TGCryptoManagerAPIOutOfDate;
+
 
 @protocol TGFeedParserDelegate <NSObject>
 
@@ -65,6 +67,8 @@ struct TGCryptoPricePageInfo {
 
 @property (nonatomic, assign) struct TGCryptoPricePageInfo pricePageInfo;
 @property (nonatomic, copy) void (^pageUpdateBlock)(TGCryptoPricesInfo *pricesInfo);
+
+@property (nonatomic, assign) BOOL apiOutOfDate;
 
 - (void)fetchResources:(void (^)(NSArray<TGResourceSection *> *resourceSections))completion;
 - (void)updateCoin:(TGCryptoCurrency *)coin favorite:(BOOL)favorite;

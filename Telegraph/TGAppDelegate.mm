@@ -884,13 +884,13 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
         [server startServices];
     }] startWithNext:nil];
     
-    [[Harpy sharedInstance] setPresentingViewController:_rootController];
-    [[Harpy sharedInstance] setAlertType:HarpyAlertTypeSkip];
+    [Harpy.sharedInstance setPresentingViewController:_rootController];
+    Harpy.sharedInstance.patchUpdateAlertType = Harpy.sharedInstance.revisionUpdateAlertType = HarpyAlertTypeSkip;
+    Harpy.sharedInstance.majorUpdateAlertType = Harpy.sharedInstance.minorUpdateAlertType = HarpyAlertTypeOption;
 #if DEBUG
-    [[Harpy sharedInstance] setDebugEnabled:true];
+    [Harpy.sharedInstance setDebugEnabled:true];
 #endif
-    [[Harpy sharedInstance] checkVersion];
-    
+    [Harpy.sharedInstance checkVersion];    
     
     [UAirship takeOff];
     [UAirship push].userPushNotificationsEnabled = YES;
@@ -1272,7 +1272,7 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     [TGDatabaseInstance() processAndScheduleSelfDestruct];
     [TGDatabaseInstance() processAndScheduleMediaCleanup];
     [TGDatabaseInstance() processAndScheduleMute];
-    [[Harpy sharedInstance] checkVersion];
+    [Harpy.sharedInstance checkVersion];
 }
 
 - (SSignal *)isActive

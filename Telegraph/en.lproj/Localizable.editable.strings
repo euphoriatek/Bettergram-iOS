@@ -39,6 +39,8 @@
 "Rate.Header" = "Enjoy TELEGRAM_APP_NAME?";
 "Rate.Body" = "Take a moment to rate it on the App Store";
 
+"Crypto.Prices.API.Out.Of.Date" = "A new major version of TELEGRAM_APP_NAME is available. Please update to make crypto prices work again";
+
 // Notifications
 "MESSAGE_TEXT" = "%1$@: %2$@";
 "MESSAGE_NOTEXT" = "%1$@ sent you a message";

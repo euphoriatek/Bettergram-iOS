@@ -14,6 +14,8 @@
 #import "TGResourceSection.h"
 #import "../../config.h"
 
+NSString * const TGCryptoManagerAPIOutOfDate = @"TGCryptoManagerAPIOutOfDate";
+
 static NSString *const kSuccessKey = @"success";
 static NSString *const kDataKey = @"data";
 
@@ -293,7 +295,8 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                                           }
                                       });
                                   } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                      TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
+                                      TGLog(@"TGCMError: OG image get error: %@",error);
+                                      completion(nil);
                                   }];
 }
 
@@ -362,6 +365,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
             ![groups isKindOfClass:[NSArray class]])
         {
             TGLog(@"TGCMError: News list get parsing error: %@",groups);
+            completion(nil);
             return;
         }
         NSMutableArray<TGResourceSection *> *resourceSections = [NSMutableArray array];
@@ -377,8 +381,12 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
     NSString *filePath = [NSFileManager.defaultManager.temporaryDirectory
                           URLByAppendingPathComponent:[NSString stringWithFormat:@"%@FeedURLs",key]].path;
     NSDate *newsModificationDate = [self fileModificationDate:filePath];
-    if (newsModificationDate != nil && -newsModificationDate.timeIntervalSinceNow < kDaySecons) {
+    if (newsModificationDate != nil && (-newsModificationDate.timeIntervalSinceNow < kDaySecons || _apiOutOfDate)) {
         completion([NSKeyedUnarchiver unarchiveObjectWithFile:filePath]);
+        return;
+    }
+    if (_apiOutOfDate) {
+        completion(nil);
         return;
     }
     [_bettergramSessionManager GET:key
@@ -398,6 +406,8 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                                [NSKeyedArchiver archiveRootObject:json toFile:filePath];
                            } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
+                               [self checkResponceIfAPIIsOutOfDate:task.response];
+                               completion(nil);
                            }];
 }
 
@@ -480,6 +490,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 {
     [_updatePricesDataTask cancel];
     [_updatePricesTimer invalidate];
+    if (_apiOutOfDate) return;
     void(^completion)(TGCryptoPricesInfo *pricesInfo) = ^(TGCryptoPricesInfo *pricesInfo) {
         if (_pageUpdateBlock != NULL)
             _pageUpdateBlock(pricesInfo);
@@ -535,6 +546,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                                             }
                                                            force:YES];
                                         } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                                                  [self checkResponceIfAPIIsOutOfDate:task.response];
                                             TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
                                             completion(nil);
                                         }];
@@ -623,6 +635,10 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
         completion(YES);
         return;
     }
+    if (_apiOutOfDate) {
+        completion(NO);
+        return;
+    }
     void(^allBlocks)(BOOL success) = ^(BOOL success) {
         TGDispatchOnMainThread(^{
             completion(success);
@@ -651,6 +667,7 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
                                                      allBlocks(NO);
                                                  }
                                              } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                                 [self checkResponceIfAPIIsOutOfDate:task.response];
                                                  TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
                                                  allBlocks(NO);
                                              }];
@@ -709,6 +726,17 @@ static NSTimeInterval const kDaySecons = 24 * 60 * 60;
 - (NSDate *)fileModificationDate:(NSString *)file
 {
     return [NSFileManager.defaultManager attributesOfItemAtPath:file error:nil].fileModificationDate;
+}
+
+- (void)checkResponceIfAPIIsOutOfDate:(NSURLResponse *)response
+{
+    if (!_apiOutOfDate &&
+        [response isKindOfClass:[NSHTTPURLResponse class]] &&
+        ((NSHTTPURLResponse *)response).statusCode == 410)
+    {
+        _apiOutOfDate = YES;
+        [NSNotificationCenter.defaultCenter postNotificationName:TGCryptoManagerAPIOutOfDate object:nil];
+    }
 }
 
 @end
