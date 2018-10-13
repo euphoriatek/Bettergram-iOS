@@ -111,6 +111,8 @@
     TGButtonCollectionItem *_convertToSupergroupItem;
     
     bool _checked3dTouch;
+    
+    TGButtonCollectionItem *_favoriteInfoItem;
 }
 
 @end
@@ -150,6 +152,11 @@
         
         [self.menuSections addSection:_groupInfoSection];
         
+        TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:conversationId];
+        _favoriteInfoItem = [[TGButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
+        _favoriteInfoItem.deselectAutomatically = true;
+        _favoriteInfoItem.titleColor = self.presentation.pallete.collectionMenuAccentColor;
+        
         _notificationsItem = [[TGSwitchCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.Notifications") isOn:false];
         __weak TGGroupInfoController *weakSelf = self;
         _notificationsItem.toggled = ^(bool value, __unused TGSwitchCollectionItem *item) {
@@ -166,6 +173,7 @@
         _chatAdminsItem = [[TGVariantCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.ChatAdmins") action:@selector(chatAdminsPressed)];
         
         _notificationsAndMediaSection = [[TGCollectionMenuSection alloc] initWithItems:@[
+            _favoriteInfoItem,
             _notificationsItem,
             _sharedMediaItem
         ]];
@@ -323,6 +331,7 @@
     _setGroupPhotoItem.titleColor = self.presentation.pallete.collectionMenuAccentColor;
     _addParticipantItem.titleColor = self.presentation.pallete.collectionMenuAccentColor;
     _leaveGroupItem.titleColor = self.presentation.pallete.collectionMenuDestructiveColor;
+    _favoriteInfoItem.titleColor = self.presentation.pallete.collectionMenuAccentColor;
 }
 
 - (bool)canEditGroup
@@ -891,6 +900,13 @@
     
     static int actionId = 0;
     [ActionStageInstance() requestActor:[NSString stringWithFormat:@"/tg/changePeerSettings/(%" PRId64 ")/(groupInfoController%d)", _conversation.conversationId, actionId++] options:@{@"peerId": @(_conversationId), @"muteUntil": @(!enableNotifications ? INT_MAX : 0)} watcher:TGTelegraphInstance];
+}
+
+- (void)favoriteInfoPressed
+{
+    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_conversationId];
+    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
+    [TGDatabaseInstance() conversationFieldUpdated:conversation];
 }
 
 - (void)soundPressed
@@ -1567,7 +1583,9 @@
     if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", _conversationId]])
     {
         TGConversation *conversation = ((SGraphObjectNode *)resource).object;
-        
+        TGDispatchOnMainThread(^{
+            _favoriteInfoItem.title = conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite");
+        });
         if (conversation != nil)
             [self _loadUsersAndUpdateConversation:conversation];
     }

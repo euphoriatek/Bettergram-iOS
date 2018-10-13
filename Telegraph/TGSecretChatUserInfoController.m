@@ -61,6 +61,11 @@
     return self;
 }
 
+- (int64_t)converstaionUID
+{
+    return _peerId;
+}
+
 - (void)_updateSecretDataItems
 {
     bool needsReload = false;

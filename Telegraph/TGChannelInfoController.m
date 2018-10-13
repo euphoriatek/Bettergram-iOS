@@ -134,6 +134,8 @@
     
     TGMediaAvatarMenuMixin *_avatarMixin;
     bool _checked3dTouch;
+    
+    TGUserInfoButtonCollectionItem *_favoriteInfoItem;
 }
 
 @property (nonatomic, strong) ASHandle *actionHandle;
@@ -244,6 +246,10 @@
         };
         _editingSignMessagesSection = [[TGCollectionMenuSection alloc] initWithItems:@[_signMessagesItem, [[TGCommentCollectionItem alloc] initWithFormattedText:TGLocalized(@"Channel.SignMessages.Help")]]];
         
+        _favoriteInfoItem = [[TGUserInfoButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
+        _favoriteInfoItem.deselectAutomatically = true;
+        _favoriteInfoItem.titleColor = self.presentation.pallete.collectionMenuAccentColor;
+        
         _notificationsItem = [[TGUserInfoVariantCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.Notifications") variant:nil action:@selector(notificationsPressed)];
         _notificationsItem.deselectAutomatically = true;
         _editingNotificationsItem = [[TGVariantCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.Notifications") variant:nil action:@selector(notificationsPressed)];
@@ -253,7 +259,10 @@
         
         _sharedMediaItem = [[TGUserInfoVariantCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.SharedMedia") variant:@"" action:@selector(sharedMediaPressed)];
         
-        _notificationsAndMediaSection = [[TGCollectionMenuSection alloc] initWithItems:@[_notificationsItem, _sharedMediaItem]];
+        _notificationsAndMediaSection = [[TGCollectionMenuSection alloc] initWithItems:@[
+            _favoriteInfoItem,
+            _notificationsItem, _sharedMediaItem
+            ]];
         UIEdgeInsets notificationsAndMediaSectionInsets = _notificationsAndMediaSection.insets;
         notificationsAndMediaSectionInsets.bottom = 22.0f;
         _notificationsAndMediaSection.insets = notificationsAndMediaSectionInsets;
@@ -432,6 +441,7 @@
             [_notificationsAndMediaSection deleteItemAtIndex:0];
         }
         
+        [_notificationsAndMediaSection addItem:_favoriteInfoItem];
         [_notificationsAndMediaSection addItem:_notificationsItem];
         [_notificationsAndMediaSection addItem:_sharedMediaItem];
         
@@ -689,6 +699,13 @@
 - (void)legacyCameraControllerCompletedWithNoResult
 {
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)favoriteInfoPressed
+{
+    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_peerId];
+    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
+    [TGDatabaseInstance() conversationFieldUpdated:conversation];
 }
 
 - (void)notificationsPressed
@@ -1190,7 +1207,9 @@
     if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", _peerId]])
     {
         TGConversation *conversation = ((SGraphObjectNode *)resource).object;
-        
+        TGDispatchOnMainThread(^{
+            _favoriteInfoItem.title = conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite");
+        });
         if (conversation != nil) {
             [self _loadUsersAndUpdateConversation:conversation];
         }

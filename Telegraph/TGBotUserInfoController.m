@@ -195,7 +195,8 @@
                                                     @"/tg/contactlist",
                                                     @"/tg/phonebook",
                                                     @"/tg/blockedUsers",
-                                                    [[NSString alloc] initWithFormat:@"/tg/sharedMediaCount/(%" PRIx64 ")", (int64_t)_uid]
+                                                    [[NSString alloc] initWithFormat:@"/tg/sharedMediaCount/(%" PRIx64 ")", (int64_t)_uid],
+                                                    [[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", (int64_t)_uid],
                                                     ] watcher:self];
              
              [ActionStageInstance() watchForPath:[NSString stringWithFormat:@"/tg/peerSettings/(%" PRId32 ")", _uid] watcher:self];
@@ -457,6 +458,12 @@
                 }
                 
                 [self.menuSections addItemToSection:actionsSectionIndex item:[[TGUserInfoButtonCollectionItem alloc] initWithTitle:TGLocalized(@"UserInfo.SendMessage") action:@selector(sendMessagePressed)]];
+                
+                TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_uid];
+                TGUserInfoButtonCollectionItem *favoriteInfoItem = [[TGUserInfoButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
+                favoriteInfoItem.deselectAutomatically = true;
+                [self.menuSections addItemToSection:actionsSectionIndex item:favoriteInfoItem];
+
                 
                 if (_user.botKind == TGBotKindGeneric)
                 {
@@ -779,6 +786,13 @@ static UIView *_findBackArrow(UIView *view)
 - (void)sendMessagePressed
 {
     [[TGInterfaceManager instance] navigateToConversationWithId:_uid conversation:nil];
+}
+
+- (void)favoriteInfoPressed
+{
+    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_uid];
+    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
+    [TGDatabaseInstance() conversationFieldUpdated:conversation];
 }
 
 - (void)notificationsPressed
@@ -1420,6 +1434,11 @@ static UIView *_findBackArrow(UIView *view)
         {
             _sharedMediaCount = [resource intValue];
             [self _updateSharedMediaCount];
+        });
+    }
+    else if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", (int64_t)_uid]]) {
+        TGDispatchOnMainThread(^{
+            [self _updatePhonesAndActions];
         });
     }
     else if ([path hasPrefix:@"/tg/blockedUsers/"])

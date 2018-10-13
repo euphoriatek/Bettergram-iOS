@@ -327,6 +327,11 @@
     [_updateAboutDisposable dispose];
 }
 
+- (int64_t)converstaionUID
+{
+    return _uid;
+}
+
 - (void)setPresentation:(TGPresentation *)presentation
 {
     [super setPresentation:presentation];
@@ -609,15 +614,15 @@
             }
         }
         
-        if (!_withoutActions)
+        
+        if (actionsSectionIndex != NSNotFound)
         {
-            if (actionsSectionIndex != NSNotFound)
+            for (int i = (int)self.actionsSection.items.count - 1; i >= 0 ; i--)
             {
-                for (int i = (int)self.actionsSection.items.count - 1; i >= 0 ; i--)
-                {
-                    [self.menuSections deleteItemFromSection:actionsSectionIndex atIndex:0];
-                }
-                
+                [self.menuSections deleteItemFromSection:actionsSectionIndex atIndex:0];
+            }
+            if (!_withoutActions)
+            {                
                 if (!_withoutCompose)
                 {
                     [self.menuSections addItemToSection:actionsSectionIndex item:[[TGUserInfoButtonCollectionItem alloc] initWithTitle:TGLocalized(@"UserInfo.SendMessage") action:@selector(sendMessagePressed)]];
@@ -636,7 +641,7 @@
                     addContactItem.deselectAutomatically = true;
                     [self.menuSections addItemToSection:actionsSectionIndex item:addContactItem];
                 }
-            
+                
                 if (_callMessages == nil && (_userLink & TGUserLinkKnown) && !(_userLink & (TGUserLinkForeignHasPhone | TGUserLinkForeignMutual)))
                 {
                     TGUserInfoButtonCollectionItem *shareContactInfoItem = [[TGUserInfoButtonCollectionItem alloc] initWithTitle:TGLocalized(@"UserInfo.ShareMyContactInfo") action:@selector(shareMyContactInfoPressed)];
@@ -646,13 +651,13 @@
                 
                 if (!isCurrentUser)
                     [self.menuSections addItemToSection:actionsSectionIndex item:_startSecretChatItem];
-                
-                if (!isCurrentUser) {
-                    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_uid];
-                    TGUserInfoButtonCollectionItem *favoriteInfoItem = [[TGUserInfoButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
-                    favoriteInfoItem.deselectAutomatically = true;
-                    [self.menuSections addItemToSection:actionsSectionIndex item:favoriteInfoItem];
-                }
+            }
+            
+            if (!isCurrentUser) {
+                TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:self.converstaionUID];
+                TGUserInfoButtonCollectionItem *favoriteInfoItem = [[TGUserInfoButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
+                favoriteInfoItem.deselectAutomatically = true;
+                [self.menuSections addItemToSection:actionsSectionIndex item:favoriteInfoItem];
             }
         }
     }
@@ -1381,10 +1386,10 @@ static UIView *_findBackArrow(UIView *view)
     if (_shareVCard)
         _shareVCard();
 }
-    
+
 - (void)favoriteInfoPressed
 {
-    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_uid];
+    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:self.converstaionUID];
     conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
     [TGDatabaseInstance() conversationFieldUpdated:conversation];
 }
@@ -1908,8 +1913,7 @@ static UIView *_findBackArrow(UIView *view)
             }
         });
     }
-    else if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", (int64_t)_uid]]) {
-//        TGConversation *updatedConversation = ((SGraphObjectNode *)resource).object;
+    else if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", (int64_t)self.converstaionUID]]) {
         TGDispatchOnMainThread(^{
             [self _updatePhonesAndActions];
         });

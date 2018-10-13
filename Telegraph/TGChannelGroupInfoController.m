@@ -197,6 +197,7 @@ static const NSUInteger loadMoreMemberCount = 100;
     NSString *_searchString;
     
     NSArray *_reusableSectionHeaders;
+    TGButtonCollectionItem *_favoriteInfoItem;
 }
 
 @property (nonatomic, strong) ASHandle *actionHandle;
@@ -305,6 +306,10 @@ static const NSUInteger loadMoreMemberCount = 100;
         _infoBlacklistItem = [[TGVariantCollectionItem alloc] initWithTitle:TGLocalized(@"Channel.Info.BlackList") variant:@"" action:@selector(infoBlacklistPressed)];
         _adminInfoSection = [[TGCollectionMenuSection alloc] initWithItems:@[_infoManagementItem, _infoBlacklistItem]];
         
+        _favoriteInfoItem = [[TGButtonCollectionItem alloc] initWithTitle:conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite") action:@selector(favoriteInfoPressed)];
+        _favoriteInfoItem.deselectAutomatically = true;
+        _favoriteInfoItem.titleColor = self.presentation.pallete.collectionMenuAccentColor;
+        
         _notificationsItem = [[TGSwitchCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.Notifications") isOn:false];
         
         _notificationsItem.toggled = ^(bool value, __unused TGSwitchCollectionItem *item) {
@@ -318,7 +323,11 @@ static const NSUInteger loadMoreMemberCount = 100;
         
         _sharedMediaItem = [[TGVariantCollectionItem alloc] initWithTitle:TGLocalized(@"GroupInfo.SharedMedia") variant:@"" action:@selector(sharedMediaPressed)];
         
-        _notificationsAndMediaSection = [[TGCollectionMenuSection alloc] initWithItems:@[_notificationsItem, _sharedMediaItem]];
+        _notificationsAndMediaSection = [[TGCollectionMenuSection alloc] initWithItems:@[
+            _favoriteInfoItem,
+            _notificationsItem,
+            _sharedMediaItem
+            ]];
         UIEdgeInsets notificationsAndMediaSectionInsets = _notificationsAndMediaSection.insets;
         notificationsAndMediaSectionInsets.bottom = 18.0f;
         _notificationsAndMediaSection.insets = notificationsAndMediaSectionInsets;
@@ -607,6 +616,7 @@ static const NSUInteger loadMoreMemberCount = 100;
             [_notificationsAndMediaSection deleteItemAtIndex:0];
         }
         
+        [_notificationsAndMediaSection addItem:_favoriteInfoItem];
         [_notificationsAndMediaSection addItem:_notificationsItem];
         [_notificationsAndMediaSection addItem:_soundItem];
         
@@ -685,6 +695,7 @@ static const NSUInteger loadMoreMemberCount = 100;
             [_notificationsAndMediaSection deleteItemAtIndex:0];
         }
         
+        [_notificationsAndMediaSection addItem:_favoriteInfoItem];
         [_notificationsAndMediaSection addItem:_notificationsItem];
         [_notificationsAndMediaSection addItem:_sharedMediaItem];
         
@@ -1093,6 +1104,13 @@ static const NSUInteger loadMoreMemberCount = 100;
     
     static int actionId = 0;
     [ActionStageInstance() requestActor:[NSString stringWithFormat:@"/tg/changePeerSettings/(%" PRId64 ")/(groupInfoController%d)", _conversation.conversationId, actionId++] options:@{@"peerId": @(_peerId), @"accessHash": @(_conversation.accessHash), @"muteUntil": @(!enableNotifications ? INT_MAX : 0)} watcher:TGTelegraphInstance];
+}
+
+- (void)favoriteInfoPressed
+{
+    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_peerId];
+    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
+    [TGDatabaseInstance() conversationFieldUpdated:conversation];
 }
 
 - (void)soundPressed
@@ -1611,8 +1629,10 @@ static const NSUInteger loadMoreMemberCount = 100;
 {
     if ([path isEqualToString:[[NSString alloc] initWithFormat:@"/tg/conversation/(%lld)/conversation", _peerId]])
     {
-        TGConversation *conversation = ((SGraphObjectNode *)resource).object;
-        
+        TGConversation *conversation = ((SGraphObjectNode *)resource).object;        
+        TGDispatchOnMainThread(^{
+            _favoriteInfoItem.title = conversation.isFavorited ? TGLocalized(@"UserInfo.Unfavorite") : TGLocalized(@"UserInfo.Favorite");
+        });
         if (conversation != nil) {
             [self _setConversation:conversation];
         }
