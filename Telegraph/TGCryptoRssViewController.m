@@ -9,6 +9,8 @@
 
 #import "TGApplication.h"
 #import "TGPresentation.h"
+#import "TGEmbedMenu.h"
+#import "TGOpenInVideoItems.h"
 #import "TGAppDelegate.h"
 #import "TGFeedParser.h"
 
@@ -332,10 +334,32 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
         feedItem.isViewed = YES;
         [_feedParser setNeedsArchiveFeedItems];
     }
-    [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:feedItem.link]
-                                                    forceNative:true
-                                                      keepStack:true];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (_isVideoContent) {
+        CGSize size = CGSizeMake(1280, 720);
+        TGWebPageMediaAttachment *webPage = [[TGWebPageMediaAttachment alloc] init];
+        webPage.url = feedItem.link;
+        webPage.embedUrl = feedItem.link;
+        webPage.pageType = @"video";
+        webPage.embedSize = size;
+        webPage.photo = [[TGImageMediaAttachment alloc] init];
+        webPage.photo.imageInfo = [[TGImageInfo alloc] init];
+        [webPage.photo.imageInfo addImageWithSize:size url:feedItem.thumbnailURL];
+        [TGEmbedMenu presentInParentController:self
+                                    attachment:webPage
+                                        peerId:0
+                                     messageId:0
+                                     cancelPIP:NO
+                                    sourceView:[tableView cellForRowAtIndexPath:indexPath]
+                                    sourceRect:^CGRect{
+                                        return [tableView convertRect:[tableView rectForRowAtIndexPath:indexPath] toView:self.view];
+                                    }];
+    }
+    else {
+        [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:feedItem.link]
+                                                        forceNative:true
+                                                          keepStack:true];
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)__unused tableView heightForHeaderInSection:(NSInteger)section
