@@ -657,11 +657,11 @@ static CGFloat kHeight = 18;
     if (self.isBarBarOnTop) {
         UINavigationBar *navigationBar = self.navigationController.navigationBar;
         if (navigationBar != nil) {
-            frame.origin.y = CGRectGetMaxY(navigationBar.frame);
+            frame.origin.y = CGRectGetMaxY([UIApplication.sharedApplication.keyWindow convertRect:navigationBar.frame fromView:navigationBar.superview]);
         }
     }
     else {
-        frame.origin.y = self.view.frame.size.height - [TGTabBar tabBarHeight:landscape] - safeAreaInset.bottom;
+        frame.origin.y = self.view.frame.size.height - [TGTabBar tabBarHeight:landscape] - MAX(safeAreaInset.bottom, _keyboardHeight);
         frame.size.height += safeAreaInset.bottom;
     }
     return frame;
@@ -741,7 +741,7 @@ static CGFloat kHeight = 18;
 
 - (void)_updateForKeyboardHeight:(CGFloat)keyboardHeight
 {
-    _customTabBar.frame = CGRectMake(0.0f, self.view.frame.size.height - [TGTabBar tabBarHeight:false] - keyboardHeight, self.view.frame.size.width, [TGTabBar tabBarHeight:false]);
+    _customTabBar.frame = [self tabBarFrame];
     
     if (self.onControllerInsetUpdated != nil)
         self.onControllerInsetUpdated(keyboardHeight);

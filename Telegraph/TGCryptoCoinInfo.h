@@ -22,5 +22,6 @@
 @property (readonly, nonatomic, assign) NSTimeInterval updatedDate;
 
 - (instancetype)initWithJSON:(NSDictionary *)dictionary;
+- (instancetype)initWithCurrency:(TGCryptoCurrency *)currency;
 
 @end

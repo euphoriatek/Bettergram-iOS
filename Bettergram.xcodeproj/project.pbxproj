@@ -4882,6 +4882,8 @@
 		D5991F4A21555B55000D823C /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5991F3C21555B2A000D823C /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5AC96B62167949400C9CD3C /* github_logo_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5AC96912167949200C9CD3C /* github_logo_white@3x.png */; };
 		D5AC96B72167949400C9CD3C /* github_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5AC96B52167949300C9CD3C /* github_logo_white@2x.png */; };
+		D5AFAB4321721BDB00A1399B /* TGFeedParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D5AFAB4121721BDB00A1399B /* TGFeedParser.h */; };
+		D5AFAB4421721BDB00A1399B /* TGFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AFAB4221721BDB00A1399B /* TGFeedParser.m */; };
 		D5C3D24121354989002363B8 /* tab_all_messages@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D22621354988002363B8 /* tab_all_messages@3x.png */; };
 		D5C3D24221354989002363B8 /* tab_announcements@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D22721354988002363B8 /* tab_announcements@2x.png */; };
 		D5C3D24321354989002363B8 /* tab_announcements@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C3D22821354988002363B8 /* tab_announcements@3x.png */; };
@@ -12009,6 +12011,8 @@
 		D5991F3121555B2A000D823C /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = submodules/AFNetworking/AFNetworking.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D5AC96912167949200C9CD3C /* github_logo_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github_logo_white@3x.png"; sourceTree = "<group>"; };
 		D5AC96B52167949300C9CD3C /* github_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github_logo_white@2x.png"; sourceTree = "<group>"; };
+		D5AFAB4121721BDB00A1399B /* TGFeedParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TGFeedParser.h; path = Telegraph/TGFeedParser.h; sourceTree = SOURCE_ROOT; };
+		D5AFAB4221721BDB00A1399B /* TGFeedParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TGFeedParser.m; path = Telegraph/TGFeedParser.m; sourceTree = SOURCE_ROOT; };
 		D5C3D22621354988002363B8 /* tab_all_messages@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_all_messages@3x.png"; sourceTree = "<group>"; };
 		D5C3D22721354988002363B8 /* tab_announcements@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_announcements@2x.png"; sourceTree = "<group>"; };
 		D5C3D22821354988002363B8 /* tab_announcements@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_announcements@3x.png"; sourceTree = "<group>"; };
@@ -21396,7 +21400,7 @@
 		D0983C1019CB959B00CE5BB0 /* TelegraphKit */ = {
 			isa = PBXGroup;
 			children = (
-				D549CC8321692DDD00F8FB28 /* Crypto */,
+				D5AFAB6921721C7000A1399B /* CryptoManager */,
 				D020FBE31D99782C00F279AA /* TGTColor.m */,
 				D020FBE41D99782C00F279AA /* TGTColor.h */,
 				D0CD11EF1CCFDB3B000DE7BC /* EMImage.h */,
@@ -23294,23 +23298,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D549CC8321692DDD00F8FB28 /* Crypto */ = {
-			isa = PBXGroup;
-			children = (
-				D549CC8721692DEE00F8FB28 /* TGCryptoCoinInfo.h */,
-				D549CC8B21692DF000F8FB28 /* TGCryptoCoinInfo.m */,
-				D549CC8A21692DEF00F8FB28 /* TGCryptoCurrency.h */,
-				D549CC8821692DEE00F8FB28 /* TGCryptoCurrency.m */,
-				D549CC8C21692DF000F8FB28 /* TGCryptoPricesInfo.h */,
-				D549CC8421692DED00F8FB28 /* TGCryptoPricesInfo.m */,
-				D549CC8D21692DF000F8FB28 /* TGResourceSection.h */,
-				D549CC8921692DEF00F8FB28 /* TGResourceSection.m */,
-				D549CC8521692DED00F8FB28 /* TGCryptoManager.h */,
-				D549CC8621692DEE00F8FB28 /* TGCryptoManager.m */,
-			);
-			path = Crypto;
-			sourceTree = "<group>";
-		};
 		D59103C5215BE19200778EB0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -23341,6 +23328,25 @@
 				D5991F4821555B2A000D823C /* AFNetworking tvOS Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D5AFAB6921721C7000A1399B /* CryptoManager */ = {
+			isa = PBXGroup;
+			children = (
+				D549CC8721692DEE00F8FB28 /* TGCryptoCoinInfo.h */,
+				D549CC8B21692DF000F8FB28 /* TGCryptoCoinInfo.m */,
+				D549CC8A21692DEF00F8FB28 /* TGCryptoCurrency.h */,
+				D549CC8821692DEE00F8FB28 /* TGCryptoCurrency.m */,
+				D549CC8C21692DF000F8FB28 /* TGCryptoPricesInfo.h */,
+				D549CC8421692DED00F8FB28 /* TGCryptoPricesInfo.m */,
+				D549CC8D21692DF000F8FB28 /* TGResourceSection.h */,
+				D549CC8921692DEF00F8FB28 /* TGResourceSection.m */,
+				D5AFAB4121721BDB00A1399B /* TGFeedParser.h */,
+				D5AFAB4221721BDB00A1399B /* TGFeedParser.m */,
+				D549CC8521692DED00F8FB28 /* TGCryptoManager.h */,
+				D549CC8621692DEE00F8FB28 /* TGCryptoManager.m */,
+			);
+			name = CryptoManager;
 			sourceTree = "<group>";
 		};
 		D5C3D22521354988002363B8 /* Bettergram */ = {
@@ -25034,6 +25040,7 @@
 				D05DE7FD1AB859F900293D10 /* TGReplyHeaderImageModel.h in Headers */,
 				D0115F101F41F12F0039383E /* TLRPCaccount_resetAuthorization.h in Headers */,
 				D0C6AEF81A71CD660046833D /* TGSharedFileSignals.h in Headers */,
+				D5AFAB4321721BDB00A1399B /* TGFeedParser.h in Headers */,
 				D011623E1F41F1350039383E /* TLhelp_InviteText.h in Headers */,
 				D0115F141F41F12F0039383E /* TLRPCaccount_setAccountTTL.h in Headers */,
 				D01F950D1E5E3DB5002627A1 /* STPSwitchTableViewCell.h in Headers */,
@@ -28604,6 +28611,7 @@
 				93E1682116AA07AA0036F6B2 /* TGResetPeerNotificationsActor.m in Sources */,
 				D01161891F41F1330039383E /* NSArray_WallPaper.mm in Sources */,
 				D01F950C1E5E3DB5002627A1 /* STPStringUtils.m in Sources */,
+				D5AFAB4421721BDB00A1399B /* TGFeedParser.m in Sources */,
 				D0EDE57D1D9AD597005D4CE8 /* TGPreparedGameMessage.m in Sources */,
 				D0115F4D1F41F1300039383E /* TLRPCchannels_editAbout.mm in Sources */,
 				D01F94BB1E5E3DB4002627A1 /* STPApplePayPaymentMethod.m in Sources */,

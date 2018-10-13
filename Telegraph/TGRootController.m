@@ -84,10 +84,10 @@
         [cryptoController setViewControllers:@[
                                                 [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
                                                 [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
-                                                                                             feedParser:TGCryptoManager.manager.newsFeedParser
+                                                                                          feedParserKey:@"news"
                                                                                          isVideoContent:NO],
                                                 [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
-                                                                                             feedParser:TGCryptoManager.manager.videosFeedParser
+                                                                                             feedParserKey:@"videos"
                                                                                          isVideoContent:YES],
                                                 [[TGResourcesViewController alloc] initWithPresentation:_presentation],
                                                 ]];

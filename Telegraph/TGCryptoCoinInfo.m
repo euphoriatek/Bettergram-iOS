@@ -10,6 +10,14 @@
 
 @implementation TGCryptoCoinInfo
 
+- (instancetype)initWithCurrency:(TGCryptoCurrency *)currency
+{
+    if (self = [super init]) {
+        _currency = currency;
+    }
+    return self;
+}
+
 - (instancetype)initWithJSON:(NSDictionary *)dictionary
 {
     if (self = [super init]) {
@@ -28,6 +36,8 @@
         if ([minuteDelta isKindOfClass:[NSNumber class]]) {
             _minDelta = @([minuteDelta doubleValue] - 1);
         }
+        
+        _updatedDate = NSDate.date.timeIntervalSince1970;
 #if DEBUG
         NSMutableArray<NSString *> *unknownKeys = dictionary.allKeys.mutableCopy;
         [unknownKeys removeObjectsInArray:@[@"code",@"volume",@"cap",@"rank",@"price",@"delta"]];
@@ -43,12 +53,13 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
         _currency = [TGCryptoManager.manager cachedCurrencyWithCode:[decoder decodeObjectForKey:@"code"]];
-        _volume = [[decoder decodeObjectForKey:@"volume"] doubleValue];
-        _cap = [[decoder decodeObjectForKey:@"cap"] doubleValue];
-        _rank = [[decoder decodeObjectForKey:@"rank"] integerValue];
-        _price = [[decoder decodeObjectForKey:@"price"] doubleValue];
+        _volume = [decoder decodeDoubleForKey:@"volume"];
+        _cap = [decoder decodeDoubleForKey:@"cap"];
+        _rank = [decoder decodeIntegerForKey:@"rank"];
+        _price = [decoder decodeDoubleForKey:@"price"];
         _dayDelta = [decoder decodeObjectForKey:@"dayDelta"];
         _minDelta = [decoder decodeObjectForKey:@"minDelta"];
+        _updatedDate = [decoder decodeDoubleForKey:@"updatedDate"];
     }
     return self;
 }
@@ -61,6 +72,7 @@
     [encoder encodeDouble:_price forKey:@"price"];
     [encoder encodeObject:_dayDelta forKey:@"dayDelta"];
     [encoder encodeObject:_minDelta forKey:@"minDelta"];
+    [encoder encodeDouble:_updatedDate forKey:@"updatedDate"];
 }
 
 - (NSString *)debugDescription

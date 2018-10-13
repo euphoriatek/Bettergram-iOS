@@ -9,8 +9,8 @@
 
 #import "TGApplication.h"
 #import "TGPresentation.h"
-#import "MWFeedParser.h"
 #import "TGAppDelegate.h"
+#import "TGFeedParser.h"
 
 static const CGFloat kBaseCellImageOffset = 20;
 static const CGFloat kCellSmallOffset = 10;
@@ -165,10 +165,10 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 @implementation TGCryptoRssViewController
 
-- (instancetype)initWithPresentation:(TGPresentation *)presentation feedParser:(TGFeedParser *)feedParser isVideoContent:(BOOL)isVideoContent
+- (instancetype)initWithPresentation:(TGPresentation *)presentation feedParserKey:(NSString *)feedParserKey isVideoContent:(BOOL)isVideoContent
 {
     if (self = [super init]) {
-        _feedParser = feedParser;
+        _feedParser =  [TGFeedParser.alloc initWithKey:feedParserKey];
         _isVideoContent = isVideoContent;
         _presentation = presentation;
         _feedItems = [NSMutableArray array];

@@ -12,7 +12,7 @@
 
 @interface TGCryptoRssViewController : TGViewController <UITableViewDelegate, UITableViewDataSource>
 
-- (instancetype)initWithPresentation:(TGPresentation *)presentation feedParser:(TGFeedParser *)feedParser isVideoContent:(BOOL)isVideoContent;
+- (instancetype)initWithPresentation:(TGPresentation *)presentation feedParserKey:(NSString *)feedParserKey isVideoContent:(BOOL)isVideoContent;
 
 @property (nonatomic, strong, readonly) TGFeedParser *feedParser;
 

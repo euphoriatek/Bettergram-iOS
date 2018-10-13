@@ -7,19 +7,38 @@
 
 #import <Foundation/Foundation.h>
 
-@class TGCryptoCoinInfo;
-@class TGCryptoCurrency;
+#define    clredbit(a,i)    ((a) & ~(1<<((i)%NBBY)))
 
-@interface TGCryptoPricesInfo : NSObject <NSCoding>
+@class TGCryptoCoinInfo, TGCryptoCurrency;
+
+typedef enum : NSUInteger {
+    TGSortingCoinAscending      = 0,
+    TGSortingCoinDescending     = 1,
+    TGSortingPriceAscending     = 2,
+    TGSortingPriceDescending    = 3,
+    TGSorting24hAscending       = 4,
+    TGSorting24hDescending      = 5,
+} TGCoinSorting;
+
+static const NSUInteger TGSortingFavoritedBit = 7;
+
+struct TGCryptoPricePageInfo {
+    NSUInteger limit;
+    NSUInteger offset;
+    TGCoinSorting sorting;
+};
+typedef struct TGCryptoPricePageInfo TGCryptoPricePageInfo;
+
+@interface TGCryptoPricesInfo : NSObject <NSCoding, NSCopying>
 
 @property (readonly, nonatomic, assign) double marketCap;
 @property (readonly, nonatomic, assign) double volume;
 @property (readonly, nonatomic, assign) double btcDominance;
-@property (readonly, nonatomic, assign) TGCryptoCurrency *currency;
-@property (readonly, nonatomic, strong) NSArray<TGCryptoCoinInfo *> *coinInfos;
+@property (readonly, nonatomic, strong) TGCryptoCurrency *currency;
+@property (readonly, nonatomic, strong) NSDictionary<NSNumber *, NSArray<TGCryptoCoinInfo *> *> *coinInfos;
 
-- (instancetype)initWithJSON:(NSDictionary *)dictionary ignoreUnknownCoins:(BOOL)ignoreUnknownCoins favorites:(BOOL)favorites;
-
-- (void)coinInfoAtIndexUnfavorited:(NSUInteger)index;
+- (BOOL)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo ignoreUnknownCoins:(BOOL)ignoreUnknownCoins;
+- (void)sortFavoritedWithSorting:(TGCoinSorting)sorting;
+- (void)coin:(TGCryptoCurrency *)coin favorited:(BOOL)favorited;
 
 @end
