@@ -1366,8 +1366,21 @@
     [_segmentedControl setBackgroundImage:presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [_segmentedControl setBackgroundImage:presentation.images.segmentedControlHighlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [_segmentedControl setDividerImage:presentation.images.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:presentation.pallete.navigationButtonColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:presentation.pallete.accentContrastColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = UIColor.clearColor;
+    [_segmentedControl setTitleTextAttributes:@{
+                                                NSForegroundColorAttributeName: presentation.pallete.navigationButtonColor,
+                                                NSShadowAttributeName: shadow,
+                                                NSFontAttributeName: TGSystemFontOfSize(13),
+                                                }
+                                     forState:UIControlStateNormal];
+    [_segmentedControl setTitleTextAttributes:@{
+                                                NSForegroundColorAttributeName: presentation.pallete.sharedMediaSelectedForegroundColor,
+                                                NSShadowAttributeName: shadow,
+                                                NSFontAttributeName: TGSystemFontOfSize(13),
+                                                }
+                                     forState:UIControlStateSelected];
     
     _stripeView.backgroundColor = presentation.pallete.barSeparatorColor;
 }

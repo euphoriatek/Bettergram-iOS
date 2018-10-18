@@ -20,13 +20,6 @@
 
 @implementation TGPresentationImages
 
-- (UIImage *)dialogFavoritedIcon
-{
-    return [self imageWithSel:_cmd generator:^UIImage *{
-        return [TGPresentationAssets chatFavoritedIcon:self.pallete.dialogPinnedIconColor];
-    }];
-}
-
 - (UIImage *)onlineBadgeImage
 {
     return [self imageWithKey:@"onlineBage" generator:^UIImage *{

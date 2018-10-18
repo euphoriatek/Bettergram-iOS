@@ -15,6 +15,7 @@
 COLOR tabBarBackgroundColor;
 COLOR tabBarSeparatorColor;
 COLOR dialogEditFavoriteColor;
+COLOR sharedMediaSelectedForegroundColor;
 
 COLOR cryptoSortArrowColor;
 COLOR cryptoFavoritedCoinColor;
@@ -172,7 +173,6 @@ COLOR chatInputKeyboardBackgroundColor;
 COLOR chatInputKeyboardBorderColor;
 COLOR chatInputKeyboardHeaderColor;
 COLOR chatInputKeyboardSearchBarColor;
-COLOR chatInputKeyboardSearchBarTextColor;
 COLOR chatInputSelectionColor;
 COLOR chatInputRecordingColor;
 COLOR chatInputWaveformBackgroundColor;

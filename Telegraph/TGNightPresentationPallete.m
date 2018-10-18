@@ -82,17 +82,6 @@
 {
     return [UIColor blackColor];
 }
-
-- (UIColor *)sectionHeaderBackgroundColor
-{
-    return [self barBackgroundColor];
-}
-
-- (UIColor *)sectionHeaderTextColor
-{
-    return [self secondaryTextColor];
-}
-
 - (UIColor *)navigationTitleColor
 {
     return [UIColor whiteColor];
@@ -102,17 +91,6 @@
 {
     return [self secondaryTextColor];
 }
-
-- (UIColor *)navigationActiveSubtitleColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)navigationButtonColor
-{
-    return [self accentColor];
-}
-
 - (UIColor *)navigationDisabledButtonColor
 {
     return UIColorRGB(0x525252);
@@ -121,11 +99,6 @@
 - (UIColor *)navigationBadgeColor
 {
     return [self accentColor];
-}
-
-- (UIColor *)navigationBadgeTextColor
-{
-    return [self accentContrastColor];
 }
 
 - (UIColor *)navigationBadgeBorderColor
@@ -148,19 +121,9 @@
     return [self tabIconColor];
 }
 
-- (UIColor *)tabActiveIconColor
-{
-    return [self accentColor];
-}
-
 - (UIColor *)tabBadgeColor
 {
     return [self accentColor];
-}
-
-- (UIColor *)tabBadgeTextColor
-{
-    return [self accentContrastColor];
 }
 
 - (UIColor *)tabBadgeBorderColor
@@ -176,11 +139,6 @@
 - (UIColor *)searchBarTextColor
 {
     return [UIColor whiteColor];
-}
-
-- (UIColor *)searchBarPlaceholderColor
-{
-    return [self secondaryTextColor];
 }
 
 - (UIColor *)searchBarMergedBackgroundColor
@@ -203,11 +161,6 @@
     return [UIColor whiteColor];
 }
 
-- (UIColor *)dialogTextColor
-{
-    return [self secondaryTextColor];
-}
-
 - (UIColor *)dialogDraftColor
 {
     return [self destructiveColor];
@@ -228,16 +181,6 @@
     return UIColorRGB(0x58a6e1);
 }
 
-- (UIColor *)dialogVerifiedIconColor
-{
-    return [UIColor whiteColor];
-}
-
-- (UIColor *)dialogPinnedBackgroundColor
-{
-    return [self barBackgroundColor];
-}
-
 - (UIColor *)dialogPinnedIconColor
 {
     return [self dialogBadgeMutedColor];
@@ -246,11 +189,6 @@
 - (UIColor *)dialogEncryptedColor
 {
     return UIColorRGB(0x28b772);
-}
-
-- (UIColor *)dialogBadgeColor
-{
-    return [self accentColor];
 }
 
 - (UIColor *)dialogBadgeTextColor
@@ -266,16 +204,6 @@
 - (UIColor *)dialogBadgeMutedTextColor
 {
     return [UIColor blackColor];
-}
-
-- (UIColor *)dialogUnsentColor
-{
-    return [self destructiveColor];
-}
-
-- (UIColor *)dialogEditTextColor
-{
-    return [UIColor whiteColor];
 }
 
 - (UIColor *)dialogEditDeleteColor
@@ -340,12 +268,7 @@
 
 - (UIColor *)chatIncomingAccentColor
 {
-    return [UIColor whiteColor];
-}
-
-- (UIColor *)chatIncomingLinkColor
-{
-    return [self linkColor];
+    return self.accentContrastColor;
 }
 
 - (UIColor *)chatIncomingDateColor
@@ -358,11 +281,6 @@
     return UIColorRGB(0xa5a5a5);
 }
 
-- (UIColor *)chatIncomingButtonIconColor
-{
-    return [self chatIncomingBubbleColor];
-}
-
 - (UIColor *)chatIncomingLineColor
 {
     return [self chatOutgoingAccentColor];
@@ -371,16 +289,6 @@
 - (UIColor *)chatIncomingAudioBackgroundColor
 {
     return [self chatIncomingSubtextColor];
-}
-
-- (UIColor *)chatIncomingAudioForegroundColor
-{
-    return [self chatIncomingAccentColor];
-}
-
-- (UIColor *)chatIncomingAudioDotColor
-{
-    return [self chatIncomingAccentColor];
 }
 
 - (UIColor *)chatOutgoingBubbleColor
@@ -433,11 +341,6 @@
     return UIColorRGB(0xa5a5a5);
 }
 
-- (UIColor *)chatOutgoingButtonIconColor
-{
-    return [self chatOutgoingBubbleColor];
-}
-
 - (UIColor *)chatOutgoingLineColor
 {
     return [self chatOutgoingAccentColor];
@@ -468,16 +371,6 @@
     return [self destructiveColor];
 }
 
-- (UIColor *)chatOutgoingCallSuccessfulColor
-{
-    return [self chatIncomingCallSuccessfulColor];
-}
-
-- (UIColor *)chatOutgoingCallFailedColor
-{
-    return [self chatIncomingCallFailedColor];
-}
-
 - (UIColor *)chatUnreadBackgroundColor
 {
     return [self chatIncomingBubbleColor];
@@ -486,11 +379,6 @@
 - (UIColor *)chatUnreadBorderColor
 {
     return nil;
-}
-
-- (UIColor *)chatUnreadTextColor
-{
-    return [self secondaryTextColor];
 }
 
 - (UIColor *)chatSystemBackgroundColor
@@ -568,11 +456,6 @@
     return [self chatOutgoingDateColor];
 }
 
-- (UIColor *)chatChecksMediaColor
-{
-    return [UIColor whiteColor];
-}
-
 - (UIColor *)chatServiceBackgroundColor
 {
     return nil;
@@ -616,16 +499,6 @@
 - (UIColor *)chatInputFieldButtonColor
 {
     return [self chatInputPlaceholderColor];
-}
-
-- (UIColor *)chatInputSendButtonColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)chatInputSendButtonIconColor
-{
-    return [self accentContrastColor];
 }
 
 - (UIColor *)chatInputKeyboardBackgroundColor
@@ -703,11 +576,6 @@
     return [UIColor whiteColor];
 }
 
-- (UIColor *)callsOutgoingIconColor
-{
-    return [self dialogBadgeMutedColor];
-}
-
 - (UIColor *)paymentsPayButtonColor
 {
     return [self accentColor];
@@ -743,11 +611,6 @@
     return [self collectionMenuVariantColor];
 }
 
-- (UIColor *)volumeIndicatorForegroundColor
-{
-    return [self textColor];
-}
-
 - (UIColor *)collectionMenuBackgroundColor
 {
     return [self backgroundColor];
@@ -768,24 +631,9 @@
     return [UIColor whiteColor];
 }
 
-- (UIColor *)collectionMenuPlaceholderColor
-{
-    return [self collectionMenuAccessoryColor];
-}
-
 - (UIColor *)collectionMenuVariantColor
 {
     return UIColorRGB(0x8e8e8e);
-}
-
-- (UIColor *)collectionMenuAccentColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)collectionMenuDestructiveColor
-{
-    return [self destructiveColor];
 }
 
 - (UIColor *)collectionMenuSeparatorColor
@@ -818,11 +666,6 @@
     return [self accentColor];
 }
 
-- (UIColor *)collectionMenuCheckColor
-{
-    return [self accentColor];
-}
-
 - (UIColor *)collectionMenuSpinnerColor
 {
     return [self collectionMenuAccessoryColor];
@@ -843,34 +686,9 @@
     return [self collectionMenuSeparatorColor];
 }
 
-- (UIColor *)menuTextColor
-{
-    return [self textColor];
-}
-
-- (UIColor *)menuSecondaryTextColor
-{
-    return [self secondaryTextColor];
-}
-
 - (UIColor *)menuLinkColor
 {
     return [self accentColor];
-}
-
-- (UIColor *)menuAccentColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)menuDestructiveColor
-{
-    return [self destructiveColor];
-}
-
-- (UIColor *)menuSpinnerColor
-{
-    return [self collectionMenuAccessoryColor];
 }
 
 - (UIColor *)menuSectionHeaderBackgroundColor
@@ -884,16 +702,6 @@
 }
 
 - (UIColor *)checkButtonBackgroundColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)checkButtonCheckColor
-{
-    return [self accentContrastColor];
-}
-
-- (UIColor *)checkButtonBlueColor
 {
     return [self accentColor];
 }

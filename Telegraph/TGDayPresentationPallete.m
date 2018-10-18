@@ -69,11 +69,6 @@
     return [UIColor blackColor];
 }
 
-- (UIColor *)chatIncomingAccentColor
-{
-    return _accentColor;
-}
-
 - (UIColor *)chatIncomingLineColor
 {
     return _accentColor;
@@ -191,11 +186,6 @@
     return nil;
 }
 
-- (UIColor *)chatUnreadTextColor
-{
-    return [self secondaryTextColor];
-}
-
 - (UIColor *)chatSystemBackgroundColor
 {
     return [TGPresentationPallete hasWallpaper] ? [super chatSystemBackgroundColor] : UIColorRGBA(0xffffff, 0.8f);
@@ -277,16 +267,6 @@
 }
 
 - (UIColor *)checkButtonBackgroundColor
-{
-    return [self accentColor];
-}
-
-- (UIColor *)checkButtonCheckColor
-{
-    return [self accentContrastColor];
-}
-
-- (UIColor *)checkButtonBlueColor
 {
     return [self accentColor];
 }

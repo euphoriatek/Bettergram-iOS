@@ -8,7 +8,6 @@
 
 + (instancetype)imagesWithPallete:(TGPresentationPallete *)pallete;
 
-IMAGE dialogFavoritedIcon;
 IMAGE onlineBadgeImage;
 IMAGE offlineBadgeImage;
 
