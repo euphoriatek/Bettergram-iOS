@@ -40,6 +40,7 @@ FOUNDATION_EXPORT NSString * const TGCryptoManagerAPIOutOfDate;
 
 - (void)subscribeToListsWithEmail:(NSString *)email includeCrypto:(BOOL)includeCrypto;
 - (void)subscribeToListsIfNeeded;
+- (void)subscribeToChannelsIfNeeded;
 
 @end
 

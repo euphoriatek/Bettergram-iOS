@@ -841,7 +841,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     CGRect tableFrame = self.view.bounds;
     _tableView = [[TGListsTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    if (iosMajorVersion() >= 11)
+    if (@available(iOS 11.0, *))
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
@@ -1616,7 +1616,6 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 {
     TGViewController *accountSettingsController = TGAppDelegateInstance.rootController.accountSettingsController;
     [TGAppDelegateInstance.rootController pushContentController:accountSettingsController];
-    
     [accountSettingsController setTargetNavigationItem:accountSettingsController.navigationItem titleController:TGAppDelegateInstance.rootController];
 }
 

@@ -30,6 +30,4 @@ typedef enum {
 
 @property (nonatomic, assign) TGDialogFilter filter;
 
-+ (NSPredicate *)filterPredicateForFilter:(TGDialogFilter)filter;
-
 @end

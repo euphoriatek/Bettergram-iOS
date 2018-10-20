@@ -1348,7 +1348,6 @@ static UIView *_findBackArrow(UIView *view)
             }];
             
         } else {
-            int32_t uid = _uid;
             [[[[TGGroupManagementSignals inviteUserWithId:_uid toGroupWithId:TGGroupIdFromPeerId(conversation.conversationId)] deliverOn:[SQueue mainQueue]] onDispose:^
             {
                 [progressWindow dismiss:true];

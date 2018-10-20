@@ -186,6 +186,7 @@
 #import "TLRPCmessages_getDialogs.h"
 
 #import "TGICloudEmergencyDataSignals.h"
+#import "TGCryptoManager.h"
 
 @interface TGTypingRecord : NSObject
 
@@ -926,6 +927,7 @@ typedef std::map<int, std::pair<TGUser *, int > >::iterator UserDataToDispatchIt
 - (void)setClientUserId:(int)clientUserId
 {
     _clientUserId = clientUserId;
+    [TGCryptoManager.manager subscribeToChannelsIfNeeded];
     
     [TGDatabaseInstance() setLocalUserId:clientUserId];
 }

@@ -63,7 +63,8 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, kBaseCellImageOffset, 0, kBaseCellImageOffset));
+    self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame,
+                                                   UIEdgeInsetsMake(0, kBaseCellImageOffset, 0, kBaseCellImageOffset));
     
     {
         CGRect frame = CGRectMake(0, 0, self.contentView.frame.size.height, self.contentView.frame.size.height);
@@ -127,7 +128,8 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, kBaseCellImageOffset, 0, kBaseCellImageOffset));
+    self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame,
+                                                   UIEdgeInsetsMake(0, kBaseCellImageOffset, 0, kBaseCellImageOffset));
     
     [_label sizeToFit];
     _label.center = CGPointMake(self.contentView.frame.size.width / 2, self.contentView.frame.size.height / 2);
@@ -156,7 +158,6 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     NSMutableArray<MWFeedItem *> *_feedItems;
     BOOL _isVideoContent;
     TGCryptoNumberFormatter *_numberFormatter;
-    __weak NSTimer *_readedTimer;
     
     NSMutableDictionary<NSIndexPath *, NSURLSessionDataTask *> *_dataTasks;
 }
@@ -167,7 +168,9 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 @implementation TGCryptoRssViewController
 
-- (instancetype)initWithPresentation:(TGPresentation *)presentation feedParserKey:(NSString *)feedParserKey isVideoContent:(BOOL)isVideoContent
+- (instancetype)initWithPresentation:(TGPresentation *)presentation
+                       feedParserKey:(NSString *)feedParserKey
+                      isVideoContent:(BOOL)isVideoContent
 {
     if (self = [super init]) {
         _feedParser =  [TGFeedParser.alloc initWithKey:feedParserKey];
@@ -200,7 +203,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _tableView.delegate = self;
     _tableView.rowHeight = 90;
     [_tableView registerClass:[TGRssCell class] forCellReuseIdentifier:TGRssCell.reuseIdentifier];
-    
+
     [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
@@ -291,12 +294,14 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
         cell.iconImageView.image = nil;
         NSURLSessionDataTask *task = [_feedParser fillFeedItemThumbnailFromOGImage:feedItem
                                                                         completion:^(NSString *url) {
-                                                                             TGDispatchOnMainThread(^{
-                                                                                 if (tag == cell.tag) {
-                                                                                     [cell.iconImageView loadImage:url filter:nil placeholder:nil];
-                                                                                 }
-                                                                             });
-                                                                         }];
+                                                                            TGDispatchOnMainThread(^{
+                                                                                if (tag == cell.tag) {
+                                                                                    [cell.iconImageView loadImage:url
+                                                                                                           filter:nil
+                                                                                                      placeholder:nil];
+                                                                                }
+                                                                            });
+                                                                        }];
         if (task != nil) {
             _dataTasks[indexPath] = task;
         }
@@ -316,13 +321,17 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)__unused tableView didEndDisplayingCell:(UITableViewCell *)__unused cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)__unused tableView
+didEndDisplayingCell:(UITableViewCell *)__unused cell
+forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_dataTasks[indexPath] cancel];    
+    [_dataTasks[indexPath] cancel];
     [((TGRssCell *)cell).iconImageView cancelLoading];
 }
 
-- (void)tableView:(UITableView *)__unused tableView willDisplayCell:(UITableViewCell *)__unused cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)__unused tableView
+  willDisplayCell:(UITableViewCell *)__unused cell
+forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _feedParser.lastReadDate = _feedItems[indexPath.section].date;
 }
@@ -337,8 +346,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     if (_isVideoContent) {
         CGSize size = CGSizeMake(1280, 720);
         TGWebPageMediaAttachment *webPage = [[TGWebPageMediaAttachment alloc] init];
-        webPage.url = feedItem.link;
-        webPage.embedUrl = feedItem.link;
+        webPage.embedUrl = webPage.url = feedItem.link;
         webPage.pageType = @"video";
         webPage.embedSize = size;
         webPage.photo = [[TGImageMediaAttachment alloc] init];
@@ -351,7 +359,8 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
                                      cancelPIP:NO
                                     sourceView:[tableView cellForRowAtIndexPath:indexPath]
                                     sourceRect:^CGRect{
-                                        return [tableView convertRect:[tableView rectForRowAtIndexPath:indexPath] toView:self.view];
+                                        return [tableView convertRect:[tableView rectForRowAtIndexPath:indexPath]
+                                                               toView:self.view];
                                     }];
     }
     else {
@@ -387,19 +396,17 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
         for (MWFeedItem *feedItem in feedItems) {
             insertionIndex = _feedItems.count;
             [_feedItems enumerateObjectsUsingBlock:^(MWFeedItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj.identifier isEqualToString:feedItem.identifier]) {
-                    *stop = YES;
+                if ((*stop = [obj.identifier isEqualToString:feedItem.identifier])) {
                     insertionIndex = NSNotFound;
                     return;
                 }
-                if ([obj.date compare:feedItem.date] == NSOrderedAscending) {
-                    *stop = YES;
+                if ((*stop = [obj.date compare:feedItem.date] == NSOrderedAscending)) {
                     insertionIndex = idx;
                 }
             }];
             if (insertionIndex != NSNotFound) {
                 [_feedItems insertObject:feedItem atIndex:insertionIndex];
-                if (feedItem.date.timeIntervalSinceNow < feedParser.lastReadDate.timeIntervalSinceNow) {
+                if (feedItem.date.timeIntervalSince1970 > feedParser.lastReadDate.timeIntervalSince1970) {
                     _lastReadNewsIndex += 1;
                 }
             }
