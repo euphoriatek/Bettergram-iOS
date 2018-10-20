@@ -27,6 +27,8 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     
     dispatch_queue_t _processingQueue;
     NSTimer *_globalTimer;
+    
+    BOOL _unreadCountUpdateRequested;
 }
 
 @end
@@ -45,9 +47,9 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
         _key = key;
         _lastReportedFeedItemIndex = NSNotFound;
         _feedItems = [self cachedFeedItemsForRssKey:key].mutableCopy;
-        
         NSTimeInterval lastReadDate = [NSUserDefaults.standardUserDefaults doubleForKey:self.lastReadDateKey];
-        _lastReadDate = lastReadDate > 0 ? [NSDate dateWithTimeIntervalSince1970:lastReadDate] : NSDate.date;
+        self.lastReadDate = lastReadDate > 0 ? [NSDate dateWithTimeIntervalSince1970:lastReadDate] : NSDate.date;
+        
         [TGCryptoManager.manager updateBettergramResourceForKey:key completion:^(id urls) {
             if ([urls isKindOfClass:[NSSet class]]) {
                 _urls = urls;
@@ -71,6 +73,21 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
         }];
     }
     return self;
+}
+
+- (void)setUnreadCount:(NSUInteger)unreadCount
+{
+    if (_unreadCount == unreadCount) return;
+    _unreadCount = unreadCount;
+    if (!_unreadCountUpdateRequested && _unreadCountUpdatedBlock != NULL) {
+        _unreadCountUpdateRequested = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _unreadCountUpdateRequested = NO;
+            if (_unreadCountUpdatedBlock != NULL) {
+                _unreadCountUpdatedBlock();
+            }
+        });
+    }
 }
 
 - (void)initTimer
@@ -100,9 +117,15 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
 
 - (void)setLastReadDate:(NSDate *)lastReadDate
 {
-    if ([_lastReadDate compare:lastReadDate] != NSOrderedAscending) return;
+    if (_lastReadDate != nil && [_lastReadDate compare:lastReadDate] != NSOrderedAscending) return;
     _lastReadDate = lastReadDate;
     [NSUserDefaults.standardUserDefaults setDouble:lastReadDate.timeIntervalSince1970 forKey:self.lastReadDateKey];
+    self.unreadCount = 0;
+    [_feedItems enumerateObjectsUsingBlock:^(MWFeedItem * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        if ([_lastReadDate compare:obj.date] == NSOrderedAscending) {
+            self.unreadCount++;
+        }
+    }];
 }
 
 - (MWFeedParser *)parserWithFeedURLString:(NSString *)urlString
@@ -153,8 +176,9 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
         }
     }
     [_feedItems addObject:item];
-    [_updateFeedTimer invalidate];
-    _updateFeedTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reportNewFeedItems) userInfo:nil repeats:NO];
+    if ([_lastReadDate compare:item.date] == NSOrderedAscending) {
+        self.unreadCount++;
+    }
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser
@@ -168,6 +192,9 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
                                               if (_lastReportedFeedItemIndex < _feedItems.count && idx <= _lastReportedFeedItemIndex) {
                                                   _lastReportedFeedItemIndex--;
                                               }
+                                              if ([_lastReadDate compare:obj.date] == NSOrderedAscending) {
+                                                  self.unreadCount--;
+                                              }
                                           }
                                       }];
     __block BOOL parsing = NO;
@@ -178,6 +205,18 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     if (!parsing) {
         [_updateFeedTimer fire];
     }
+    else {
+        [_updateFeedTimer invalidate];
+        _updateFeedTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reportNewFeedItems) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)feedParser:(MWFeedParser *)__unused parser didFailWithError:(NSError *)__unused error
+{
+    if (_globalTimer.fireDate.timeIntervalSinceNow > 30)
+        [NSTimer scheduledTimerWithTimeInterval:30 repeats:NO block:^(__unused NSTimer * _Nonnull timer) {
+            [self initTimer];
+        }];
 }
 
 - (void)reportNewFeedItems
@@ -197,6 +236,9 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
                                  usingBlock:^(MWFeedItem * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
                                      if (obj.feedURL && ![_urls containsObject:obj.feedURL]) {
                                          [_feedItems removeObjectAtIndex:idx];
+                                         if ([_lastReadDate compare:obj.date] == NSOrderedAscending) {
+                                             self.unreadCount--;
+                                         }
                                      }
                                  }];
 }

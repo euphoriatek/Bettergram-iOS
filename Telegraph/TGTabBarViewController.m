@@ -100,10 +100,10 @@ static CGFloat kHeight = 18;
         
         CGRect frame = _backgroundView.frame;
         CGFloat textWidth = ceil(_label.frame.size.width);
-        frame.size.width = MAX(kHeight, textWidth + 10 + TGScreenPixel * 2.0f);
+        frame.size.width = MAX(kHeight, textWidth + 10);
         frame.size.height = kHeight;
-        frame.origin.x = _backgroundView.superview.frame.size.width - frame.size.width - 1.0f;
-        frame.origin.y = -1.0f;
+        frame.origin.x = _backgroundView.superview.frame.size.width - frame.size.width;
+        frame.origin.y = 0;
         _backgroundView.frame = frame;
         
         _label.center = _backgroundView.center;

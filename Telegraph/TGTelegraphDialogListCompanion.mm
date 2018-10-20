@@ -2171,31 +2171,6 @@
     {
         [self actorCompleted:ASStatusSuccess path:path result:resource];
     }
-    else if ([path isEqualToString:@"/tg/unreadCount"])
-    {
-        dispatch_async(dispatch_get_main_queue(), ^ // request to controller
-        {
-            [TGDatabaseInstance() dispatchOnDatabaseThread:^ // request to database
-            {
-                int unreadCount = [TGDatabaseInstance() databaseState].unreadCount;
-                NSArray<NSNumber *> *unreadCounts = TGDatabaseInstance().unreadCounts;
-                TGDispatchOnMainThread(^
-                {
-                    if (![arguments[@"previous"] boolValue]) {
-                        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
-                    }
-                    if (unreadCount == 0)
-                        [[UIApplication sharedApplication] cancelAllLocalNotifications];
-                    
-                    self.unreadCount = unreadCount;
-                    TGAppDelegateInstance.rootController.mainTabsController.unreadCounts = unreadCounts;
-                    
-                    TGDialogListController *dialogListController = self.dialogListController;
-                    dialogListController.tabBarItem.badgeValue = unreadCount == 0 ? nil : [[NSString alloc] initWithFormat:@"%d", unreadCount];
-                });
-            } synchronous:false];
-        });
-    }
 //    else if ([path isEqualToString:@"/tg/unreadChatsCount"])
 //    {
 //        dispatch_async(dispatch_get_main_queue(), ^ // request to controller

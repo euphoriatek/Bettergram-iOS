@@ -21,15 +21,20 @@
 #import "TGCryptoPricesViewController.h"
 #import "TGCryptoRssViewController.h"
 #import "TGResourcesViewController.h"
+#import "TGFeedParser.h"
 
 #import "TGPresentation.h"
 
-@interface TGRootController ()
+@interface TGRootController () <ASWatcher>
 {
     TGTabletMainView *_mainView;
     
     TGNavigationController *_masterNavigationController;
     TGNavigationController *_detailNavigationController;
+    
+    TGCryptoTabViewController *_cryptoTabViewController;
+    TGCryptoRssViewController *_newsRssController;
+    TGCryptoRssViewController *_videosRssController;
     
     UIUserInterfaceSizeClass _currentSizeClass;
     
@@ -40,6 +45,8 @@
     
     NSMutableArray<TGDialogListController *> *_dialogListControllers;
 }
+
+@property (nonatomic, strong) ASHandle *actionHandle;
 
 @end
 
@@ -80,21 +87,27 @@
         _callsController = [[TGRecentCallsController alloc] init];
         _callsController.presentation = _presentation;
         
-        TGCryptoTabViewController *cryptoController = [[TGCryptoTabViewController alloc] initWithPresentation:_presentation];
-        [cryptoController setViewControllers:@[
-                                                [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
-                                                [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
-                                                                                          feedParserKey:@"news"
-                                                                                         isVideoContent:NO],
-                                                [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
-                                                                                             feedParserKey:@"videos"
-                                                                                         isVideoContent:YES],
-                                                [[TGResourcesViewController alloc] initWithPresentation:_presentation],
-                                                ]];
-        [cryptoController setSelectedIndexCustom:0];
+        _cryptoTabViewController = [[TGCryptoTabViewController alloc] initWithPresentation:_presentation];
+        [_cryptoTabViewController setViewControllers:
+         @[
+           [[TGCryptoPricesViewController alloc] initWithPresentation:_presentation],
+           _newsRssController = [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
+                                                                          feedParserKey:@"news"
+                                                                         isVideoContent:NO],
+           _videosRssController = [[TGCryptoRssViewController alloc] initWithPresentation:_presentation
+                                                                            feedParserKey:@"videos"
+                                                                           isVideoContent:YES],
+           [[TGResourcesViewController alloc] initWithPresentation:_presentation],
+           ]];
+        [_cryptoTabViewController setSelectedIndexCustom:0];
+        
+        _newsRssController.feedParser.unreadCountUpdatedBlock = ^() {
+            __strong TGRootController *strongSelf = weakSelf;
+            [strongSelf updateUnreadCountsIcludingBage:NO];
+        };
         
         _mainTabsController = [[TGMainTabsController alloc] initWithPresentation:_presentation];
-        [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:cryptoController]];
+        [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:_cryptoTabViewController]];
         _mainTabsController.onControllerInsetUpdated = ^(CGFloat inset)
         {
             __strong TGRootController *strongSelf = weakSelf;
@@ -126,8 +139,22 @@
         
         _sizeClassVariable = [[SVariable alloc] init];
         [_sizeClassVariable set:[SSignal single:@(_currentSizeClass)]];
+        
+        _actionHandle = [[ASHandle alloc] initWithDelegate:self releaseOnMainThread:false];
+        [ActionStageInstance() dispatchOnStageQueue:^
+         {
+             [ActionStageInstance() removeWatcher:self];
+             [ActionStageInstance() watchForPath:@"/tg/unreadCount" watcher:self];
+         }];
+        [self updateUnreadCountsIcludingBage:NO];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_actionHandle reset];
+    [ActionStageInstance() removeWatcher:self];
 }
 
 - (void)setPresentation:(TGPresentation *)presentation
@@ -517,6 +544,38 @@
     if (_callStatusBarView != nil)
         return _callStatusBarView.realHidden;
     return true;
+}
+
+#pragma mark - ASWatcher
+
+- (void)actionStageResourceDispatched:(NSString *)path resource:(__unused id)resource arguments:(id)arguments
+{
+    if ([path isEqualToString:@"/tg/unreadCount"])
+    {
+        [self updateUnreadCountsIcludingBage:![arguments[@"previous"] boolValue]];
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)updateUnreadCountsIcludingBage:(BOOL)includingBage
+{
+    dispatch_async(dispatch_get_main_queue(), ^{ // request to controller
+        [TGDatabaseInstance() dispatchOnDatabaseThread:^{ // request to database
+            int unreadCount = [TGDatabaseInstance() databaseState].unreadCount;
+            NSArray<NSNumber *> *unreadCounts = TGDatabaseInstance().unreadCounts;
+            TGDispatchOnMainThread(^{
+                if (includingBage) {
+                    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount];
+                }
+                if (unreadCount == 0)
+                    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+                
+                _mainTabsController.unreadCounts = [unreadCounts arrayByAddingObject:@(_newsRssController.feedParser.unreadCount + _videosRssController.feedParser.unreadCount)];
+                _cryptoTabViewController.unreadCounts = @[@0, @(_newsRssController.feedParser.unreadCount), @(_videosRssController.feedParser.unreadCount)];
+            });
+        } synchronous:false];
+    });
 }
 
 @end
