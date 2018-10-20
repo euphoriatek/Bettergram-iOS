@@ -153,6 +153,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     TGListsTableView *_tableView;
     TGOlderNewsHeaderView *_olderNewsHeaderView;
     UIBarButtonItem *_leftButtonItem;
+    UIRefreshControl *_refreshControl;
     
     NSInteger _lastReadNewsIndex;
     NSMutableArray<MWFeedItem *> *_feedItems;
@@ -203,6 +204,15 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _tableView.delegate = self;
     _tableView.rowHeight = 90;
     [_tableView registerClass:[TGRssCell class] forCellReuseIdentifier:TGRssCell.reuseIdentifier];
+    
+    _refreshControl = [[UIRefreshControl alloc] init];
+    if (@available(iOS 10.0, *)) {
+        _tableView.refreshControl = _refreshControl;
+    }
+    else {
+        [_tableView addSubview:_refreshControl];
+    }
+    [_refreshControl addTarget:self action:@selector(refreshStateChanged:) forControlEvents:UIControlEventValueChanged];
 
     [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
                                                                                   style:UIBarButtonItemStylePlain
@@ -232,6 +242,15 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     [super viewDidDisappear:animated];
 }
 
+- (void)refreshStateChanged:(UIRefreshControl *)sender
+{
+    [_feedParser forceUpdate:^{
+        TGDispatchOnMainThread(^{
+            [sender endRefreshing];
+        });
+    }];
+}
+
 - (void)setPresentation:(TGPresentation *)presentation
 {
     _presentation = presentation;
@@ -241,6 +260,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     [_tableView reloadData];
     [_olderNewsHeaderView setPresentation:_presentation];
     _leftButtonItem.image = _presentation.images.settingsButton;
+    _refreshControl.tintColor = _presentation.pallete.navigationSpinnerColor;
 }
 
 - (void)localizationUpdated

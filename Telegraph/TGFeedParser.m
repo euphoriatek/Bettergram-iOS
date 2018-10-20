@@ -29,7 +29,11 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     NSTimer *_globalTimer;
     
     BOOL _unreadCountUpdateRequested;
+    
+    void (^_forceUpdateCompletion)();
 }
+
+@property (nonatomic, assign) NSUInteger requestedParsers;
 
 @end
 
@@ -90,10 +94,30 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     }
 }
 
+- (void)setRequestedParsers:(NSUInteger)requestedParsers
+{
+    if (_requestedParsers == requestedParsers) return;
+    _requestedParsers = requestedParsers;
+    if (requestedParsers == 0 && _forceUpdateCompletion != NULL) {
+        _forceUpdateCompletion();
+        _forceUpdateCompletion = NULL;
+    }
+}
+
+- (void)forceUpdate:(void (^)())completion
+{
+    [self initTimer];
+    _forceUpdateCompletion = completion;
+}
+
 - (void)initTimer
 {
     [_globalTimer invalidate];
     _globalTimer = [NSTimer scheduledTimerWithTimeInterval:kRssUpdateInterval repeats:YES block:^(__unused NSTimer * _Nonnull timer) {
+        for (MWFeedParser *parser in _feedParsers) {
+            [parser stopParsing];
+        }
+        self.requestedParsers = _feedParsers.count;
         for (MWFeedParser *parser in _feedParsers) {
             [parser parse];
         }
@@ -209,10 +233,16 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
         [_updateFeedTimer invalidate];
         _updateFeedTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reportNewFeedItems) userInfo:nil repeats:NO];
     }
+    self.requestedParsers--;
 }
 
 - (void)feedParser:(MWFeedParser *)__unused parser didFailWithError:(NSError *)__unused error
 {
+    self.requestedParsers--;
+    if (_forceUpdateCompletion != NULL) {
+        _forceUpdateCompletion();
+        _forceUpdateCompletion = NULL;
+    }
     if (_globalTimer.fireDate.timeIntervalSinceNow > 30)
         [NSTimer scheduledTimerWithTimeInterval:30 repeats:NO block:^(__unused NSTimer * _Nonnull timer) {
             [self initTimer];

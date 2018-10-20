@@ -33,5 +33,6 @@
 - (instancetype)initWithKey:(NSString *)key;
 - (void)setNeedsArchiveFeedItems;
 - (NSURLSessionDataTask *)fillFeedItemThumbnailFromOGImage:(MWFeedItem *)feedItem completion:(void (^)(NSString *url))completion;
+- (void)forceUpdate:(void (^)())completion;
 
 @end
