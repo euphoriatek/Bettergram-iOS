@@ -196,6 +196,7 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     }
     for (MWFeedItem *feedItem in _feedItems) {
         if ([feedItem.identifier isEqualToString:item.identifier]) {
+            [feedItem updateWithFeedItem:item];
             return;
         }
     }

@@ -84,4 +84,20 @@
     [encoder encodeBool:isViewed forKey:@"isViewed"];
 }
 
+- (void)updateWithFeedItem:(MWFeedItem *)feedItem
+{
+    if (![identifier isEqual:feedItem.identifier]) return;
+    if (feedItem.title != nil) title = feedItem.title;
+    if (feedItem.link != nil) link = feedItem.link;
+    if (feedItem.date != nil) date = feedItem.date;
+    if (feedItem.updated != nil) updated = feedItem.updated;
+    if (feedItem.summary != nil) summary = feedItem.summary;
+    if (feedItem.content != nil) content = feedItem.content;
+    if (feedItem.author != nil) author = feedItem.author;
+    if (feedItem.enclosures != nil) enclosures = feedItem.enclosures;
+    if (feedItem.feedURL != nil) feedURL = feedItem.feedURL;
+    if (feedItem.thumbnailURL != nil) thumbnailURL = feedItem.thumbnailURL;
+    if (feedItem.viewsCount != nil) viewsCount = feedItem.viewsCount;
+}
+
 @end

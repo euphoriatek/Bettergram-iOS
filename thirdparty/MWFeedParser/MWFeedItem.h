@@ -63,4 +63,6 @@
 @property (nonatomic, copy) NSNumber *viewsCount;
 @property (nonatomic, assign) BOOL isViewed;
 
+- (void)updateWithFeedItem:(MWFeedItem *)feedItem;
+
 @end
