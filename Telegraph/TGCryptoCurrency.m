@@ -6,15 +6,8 @@
 //
 
 #import "TGCryptoCurrency.h"
+#import <LegacyComponents/LegacyComponents.h>
 
-@implementation NSString (ValidateFilter)
-
-- (BOOL)validateFilter:(NSString *)filter
-{
-    return filter.length > 0 && [self rangeOfString:filter options:NSCaseInsensitiveSearch].location != NSNotFound;
-}
-
-@end
 
 @implementation TGCryptoCurrency
 

@@ -13,6 +13,9 @@
 #import "TGOpenInVideoItems.h"
 #import "TGAppDelegate.h"
 #import "TGFeedParser.h"
+#import "TGCryptoTabViewController.h"
+#import <LegacyComponents/TGSearchBar.h>
+
 
 static const CGFloat kBaseCellImageOffset = 20;
 static const CGFloat kCellSmallOffset = 10;
@@ -149,21 +152,28 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 @end
 
-@interface TGCryptoRssViewController () <TGFeedParserDelegate> {
+@interface TGCryptoRssViewController () <TGFeedParserDelegate, TGSearchBarDelegate> {
     TGListsTableView *_tableView;
     TGOlderNewsHeaderView *_olderNewsHeaderView;
     UIBarButtonItem *_leftButtonItem;
+    UIBarButtonItem *_rightButtonItem;
     UIRefreshControl *_refreshControl;
     
     NSInteger _lastReadNewsIndex;
     NSMutableArray<MWFeedItem *> *_feedItems;
+    NSArray<MWFeedItem *> *_filteredFeedItems;
     BOOL _isVideoContent;
     TGCryptoNumberFormatter *_numberFormatter;
     
     NSMutableDictionary<NSIndexPath *, NSURLSessionDataTask *> *_dataTasks;
+    
+    TGSearchBar *_searchBar;
+    BOOL _searchRequested;
 }
 
 @property (nonatomic, strong) TGPresentation *presentation;
+
+@property (nonatomic, assign) BOOL searchBarActive;
 
 @end
 
@@ -203,26 +213,36 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.rowHeight = 90;
+    _tableView.sectionHeaderHeight = 20;
     [_tableView registerClass:[TGRssCell class] forCellReuseIdentifier:TGRssCell.reuseIdentifier];
     
     _refreshControl = [[UIRefreshControl alloc] init];
-    if (@available(iOS 10.0, *)) {
-        _tableView.refreshControl = _refreshControl;
-    }
-    else {
-        [_tableView addSubview:_refreshControl];
-    }
+    _tableView.refreshControl = _refreshControl;
     [_refreshControl addTarget:self action:@selector(refreshStateChanged:) forControlEvents:UIControlEventValueChanged];
-
+    
     [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
                                                                                  action:@selector(settingsButtonTap)]
                       animated:false];
+    [self setRightBarButtonItem:_rightButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+                                                                                    style:UIBarButtonItemStylePlain
+                                                                                   target:self
+                                                                                   action:@selector(searchButtonTap)]
+                       animated:false];
     
     _olderNewsHeaderView = [[TGOlderNewsHeaderView alloc] initWithReuseIdentifier:TGOlderNewsHeaderView.reuseIdentifier];
     
-    [self.view addSubview:_tableView];
+    _searchBar = [TGSearchBar.alloc initWithFrame:CGRectZero style:TGSearchBarStyleLightPlain];
+    _searchBar.backgroundColor = UIColor.clearColor;
+    _searchBar.clipsToBounds = YES;
+    _searchBar.delegate = self;
+    [_searchBar setShowsCancelButton:YES animated:NO];
+    
+    [self.view addSubviews:@[
+                             _tableView,
+                             _searchBar,
+                             ]];
     [self setPresentation:_presentation];
     [self localizationUpdated];
 }
@@ -235,11 +255,61 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _feedParser.delegate = self;
 }
 
+- (void)controllerInsetUpdated:(UIEdgeInsets)__unused previousInset
+{
+    if (!self.viewLoaded) return;
+    
+    UIEdgeInsets inset = self.controllerInset;
+    CGFloat searchBarOffset = kBaseCellImageOffset - TGSearchBar.textFieldOffsetX;
+    CGRect searchBarFrame = CGRectMake(searchBarOffset, inset.top + kBaseCellImageOffset,
+                                       self.view.frame.size.width - searchBarOffset * 2, TGSearchBar.searchBarBaseHeight);
+    if (_searchBarActive) {
+        inset.top = CGRectGetMaxY(searchBarFrame);
+    }
+    else {
+        searchBarFrame.origin.y = inset.top - searchBarFrame.size.height;
+    }
+    _searchBar.frame = searchBarFrame;
+    _tableView.frame = UIEdgeInsetsInsetRect(self.view.bounds, inset);
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     _feedParser.delegate = nil;
     
     [super viewDidDisappear:animated];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return _searchBarActive;
+}
+
+- (void)setSearchBarActive:(BOOL)searchBarActive
+{
+    if (_searchBarActive == searchBarActive) return;
+    _searchBarActive = searchBarActive;
+    [_tableView reloadData];
+    _tableView.refreshControl = _searchBarActive ? nil : _refreshControl;
+    if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
+        [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:_searchBarActive animated:YES];
+    }
+    if (iosMajorVersion() >= 11) {
+        [self setNavigationBarHidden:_searchBarActive withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
+    }
+    else {
+        [self setNavigationBarHidden:_searchBarActive animated:YES];
+    }
+    [self setNeedsStatusBarAppearanceUpdate];
+    if (_searchBarActive) {
+        [_searchBar becomeFirstResponder];
+    }
+    else {
+        [_searchBar resignFirstResponder];
+        _searchBar.text = @"";
+        _filteredFeedItems = nil;
+        [_tableView scrollToTop];
+    }
 }
 
 - (void)refreshStateChanged:(UIRefreshControl *)sender
@@ -260,7 +330,10 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     [_tableView reloadData];
     [_olderNewsHeaderView setPresentation:_presentation];
     _leftButtonItem.image = _presentation.images.settingsButton;
-    _refreshControl.tintColor = _presentation.pallete.navigationSpinnerColor;
+    _rightButtonItem.image = _presentation.images.searchRssButton;
+    _refreshControl.tintColor = _presentation.pallete.textColor;
+    
+    _searchBar.pallete = presentation.keyboardSearchBarPallete;
 }
 
 - (void)localizationUpdated
@@ -273,6 +346,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
         self.titleText = TGLocalized(@"Crypto.News.Title");
         _olderNewsHeaderView.label.text = TGLocalized(@"Crypto.News.OlderNews");
     }
+    _searchBar.placeholder = TGLocalized(@"Common.Search");
     [_tableView reloadData];
 }
 
@@ -289,11 +363,16 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     [accountSettingsController setTargetNavigationItem:accountSettingsController.navigationItem titleController:TGAppDelegateInstance.rootController];
 }
 
+- (void)searchButtonTap
+{
+    self.searchBarActive = YES;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)__unused tableView
 {
-    return _feedItems.count;
+    return self.feedItems.count;
 }
 
 - (NSInteger)tableView:(__unused UITableView *)tableView numberOfRowsInSection:(__unused NSInteger)section
@@ -303,7 +382,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = _feedItems[indexPath.section];
+    MWFeedItem *feedItem = self.feedItems[indexPath.section];
     TGRssCell *cell = (TGRssCell *)[tableView dequeueReusableCellWithIdentifier:TGRssCell.reuseIdentifier forIndexPath:indexPath];
     NSInteger tag = ++cell.tag;
     if (feedItem.thumbnailURL != nil) {
@@ -346,19 +425,22 @@ didEndDisplayingCell:(UITableViewCell *)__unused cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [_dataTasks[indexPath] cancel];
-    [((TGRssCell *)cell).iconImageView cancelLoading];
+    if ([cell isKindOfClass:TGRssCell.class]) {
+        [((TGRssCell *)cell).iconImageView cancelLoading];
+    }
 }
 
 - (void)tableView:(UITableView *)__unused tableView
   willDisplayCell:(UITableViewCell *)__unused cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _feedParser.lastReadDate = _feedItems[indexPath.section].date;
+    _feedParser.lastReadDate = self.feedItems[indexPath.section].date;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = _feedItems[indexPath.section];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    MWFeedItem *feedItem = self.feedItems[indexPath.section];
     if (!feedItem.isViewed) {
         feedItem.isViewed = YES;
         [_feedParser setNeedsArchiveFeedItems];
@@ -387,24 +469,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:feedItem.link]
                                                         forceNative:true
                                                           keepStack:true];
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)__unused tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section > 0 && section == _lastReadNewsIndex) {
-        return 40;
+    if (!_searchBarActive && _lastReadNewsIndex > 0 && section == _lastReadNewsIndex) {
+        return tableView.sectionHeaderHeight * 2;
     }
-    return 20;
+    return tableView.sectionHeaderHeight;
 }
 
 - (UIView *)tableView:(UITableView *)__unused tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section > 0 && section == _lastReadNewsIndex) {
+    if (!_searchBarActive && _lastReadNewsIndex > 0 && section == _lastReadNewsIndex) {
         return _olderNewsHeaderView;
     }
     return nil;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)__unused scrollView
+{
+    if (_searchBarActive && _searchBar.isFirstResponder) {
+        [_searchBar resignFirstResponder];
+    }
 }
 
 #pragma mark - TGFeedParserDelegate
@@ -431,8 +521,65 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                 }
             }
         }
+        [self updateFilter];
         [_tableView reloadData];
     });
+}
+
+#pragma mark - TGSearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)__unused searchBar
+{
+    [self searchButtonTap];
+}
+
+- (void)searchBar:(UISearchBar *)__unused searchBar textDidChange:(NSString *)__unused searchText
+{
+    [self updateFilter];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)__unused searchBar
+{
+    self.searchBarActive = NO;
+}
+
+#pragma mark - Helpers
+
+- (NSArray<MWFeedItem *> *)feedItems
+{
+    if (_searchBarActive) {
+        return _filteredFeedItems;
+    }
+    return _feedItems;
+}
+
+- (void)updateFilter
+{
+    if (!_searchBarActive) return;
+    static NSDate *lastUpdate;
+    static NSTimer *timer;
+    if (lastUpdate != nil && -lastUpdate.timeIntervalSinceNow < 0.3) {
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.3 + lastUpdate.timeIntervalSinceNow
+                                                 target:self
+                                               selector:@selector(updateFilter)
+                                               userInfo:nil
+                                                repeats:NO];
+        return;
+    }
+    [timer invalidate];
+    _filteredFeedItems = [_feedItems filteredArrayUsingMatchingString:_searchBar.text
+                                                 levenshteinMatchGain:3
+                                                          missingCost:1
+                                                     fieldGetterBlock:^NSDictionary<NSNumber *, NSString *> *(MWFeedItem *obj) {
+                                                         return @{ @YES: obj.title,
+                                                                   @YES: obj.author };
+                                                     }
+                                            filterThresholdMultiplier:0.5
+                                                  equalCaseComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                                                      return [((MWFeedItem *)[obj2 lastObject]).date compare:((MWFeedItem *)[obj1 lastObject]).date];
+                                                  }];
+    lastUpdate = NSDate.date;
+    [_tableView reloadData];
 }
 
 @end

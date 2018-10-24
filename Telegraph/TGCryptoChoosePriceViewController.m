@@ -9,10 +9,10 @@
 #import "TGCryptoManager.h"
 #import "TGPresentation.h"
 
+
 @interface TGCryptoChoosePriceViewController () <UITableViewDataSource, UITableViewDelegate, TGSearchBarDelegate> {
     NSArray<TGCryptoCurrency *> *_currencies;
     NSArray<TGCryptoCurrency *> *_filteredCurrencies;
-    NSInteger _selectedIndex;
     
     UITableView *_tableView;
     TGSearchBar *_searchBar;
@@ -61,7 +61,6 @@
         TGDispatchOnMainThread(^{
             if (success) {
                 _currencies = TGCryptoManager.manager.currencies;
-                _selectedIndex = [_currencies indexOfObject:TGCryptoManager.manager.selectedCurrency];
                 [_tableView reloadData];
             }
         });
@@ -78,7 +77,9 @@
                                   self.view.frame.size.width - safeAreaInset.left - safeAreaInset.right, self.view.frame.size.height - CGRectGetMaxY(_searchBar.frame) - safeAreaInset.bottom);
     if (!_frameInitialized) {
         _frameInitialized = YES;
-        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0]
+        TGCryptoCurrency *selectedCurrency = TGCryptoManager.manager.selectedCurrency;
+        NSUInteger selectedIndex = selectedCurrency != nil ? [_currencies indexOfObject:selectedCurrency] : 0;
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:selectedIndex inSection:0]
                           atScrollPosition:UITableViewScrollPositionMiddle
                                   animated:NO];
     }
@@ -120,19 +121,16 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     TGCryptoCurrency *currency = [self displayingCurrencies][indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)",currency.name, currency.symbol ?: currency.code];
-    cell.accessoryType = indexPath.row == _selectedIndex ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;    
+    cell.accessoryType = currency == TGCryptoManager.manager.selectedCurrency ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)__unused tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *oldSelectedCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0]];
-    oldSelectedCell.accessoryType = UITableViewCellAccessoryNone;
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    _selectedIndex = indexPath.row;
-    TGCryptoManager.manager.selectedCurrency = [self displayingCurrencies][_selectedIndex];
+    TGCryptoManager.manager.selectedCurrency = [self displayingCurrencies][indexPath.row];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -148,10 +146,29 @@
 
 - (void)searchBar:(UISearchBar *)__unused searchBar textDidChange:(NSString *)searchText
 {
-    _filteredCurrencies = [_currencies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TGCryptoCurrency *  _Nullable evaluatedObject, __unused NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject validateFilter:searchText];
-    }]];
+    _filteredCurrencies = [_currencies filteredArrayUsingMatchingString:searchText
+                                                   levenshteinMatchGain:3
+                                                            missingCost:1
+                                                       fieldGetterBlock:^NSDictionary<NSNumber *, NSString *> *(TGCryptoCurrency *obj) {
+                                                           return @{ @YES: obj.name,
+                                                                     @NO: obj.code };
+                                                       }
+                                              filterThresholdMultiplier:0.25
+                                                    equalCaseComparator:NULL];
     [_tableView reloadData];
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)__unused searchBar
+{
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [self searchBar:searchBar textDidChange:@""];
+}
+
 @end
+

@@ -9,6 +9,7 @@
 
 + (UIImage *)chooseCurrencyButtonImageWithSymbol:(NSString *)symbol color:(UIColor *)color;
 + (UIImage *)settingsImage:(UIColor *)color;
++ (UIImage *)searchRssIcon:(UIColor *)color;
 
 // Tabs
 + (UIImage *)tabBarContactsIcon:(UIColor *)color;

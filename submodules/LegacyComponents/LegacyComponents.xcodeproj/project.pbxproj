@@ -1198,6 +1198,8 @@
 		D0F9720C1FFDA2A7002595C8 /* TGClipboardMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F972061FFDA2A7002595C8 /* TGClipboardMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D516AAAB2159374200EF63A1 /* NSObject+CleanedJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = D516AAA92159374200EF63A1 /* NSObject+CleanedJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D516AAAC2159374200EF63A1 /* NSObject+CleanedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D516AAAA2159374200EF63A1 /* NSObject+CleanedJSON.m */; };
+		D5178C9E2180999A00BF007E /* Filtering.h in Headers */ = {isa = PBXBuildFile; fileRef = D5178C9C2180999A00BF007E /* Filtering.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5178C9F2180999A00BF007E /* Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = D5178C9D2180999A00BF007E /* Filtering.m */; };
 		D536483921542CBD0074CBD0 /* UIView+AddSubviews.h in Headers */ = {isa = PBXBuildFile; fileRef = D536483721542CBD0074CBD0 /* UIView+AddSubviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D536483A21542CBD0074CBD0 /* UIView+AddSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = D536483821542CBD0074CBD0 /* UIView+AddSubviews.m */; };
 /* End PBXBuildFile section */
@@ -2397,6 +2399,8 @@
 		D0F972061FFDA2A7002595C8 /* TGClipboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGClipboardMenu.h; sourceTree = "<group>"; };
 		D516AAA92159374200EF63A1 /* NSObject+CleanedJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+CleanedJSON.h"; sourceTree = "<group>"; };
 		D516AAAA2159374200EF63A1 /* NSObject+CleanedJSON.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CleanedJSON.m"; sourceTree = "<group>"; };
+		D5178C9C2180999A00BF007E /* Filtering.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filtering.h; sourceTree = "<group>"; };
+		D5178C9D2180999A00BF007E /* Filtering.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filtering.m; sourceTree = "<group>"; };
 		D536483721542CBD0074CBD0 /* UIView+AddSubviews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AddSubviews.h"; sourceTree = "<group>"; };
 		D536483821542CBD0074CBD0 /* UIView+AddSubviews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddSubviews.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2568,6 +2572,8 @@
 				D01777791F1F927A0044446D /* NSObject+TGLock.m */,
 				D516AAA92159374200EF63A1 /* NSObject+CleanedJSON.h */,
 				D516AAAA2159374200EF63A1 /* NSObject+CleanedJSON.m */,
+				D5178C9C2180999A00BF007E /* Filtering.h */,
+				D5178C9D2180999A00BF007E /* Filtering.m */,
 				D01777741F1F92570044446D /* RMPhoneFormat.h */,
 				D01777751F1F92570044446D /* RMPhoneFormat.m */,
 				D01778671F1F99180044446D /* NSInputStream+TL.h */,
@@ -4385,6 +4391,7 @@
 				D07BC7BC1F2A2BDD00ED97AA /* PGPhotoTool.h in Headers */,
 				D0177A971F221DB60044446D /* TGModernGalleryContainerView.h in Headers */,
 				D017790A1F20F3F90044446D /* TGImageBlur.h in Headers */,
+				D5178C9E2180999A00BF007E /* Filtering.h in Headers */,
 				D07BC8931F2A375800ED97AA /* TGPhotoCropAreaView.h in Headers */,
 				D02660581F34A7F8000E2DC5 /* TGLocationCurrentLocationCell.h in Headers */,
 				D07BC85E1F2A2DBD00ED97AA /* TGMenuSheetTitleItemView.h in Headers */,
@@ -4894,6 +4901,7 @@
 				D07BCA381F2A9B6A00ED97AA /* TGMediaAsset+TGMediaEditableItem.m in Sources */,
 				D07BC9BF1F2A722400ED97AA /* TGHistogramView.m in Sources */,
 				D07BCBDA1F2B72BD00ED97AA /* NSMutableArray+STKAudioPlayer.m in Sources */,
+				D5178C9F2180999A00BF007E /* Filtering.m in Sources */,
 				D07BCBBC1F2B6F6300ED97AA /* CBCoubPlayerContance.m in Sources */,
 				D07BCB291F2B652C00ED97AA /* TGImageBasedPasscodeBackground.m in Sources */,
 				D07BC92C1F2A3A3F00ED97AA /* matrix.m in Sources */,

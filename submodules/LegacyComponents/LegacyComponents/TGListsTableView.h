@@ -2,6 +2,8 @@
 
 @interface TGListsTableView : UITableView
 
+@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;
+
 @property (nonatomic, assign) bool blockContentOffset;
 @property (nonatomic, assign) CGFloat indexOffset;
 @property (nonatomic, assign) bool mayHaveIndex;

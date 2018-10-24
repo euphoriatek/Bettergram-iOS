@@ -192,6 +192,7 @@ static const CGSize kBaseCellOffset = (CGSize){.width = 20, .height = 7};
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.sectionHeaderHeight = _tableView.rowHeight = 44;
+    _tableView.bounces = NO;
     [_tableView registerClass:[TGCryptoResourceCell class] forCellReuseIdentifier:TGCryptoResourceCell.reuseIdentifier];
     [_tableView registerClass:[TGCryptoResourceHeaderView class] forHeaderFooterViewReuseIdentifier:TGCryptoResourceHeaderView.reuseIdentifier];
     [self.view addSubview:_tableView];
@@ -217,7 +218,7 @@ static const CGSize kBaseCellOffset = (CGSize){.width = 20, .height = 7};
 {
     if (!self.isViewLoaded) return;
     
-    _tableView.frame = UIEdgeInsetsInsetRect(self.view.frame, self.controllerInset);
+    _tableView.frame = UIEdgeInsetsInsetRect(self.view.bounds, self.controllerInset);
 }
 
 - (void)setPresentation:(TGPresentation *)presentation

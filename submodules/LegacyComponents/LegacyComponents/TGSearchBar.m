@@ -50,6 +50,11 @@
     return 44.0f;
 }
 
++ (CGFloat)textFieldOffsetX
+{
+    return 8;
+}
+
 - (CGFloat)baseHeight {
     if (self.showsScopeBar)
         return 44.0f;
@@ -548,7 +553,7 @@
         CGRect frame = _textFieldBackground.frame;
         frame.origin.y -= TGIsRetina() ? 0.0f : 0.0f;
         frame.origin.x += 27;
-        frame.size.width -= 27 + 8 + 14;
+        frame.size.width -= 27 + TGSearchBar.textFieldOffsetX + 14;
         _customTextField = [[TGTextField alloc] initWithFrame:frame];
         __weak TGSearchBar *weakSelf = self;
         ((TGTextField *)_customTextField).deleteBackwardEmpty = ^{
@@ -750,7 +755,7 @@
     _customBackgroundView.frame = CGRectMake(0, ((_showsCustomCancelButton || _alwaysExtended) ? -safeInsetHeight : 0.0f), self.frame.size.width, self.frame.size.height + (_showsCustomCancelButton || _alwaysExtended ? safeInsetHeight : 0.0f));
     _customActiveBackgroundView.frame = _customBackgroundView.frame;
     
-    _textFieldBackground.frame = CGRectMake(8 + _safeAreaInset.left, 9 + [self topPadding], self.frame.size.width - 16 - rightPadding - _safeAreaInset.left - _safeAreaInset.right, [self inputHeight]);
+    _textFieldBackground.frame = CGRectMake(TGSearchBar.textFieldOffsetX + _safeAreaInset.left, 9 + [self topPadding], self.frame.size.width - TGSearchBar.textFieldOffsetX * 2 - rightPadding - _safeAreaInset.left - _safeAreaInset.right, [self inputHeight]);
     
     CGFloat prefixOffset = 0.0f;
     {
@@ -771,7 +776,7 @@
     CGSize placeholderSize = [_placeholderLabel.text sizeWithFont:_placeholderLabel.font];
     placeholderSize.width = MIN(placeholderSize.width, self.frame.size.width - rightPadding - 50.0f - prefixOffset);
     
-    _customSearchIcon.frame = CGRectMake(_showsCustomCancelButton ? (_textFieldBackground.frame.origin.x + 8.0f) : ((CGFloor((self.frame.size.width - placeholderSize.width) / 2) + 10 + TGScreenPixel) - 20), [self searchIconOffset] + [self inputContentOffset] + 16 + retinaPixel + [self topPadding], _customSearchIcon.frame.size.width, _customSearchIcon.frame.size.height);
+    _customSearchIcon.frame = CGRectMake(_showsCustomCancelButton ? (_textFieldBackground.frame.origin.x + TGSearchBar.textFieldOffsetX) : ((CGFloor((self.frame.size.width - placeholderSize.width) / 2) + 10 + TGScreenPixel) - 20), [self searchIconOffset] + [self inputContentOffset] + 16 + retinaPixel + [self topPadding], _customSearchIcon.frame.size.width, _customSearchIcon.frame.size.height);
     
     _customSearchActivityIndicator.frame = (CGRect){{CGFloor(_customSearchIcon.frame.origin.x + (_customSearchIcon.frame.size.width - _customSearchActivityIndicator.frame.size.width) / 2.0f), CGFloor(_customSearchIcon.frame.origin.y + (_customSearchIcon.frame.size.height - _customSearchActivityIndicator.frame.size.height) / 2.0f) + 1.0f + TGScreenPixel}, _customSearchActivityIndicator.frame.size};
     
@@ -782,7 +787,7 @@
         CGRect frame = _textFieldBackground.frame;
         frame.origin.y -= retinaPixel;
         frame.origin.x += 27;
-        frame.size.width -= 27 + 8 + 24;
+        frame.size.width -= 27 + TGSearchBar.textFieldOffsetX + 24;
         
         frame.origin.x += prefixOffset;
         frame.size.width -= prefixOffset;

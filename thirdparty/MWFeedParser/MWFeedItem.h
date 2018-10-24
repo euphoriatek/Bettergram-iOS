@@ -64,5 +64,6 @@
 @property (nonatomic, assign) BOOL isViewed;
 
 - (void)updateWithFeedItem:(MWFeedItem *)feedItem;
+- (BOOL)validateFilter:(NSString *)filter;
 
 @end

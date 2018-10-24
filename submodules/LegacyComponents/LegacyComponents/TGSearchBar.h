@@ -44,6 +44,7 @@ typedef enum {
 @interface TGSearchBar : UIView
 
 + (CGFloat)searchBarBaseHeight;
++ (CGFloat)textFieldOffsetX;
 + (CGFloat)searchBarScopeHeight;
 - (CGFloat)baseHeight;
 

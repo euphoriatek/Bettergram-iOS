@@ -12,6 +12,7 @@
 {
     UIView *_whiteFooterView;
     bool _hackHeaderSize;
+    __weak UIRefreshControl *_refreshControl;
 }
 
 @end
@@ -227,6 +228,31 @@
         _onHitTest(point);
     }
     return [super hitTest:point withEvent:event];
+}
+
+- (void)setRefreshControl:(UIRefreshControl *)refreshControl
+{
+    if (@available(iOS 10.0, *)) {
+        [super setRefreshControl:refreshControl];
+    }
+    else {
+        if (_refreshControl == refreshControl) return;
+        [_refreshControl removeFromSuperview];
+        _refreshControl = refreshControl;
+        if (_refreshControl != nil) {
+            [self addSubview:_refreshControl];
+        }
+    }
+}
+
+- (UIRefreshControl *)refreshControl
+{
+    if (@available(iOS 10.0, *)) {
+        return super.refreshControl;
+    }
+    else {
+        return _refreshControl;
+    }
 }
 
 @end

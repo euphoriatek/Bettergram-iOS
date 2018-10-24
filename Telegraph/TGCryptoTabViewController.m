@@ -66,4 +66,10 @@
     [self updateNavigationItemOverride:self.selectedIndex];
 }
 
+- (void)scrollToTopRequested
+{
+    if ([self.selectedViewController respondsToSelector:@selector(scrollToTopRequested)])
+        [self.selectedViewController scrollToTopRequested];
+}
+
 @end

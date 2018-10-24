@@ -126,6 +126,14 @@
     }];
 }
 
+- (UIImage *)searchRssButton
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets searchRssIcon:self.pallete.accentContrastColor];
+    }];
+}
+
+
 - (UIImage *)githubImage
 {
     if (self.pallete.prefersDarkKeyboard)

@@ -28,6 +28,8 @@
 //
 
 #import "MWFeedItem.h"
+#import <LegacyComponents/LegacyComponents.h>
+
 
 #define EXCERPT(str, len) (([str length] > len) ? [[str substringToIndex:len-1] stringByAppendingString:@"…"] : str)
 
@@ -98,6 +100,14 @@
     if (feedItem.feedURL != nil) feedURL = feedItem.feedURL;
     if (feedItem.thumbnailURL != nil) thumbnailURL = feedItem.thumbnailURL;
     if (feedItem.viewsCount != nil) viewsCount = feedItem.viewsCount;
+}
+
+- (BOOL)validateFilter:(NSString *)filter
+{
+    return
+    [title validateFilter:filter] ||
+    [summary validateFilter:filter] ||
+    [author validateFilter:filter];
 }
 
 @end

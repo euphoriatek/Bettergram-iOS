@@ -682,6 +682,8 @@ static id<LegacyComponentsContext> _defaultContext = nil;
             [controller viewDidAppear:animated];
         }
     }
+    
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
