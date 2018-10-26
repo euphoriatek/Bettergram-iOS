@@ -32,7 +32,7 @@
 - (void)setSelectedIndexCustom:(NSUInteger)selectedIndex
 {
     NSUInteger lastSelectedTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedTabIndex"];
-    if (!_initialized && lastSelectedTabIndex < self.viewControllers.count)
+    if (!_initialized && lastSelectedTabIndex < self.customViewControllers.count)
     {
         selectedIndex = lastSelectedTabIndex;
         _initialized = true;

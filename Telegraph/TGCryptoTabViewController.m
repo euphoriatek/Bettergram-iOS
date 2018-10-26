@@ -47,7 +47,7 @@
 - (void)updateNavigationItemOverride:(NSUInteger)selectedIndex
 {
     int index = -1;
-    for (UIViewController *viewController in self.viewControllers)
+    for (UIViewController *viewController in self.customViewControllers)
     {
         index++;
         BOOL selected = index == (int)selectedIndex;

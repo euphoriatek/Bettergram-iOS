@@ -626,7 +626,7 @@ static CGFloat kHeight = 18;
 {
     _presentation = presentation;
     [_customTabBar setPresentation:presentation];
-    for (UIViewController *viewController in self.viewControllers) {
+    for (UIViewController *viewController in self.customViewControllers) {
         if ([viewController respondsToSelector:@selector(setPresentation:)]) {
             [(id)viewController setPresentation:presentation];
         }
@@ -807,7 +807,7 @@ static CGFloat kHeight = 18;
 {
     if ((int)self.selectedIndex != index)
     {
-        [self tabBarController:self shouldSelectViewController:self.viewControllers[index]];
+        [self tabBarController:self shouldSelectViewController:self.customViewControllers[index]];
         [self setSelectedIndexCustom:index];
     }
     else
@@ -819,7 +819,7 @@ static CGFloat kHeight = 18;
 #pragma clang diagnostic pop
     }
     
-    if ((NSUInteger)index == self.viewControllers.count - 1) {
+    if ((NSUInteger)index == self.customViewControllers.count - 1) {
         NSTimeInterval t = CACurrentMediaTime();
         if (_lastSameIndexTapTime < DBL_EPSILON || t < _lastSameIndexTapTime + 0.5) {
             _lastSameIndexTapTime = t;
@@ -862,7 +862,7 @@ static CGFloat kHeight = 18;
     [self updateNavigationItemOverride:self.selectedIndex];
 }
 
-- (NSArray<UIViewController *> *)viewControllers
+- (NSArray<UIViewController *> *)customViewControllers
 {
     return _viewControllers;
 }
@@ -870,7 +870,7 @@ static CGFloat kHeight = 18;
 - (void)updateNavigationItemOverride:(NSUInteger)selectedIndex
 {
     int index = -1;
-    for (UIViewController *viewController in self.viewControllers)
+    for (UIViewController *viewController in self.customViewControllers)
     {
         index++;
         BOOL selected = index == (int)selectedIndex;
@@ -912,7 +912,7 @@ static CGFloat kHeight = 18;
     [_customTabBar setSelectedIndex:(int)self.selectedIndex];
     [_customTabBar setUnreadCounts:_unreadCounts];
     
-    for (TGViewController *controller in self.viewControllers)
+    for (TGViewController *controller in self.customViewControllers)
     {
         [controller localizationUpdated];
     }

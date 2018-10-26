@@ -61,4 +61,6 @@ typedef enum {
 
 @protocol TGNavigationControllerTabsController <NSObject>
 
+@property (nonatomic, readonly) NSArray<UIViewController *> *customViewControllers;
+
 @end

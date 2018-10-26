@@ -399,7 +399,7 @@
             }
             else if ([maybeController isKindOfClass:[UITabBarController class]] && [maybeController conformsToProtocol:@protocol(TGNavigationControllerTabsController)])
             {
-                [self setupPlayerOnControllers:((UITabBarController *)maybeController).viewControllers];
+                [self setupPlayerOnControllers:((id<TGNavigationControllerTabsController>)maybeController).customViewControllers];
             }
         }
     }
@@ -424,7 +424,7 @@
             }
             else if ([maybeController isKindOfClass:[UITabBarController class]] && [maybeController conformsToProtocol:@protocol(TGNavigationControllerTabsController)])
             {
-                for (id controller in ((UITabBarController *)maybeController).viewControllers)
+                for (id controller in ((id<TGNavigationControllerTabsController>)maybeController).customViewControllers)
                 {
                     if ([controller isKindOfClass:[TGViewController class]])
                     {
@@ -688,7 +688,7 @@ static UIView *findDimmingView(UIView *view)
             }
             else if (_displayPlayer && [maybeController isKindOfClass:[UITabBarController class]] && [maybeController conformsToProtocol:@protocol(TGNavigationControllerTabsController)])
             {
-                [self setupPlayerOnControllers:((UITabBarController *)maybeController).viewControllers];
+                [self setupPlayerOnControllers:((id<TGNavigationControllerTabsController>)maybeController).customViewControllers];
             }
         }
     }
@@ -706,7 +706,7 @@ static UIView *findDimmingView(UIView *view)
             }
             else if (_displayPlayer && [maybeController isKindOfClass:[UITabBarController class]] && [maybeController conformsToProtocol:@protocol(TGNavigationControllerTabsController)])
             {
-                for (id controller in ((UITabBarController *)maybeController).viewControllers)
+                for (id controller in ((id<TGNavigationControllerTabsController>)maybeController).customViewControllers)
                 {
                     if ([controller isKindOfClass:[TGViewController class]])
                     {
