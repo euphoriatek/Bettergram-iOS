@@ -4857,11 +4857,9 @@
 		D549CC8E21692DF100F8FB28 /* TGCryptoPricesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D549CC8421692DED00F8FB28 /* TGCryptoPricesInfo.m */; };
 		D549CC8F21692DF100F8FB28 /* TGCryptoManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D549CC8521692DED00F8FB28 /* TGCryptoManager.h */; };
 		D549CC9021692DF100F8FB28 /* TGCryptoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D549CC8621692DEE00F8FB28 /* TGCryptoManager.m */; };
-		D549CC9121692DF100F8FB28 /* TGCryptoCoinInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D549CC8721692DEE00F8FB28 /* TGCryptoCoinInfo.h */; };
 		D549CC9221692DF100F8FB28 /* TGCryptoCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = D549CC8821692DEE00F8FB28 /* TGCryptoCurrency.m */; };
 		D549CC9321692DF100F8FB28 /* TGResourceSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D549CC8921692DEF00F8FB28 /* TGResourceSection.m */; };
 		D549CC9421692DF100F8FB28 /* TGCryptoCurrency.h in Headers */ = {isa = PBXBuildFile; fileRef = D549CC8A21692DEF00F8FB28 /* TGCryptoCurrency.h */; };
-		D549CC9521692DF100F8FB28 /* TGCryptoCoinInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D549CC8B21692DF000F8FB28 /* TGCryptoCoinInfo.m */; };
 		D549CC9621692DF100F8FB28 /* TGCryptoPricesInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D549CC8C21692DF000F8FB28 /* TGCryptoPricesInfo.h */; };
 		D549CC9721692DF100F8FB28 /* TGResourceSection.h in Headers */ = {isa = PBXBuildFile; fileRef = D549CC8D21692DF000F8FB28 /* TGResourceSection.h */; };
 		D5606F1C214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h in Headers */ = {isa = PBXBuildFile; fileRef = D5606F1A214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h */; };
@@ -11988,11 +11986,9 @@
 		D549CC8421692DED00F8FB28 /* TGCryptoPricesInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TGCryptoPricesInfo.m; path = Telegraph/TGCryptoPricesInfo.m; sourceTree = SOURCE_ROOT; };
 		D549CC8521692DED00F8FB28 /* TGCryptoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGCryptoManager.h; path = Telegraph/TGCryptoManager.h; sourceTree = SOURCE_ROOT; };
 		D549CC8621692DEE00F8FB28 /* TGCryptoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TGCryptoManager.m; path = Telegraph/TGCryptoManager.m; sourceTree = SOURCE_ROOT; };
-		D549CC8721692DEE00F8FB28 /* TGCryptoCoinInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGCryptoCoinInfo.h; path = Telegraph/TGCryptoCoinInfo.h; sourceTree = SOURCE_ROOT; };
 		D549CC8821692DEE00F8FB28 /* TGCryptoCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TGCryptoCurrency.m; path = Telegraph/TGCryptoCurrency.m; sourceTree = SOURCE_ROOT; };
 		D549CC8921692DEF00F8FB28 /* TGResourceSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TGResourceSection.m; path = Telegraph/TGResourceSection.m; sourceTree = SOURCE_ROOT; };
 		D549CC8A21692DEF00F8FB28 /* TGCryptoCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGCryptoCurrency.h; path = Telegraph/TGCryptoCurrency.h; sourceTree = SOURCE_ROOT; };
-		D549CC8B21692DF000F8FB28 /* TGCryptoCoinInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TGCryptoCoinInfo.m; path = Telegraph/TGCryptoCoinInfo.m; sourceTree = SOURCE_ROOT; };
 		D549CC8C21692DF000F8FB28 /* TGCryptoPricesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGCryptoPricesInfo.h; path = Telegraph/TGCryptoPricesInfo.h; sourceTree = SOURCE_ROOT; };
 		D549CC8D21692DF000F8FB28 /* TGResourceSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGResourceSection.h; path = Telegraph/TGResourceSection.h; sourceTree = SOURCE_ROOT; };
 		D5606F1A214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TGViewController+SafeAreaInsetsSwizzling.h"; sourceTree = "<group>"; };
@@ -23333,8 +23329,6 @@
 		D5AFAB6921721C7000A1399B /* CryptoManager */ = {
 			isa = PBXGroup;
 			children = (
-				D549CC8721692DEE00F8FB28 /* TGCryptoCoinInfo.h */,
-				D549CC8B21692DF000F8FB28 /* TGCryptoCoinInfo.m */,
 				D549CC8A21692DEF00F8FB28 /* TGCryptoCurrency.h */,
 				D549CC8821692DEE00F8FB28 /* TGCryptoCurrency.m */,
 				D549CC8C21692DF000F8FB28 /* TGCryptoPricesInfo.h */,
@@ -24572,7 +24566,6 @@
 				D02478CA1E4CEFB40083C3F3 /* UIViewController+Proxy.h in Headers */,
 				D0C6AF131A76D3C60046833D /* TGDataItem.h in Headers */,
 				D089E06D1AC57E2F009A744B /* TGAuthSession.h in Headers */,
-				D549CC9121692DF100F8FB28 /* TGCryptoCoinInfo.h in Headers */,
 				098E68E32061789C001F5150 /* TGPassportGenderMenu.h in Headers */,
 				D01160321F41F1310039383E /* TLRPCmessages_hideReportSpam.h in Headers */,
 				D0115EEC1F41F12F0039383E /* TLReportReason.h in Headers */,
@@ -28322,7 +28315,6 @@
 				D04324EF1DC2832D00E0C528 /* FetchResources.m in Sources */,
 				091262661FDFC102008071A2 /* TGCreateFeedController.mm in Sources */,
 				938431FA18567685000CD961 /* TGGroupInfoController.m in Sources */,
-				D549CC9521692DF100F8FB28 /* TGCryptoCoinInfo.m in Sources */,
 				68B63D391BB25B1F00205AC3 /* TGBridgeMediaHandler.m in Sources */,
 				091262621FDFAF85008071A2 /* TGFeedDialogListCompanion.mm in Sources */,
 				D01161391F41F1330039383E /* NSArray_HighScore.mm in Sources */,

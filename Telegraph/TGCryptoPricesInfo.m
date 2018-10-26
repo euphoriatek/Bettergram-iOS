@@ -10,7 +10,7 @@
 
 
 @interface TGCryptoPricesInfo () {
-    NSMutableDictionary<NSNumber *, NSMutableArray<TGCryptoCoinInfo *> *> *_coinInfos;
+    NSMutableDictionary<NSNumber *, NSMutableArray<TGCryptoCurrency *> *> *_coinInfos;
 }
 
 @end
@@ -26,18 +26,24 @@
     return self;
 }
 
-- (BOOL)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo ignoreUnknownCoins:(BOOL)ignoreUnknownCoins
+- (void)setCurrency:(TGCryptoCurrency *)currency
 {
-    TGCryptoCurrency *currency = [TGCryptoManager.manager cachedCurrencyWithCode:dictionary[@"currency"]];
-    if (![_currency isEqual:currency]) {
-        _currency = currency;
-        NSMutableArray *favorited = [NSMutableArray array];
-        for (TGCryptoCoinInfo *coinInfo in _coinInfos[@(TGSortingFavoritedBit)]) {
-            [favorited addObject:[TGCryptoCoinInfo.alloc initWithCurrency:coinInfo.currency]];
-        }
-        [_coinInfos removeAllObjects];
-        _coinInfos[@(TGSortingFavoritedBit)] = favorited;
-    }
+    if ([_currency isEqual:currency]) return;
+    _currency = currency;
+    _marketCap = 0;
+    _volume = 0;
+    _btcDominance = 0;
+    [_coinInfos enumerateKeysAndObjectsUsingBlock:^(__unused NSNumber * _Nonnull key, NSMutableArray<TGCryptoCurrency *> * _Nonnull obj, __unused BOOL * _Nonnull stop) {
+        [obj enumerateObjectsUsingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+            [obj clean];
+        }];
+    }];
+}
+
+- (NSArray<TGCryptoCurrency *> *)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo
+{
+    self.currency = [TGCryptoManager.manager cachedCurrencyWithCode:dictionary[@"currency"]];
+    self.currency.requestsCount++;
     _marketCap = [dictionary[@"cap"] doubleValue];
     _volume = [dictionary[@"volume"] doubleValue];
     _btcDominance = [dictionary[@"btcDominance"] doubleValue];
@@ -51,48 +57,43 @@
     if (!favorites) {
         index = pageInfo.offset;
         for (NSUInteger i = _coinInfos[key].count; index > _coinInfos[key].count; i++) {
-            [_coinInfos[key] addObject:[TGCryptoCoinInfo.alloc init]];
+            [_coinInfos[key] addObject:[TGCryptoCurrency.alloc init]];
         }
     }
     else {
         index = _coinInfos[key].count;
     }
+    NSMutableArray<TGCryptoCurrency *> *newCoins = [NSMutableArray array];
     for (id json in dictionary[@"data"][favorites ? @"favorites" : @"list"]) {
-        TGCryptoCoinInfo *coinInfo = [TGCryptoCoinInfo.alloc initWithJSON:json];
-        if (!ignoreUnknownCoins && coinInfo.currency == nil) {
-            return NO;
+        TGCryptoCurrency *currency = [TGCryptoManager.manager cachedCurrencyWithCode:json[@"code"]];
+        if (currency == nil){
+            currency = [TGCryptoCurrency.alloc initWithCode:json[@"code"]];
+            [newCoins addObject:currency];
         }
-        if (favorites || coinInfo.currency.favorite) {
-            __block BOOL replaced = NO;
-            [_coinInfos[@(TGSortingFavoritedBit)].copy enumerateObjectsUsingBlock:^(TGCryptoCoinInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj.currency isEqual:coinInfo.currency]) {
-                    [_coinInfos[@(TGSortingFavoritedBit)] replaceObjectAtIndex:idx withObject:coinInfo];
-                    *stop = replaced = YES;
-                }
-            }];
-            if (!replaced) {
-                [_coinInfos[@(TGSortingFavoritedBit)] addObject:coinInfo];
-            }
+        [currency fillWithCoinInfoJson:json];
+        if ((favorites || currency.favorite) && ![_coinInfos[@(TGSortingFavoritedBit)] containsObject:currency]) {
+            [_coinInfos[@(TGSortingFavoritedBit)] addObject:currency];;
         }
         if (!favorites) {
-            _coinInfos[key][index++] = coinInfo;
+            _coinInfos[key][index++] = currency;
         }
     }
     if (favorites) {
         [self sortFavoritedWithSorting:pageInfo.sorting];
     }
     else {
-        TGCryptoCoinInfo *coinInfo = nil;
-        while (_coinInfos[key].lastObject.currency == nil) {
-            coinInfo = [_coinInfos[key] lastObject];
+        // Last object is an empty one to show loading indicator
+        TGCryptoCurrency *currency = nil;
+        while (_coinInfos[key].lastObject.code == nil) {
+            currency = [_coinInfos[key] lastObject];
             [_coinInfos[key] removeLastObject];
         }
-        if (!coinInfo) {
-            coinInfo = [TGCryptoCoinInfo.alloc init];
+        if (!currency) {
+            currency = [TGCryptoCurrency.alloc init];
         }
-        [_coinInfos[key] addObject:coinInfo];
+        [_coinInfos[key] addObject:currency];
     }
-    return YES;
+    return newCoins;
 }
 
 - (id)copyWithZone:(__unused NSZone *)zone
@@ -112,7 +113,26 @@
         _marketCap = [decoder decodeDoubleForKey:@"marketCap"];
         _volume = [decoder decodeDoubleForKey:@"volume"];
         _btcDominance = [decoder decodeDoubleForKey:@"btcDominance"];
-        _coinInfos = [decoder decodeObjectForKey:@"coinInfos"];
+        
+        _coinInfos = [NSMutableDictionary dictionary];
+        _coinInfos[@(TGSortingFavoritedBit)] = [NSMutableArray array];
+        NSDictionary<NSNumber *, NSArray<NSString *> *> *coinInfoCodes = [decoder decodeObjectForKey:@"coinInfosCodes"];
+        if ([coinInfoCodes isKindOfClass:NSDictionary.class])
+            [coinInfoCodes enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSArray<NSString *> * _Nonnull obj, __unused BOOL * _Nonnull stop) {
+                if (![key isKindOfClass:NSNumber.class] || ![obj isKindOfClass:NSArray.class]) {
+                    return;
+                }
+                NSMutableArray<TGCryptoCurrency *> *currencies = [NSMutableArray array];
+                _coinInfos[key] = currencies;
+                [obj enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+                    if (![obj isKindOfClass:NSString.class]) {
+                        return;
+                    }
+                    TGCryptoCurrency *currency = [TGCryptoManager.manager cachedCurrencyWithCode:obj];
+                    if (currency)
+                        [currencies addObject:currency];
+                }];
+            }];
     }
     return self;
 }
@@ -122,13 +142,23 @@
     [encoder encodeDouble:_marketCap forKey:@"marketCap"];
     [encoder encodeDouble:_volume forKey:@"volume"];
     [encoder encodeDouble:_btcDominance forKey:@"btcDominance"];
-    [encoder encodeObject:_coinInfos forKey:@"coinInfos"];
+    
+    NSMutableDictionary<NSNumber *, NSMutableArray<NSString *> *> *coinInfoCodes = [NSMutableDictionary dictionary];
+    [_coinInfos enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSMutableArray<TGCryptoCurrency *> * _Nonnull obj, __unused BOOL * _Nonnull stop) {
+        NSMutableArray<NSString *> *codes = [NSMutableArray array];
+        coinInfoCodes[key] = codes;
+        [obj enumerateObjectsUsingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+            if (obj.code)
+                [codes addObject:obj.code];
+        }];
+    }];
+    [encoder encodeObject:coinInfoCodes forKey:@"coinInfosCodes"];
 }
 
 - (void)sortFavoritedWithSorting:(TGCoinSorting)sorting
 {
     clrbit(&sorting, TGSortingFavoritedBit);
-    [_coinInfos[@(TGSortingFavoritedBit)] sortUsingComparator:^NSComparisonResult(TGCryptoCoinInfo  *_Nonnull obj1, TGCryptoCoinInfo  *_Nonnull obj2) {
+    [_coinInfos[@(TGSortingFavoritedBit)] sortUsingComparator:^NSComparisonResult(TGCryptoCurrency  *_Nonnull obj1, TGCryptoCurrency  *_Nonnull obj2) {
         BOOL isBothEmptyOrNot = (obj1.updatedDate != 0) == (obj2.updatedDate != 0);
         switch (sorting) {
             case TGSorting24hAscending:
@@ -138,7 +168,7 @@
                 
             case TGSortingCoinAscending:
             case TGSortingCoinDescending:
-                return [obj1.currency.name compare:obj2.currency.name] * (sorting == TGSortingCoinAscending ? 1 : -1);
+                return [obj1.name compare:obj2.name] * (sorting == TGSortingCoinAscending ? 1 : -1);
                 
             case TGSortingPriceAscending:
             case TGSortingPriceDescending:
@@ -154,27 +184,30 @@
 
 - (void)coin:(TGCryptoCurrency *)coin favorited:(BOOL)favorited
 {
+    if (coin == nil) return;
     if (favorited) {
-        for (id key in _coinInfos) {
-            for (TGCryptoCoinInfo *coinInfo in _coinInfos[key]) {
-                if ([coinInfo.currency isEqual:coin]) {
-                    if (![key isEqual:@(TGSortingFavoritedBit)]) {
-                        [_coinInfos[@(TGSortingFavoritedBit)] addObject:coinInfo];
-                    }
-                    return;
-                }
-            }
-        }
-        [_coinInfos[@(TGSortingFavoritedBit)] addObject:[TGCryptoCoinInfo.alloc initWithCurrency:coin]];
+        if ([_coinInfos[@(TGSortingFavoritedBit)] containsObject:coin])
+            return;
+        [_coinInfos[@(TGSortingFavoritedBit)] addObject:coin];
     }
     else {
-        [_coinInfos[@(TGSortingFavoritedBit)].copy enumerateObjectsUsingBlock:^(TGCryptoCoinInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.currency isEqual:coin]) {
-                [_coinInfos[@(TGSortingFavoritedBit)] removeObjectAtIndex:idx];
-                *stop = YES;
-            }
-        }];
+        NSInteger index = [_coinInfos[@(TGSortingFavoritedBit)] indexOfObject:coin];
+        if (index != NSNotFound) {
+            [_coinInfos[@(TGSortingFavoritedBit)] removeObjectAtIndex:index];
+        }
     }
+}
+
+- (NSArray<NSString *> *)outOfDateFavoriteCurrencyCodes:(NSArray<NSString *> *)favoriteCurrencyCodes
+{
+    NSMutableArray<NSString *> *outOfDateCoinCodes = favoriteCurrencyCodes.mutableCopy;
+    [_coinInfos[@(TGSortingFavoritedBit)] enumerateObjectsUsingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop)
+     {
+         if (obj.updatedDate + kPricesUpdateInterval / 3 > NSDate.date.timeIntervalSince1970) {
+             [outOfDateCoinCodes removeObject:obj.code];
+         }
+     }];
+    return outOfDateCoinCodes;
 }
 
 @end

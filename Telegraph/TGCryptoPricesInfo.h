@@ -9,7 +9,7 @@
 
 #define    clredbit(a,i)    ((a) & ~(1<<((i)%NBBY)))
 
-@class TGCryptoCoinInfo, TGCryptoCurrency;
+@class TGCryptoCurrency;
 
 typedef enum : NSUInteger {
     TGSortingCoinAscending      = 0,
@@ -34,11 +34,12 @@ typedef struct TGCryptoPricePageInfo TGCryptoPricePageInfo;
 @property (readonly, nonatomic, assign) double marketCap;
 @property (readonly, nonatomic, assign) double volume;
 @property (readonly, nonatomic, assign) double btcDominance;
-@property (readonly, nonatomic, strong) TGCryptoCurrency *currency;
-@property (readonly, nonatomic, strong) NSDictionary<NSNumber *, NSArray<TGCryptoCoinInfo *> *> *coinInfos;
+@property (nonatomic, strong) TGCryptoCurrency *currency;
+@property (readonly, nonatomic, strong) NSDictionary<NSNumber *, NSArray<TGCryptoCurrency *> *> *coinInfos;
 
-- (BOOL)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo ignoreUnknownCoins:(BOOL)ignoreUnknownCoins;
+- (NSArray<TGCryptoCurrency *> *)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo;
 - (void)sortFavoritedWithSorting:(TGCoinSorting)sorting;
 - (void)coin:(TGCryptoCurrency *)coin favorited:(BOOL)favorited;
+- (NSArray<NSString *> *)outOfDateFavoriteCurrencyCodes:(NSArray<NSString *> *)favoriteCurrencyCodes;
 
 @end

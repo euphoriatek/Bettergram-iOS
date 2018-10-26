@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TGCryptoCurrency : NSObject
+@interface TGCryptoCurrency : NSObject <NSCoding>
 
 @property (readonly, nonatomic, strong) NSString *code;
 @property (readonly, nonatomic, strong) NSString *name;
@@ -16,8 +16,24 @@
 @property (readonly, nonatomic, strong) NSString *iconURL;
 
 @property (nonatomic, assign) BOOL favorite;
+@property (nonatomic, assign) NSUInteger requestsCount;
 
-- (instancetype)initWithJSON:(NSDictionary *)dictionary;
+- (instancetype)initWithCode:(NSString *)code;
+- (void)fillWithCurrencyJson:(NSDictionary *)dictionary;
 - (BOOL)validateFilter:(NSString *)filter;
+
+// Coin info
+
+@property (readonly, nonatomic, assign) double volume;
+@property (readonly, nonatomic, assign) double cap;
+@property (readonly, nonatomic, assign) NSInteger rank;
+@property (readonly, nonatomic, assign) double price;
+@property (readonly, nonatomic, strong) NSNumber *minDelta;
+@property (readonly, nonatomic, strong) NSNumber *dayDelta;
+
+@property (readonly, nonatomic, assign) NSTimeInterval updatedDate;
+
+- (void)fillWithCoinInfoJson:(NSDictionary *)dictionary;
+- (void)clean;
 
 @end

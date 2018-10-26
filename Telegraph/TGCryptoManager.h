@@ -8,12 +8,12 @@
 #import <Foundation/Foundation.h>
 
 #import "TGCryptoCurrency.h"
-#import "TGCryptoCoinInfo.h"
 #import "TGCryptoPricesInfo.h"
 
 @class MWFeedItem, TGFeedParser, TGResourceSection;
 
 FOUNDATION_EXPORT NSString * const TGCryptoManagerAPIOutOfDate;
+FOUNDATION_EXPORT NSTimeInterval const kPricesUpdateInterval;
 
 
 @interface TGCryptoManager : NSObject
