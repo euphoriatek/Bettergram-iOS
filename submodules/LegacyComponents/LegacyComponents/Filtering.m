@@ -17,18 +17,17 @@
 // default cost: 1
 
 // calculate the mean distance between all words in stringA and stringB
-- (float)compareWithText: (NSString *) stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost {
-    float smallestDistance = MAXFLOAT;
-    
+- (double)compareWithText:(NSString *)stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost {
     NSString *mStringA = [self stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     NSString *mStringB = [stringB stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     
     NSArray *arrayA = [mStringA componentsSeparatedByString: @" "];
     NSArray *arrayB = [mStringB componentsSeparatedByString: @" "];
     
+    double smallestDistance = 0;
     for (NSString *tokenA in arrayA) {
         for (NSString *tokenB in arrayB) {
-            smallestDistance = MIN((float) [tokenA compareWithWord:tokenB matchGain:gain missingCost:cost], smallestDistance);
+            smallestDistance = MAX(smallestDistance, ((float) -[tokenA compareWithWord:tokenB matchGain:gain missingCost:cost]) / MIN(tokenA.length, tokenB.length));
         }
     }
     
@@ -92,25 +91,18 @@
 - (NSArray *)filteredArrayUsingMatchingString:(NSString *)string
                          levenshteinMatchGain:(NSInteger)gain
                                   missingCost:(NSInteger)cost
-                             fieldGetterBlock:(NSDictionary<NSNumber *, NSString *> *(^)(id))fieldGetterBlock
-                    filterThresholdMultiplier:(double)filterThresholdMultiplier
+                             fieldGetterBlock:(NSArray<NSString *> *(^)(id))fieldGetterBlock
+                                    threshold:(double)threshold
                           equalCaseComparator:(NSComparator)cmptr
 {
     if (string.length < 2) return nil;
     NSMutableArray *weights = [NSMutableArray array];
     __block double weight = 0;
-    const double threshold = (double)(string.length * gain) * filterThresholdMultiplier;
+    threshold *= gain;
     [self enumerateObjectsUsingBlock:^(id obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
-        weight = threshold;
-        [fieldGetterBlock(obj) enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-            double localWeight;
-            if (key.boolValue) {
-                localWeight = [obj compareWithText:string matchGain:gain missingCost:cost];
-            }
-            else {
-                localWeight = [obj compareWithWord:string matchGain:gain missingCost:cost];
-            }
-            weight = MAX(weight, -localWeight);
+        weight = 0;
+        [fieldGetterBlock(obj) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+            weight = MAX([obj compareWithText:string matchGain:gain missingCost:cost], weight);
         }];
         if (weight > threshold)
             [weights addObject:@[@(weight), obj]];

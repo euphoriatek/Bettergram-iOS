@@ -37,7 +37,9 @@ typedef struct TGCryptoPricePageInfo TGCryptoPricePageInfo;
 @property (nonatomic, strong) TGCryptoCurrency *currency;
 @property (readonly, nonatomic, strong) NSDictionary<NSNumber *, NSArray<TGCryptoCurrency *> *> *coinInfos;
 
-- (NSArray<TGCryptoCurrency *> *)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo;
+- (NSArray<TGCryptoCurrency *> *)updateValuesWithJSON:(NSDictionary *)dictionary
+                                             pageInfo:(TGCryptoPricePageInfo)pageInfo
+                                     invalidatedCoins:(BOOL *)invalidatedCoins;
 - (void)sortFavoritedWithSorting:(TGCoinSorting)sorting;
 - (void)coin:(TGCryptoCurrency *)coin favorited:(BOOL)favorited;
 - (NSArray<NSString *> *)outOfDateFavoriteCurrencyCodes:(NSArray<NSString *> *)favoriteCurrencyCodes;

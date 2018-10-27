@@ -10,7 +10,7 @@
 
 @interface NSString (Levenshtein)
 
-- (float)compareWithText: (NSString *) stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost;
+- (double)compareWithText:(NSString *)stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost;
 - (NSInteger)compareWithWord:(NSString *) stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost;
 
 @end
@@ -21,8 +21,8 @@
 - (NSArray<ObjectType> *)filteredArrayUsingMatchingString:(NSString *)string
                                      levenshteinMatchGain:(NSInteger)gain
                                               missingCost:(NSInteger)cost
-                                         fieldGetterBlock:(NSDictionary<NSNumber *, NSString *> *(^)(ObjectType obj))fieldGetterBlock
-                                filterThresholdMultiplier:(double)filterThresholdMultiplier
+                                         fieldGetterBlock:(NSArray<NSString *> *(^)(ObjectType obj))fieldGetterBlock
+                                threshold:(double)threshold
                                       equalCaseComparator:(NSComparator)cmptr;
 
 @end

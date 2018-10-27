@@ -40,7 +40,9 @@
     }];
 }
 
-- (NSArray<TGCryptoCurrency *> *)updateValuesWithJSON:(NSDictionary *)dictionary pageInfo:(TGCryptoPricePageInfo)pageInfo
+- (NSArray<TGCryptoCurrency *> *)updateValuesWithJSON:(NSDictionary *)dictionary
+                                             pageInfo:(TGCryptoPricePageInfo)pageInfo
+                                     invalidatedCoins:(BOOL *)invalidatedCoins
 {
     self.currency = [TGCryptoManager.manager cachedCurrencyWithCode:dictionary[@"currency"]];
     self.currency.requestsCount++;
@@ -64,11 +66,17 @@
         index = _coinInfos[key].count;
     }
     NSMutableArray<TGCryptoCurrency *> *newCoins = [NSMutableArray array];
+    NSMutableArray<TGCryptoCurrency *> *addedCoins = [NSMutableArray array];
     for (id json in dictionary[@"data"][favorites ? @"favorites" : @"list"]) {
         TGCryptoCurrency *currency = [TGCryptoManager.manager cachedCurrencyWithCode:json[@"code"]];
         if (currency == nil){
             currency = [TGCryptoCurrency.alloc initWithCode:json[@"code"]];
             [newCoins addObject:currency];
+        }
+        else {
+            if (!favorites) {
+                [addedCoins addObject:currency];
+            }
         }
         [currency fillWithCoinInfoJson:json];
         if ((favorites || currency.favorite) && ![_coinInfos[@(TGSortingFavoritedBit)] containsObject:currency]) {
@@ -78,6 +86,7 @@
             _coinInfos[key][index++] = currency;
         }
     }
+    *invalidatedCoins = NO;
     if (favorites) {
         [self sortFavoritedWithSorting:pageInfo.sorting];
     }
@@ -92,6 +101,17 @@
             currency = [TGCryptoCurrency.alloc init];
         }
         [_coinInfos[key] addObject:currency];
+        // removing duplicates
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, _coinInfos[key].count)];
+        [indexSet removeIndexesInRange:NSMakeRange(pageInfo.offset, pageInfo.limit)];
+        [_coinInfos[key].mutableCopy enumerateObjectsAtIndexes:indexSet
+                                                       options:0
+                                                    usingBlock:^(TGCryptoCurrency * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
+                                                        if ([addedCoins containsObject:obj]) {
+                                                            _coinInfos[key][idx] = [TGCryptoCurrency.alloc init];
+                                                            *invalidatedCoins = YES;
+                                                        }
+                                                    }];
     }
     return newCoins;
 }

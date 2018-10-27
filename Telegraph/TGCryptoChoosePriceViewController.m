@@ -149,11 +149,10 @@
     _filteredCurrencies = [_currencies filteredArrayUsingMatchingString:searchText
                                                    levenshteinMatchGain:3
                                                             missingCost:1
-                                                       fieldGetterBlock:^NSDictionary<NSNumber *, NSString *> *(TGCryptoCurrency *obj) {
-                                                           return @{ @YES: obj.name,
-                                                                     @NO: obj.code };
+                                                       fieldGetterBlock:^NSArray<NSString *> *(TGCryptoCurrency *obj) {
+                                                           return @[ obj.name, obj.code ];
                                                        }
-                                              filterThresholdMultiplier:0.25
+                                              threshold:0.25
                                                     equalCaseComparator:NULL];
     [_tableView reloadData];
 }

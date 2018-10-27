@@ -1062,18 +1062,23 @@ const CGFloat kCellIconOffset = 10;
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section < (NSInteger)_topSectionCells.count) {
         UITableViewCell *cell = _topSectionCells[indexPath.section];
-        if ([cell isKindOfClass:[TGMarketInfoCell class]]) {
-            return kMarketViewHeight + kMarketViewOffset;
-        }
         if ([cell isKindOfClass:[TGFilterCell class]]) {
             return 26 + kFilterViewHeight;
         }
         if ([cell isKindOfClass:[TGSortCell class]]) {
             return kSortViewHeight;
+        }
+        if ([cell isKindOfClass:[TGMarketInfoCell class]]) {
+            return kMarketViewHeight + kMarketViewOffset;
         }
     }
     return tableView.rowHeight;

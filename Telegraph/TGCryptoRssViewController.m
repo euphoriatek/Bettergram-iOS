@@ -570,11 +570,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     _filteredFeedItems = [_feedItems filteredArrayUsingMatchingString:_searchBar.text
                                                  levenshteinMatchGain:3
                                                           missingCost:1
-                                                     fieldGetterBlock:^NSDictionary<NSNumber *, NSString *> *(MWFeedItem *obj) {
-                                                         return @{ @YES: obj.title,
-                                                                   @YES: obj.author };
+                                                     fieldGetterBlock:^NSArray<NSString *> *(MWFeedItem *obj) {
+                                                         return @[ obj.title, obj.author ];
                                                      }
-                                            filterThresholdMultiplier:0.5
+                                            threshold:0.5
                                                   equalCaseComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                                                       return [((MWFeedItem *)[obj2 lastObject]).date compare:((MWFeedItem *)[obj1 lastObject]).date];
                                                   }];
