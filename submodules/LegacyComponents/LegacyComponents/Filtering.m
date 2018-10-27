@@ -13,9 +13,6 @@
 
 @implementation NSString (Levenshtein)
 
-// default match: 0
-// default cost: 1
-
 // calculate the mean distance between all words in stringA and stringB
 - (double)compareWithText:(NSString *)stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost {
     NSString *mStringA = [self stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
