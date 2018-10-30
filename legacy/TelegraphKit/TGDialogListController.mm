@@ -193,9 +193,9 @@ static int32_t maxPinnedChats = 200;
 @property (nonatomic) bool isLoading;
 
 @property (nonatomic, strong) TGDialogListTitleContainer *titleContainer;
+@property (nonatomic, strong) UIView *customTitleView;
 @property (nonatomic, strong) UILabel *titleStatusLabel;
 @property (nonatomic, strong) UILabel *titleStatusSubtitleLabel;
-@property (nonatomic, strong) UIImageView *titleImageView;
 @property (nonatomic, strong) TGLockIconView *titleLockIconView;
 
 @property (nonatomic, strong) UIActivityIndicatorView *titleStatusIndicator;
@@ -627,7 +627,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         _titleStatusLabel.hidden = true;
         _titleStatusIndicator.hidden = true;
         _titleStatusSubtitleLabel.hidden = true;
-        _titleImageView.hidden = false;
+        _customTitleView.hidden = false;
         _titleLockIconView.hidden = false;
         
         [_titleStatusIndicator stopAnimating];
@@ -638,7 +638,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         
         _titleStatusLabel.hidden = false;
         _titleStatusIndicator.hidden = false;
-        _titleImageView.hidden = true;
+        _customTitleView.hidden = true;
         _titleLockIconView.hidden = true;
                 
         _titleStatusLabel.text = text;
@@ -757,12 +757,12 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
         indicatorOffset = 0.0f;
     }
     
-    CGRect titleLabelFrame = _titleImageView.frame;
+    CGRect titleLabelFrame = _customTitleView.frame;
     titleLabelFrame.origin = CGPointMake(CGFloor((_titleContainer.frame.size.width - titleLabelFrame.size.width) / 2.0f), CGFloor((_titleContainer.frame.size.height - titleLabelFrame.size.height) / 2.0f) + (UIInterfaceOrientationIsPortrait(orientation) ? portraitOffset : landscapeOffset));
     if (_titleLockIconView.alpha > FLT_EPSILON)
         titleLabelFrame.origin.x -= 4.0f;
     _titleLockIconView.frame = CGRectMake(CGRectGetMaxX(titleLabelFrame) + 6.0f, titleLabelFrame.origin.y + 4.0f, _titleLockIconView.frame.size.width, _titleLockIconView.frame.size.height);
-    _titleImageView.frame = titleLabelFrame;
+    _customTitleView.frame = titleLabelFrame;
     
     if (_titleStatusLabel != nil)
     {
@@ -794,20 +794,58 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     }
 }
 
+- (NSString *)titleText
+{
+    NSString *nonLocalizedText = @"DialogList.Title";
+    if ([_dialogListCompanion isKindOfClass:[TGTelegraphDialogListCompanion class]]) {
+        switch (((TGTelegraphDialogListCompanion *)_dialogListCompanion).filter) {
+            case TGDialogFilterDirectMessages:
+                nonLocalizedText = @"DialogList.Title.DM";
+                break;
+                
+            case TGDialogFilterGroups:
+                nonLocalizedText = @"DialogList.Title.Groups";
+                break;
+                
+            case TGDialogFilterAnnouncements:
+                nonLocalizedText = @"DialogList.Title.Announcements";
+                break;
+                
+            case TGDialogFilterFavorites:
+                nonLocalizedText = @"DialogList.Title.Favorites";
+                break;
+                
+            default:
+                break;
+        }
+    }
+    return TGLocalized(nonLocalizedText);
+}
+
 - (void)loadView
 {
     [super loadView];
     
     self.view.accessibilityElementsHidden = true;
     
-    [self setTitleText:TGLocalized(@"DialogList.Title")];
-    
     _titleContainer = [[TGDialogListTitleContainer alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 2.0f, 2.0f)];
     [self setTitleView:_titleContainer];
     
-    _titleImageView = [[UIImageView alloc] initWithImage:TGTintedImage(TGImageNamed(@"header_logo_bettergram.png"), self.presentation.pallete.navigationTitleColor)];
-    [_titleImageView sizeToFit];
-    [_titleContainer addSubview:_titleImageView];
+    if ([_dialogListCompanion isKindOfClass:[TGTelegraphDialogListCompanion class]] &&
+        ((TGTelegraphDialogListCompanion *)_dialogListCompanion).filter != TGDialogFilterAll)
+    {
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textColor = self.presentation.pallete.navigationTitleColor;
+        titleLabel.font = TGBoldSystemFontOfSize(17.0f);
+        titleLabel.text = self.titleText;
+        self.customTitleView = titleLabel;
+    }
+    else {
+        self.customTitleView = [[UIImageView alloc] initWithImage:TGTintedImage(TGImageNamed(@"header_logo_bettergram.png"), self.presentation.pallete.navigationTitleColor)];
+    }
+    [self.customTitleView sizeToFit];
+    [_titleContainer addSubview:self.customTitleView];
     
     _titleLockIconView = [[TGLockIconView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 2.0f, 2.0f)];
     _titleLockIconView.presentation = self.presentation;
@@ -3166,9 +3204,10 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     [self setLeftBarButtonItem:[self controllerLeftBarButtonItem]];
     
-    [self setTitleText:TGLocalized(@"DialogList.Title")];
+    if ([self.customTitleView isKindOfClass:[UILabel class]]) {
+        ((UILabel *)self.customTitleView).text = [self titleText];
+    }
     
-    _titleImageView.image = TGTintedImage(_titleImageView.image, self.presentation.pallete.navigationTitleColor);
     [self _layoutTitleViews:self.interfaceOrientation];
     
     for (id cell in _tableView.visibleCells)
@@ -4280,7 +4319,14 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     [_searchBar setPallete:presentation.searchBarPallete];
     
     _titleLockIconView.presentation = self.presentation;
-    _titleImageView.image = TGTintedImage(_titleImageView.image, self.presentation.pallete.navigationTitleColor);
+    
+    if ([self.customTitleView isKindOfClass:UIImageView.class]) {
+        ((UIImageView *)self.customTitleView).image = TGTintedImage(TGImageNamed(@"header_logo_bettergram.png"), self.presentation.pallete.navigationTitleColor);
+    }
+    else if ([self.customTitleView isKindOfClass:UILabel.class]) {
+        ((UILabel *)self.customTitleView).textColor = self.presentation.pallete.navigationTitleColor;
+    }
+    
     _titleStatusLabel.textColor = _presentation.pallete.navigationTitleColor;
     _titleStatusSubtitleLabel.textColor = _presentation.pallete.navigationSubtitleColor;
     _titleStatusIndicator.color = _presentation.pallete.navigationSpinnerColor;

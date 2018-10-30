@@ -9,19 +9,14 @@
 
 - (NSArray<TGTabBarButtonInfo *> *)buttonInfos
 {
-    NSArray<NSString *> *buttonIconsNames = @[
-                                              @"tab_all_messages.png",
-                                              @"tab_direct_messages.png",
-                                              @"tab_groups.png",
-                                              @"tab_announcements.png",
-                                              @"tab_favorites.png",
-                                              @"tab_crypto.png"
-                                              ];
-    __block NSMutableArray<TGTabBarButtonInfo *> *buttonInfos = [NSMutableArray arrayWithCapacity:buttonIconsNames.count];
-    for (NSString *buttonIconsName in buttonIconsNames) {
-        [buttonInfos addObject:[TGTabBarButtonInfo infoWithIcon:TGImageNamed(buttonIconsName)]];
-    }
-    return buttonInfos;
+    return @[
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_all_messages.png") accessibilityTitle:@"DialogList.Title.AM"],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_direct_messages.png") accessibilityTitle:@"DialogList.Title.DM"],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_groups.png") accessibilityTitle:@"DialogList.Title.Groups"],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_announcements.png") accessibilityTitle:@"DialogList.Title.Announcements"],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_favorites.png") accessibilityTitle:@"DialogList.Title.Favorites"],
+             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_crypto.png") accessibilityTitle:@"DialogList.Title.Crypto"],
+             ];
 }
 
 - (BOOL)isBarBarOnTop

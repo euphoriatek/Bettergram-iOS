@@ -7,10 +7,12 @@
 @interface TGTabBarButtonInfo : NSObject
 
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *accessibilityTitle;
 @property (nonatomic, strong) UIImage *icon;
 
 + (instancetype)infoWithIcon:(UIImage *)icon;
 + (instancetype)infoWithIcon:(UIImage *)icon title:(NSString *)title;
++ (instancetype)infoWithIcon:(UIImage *)icon accessibilityTitle:(NSString *)accessibilityTitle;
 
 @end
 

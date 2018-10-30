@@ -114,23 +114,29 @@ static CGFloat kHeight = 18;
 
 @implementation TGTabBarButtonInfo
 
-- (instancetype)initWithIconIcon:(UIImage *)icon title:(NSString *)title
+- (instancetype)initWithIconIcon:(UIImage *)icon title:(NSString *)title accessibilityTitle:(NSString *)accessibilityTitle
 {
     if (self = [super init]) {
         _icon = icon;
         _title = title;
+        _accessibilityTitle = accessibilityTitle;
     }
     return self;
 }
 
 + (instancetype)infoWithIcon:(UIImage *)icon
 {
-    return [[TGTabBarButtonInfo alloc] initWithIconIcon:icon title:nil];
+    return [[TGTabBarButtonInfo alloc] initWithIconIcon:icon title:nil accessibilityTitle:nil];
 }
 
 + (instancetype)infoWithIcon:(UIImage *)icon title:(NSString *)title
 {
-    return [[TGTabBarButtonInfo alloc] initWithIconIcon:icon title:title];
+    return [[TGTabBarButtonInfo alloc] initWithIconIcon:icon title:title accessibilityTitle:title];
+}
+
++ (instancetype)infoWithIcon:(UIImage *)icon accessibilityTitle:(NSString *)accessibilityTitle
+{
+    return [[TGTabBarButtonInfo alloc] initWithIconIcon:icon title:nil accessibilityTitle:accessibilityTitle];
 }
 
 @end
@@ -153,22 +159,22 @@ static CGFloat kHeight = 18;
 
 @implementation TGTabBarButton
 
-- (instancetype)initWithImage:(UIImage *)image title:(NSString *)title isBarBarOnTop:(BOOL)isBarBarOnTop
+- (instancetype)initWithInfo:(TGTabBarButtonInfo *)info isBarBarOnTop:(BOOL)isBarBarOnTop
 {
     self = [super init];
     if (self != nil)
     {
         self.accessibilityTraits = UIAccessibilityTraitButton;
-        self.accessibilityLabel = title;
+        self.accessibilityLabel = info.accessibilityTitle;
         
-        _imageView = [[UIImageView alloc] initWithImage:image];
+        _imageView = [[UIImageView alloc] initWithImage:info.icon];
         [self addSubview:_imageView];
         
-        if (title != nil) {
+        if (info.title != nil) {
             _label = [[UILabel alloc] init];
             _label.backgroundColor = [UIColor clearColor];
             _label.font = [TGTabBarButton labelFont];
-            _label.text = title;
+            _label.text = info.title;
             _label.textAlignment = NSTextAlignmentLeft;
             [_label sizeToFit];
             [self addSubview:_label];
@@ -381,9 +387,8 @@ static CGFloat kHeight = 18;
         [self addSubview:_stripeView];
         
         NSMutableArray<TGTabBarButton *> *tabButtons = [NSMutableArray arrayWithCapacity:buttonInfos.count];
-        for (TGTabBarButtonInfo *buttonInfo in buttonInfos)
-        {
-            [tabButtons addObject:[[TGTabBarButton alloc] initWithImage:buttonInfo.icon title:buttonInfo.title isBarBarOnTop:isBarBarOnTop]];
+        for (TGTabBarButtonInfo *buttonInfo in buttonInfos) {
+            [tabButtons addObject:[[TGTabBarButton alloc] initWithInfo:buttonInfo isBarBarOnTop:isBarBarOnTop]];
         }
         _tabButtons = [tabButtons copy];
         

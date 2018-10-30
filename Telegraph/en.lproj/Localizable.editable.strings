@@ -10,6 +10,12 @@
 "UserInfo.Favorite" = "Add To Favorites";
 "UserInfo.Unfavorite" = "Remove From Favorites";
 
+"DialogList.Title.AM" = "All Messages";
+"DialogList.Title.DM" = "Direct Messages";
+"DialogList.Title.Groups" = "Groups";
+"DialogList.Title.Announcements" = "Announcements";
+"DialogList.Title.Favorites" = "Favorites";
+"DialogList.Title.Crypto" = "Crypto";
 "DialogList.Favorite" = "Favorite";
 "DialogList.Unfavorite" = "Unfavorite";
 
