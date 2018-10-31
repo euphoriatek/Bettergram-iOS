@@ -78,7 +78,11 @@
 
 - (TGMediaAssetsPallete *)mediaAssetsPallete
 {
-    return [TGMediaAssetsPallete palleteWithDark:self.pallete.isDark backgroundColor:self.pallete.backgroundColor selectionColor:self.pallete.selectionColor separatorColor:self.pallete.separatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:self.pallete.accentColor barBackgroundColor:self.pallete.barBackgroundColor barSeparatorColor:self.pallete.barSeparatorColor navigationTitleColor:self.pallete.navigationTitleColor badge:self.images.mediaBadgeImage badgeTextColor:self.pallete.accentContrastColor sendIconImage:self.images.chatInputSendIcon maybeAccentColor:self.pallete.maybeAccentColor];
+    UIColor *accentColor = self.pallete.accentColor;
+    if ([accentColor isEqual:self.pallete.barBackgroundColor]) {
+        accentColor = self.pallete.accentContrastColor;
+    }
+    return [TGMediaAssetsPallete palleteWithDark:self.pallete.isDark backgroundColor:self.pallete.backgroundColor selectionColor:self.pallete.selectionColor separatorColor:self.pallete.separatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:accentColor barBackgroundColor:self.pallete.barBackgroundColor barSeparatorColor:self.pallete.barSeparatorColor navigationTitleColor:self.pallete.navigationTitleColor badge:self.images.mediaBadgeImage badgeTextColor:self.pallete.accentContrastColor sendIconImage:self.images.chatInputSendIcon maybeAccentColor:self.pallete.maybeAccentColor];
 }
 
 - (TGLocationPallete *)locationPallete

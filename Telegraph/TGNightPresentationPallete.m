@@ -181,6 +181,11 @@
     return UIColorRGB(0x58a6e1);
 }
 
+- (UIColor *)dialogVerifiedIconColor
+{
+    return [UIColor whiteColor];
+}
+
 - (UIColor *)dialogPinnedIconColor
 {
     return [self dialogBadgeMutedColor];
@@ -204,6 +209,11 @@
 - (UIColor *)dialogBadgeMutedTextColor
 {
     return [UIColor blackColor];
+}
+
+- (UIColor *)dialogEditTextColor
+{
+    return [UIColor whiteColor];
 }
 
 - (UIColor *)dialogEditDeleteColor
@@ -268,7 +278,7 @@
 
 - (UIColor *)chatIncomingAccentColor
 {
-    return self.accentContrastColor;
+    return [UIColor whiteColor];
 }
 
 - (UIColor *)chatIncomingDateColor
@@ -454,6 +464,11 @@
 - (UIColor *)chatChecksColor
 {
     return [self chatOutgoingDateColor];
+}
+
+- (UIColor *)chatChecksMediaColor
+{
+    return [UIColor whiteColor];
 }
 
 - (UIColor *)chatServiceBackgroundColor
