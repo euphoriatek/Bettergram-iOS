@@ -729,8 +729,10 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (_editingMode)
         return nil;
     
-    return @[[[UIBarButtonItem alloc] initWithImage:TGTintedImage(TGImageNamed(@"new-message-interface-symbol.png"), self.presentation.pallete.navigationButtonColor)
-                                              style:UIBarButtonItemStylePlain target:self action:@selector(composeMessageButtonPressed:)],
+    return @[[[UIBarButtonItem alloc] initWithImage:_presentation.images.newMessageButton
+                                              style:UIBarButtonItemStylePlain
+                                             target:self
+                                             action:@selector(composeMessageButtonPressed:)],
              _proxyItem];
 }
 

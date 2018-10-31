@@ -17,6 +17,7 @@ IMAGE cryptoPricesFilterFavoriteDeselectedImage;
 IMAGE seeAllButtonBackground;
 IMAGE settingsButton;
 IMAGE searchRssButton;
+IMAGE newMessageButton;
 IMAGE githubImage;
 
 IMAGE cryptoPricesSortImage;

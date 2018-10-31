@@ -4866,8 +4866,6 @@
 		D5606F1D214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = D5606F1B214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m */; };
 		D5606F20214ED67000CF2C0C /* TGTabBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5606F1E214ED67000CF2C0C /* TGTabBarViewController.h */; };
 		D5606F21214ED67000CF2C0C /* TGTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5606F1F214ED67000CF2C0C /* TGTabBarViewController.m */; };
-		D5875A17213EB66800ED6B61 /* new-message-interface-symbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A15213EB66700ED6B61 /* new-message-interface-symbol@2x.png */; };
-		D5875A18213EB66800ED6B61 /* new-message-interface-symbol@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A16213EB66800ED6B61 /* new-message-interface-symbol@3x.png */; };
 		D5875A1F213EC50C00ED6B61 /* splash_overlay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A19213EC50900ED6B61 /* splash_overlay@3x.png */; };
 		D5875A20213EC50C00ED6B61 /* logo_big@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A1A213EC50900ED6B61 /* logo_big@3x.png */; };
 		D5875A21213EC50C00ED6B61 /* splash_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5875A1B213EC50A00ED6B61 /* splash_background@2x.png */; };
@@ -11995,8 +11993,6 @@
 		D5606F1B214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TGViewController+SafeAreaInsetsSwizzling.m"; sourceTree = "<group>"; };
 		D5606F1E214ED67000CF2C0C /* TGTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGTabBarViewController.h; sourceTree = "<group>"; };
 		D5606F1F214ED67000CF2C0C /* TGTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGTabBarViewController.m; sourceTree = "<group>"; };
-		D5875A15213EB66700ED6B61 /* new-message-interface-symbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-message-interface-symbol@2x.png"; sourceTree = "<group>"; };
-		D5875A16213EB66800ED6B61 /* new-message-interface-symbol@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-message-interface-symbol@3x.png"; sourceTree = "<group>"; };
 		D5875A19213EC50900ED6B61 /* splash_overlay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_overlay@3x.png"; sourceTree = "<group>"; };
 		D5875A1A213EC50900ED6B61 /* logo_big@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_big@3x.png"; sourceTree = "<group>"; };
 		D5875A1B213EC50A00ED6B61 /* splash_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_background@2x.png"; sourceTree = "<group>"; };
@@ -23366,8 +23362,6 @@
 				D5875A1D213EC50B00ED6B61 /* splash_background@3x.png */,
 				D5875A1E213EC50C00ED6B61 /* splash_overlay@2x.png */,
 				D5875A19213EC50900ED6B61 /* splash_overlay@3x.png */,
-				D5875A15213EB66700ED6B61 /* new-message-interface-symbol@2x.png */,
-				D5875A16213EB66800ED6B61 /* new-message-interface-symbol@3x.png */,
 				D5C3D28B2139A177002363B8 /* dialog_delete@2x.png */,
 				D5C3D2902139A179002363B8 /* dialog_delete@3x.png */,
 				D5C3D28E2139A178002363B8 /* dialog_favorite@2x.png */,
@@ -23397,11 +23391,11 @@
 				D5C3D22821354988002363B8 /* tab_announcements@3x.png */,
 				D5C3D22921354988002363B8 /* tab_all_messages@2x.png */,
 				D5C3D22A21354988002363B8 /* tab_direct_messages@2x.png */,
+				D5C3D22F21354988002363B8 /* tab_direct_messages@3x.png */,
 				D5C3D22B21354988002363B8 /* tab_groups@3x.png */,
 				D5C3D22C21354988002363B8 /* tab_crypto@2x.png */,
 				D5C3D22D21354988002363B8 /* tab_crypto@3x.png */,
 				D5C3D22E21354988002363B8 /* tab_groups@2x.png */,
-				D5C3D22F21354988002363B8 /* tab_direct_messages@3x.png */,
 				D5C3D23021354988002363B8 /* tab_favorites@3x.png */,
 				D5C3D23321354988002363B8 /* tab_favorites@2x.png */,
 			);
@@ -26245,7 +26239,6 @@
 				09C9EE0F1F4C947D0011145F /* InstantViewMoreIcon@3x.png in Resources */,
 				936219E5186466E800C52870 /* 2.m4a in Resources */,
 				090789951FE9232B00B5451E /* VideoPlayerForwardIcon@2x.png in Resources */,
-				D5875A18213EB66800ED6B61 /* new-message-interface-symbol@3x.png in Resources */,
 				D0E3C61E196361E400B133E0 /* BroadcastAvatarIcon@2x.png in Resources */,
 				D5C59FAE214074E100B8AAA9 /* AppIntentVocabulary.plist in Resources */,
 				D0E3526F1E5E4127007E6EB8 /* stp_card_diners@2x.png in Resources */,
@@ -26666,7 +26659,6 @@
 				D02D98A11DC8FEE4009E9465 /* InstantPageShare@2x.png in Resources */,
 				931C5939174C0AB800D597D9 /* MenuButtonLeft@2x.png in Resources */,
 				D5C3D24621354989002363B8 /* tab_groups@3x.png in Resources */,
-				D5875A17213EB66800ED6B61 /* new-message-interface-symbol@2x.png in Resources */,
 				931C593A174C0AB800D597D9 /* MenuButtonRight@2x.png in Resources */,
 				D0BAF3FA193E8AC400A0093F /* DeleteWhiteIcon.png in Resources */,
 				931C593C174C123500D597D9 /* MenuButtonSeparator@2x.png in Resources */,

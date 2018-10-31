@@ -133,6 +133,12 @@
     }];
 }
 
+- (UIImage *)newMessageButton
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets newMessageIcon:self.pallete.navigationButtonColor];
+    }];
+}
 
 - (UIImage *)githubImage
 {
