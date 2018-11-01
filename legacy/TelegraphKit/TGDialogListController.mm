@@ -1717,29 +1717,29 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static bool canSelect = true;
-    if (canSelect)
-    {
-        canSelect = false;
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            canSelect = true;
-        });
-    }
-    else
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       canSelect = true;
+                   });
+    TGLog(@"%@ canSelect=%@", NSStringFromSelector(_cmd),@(canSelect));
+    if (!canSelect)
         return;
+    canSelect = NO;
     
     if (TGIsPad())
         [self.view endEditing:true];
     
-    if (tableView == _tableView)
+    TGLog(@"%@ is not search equal search mixin active=%@", NSStringFromSelector(_cmd),@((tableView == _tableView) != !_searchMixin.isActive));
+    if (!_searchMixin.isActive)
     {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        if (cell.selectionStyle != UITableViewCellSelectionStyleNone)
+
+        TGLog(@"%@ cell=%@ !=StyleNone=%@", NSStringFromSelector(_cmd),cell, @(cell.selectionStyle != UITableViewCellSelectionStyleNone));
+        if ([cell isKindOfClass:TGDialogListCell.class])
         {
-            TGConversation *conversation = nil;
-            if (indexPath.row < (NSInteger)_listModel.count)
-                conversation = [_listModel objectAtIndex:indexPath.row];
-            
+            TGDialogListCell *dialogCell = (TGDialogListCell *)cell;
+            TGConversation *conversation = [TGDatabaseInstance() loadConversationWithId:dialogCell.conversationId];
+            TGLog(@"%@ conversation=%@ convFromList=%@ companion=%@", NSStringFromSelector(_cmd), conversation, indexPath.row < (NSInteger)_listModel.count ? _listModel[indexPath.row] : nil, _dialogListCompanion);
             if (conversation != nil)
             {
                 [_dialogListCompanion conversationSelected:conversation];

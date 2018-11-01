@@ -317,10 +317,10 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 - (bool)enableLogging
 {
     NSNumber *logsEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:@"__logsEnabled"];
-#if (defined(DEBUG) || defined(INTERNAL_RELEASE)) && !defined(DISABLE_LOGGING)
+//#if (defined(DEBUG) || defined(INTERNAL_RELEASE)) && !defined(DISABLE_LOGGING)
     if (logsEnabled == nil)
         return true;
-#endif
+//#endif
     return [logsEnabled boolValue];
 }
 

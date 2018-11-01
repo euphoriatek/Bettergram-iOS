@@ -669,7 +669,7 @@
     return conversation;
 }
 
-- (NSString *)debugDescription
+- (NSString *)description
 {
     NSString *text = [self.text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
     NSUInteger maxLen = 40;

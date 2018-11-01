@@ -316,7 +316,8 @@
 }
 
 - (void)conversationSelected:(TGConversation *)conversation
-{    
+{
+    TGLog(@"%@ conversation=%@",NSStringFromSelector(_cmd), conversation);
     if (self.forwardMode || self.privacyMode || self.showPrivateOnly || self.showGroupsAndChannelsOnly)
     {
         [_conversatioSelectedWatcher requestAction:@"conversationSelected" options:[[NSDictionary alloc] initWithObjectsAndKeys:conversation, @"conversation", nil]];
@@ -336,6 +337,12 @@
             else
             {
                 int64_t conversationId = conversation.conversationId;
+                TGLog(@"%@ conversationID=%@",NSStringFromSelector(_cmd),@(conversationId));
+
+                void(^completed)() = ^() {
+                    TGLog(@"%@ navigateToConversationWithId",NSStringFromSelector(_cmd));
+                    [[TGInterfaceManager instance] navigateToConversationWithId:conversationId conversation:conversation performActions:nil atMessage:nil clearStack:true openKeyboard:false canOpenKeyboardWhileInTransition:true animated:true];
+                };
                 if (TGPeerIdIsChannel(conversationId) && conversation.kind == TGConversationKindTemporaryChannel) {
                     TGProgressWindow *progressWindow = [[TGProgressWindow alloc] init];
                     [progressWindow showWithDelay:0.1];
@@ -343,11 +350,9 @@
                         TGDispatchOnMainThread(^{
                             [progressWindow dismiss:true];
                         });
-                    }] startWithNext:nil completed:^{
-                        [[TGInterfaceManager instance] navigateToConversationWithId:conversationId conversation:conversation performActions:nil atMessage:nil clearStack:true openKeyboard:false canOpenKeyboardWhileInTransition:true animated:true];
-                    }];
+                    }] startWithNext:nil completed:completed];
                 } else {
-                    [[TGInterfaceManager instance] navigateToConversationWithId:conversationId conversation:conversation performActions:nil atMessage:nil clearStack:true openKeyboard:false canOpenKeyboardWhileInTransition:true animated:true];
+                    completed();
                 }
             }
         }
