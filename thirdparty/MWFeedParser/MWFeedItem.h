@@ -59,6 +59,7 @@
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSArray *enclosures;
 @property (nonatomic, copy) NSString *feedURL;
+@property (nonatomic, copy) NSString *feedTitle;
 @property (nonatomic, copy) NSString *thumbnailURL;
 @property (nonatomic, copy) NSNumber *viewsCount;
 @property (nonatomic, assign) BOOL isViewed;

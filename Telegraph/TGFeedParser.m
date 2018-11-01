@@ -20,7 +20,8 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     NSUInteger _lastReportedFeedItemIndex;
     __weak NSTimer *_updateFeedTimer;
     
-    NSMutableDictionary<NSString *, NSDate *> *_parsersOldestDate;
+    NSMutableDictionary<NSString *, NSDate *> *_parserOldestDates;
+    NSMutableDictionary<NSString *, MWFeedInfo *> *_parserInfos;
     
     __weak NSTimer *_archiveFeedItemsTimer;
     AFHTTPSessionManager *_httpParserSessionManager;
@@ -47,7 +48,8 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
         _httpParserSessionManager = [AFHTTPSessionManager.alloc init];
         _httpParserSessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
-        _parsersOldestDate = [NSMutableDictionary dictionary];
+        _parserOldestDates = [NSMutableDictionary dictionary];
+        _parserInfos = [NSMutableDictionary dictionary];
         _key = key;
         _lastReportedFeedItemIndex = NSNotFound;
         _feedItems = [self cachedFeedItemsForRssKey:key].mutableCopy;
@@ -65,7 +67,9 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
             
             NSMutableArray<MWFeedParser *> *feedParsers = [NSMutableArray array];
             for (NSString *url in _urls) {
-                [feedParsers addObject:[self parserWithFeedURLString:url]];
+                MWFeedParser *parser = [self parserWithFeedURLString:url];
+                parser.feedParseType = ParseTypeFull;
+                [feedParsers addObject:parser];
             }
             _feedParsers = feedParsers;
             
@@ -187,12 +191,18 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
 
 - (void)feedParserDidStart:(MWFeedParser *)parser
 {
-    _parsersOldestDate[parser.url.absoluteString] = [NSDate date];
+    _parserOldestDates[parser.url.absoluteString] = [NSDate date];
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info
+{
+    _parserInfos[parser.url.absoluteString] = info;
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
-    if ([_parsersOldestDate[parser.url.absoluteString] compare:item.date] == NSOrderedDescending) {
-        _parsersOldestDate[parser.url.absoluteString] = item.date;
+    item.feedTitle = _parserInfos[parser.url.absoluteString].title;
+    if ([_parserOldestDates[parser.url.absoluteString] compare:item.date] == NSOrderedDescending) {
+        _parserOldestDates[parser.url.absoluteString] = item.date;
     }
     for (MWFeedItem *feedItem in _feedItems) {
         if ([feedItem.identifier isEqualToString:item.identifier]) {
@@ -211,7 +221,7 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     [_feedItems.copy enumerateObjectsWithOptions:NSEnumerationReverse
                                       usingBlock:^(MWFeedItem * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop) {
                                           if ([parser.url.absoluteString isEqualToString:obj.feedURL] &&
-                                              [_parsersOldestDate[obj.feedURL] compare:obj.date] == NSOrderedDescending)
+                                              [_parserOldestDates[obj.feedURL] compare:obj.date] == NSOrderedDescending)
                                           {
                                               [_feedItems removeObjectAtIndex:idx];
                                               if (_lastReportedFeedItemIndex < _feedItems.count && idx <= _lastReportedFeedItemIndex) {

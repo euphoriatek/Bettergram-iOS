@@ -411,7 +411,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     if (feedItem.viewsCount != nil) {
         middleSubtitle = [NSString stringWithFormat:@"\n%@ views", [_numberFormatter stringFromNumber:feedItem.viewsCount]];
     }
-    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@ • %@",feedItem.author, middleSubtitle, [TGStringUtils stringForShortMessageTimerSeconds:(NSUInteger)-feedItem.date.timeIntervalSinceNow]];
+    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@ • %@",feedItem.feedTitle ?: feedItem.author, middleSubtitle, [TGStringUtils stringForShortMessageTimerSeconds:(NSUInteger)-feedItem.date.timeIntervalSinceNow]];
     cell.isVideoContent = _isVideoContent;
     cell.titleLabel.textColor = feedItem.isViewed ? _presentation.pallete.secondaryTextColor : _presentation.pallete.textColor;
     cell.subtitleLabel.textColor = _presentation.pallete.secondaryTextColor;

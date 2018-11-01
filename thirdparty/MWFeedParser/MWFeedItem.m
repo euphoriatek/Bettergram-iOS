@@ -35,7 +35,7 @@
 
 @implementation MWFeedItem
 
-@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, thumbnailURL, viewsCount, feedURL, isViewed;
+@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, thumbnailURL, viewsCount, feedURL, isViewed, feedTitle;
 
 #pragma mark NSObject
 
@@ -63,6 +63,7 @@
 		author = [decoder decodeObjectForKey:@"author"];
 		enclosures = [decoder decodeObjectForKey:@"enclosures"];
         feedURL = [decoder decodeObjectForKey:@"feedURL"];
+        feedTitle = [decoder decodeObjectForKey:@"feedTitle"];
         thumbnailURL = [decoder decodeObjectForKey:@"thumbnailURL"];
         viewsCount = [decoder decodeObjectForKey:@"viewsCount"];
         isViewed = [decoder decodeBoolForKey:@"isViewed"];
@@ -81,6 +82,7 @@
 	if (author) [encoder encodeObject:author forKey:@"author"];
 	if (enclosures) [encoder encodeObject:enclosures forKey:@"enclosures"];
     if (feedURL) [encoder encodeObject:feedURL forKey:@"feedURL"];
+    if (feedTitle) [encoder encodeObject:feedTitle forKey:@"feedTitle"];
     if (thumbnailURL) [encoder encodeObject:thumbnailURL forKey:@"thumbnailURL"];
     if (viewsCount) [encoder encodeObject:viewsCount forKey:@"viewsCount"];
     [encoder encodeBool:isViewed forKey:@"isViewed"];
@@ -98,6 +100,7 @@
     if (feedItem.author != nil) author = feedItem.author;
     if (feedItem.enclosures != nil) enclosures = feedItem.enclosures;
     if (feedItem.feedURL != nil) feedURL = feedItem.feedURL;
+    if (feedItem.feedTitle != nil) feedTitle = feedItem.feedTitle;
     if (feedItem.thumbnailURL != nil) thumbnailURL = feedItem.thumbnailURL;
     if (feedItem.viewsCount != nil) viewsCount = feedItem.viewsCount;
 }
