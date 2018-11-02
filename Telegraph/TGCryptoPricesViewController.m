@@ -781,7 +781,7 @@ const CGFloat kCellIconOffset = 10;
     
     BOOL _resetScrollPosition;
     
-    UIImageView *_titleView;
+    UIButton *_titleView;
     
     BOOL _filterActivated;
     
@@ -844,7 +844,9 @@ const CGFloat kCellIconOffset = 10;
     [_tableView registerClass:TGCoinCell.class forCellReuseIdentifier:TGCoinCell.reuseIdentifier];
     [_tableView reloadData];
     
-    self.titleView = _titleView = [UIImageView.alloc init];
+    self.titleView = _titleView = [UIButton.alloc init];
+    [_titleView addTarget:self action:@selector(titleViewTap) forControlEvents:UIControlEventTouchUpInside];
+    _titleView.adjustsImageWhenHighlighted = NO;
     
     [self setRightBarButtonItem:_rightButtonItem = [UIBarButtonItem.alloc initWithImage:nil
                                                                                     style:UIBarButtonItemStylePlain
@@ -967,7 +969,8 @@ const CGFloat kCellIconOffset = 10;
     }];
     [self updateRightButtonItemImage];
     _leftButtonItem.image = _presentation.images.settingsButton;
-    _titleView.image = TGTintedImage(TGImageNamed(@"header_logo_live_coin_watch"), _presentation.pallete.navigationTitleColor);
+    [_titleView setImage:TGTintedImage(TGImageNamed(@"header_logo_live_coin_watch"), _presentation.pallete.navigationTitleColor)
+                forState:UIControlStateNormal];
     _apiOutOfDateLabel.textColor = _presentation.pallete.textColor;
     _loadingCell.activityIndicatorView.color = _presentation.pallete.textColor;
 }
@@ -996,6 +999,13 @@ const CGFloat kCellIconOffset = 10;
 - (void)scrollToTopRequested
 {
     [_tableView scrollToTop];
+}
+
+- (void)titleViewTap
+{
+    [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.livecoinwatch.com/"]
+                                                    forceNative:true
+                                                      keepStack:true];
 }
 
 #pragma mark - TGSortCellDelegate
