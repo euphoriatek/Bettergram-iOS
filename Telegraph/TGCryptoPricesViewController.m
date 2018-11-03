@@ -543,6 +543,9 @@ const CGFloat kCellIconOffset = 10;
         case TGSorting24hDescending:
             sort24h = NSOrderedDescending;
             break;
+            
+        case TGSortingNone:
+            break;
     }
     _sortCoinButton.sortState = sortCoin;
     _sortPriceButton.sortState = sortPrice;
@@ -553,13 +556,49 @@ const CGFloat kCellIconOffset = 10;
 - (void)sortButtopTap:(TGSortButton *)sortButton
 {
     if (sortButton == _sortCoinButton) {
-        self.sorting = _sorting == TGSortingCoinAscending ? TGSortingCoinDescending : TGSortingCoinAscending;
+        switch (_sorting) {
+            case TGSortingCoinAscending:
+                self.sorting = TGSortingCoinDescending;
+                break;
+                
+            case TGSortingCoinDescending:
+                self.sorting = TGSortingNone;
+                break;
+                
+            default:
+                self.sorting = TGSortingCoinAscending;
+                break;
+        }
     }
     else if (sortButton == _sortPriceButton) {
-        self.sorting = _sorting == TGSortingPriceDescending ? TGSortingPriceAscending : TGSortingPriceDescending;
+        switch (_sorting) {
+            case TGSortingPriceAscending:
+                self.sorting = TGSortingNone;
+                break;
+                
+            case TGSortingPriceDescending:
+                self.sorting = TGSortingPriceAscending;
+                break;
+                
+            default:
+                self.sorting = TGSortingPriceDescending;
+                break;
+        }
     }
     else if (sortButton == _sort24hButton) {
-        self.sorting = _sorting == TGSorting24hDescending ? TGSorting24hAscending : TGSorting24hDescending;
+        switch (_sorting) {
+            case TGSorting24hAscending:
+                self.sorting = TGSortingNone;
+                break;
+                
+            case TGSorting24hDescending:
+                self.sorting = TGSorting24hAscending;
+                break;
+                
+            default:
+                self.sorting = TGSorting24hDescending;
+                break;
+        }
     }
 }
 
@@ -828,7 +867,7 @@ const CGFloat kCellIconOffset = 10;
     _filterCell.delegate = self;
 
     _sortCell = [TGSortCell.alloc init];
-    _sortCell.sorting = TGSortingPriceDescending;
+    _sortCell.sorting = TGSortingNone;
     _sortCell.delegate = self;
     
     _loadingCell = [TGLoadingCell.alloc init];

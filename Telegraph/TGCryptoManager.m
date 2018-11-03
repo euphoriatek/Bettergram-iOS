@@ -445,15 +445,13 @@ NSTimeInterval const kPricesUpdateInterval = 60;
 - (NSString *)orderParamForSorting:(TGCoinSorting)sorting
 {
     switch (sorting) {
-        case TGSortingCoinAscending:
-        case TGSortingPriceAscending:
-        case TGSorting24hAscending:
-            return @"ascending";
-            
         case TGSortingCoinDescending:
         case TGSortingPriceDescending:
         case TGSorting24hDescending:
             return @"descending";
+            
+        default:
+            return @"ascending";
     }
 }
 

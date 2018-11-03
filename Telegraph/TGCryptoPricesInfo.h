@@ -12,12 +12,13 @@
 @class TGCryptoCurrency;
 
 typedef enum : NSUInteger {
-    TGSortingCoinAscending      = 0,
-    TGSortingCoinDescending     = 1,
-    TGSortingPriceAscending     = 2,
-    TGSortingPriceDescending    = 3,
-    TGSorting24hAscending       = 4,
-    TGSorting24hDescending      = 5,
+    TGSortingNone               = 0,
+    TGSortingCoinAscending      = 1,
+    TGSortingCoinDescending     = 2,
+    TGSortingPriceAscending     = 3,
+    TGSortingPriceDescending    = 4,
+    TGSorting24hAscending       = 5,
+    TGSorting24hDescending      = 6,
 } TGCoinSorting;
 
 static const NSUInteger TGSortingFavoritedBit = 7;
