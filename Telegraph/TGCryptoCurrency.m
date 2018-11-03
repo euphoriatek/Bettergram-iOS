@@ -36,7 +36,8 @@
         _price = [decoder decodeDoubleForKey:@"price"];
         _dayDelta = [decoder decodeObjectForKey:@"dayDelta"];
         _minDelta = [decoder decodeObjectForKey:@"minDelta"];
-        _updatedDate = [decoder decodeDoubleForKey:@"updatedDate"];
+        
+        _updatedDate = _priceSortingUpdatedDate = _rankSortingUpdatedDate = _deltaSortingUpdatedDate = 0;
     }
     return self;
 }
@@ -56,7 +57,6 @@
     [encoder encodeDouble:_price forKey:@"price"];
     [encoder encodeObject:_dayDelta forKey:@"dayDelta"];
     [encoder encodeObject:_minDelta forKey:@"minDelta"];
-    [encoder encodeDouble:_updatedDate forKey:@"updatedDate"];
 }
 
 - (BOOL)validateFilter:(NSString *)filter
@@ -85,7 +85,7 @@
     _iconURL = dictionary[@"icon"];
 }
 
-- (void)fillWithCoinInfoJson:(NSDictionary *)dictionary
+- (void)fillWithCoinInfoJson:(NSDictionary *)dictionary sorting:(TGCoinSorting)sorting
 {
 #if DEBUG
     NSMutableArray<NSString *> *unknownKeys = dictionary.allKeys.mutableCopy;
@@ -110,6 +110,47 @@
         _minDelta = @([minuteDelta doubleValue] - 1);
     }
     _updatedDate = NSDate.date.timeIntervalSince1970;
+    switch (sorting) {
+        case TGSortingPriceAscending:
+        case TGSortingPriceDescending:
+            _priceSortingUpdatedDate = NSDate.date.timeIntervalSince1970;
+            break;
+            
+        case TGSorting24hAscending:
+        case TGSorting24hDescending:
+            _deltaSortingUpdatedDate = NSDate.date.timeIntervalSince1970;
+            break;
+            
+        case TGSortingNone:
+            _rankSortingUpdatedDate = NSDate.date.timeIntervalSince1970;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)cleanSortingDate:(TGCoinSorting)sorting
+{
+    switch (sorting) {
+        case TGSortingPriceAscending:
+        case TGSortingPriceDescending:
+            _priceSortingUpdatedDate = 0;
+            break;
+            
+        case TGSorting24hAscending:
+        case TGSorting24hDescending:
+            _deltaSortingUpdatedDate = 0;
+            break;
+            
+        case TGSortingNone:
+            _rankSortingUpdatedDate = 0;
+            break;
+            
+        default:
+            _updatedDate = 0;
+            break;
+    }
 }
 
 - (void)clean
@@ -120,7 +161,7 @@
     _price = 0;
     _dayDelta = nil;
     _minDelta = nil;
-    _updatedDate = 0;
+    _updatedDate = _priceSortingUpdatedDate = _rankSortingUpdatedDate = _deltaSortingUpdatedDate = 0;
 }
 
 - (NSString *)debugDescription

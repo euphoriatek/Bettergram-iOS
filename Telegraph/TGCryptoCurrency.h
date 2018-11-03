@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TGCryptoPricesInfo.h"
+
 
 @interface TGCryptoCurrency : NSObject <NSCoding>
 
@@ -32,8 +34,12 @@
 @property (readonly, nonatomic, strong) NSNumber *dayDelta;
 
 @property (readonly, nonatomic, assign) NSTimeInterval updatedDate;
+@property (readonly, nonatomic, assign) NSTimeInterval priceSortingUpdatedDate;
+@property (readonly, nonatomic, assign) NSTimeInterval rankSortingUpdatedDate;
+@property (readonly, nonatomic, assign) NSTimeInterval deltaSortingUpdatedDate;
 
-- (void)fillWithCoinInfoJson:(NSDictionary *)dictionary;
+- (void)cleanSortingDate:(TGCoinSorting)sorting;
+- (void)fillWithCoinInfoJson:(NSDictionary *)dictionary sorting:(TGCoinSorting)sorting;
 - (void)clean;
 
 @end

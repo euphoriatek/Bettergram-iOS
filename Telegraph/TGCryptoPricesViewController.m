@@ -865,7 +865,7 @@ const CGFloat kCellIconOffset = 10;
     
     _filterCell = [TGFilterCell.alloc init];
     _filterCell.delegate = self;
-
+    
     _sortCell = [TGSortCell.alloc init];
     _sortCell.sorting = TGSortingNone;
     _sortCell.delegate = self;
@@ -882,21 +882,23 @@ const CGFloat kCellIconOffset = 10;
     _tableView.rowHeight = 50;
     [_tableView registerClass:TGCoinCell.class forCellReuseIdentifier:TGCoinCell.reuseIdentifier];
     [_tableView reloadData];
+    _tableView.refreshControl = [[UIRefreshControl alloc] init];
+    [_tableView.refreshControl addTarget:self action:@selector(refreshStateChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.titleView = _titleView = [UIButton.alloc init];
     [_titleView addTarget:self action:@selector(titleViewTap) forControlEvents:UIControlEventTouchUpInside];
     _titleView.adjustsImageWhenHighlighted = NO;
     
     [self setRightBarButtonItem:_rightButtonItem = [UIBarButtonItem.alloc initWithImage:nil
-                                                                                    style:UIBarButtonItemStylePlain
-                                                                                   target:self
-                                                                                   action:@selector(currencyButtonTap)]
-                        animated:false];
-    
-    [self setLeftBarButtonItem:_leftButtonItem = [UIBarButtonItem.alloc initWithImage:nil
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
-                                                                                 action:@selector(settingsButtonTap)]
+                                                                                 action:@selector(currencyButtonTap)]
+                       animated:false];
+    
+    [self setLeftBarButtonItem:_leftButtonItem = [UIBarButtonItem.alloc initWithImage:nil
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self
+                                                                               action:@selector(settingsButtonTap)]
                       animated:false];
     [self setPresentation:_presentation];
     [self localizationUpdated];
@@ -923,6 +925,9 @@ const CGFloat kCellIconOffset = 10;
     __weak TGCryptoPricesViewController *weakSelf = self;
     TGCryptoManager.manager.pageUpdateBlock = ^(TGCryptoPricesInfo *pricesInfo) {
         TGDispatchOnMainThread(^{
+            if (_tableView.refreshControl.refreshing) {
+                [_tableView.refreshControl endRefreshing];
+            }
             __strong TGCryptoPricesViewController *strongSelf = weakSelf;
             if (strongSelf != nil && pricesInfo != nil) {
                 if (_lastSelectedPageIndex == -1)
@@ -1012,6 +1017,7 @@ const CGFloat kCellIconOffset = 10;
                 forState:UIControlStateNormal];
     _apiOutOfDateLabel.textColor = _presentation.pallete.textColor;
     _loadingCell.activityIndicatorView.color = _presentation.pallete.textColor;
+    _tableView.refreshControl.tintColor = _presentation.pallete.textColor;
 }
 
 - (void)localizationUpdated
@@ -1045,6 +1051,11 @@ const CGFloat kCellIconOffset = 10;
     [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.livecoinwatch.com/"]
                                                     forceNative:true
                                                       keepStack:true];
+}
+
+- (void)refreshStateChanged:(UIRefreshControl *)__unused sender
+{
+    [TGCryptoManager.manager forceUpdatePrices];
 }
 
 #pragma mark - TGSortCellDelegate
@@ -1182,8 +1193,11 @@ const CGFloat kCellIconOffset = 10;
                                                                                    inSection:tableView.numberOfSections - 1]].origin;
     }
     else {
-        *targetContentOffset = [tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0
-                                                                                   inSection:0]].origin;
+        CGPoint origin = [tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                             inSection:0]].origin;
+        if (!tableView.refreshControl.refreshing || origin.y < (*targetContentOffset).y) {
+            *targetContentOffset = origin;
+        }
     }
 }
 

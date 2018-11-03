@@ -36,6 +36,7 @@ FOUNDATION_EXPORT NSTimeInterval const kPricesUpdateInterval;
 - (void)fetchResources:(void (^)(NSArray<TGResourceSection *> *resourceSections))completion;
 - (void)updateCoin:(TGCryptoCurrency *)coin favorite:(BOOL)favorite;
 - (void)loadCurrencies:(void (^)(BOOL success))completion;
+- (void)forceUpdatePrices;
 - (TGCryptoCurrency *)cachedCurrencyWithCode:(NSString *)code;
 
 - (void)subscribeToListsWithEmail:(NSString *)email includeCrypto:(BOOL)includeCrypto;

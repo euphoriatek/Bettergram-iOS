@@ -78,7 +78,7 @@
                 [addedCoins addObject:currency];
             }
         }
-        [currency fillWithCoinInfoJson:json];
+        [currency fillWithCoinInfoJson:json sorting:pageInfo.sorting];
         if ((favorites || currency.favorite) && ![_coinInfos[@(TGSortingFavoritedBit)] containsObject:currency]) {
             [_coinInfos[@(TGSortingFavoritedBit)] addObject:currency];;
         }
@@ -179,21 +179,25 @@
 {
     clrbit(&sorting, TGSortingFavoritedBit);
     [_coinInfos[@(TGSortingFavoritedBit)] sortUsingComparator:^NSComparisonResult(TGCryptoCurrency  *_Nonnull obj1, TGCryptoCurrency  *_Nonnull obj2) {
-        BOOL isBothEmptyOrNot = (obj1.updatedDate != 0) == (obj2.updatedDate != 0);
-        switch (sorting) {
-            case TGSorting24hAscending:
-            case TGSorting24hDescending:
-                if (!isBothEmptyOrNot) break;
-                return [obj1.dayDelta compare:obj2.dayDelta] * (sorting == TGSorting24hAscending ? 1 : -1);
-                
-            case TGSortingCoinAscending:
-            case TGSortingCoinDescending:
-                return [obj1.name compare:obj2.name] * (sorting == TGSortingCoinAscending ? 1 : -1);
-                
-            case TGSortingPriceAscending:
-            case TGSortingPriceDescending:
-                if (!isBothEmptyOrNot) break;
-                return [@(obj1.price) compare:@(obj2.price)] * (sorting == TGSortingPriceAscending ? 1 : -1);
+        if ((obj1.updatedDate != 0) == (obj2.updatedDate != 0) ||
+            sorting == TGSortingCoinAscending || sorting == TGSortingCoinDescending)
+        {
+            switch (sorting) {
+                case TGSorting24hAscending:
+                case TGSorting24hDescending:
+                    return [obj1.dayDelta compare:obj2.dayDelta] * (sorting == TGSorting24hAscending ? 1 : -1);
+                    
+                case TGSortingCoinAscending:
+                case TGSortingCoinDescending:
+                    return [obj1.name compare:obj2.name] * (sorting == TGSortingCoinAscending ? 1 : -1);
+                    
+                case TGSortingPriceAscending:
+                case TGSortingPriceDescending:
+                    return [@(obj1.price) compare:@(obj2.price)] * (sorting == TGSortingPriceAscending ? 1 : -1);
+                    
+                case TGSortingNone:
+                    return [@(obj1.rank) compare:@(obj2.rank)];
+            }
         }
         if (obj1.updatedDate == 0) {
             return NSOrderedDescending;

@@ -266,10 +266,10 @@ NSTimeInterval const kPricesUpdateInterval = 60;
         });
     };
     [_subscriptionDisposable setDisposable:[[TGGlobalMessageSearchSignals search:username
-                                                                  includeMessages:NO
-                                                                      itemMapping:^id(id item){
-                                                                          return item;
-                                                                      }]
+                                                                 includeMessages:NO
+                                                                     itemMapping:^id(id item){
+                                                                         return item;
+                                                                     }]
                                             startWithNext:next
                                             error:^(__unused id error){
                                                 completion(pendingDisposable);
@@ -280,6 +280,15 @@ NSTimeInterval const kPricesUpdateInterval = 60;
 }
 
 #pragma mark - Coins
+
+- (void)forceUpdatePrices
+{
+    BOOL favorited = isset(&_pricePageInfo.sorting, TGSortingFavoritedBit);
+    [_pricesInfo.coinInfos[@(favorited ? TGSortingFavoritedBit : _pricePageInfo.sorting)] enumerateObjectsUsingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop)
+     {
+         [obj cleanSortingDate:_pricePageInfo.sorting];
+     }];
+}
 
 - (void)setPricePageInfo:(TGCryptoPricePageInfo)pricePageInfo
 {
@@ -345,7 +354,27 @@ NSTimeInterval const kPricesUpdateInterval = 60;
                                                                                options:0
                                                                             usingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, BOOL * _Nonnull stop)
              {
-                 if (obj.updatedDate + kPricesUpdateInterval / 3 < NSDate.date.timeIntervalSince1970) {
+                 NSTimeInterval updatedDate;
+                 switch (sorting) {
+                     case TGSortingPriceAscending:
+                     case TGSortingPriceDescending:
+                         updatedDate = obj.priceSortingUpdatedDate;
+                         break;
+                         
+                     case TGSorting24hAscending:
+                     case TGSorting24hDescending:
+                         updatedDate = obj.deltaSortingUpdatedDate;
+                         break;
+                         
+                     case TGSortingNone:
+                         updatedDate = obj.rankSortingUpdatedDate;
+                         break;
+                         
+                     default:
+                         updatedDate = obj.updatedDate;
+                         break;
+                 }
+                 if (updatedDate + kPricesUpdateInterval / 3 < NSDate.date.timeIntervalSince1970) {
                      *stop = updateNeeded = YES;
                  }
              }];
