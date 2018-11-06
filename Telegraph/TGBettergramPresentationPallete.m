@@ -140,7 +140,7 @@
 
 - (UIColor *)navigationSubtitleColor
 {
-    return UIColorRGB(0xD5D5D5);
+    return UIColorRGB(0xF0F0F0);
 }
 
 - (UIColor *)navigationActiveSubtitleColor
