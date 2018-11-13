@@ -159,41 +159,31 @@
             [_searchBar resignFirstResponder];
             [_searchBar setText:@""];
             
+            if ([_delegate respondsToSelector:@selector(searchMixinWillDeactivate:)])
+                [_delegate searchMixinWillDeactivate:animated];
+            
+            void(^animations)() = ^() {
+                _dimView.alpha = 0.0f;
+                _searchResultsTableView.alpha = 0.0f;
+            };
+            void(^completion)(BOOL finished) = ^(BOOL finished) {
+                [_dimView removeFromSuperview];
+                [_tableViewContainer removeFromSuperview];
+                
+                [self _unloadTableView];
+            };
             if (animated)
             {
-                id<TGSearchDisplayMixinDelegate> delegate = _delegate;
-                if ([delegate respondsToSelector:@selector(searchMixinWillDeactivate:)])
-                    [delegate searchMixinWillDeactivate:animated];
-                
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^
-                {
-                    _dimView.alpha = 0.0f;
-                    _searchResultsTableView.alpha = 0.0f;
-                } completion:^(BOOL finished)
-                {
-                    if (finished)
-                    {
-                        [_dimView removeFromSuperview];
-                        [_tableViewContainer removeFromSuperview];
-                        [_searchResultsTableView removeFromSuperview];
-                        
-                        [self _unloadTableView];
-                    }
-                }];
+                [UIView animateWithDuration:0.2
+                                      delay:0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:animations
+                                 completion:completion];
             }
             else
             {
-                id<TGSearchDisplayMixinDelegate> delegate = _delegate;
-                if ([delegate respondsToSelector:@selector(searchMixinWillDeactivate:)])
-                    [delegate searchMixinWillDeactivate:animated];
-                
-                _dimView.alpha = 0.0f;
-                
-                [_dimView removeFromSuperview];
-                [_tableViewContainer removeFromSuperview];
-                [_searchResultsTableView removeFromSuperview];
-                
-                [self _unloadTableView];
+                animations();
+                completion(YES);
             }
         }
     }
