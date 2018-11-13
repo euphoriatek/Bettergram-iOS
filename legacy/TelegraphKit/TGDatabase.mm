@@ -133,15 +133,6 @@ static TGDatabaseUpgradeCompletedBlock (^upgradeCompletedBlock)() = nil;
 static NSString *_liveMessagesDispatchPath = nil;
 static NSString *_liveUnreadCountDispatchPath = nil;
 
-static NSString *md5String(NSString *string)
-{
-    const char *ptr = [string UTF8String];
-    unsigned char md5Buffer[16];
-    CC_MD5(ptr, (CC_LONG)[string lengthOfBytesUsingEncoding:NSUTF8StringEncoding], md5Buffer);
-    NSString *output = [[NSString alloc] initWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", md5Buffer[0], md5Buffer[1], md5Buffer[2], md5Buffer[3], md5Buffer[4], md5Buffer[5], md5Buffer[6], md5Buffer[7], md5Buffer[8], md5Buffer[9], md5Buffer[10], md5Buffer[11], md5Buffer[12], md5Buffer[13], md5Buffer[14], md5Buffer[15]];
-    return output;
-}
-
 @interface TGCacheFileDesc : NSObject
 
 @property (nonatomic, strong) NSString *filePath;

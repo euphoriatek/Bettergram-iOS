@@ -129,6 +129,11 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     NSDate *newsModificationDate = [self fileModificationDate:filePath];
     if (newsModificationDate != nil && (-newsModificationDate.timeIntervalSinceNow < kDaySecons || _apiOutOfDate)) {
         completion([NSKeyedUnarchiver unarchiveObjectWithFile:filePath]);
+        [NSTimer scheduledTimerWithTimeInterval:kDaySecons + newsModificationDate.timeIntervalSinceNow
+                                        repeats:NO
+                                          block:^(__unused NSTimer * _Nonnull timer) {
+                                              [self updateBettergramResourceForKey:key completion:completion];
+                                          }];
         return;
     }
     if (_apiOutOfDate) {
@@ -150,6 +155,11 @@ NSTimeInterval const kPricesUpdateInterval = 60;
                                }
                                completion(json);
                                [NSKeyedArchiver archiveRootObject:json toFile:filePath];
+                               [NSTimer scheduledTimerWithTimeInterval:kDaySecons
+                                                               repeats:NO
+                                                                 block:^(__unused NSTimer * _Nonnull timer) {
+                                                                     [self updateBettergramResourceForKey:key completion:completion];
+                                                                 }];
                            } failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
                                [self checkResponceIfAPIIsOutOfDate:task.response];

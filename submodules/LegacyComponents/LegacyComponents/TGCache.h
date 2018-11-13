@@ -6,6 +6,8 @@ typedef enum {
     TGCacheBoth = 1 | 2
 } TGCacheLocation;
 
+FOUNDATION_EXPORT NSString *md5String(NSString *string);
+
 typedef UIImage *(^TGCacheJpegDecodingBlock)(NSData *data);
 
 @interface TGCache : NSObject

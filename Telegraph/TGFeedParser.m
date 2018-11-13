@@ -10,6 +10,7 @@
 #import "TGCryptoManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import <HTMLReader/HTMLReader.h>
+#import <LegacyComponents/LegacyComponents.h>
 
 static NSTimeInterval const kRssUpdateInterval = 60 * 20;
 
@@ -74,11 +75,11 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
             _feedParsers = feedParsers;
             
             [self initTimer];
-            [NSNotificationCenter.defaultCenter addObserver:self
-                                                   selector:@selector(reachabilityStatusChanged)
-                                                       name:AFNetworkingReachabilityDidChangeNotification
-                                                     object:nil];
         }];
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(reachabilityStatusChanged)
+                                                   name:AFNetworkingReachabilityDidChangeNotification
+                                                 object:nil];
     }
     return self;
 }
@@ -131,7 +132,7 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
 
 - (void)reachabilityStatusChanged
 {
-    if (!AFNetworkReachabilityManager.sharedManager.isReachable) return;
+    if (!AFNetworkReachabilityManager.sharedManager.isReachable || _urls) return;
     NSDate *date = [[NSFileManager.defaultManager attributesOfItemAtPath:[self feedItemsFileForRssKey:self.key]
                                                                    error:nil] objectForKey:NSFileModificationDate];
     if (date.timeIntervalSinceNow > kRssUpdateInterval)
@@ -224,6 +225,8 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
                                               [_parserOldestDates[obj.feedURL] compare:obj.date] == NSOrderedDescending)
                                           {
                                               [_feedItems removeObjectAtIndex:idx];
+                                              NSString *cacheThumbnailPath = [LegacyComponentsGlobals.provider.dataCachePath stringByAppendingPathComponent:md5String(obj.thumbnailURL)];
+                                              [NSFileManager.defaultManager removeItemAtPath:cacheThumbnailPath error:nil];
                                               if (_lastReportedFeedItemIndex < _feedItems.count && idx <= _lastReportedFeedItemIndex) {
                                                   _lastReportedFeedItemIndex--;
                                               }

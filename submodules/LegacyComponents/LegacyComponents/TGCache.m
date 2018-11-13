@@ -20,7 +20,7 @@
 #define TG_SYNCHRONIZED_BEGIN(lock) pthread_mutex_lock(&TG_SYNCHRONIZED_##lock);
 #define TG_SYNCHRONIZED_END(lock) pthread_mutex_unlock(&TG_SYNCHRONIZED_##lock);
 
-static NSString *md5String(NSString *string)
+NSString *md5String(NSString *string)
 {
     /*static const char *md5PropertyKey = "MD5Key";
     NSString *result = objc_getAssociatedObject(string, md5PropertyKey);
