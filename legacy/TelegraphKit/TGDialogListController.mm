@@ -1721,7 +1721,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                    {
                        canSelect = true;
                    });
-    TGLog(@"%@ canSelect=%@", NSStringFromSelector(_cmd),@(canSelect));
+    TGLogCMD(@"canSelect=%@", @(canSelect));
     if (!canSelect)
         return;
     canSelect = NO;
@@ -1729,17 +1729,17 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (TGIsPad())
         [self.view endEditing:true];
     
-    TGLog(@"%@ is not search equal search mixin active=%@", NSStringFromSelector(_cmd),@((tableView == _tableView) != !_searchMixin.isActive));
+    TGLogCMD(@"is not search equal search mixin active=%@",@((tableView == _tableView) != !_searchMixin.isActive));
     if (!_searchMixin.isActive)
     {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
-        TGLog(@"%@ cell=%@ !=StyleNone=%@", NSStringFromSelector(_cmd),cell, @(cell.selectionStyle != UITableViewCellSelectionStyleNone));
+        TGLogCMD(@"cell=%@ !=StyleNone=%@",cell, @(cell.selectionStyle != UITableViewCellSelectionStyleNone));
         if ([cell isKindOfClass:TGDialogListCell.class])
         {
             TGDialogListCell *dialogCell = (TGDialogListCell *)cell;
             TGConversation *conversation = [TGDatabaseInstance() loadConversationWithId:dialogCell.conversationId];
-            TGLog(@"%@ conversation=%@ convFromList=%@ companion=%@", NSStringFromSelector(_cmd), conversation, indexPath.row < (NSInteger)_listModel.count ? _listModel[indexPath.row] : nil, _dialogListCompanion);
+            TGLogCMD(@"conversation=%@ convFromList=%@ companion=%@", conversation, indexPath.row < (NSInteger)_listModel.count ? _listModel[indexPath.row] : nil, _dialogListCompanion);
             if (conversation != nil)
             {
                 [_dialogListCompanion conversationSelected:conversation];

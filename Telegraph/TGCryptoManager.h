@@ -44,7 +44,3 @@ FOUNDATION_EXPORT NSTimeInterval const kPricesUpdateInterval;
 - (void)subscribeToChannelsIfNeeded;
 
 @end
-
-@interface TGCryptoNumberFormatter : NSNumberFormatter
-
-@end

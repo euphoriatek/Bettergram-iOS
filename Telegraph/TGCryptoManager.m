@@ -45,7 +45,7 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     AFHTTPSessionManager *_mailchimpSessionManager;
     AFNetworkReachabilityManager *_reachabilityManager;
     
-    NSURLSessionDataTask *_updatePricesDataTask;
+    NSMutableDictionary<NSIndexSet *, NSURLSessionDataTask *> *_updatePricesDataTasks;
     __weak NSTimer *_updatePricesTimer;
     
     TGCryptoPricesInfo *_pricesInfo;
@@ -72,6 +72,8 @@ NSTimeInterval const kPricesUpdateInterval = 60;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        _updatePricesDataTasks = [NSMutableDictionary dictionary];
+        
         _reachabilityManager = [AFNetworkReachabilityManager managerForDomain:@"api.bettergram.io"];
         [_reachabilityManager startMonitoring];
         __weak TGCryptoManager *weakSelf = self;
@@ -286,16 +288,23 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     BOOL favorited = isset(&_pricePageInfo.sorting, TGSortingFavoritedBit);
     [_pricesInfo.coinInfos[@(favorited ? TGSortingFavoritedBit : _pricePageInfo.sorting)] enumerateObjectsUsingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop)
      {
-         [obj cleanSortingDate:_pricePageInfo.sorting];
+         [obj setUpdatedDate:0 sorting:_pricePageInfo.sorting];
      }];
+    [_updatePricesDataTasks.allValues makeObjectsPerformSelector:@selector(cancel)];
+    [_updatePricesDataTasks removeAllObjects];
+    [self requestPage];
 }
 
 - (void)setPricePageInfo:(TGCryptoPricePageInfo)pricePageInfo
 {
     BOOL sortingUpdated = _pricePageInfo.sorting != pricePageInfo.sorting;
     _pricePageInfo = pricePageInfo;
-    if (sortingUpdated && isset(&pricePageInfo.sorting, TGSortingFavoritedBit)) {
-        [_pricesInfo sortFavoritedWithSorting:pricePageInfo.sorting];
+    if (sortingUpdated) {
+        [_updatePricesDataTasks.allValues makeObjectsPerformSelector:@selector(cancel)];
+        [_updatePricesDataTasks removeAllObjects];
+        if (isset(&pricePageInfo.sorting, TGSortingFavoritedBit)) {
+            [_pricesInfo sortFavoritedWithSorting:pricePageInfo.sorting];
+        }
     }
     if (_pageUpdateBlock != NULL) {
         if (sortingUpdated)
@@ -312,7 +321,6 @@ NSTimeInterval const kPricesUpdateInterval = 60;
         [self requestPage];
     }
     else {
-        [_updatePricesDataTask cancel];
         [_updatePricesTimer invalidate];
     }
 }
@@ -326,65 +334,59 @@ NSTimeInterval const kPricesUpdateInterval = 60;
         });
         return;
     }
-    [_updatePricesDataTask cancel];
     [_updatePricesTimer invalidate];
     
     TGCryptoPricePageInfo pricePageInfo = _pricePageInfo;
     BOOL favorited = isset(&pricePageInfo.sorting, TGSortingFavoritedBit);
     TGCoinSorting sorting = clredbit(pricePageInfo.sorting, TGSortingFavoritedBit);
     
-    __block BOOL updateNeeded = NO;
-    NSArray<NSString *> *favoriteCurrencyCodes = nil;
+    NSMutableArray<TGCryptoCurrency *> *requestingCurrencies = [NSMutableArray array];
     if (favorited) {
-        NSMutableArray<NSString *> *allFavoriteCurrencyCodes = [NSMutableArray array];
-        [_currencies enumerateKeysAndObjectsUsingBlock:^(__unused NSString * _Nonnull key, TGCryptoCurrency * _Nonnull obj, __unused BOOL * _Nonnull stop) {
-            if (obj.favorite) {
-                [allFavoriteCurrencyCodes addObject:obj.code];
+        [_currencies enumerateKeysAndObjectsUsingBlock:^(__unused NSString * _Nonnull key, TGCryptoCurrency * _Nonnull obj, __unused BOOL * _Nonnull stop)
+         {
+            if (obj.favorite &&
+                [obj updatedDateForSorting:pricePageInfo.sorting] + kPricesUpdateInterval / 3 < NSDate.date.timeIntervalSince1970)
+            {
+                [requestingCurrencies addObject:obj];
             }
         }];
-        favoriteCurrencyCodes = [_pricesInfo outOfDateFavoriteCurrencyCodes:allFavoriteCurrencyCodes];
+        pricePageInfo.offset = 0;
+        pricePageInfo.limit = 0;
     }
     else {
-        NSMutableIndexSet *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(pricePageInfo.offset, pricePageInfo.limit)];
-        NSIndexSet *enumerationIndexes = [indexes indexesPassingTest:^BOOL(NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        NSMutableIndexSet *missingIndexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(pricePageInfo.offset, pricePageInfo.limit)];
+        [_updatePricesDataTasks.allKeys enumerateObjectsUsingBlock:^(NSIndexSet * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+            [missingIndexes removeIndexes:obj];
+        }];
+        NSIndexSet *enumerationIndexes = [missingIndexes indexesPassingTest:^BOOL(NSUInteger idx, __unused BOOL * _Nonnull stop) {
             return idx < _pricesInfo.coinInfos[@(pricePageInfo.sorting)].count;
         }];
-        if (enumerationIndexes.count > 0) {
-            [_pricesInfo.coinInfos[@(pricePageInfo.sorting)] enumerateObjectsAtIndexes:enumerationIndexes
-                                                                               options:0
-                                                                            usingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, BOOL * _Nonnull stop)
-             {
-                 NSTimeInterval updatedDate;
-                 switch (sorting) {
-                     case TGSortingPriceAscending:
-                     case TGSortingPriceDescending:
-                         updatedDate = obj.priceSortingUpdatedDate;
-                         break;
-                         
-                     case TGSorting24hAscending:
-                     case TGSorting24hDescending:
-                         updatedDate = obj.deltaSortingUpdatedDate;
-                         break;
-                         
-                     case TGSortingNone:
-                         updatedDate = obj.rankSortingUpdatedDate;
-                         break;
-                         
-                     default:
-                         updatedDate = obj.updatedDate;
-                         break;
-                 }
-                 if (updatedDate + kPricesUpdateInterval / 3 < NSDate.date.timeIntervalSince1970) {
-                     *stop = updateNeeded = YES;
-                 }
-             }];
+        [_pricesInfo.coinInfos[@(pricePageInfo.sorting)] enumerateObjectsAtIndexes:enumerationIndexes
+                                                                           options:0
+                                                                        usingBlock:^(TGCryptoCurrency * _Nonnull obj, NSUInteger idx, __unused BOOL * _Nonnull stop)
+         {
+             if ([obj updatedDateForSorting:pricePageInfo.sorting] + kPricesUpdateInterval / 3 > NSDate.date.timeIntervalSince1970) {
+                 [missingIndexes removeIndex:idx];
+             }
+             else if (obj.code != nil) {
+                 [requestingCurrencies addObject:obj];
+             }
+         }];
+        NSUInteger limit = missingIndexes.lastIndex - missingIndexes.firstIndex + 1;
+        if (missingIndexes.count == 0 || limit < pricePageInfo.limit / 3) {
+            pricePageInfo.limit = 0;
+            [requestingCurrencies removeAllObjects];
         }
         else {
-            updateNeeded = YES;
+            pricePageInfo.offset = missingIndexes.firstIndex;
+            pricePageInfo.limit = limit;
         }
     }
     __block BOOL invalidatedCoins = NO;
+    __block NSIndexSet *indexSet = nil;
     void(^completion)(BOOL) = ^(BOOL updated) {
+        if (indexSet != nil)
+            [_updatePricesDataTasks removeObjectForKey:indexSet];
         if (_pageUpdateBlock != NULL) {
             _pageUpdateBlock(updated ? _pricesInfo.copy : nil);
             if (invalidatedCoins) {
@@ -400,7 +402,8 @@ NSTimeInterval const kPricesUpdateInterval = 60;
             }
         }
     };
-    if (!updateNeeded && favoriteCurrencyCodes.count == 0) {
+    if (pricePageInfo.limit + requestingCurrencies.count == 0)
+    {
         completion(NO);
         return;
     }
@@ -414,60 +417,66 @@ NSTimeInterval const kPricesUpdateInterval = 60;
                                             @"sort":[self sortParamForSorting:sorting],
                                             @"order":[self orderParamForSorting:sorting],
                                             @"currency":self.selectedCurrency.code ?: @"USD",
+                                            @"limit": @(pricePageInfo.limit),
+                                            @"offset": @(pricePageInfo.offset),
                                             }.mutableCopy;
         if (favorited) {
-            parameters[@"limit"] = @0;
+            NSMutableArray<NSString *> *favoriteCurrencyCodes = [NSMutableArray array];
+            [requestingCurrencies enumerateObjectsUsingBlock:^(TGCryptoCurrency * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+                [favoriteCurrencyCodes addObject:obj.code];
+            }];
             parameters[@"favorites"] = [favoriteCurrencyCodes componentsJoinedByString:@","];
         }
-        else {
-            parameters[@"limit"] = @(pricePageInfo.limit);
-            parameters[@"offset"] = @(pricePageInfo.offset);
-        }
-        _updatePricesDataTask = [_livecoinSessionManager GET:@"bettergram/coins"
-                                                  parameters:parameters
-                                                     headers:nil
-                                                    progress:nil
-                                                     success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-                                 {
-                                     responseObject = [responseObject cleanedJSON];
-                                     if (responseObject == nil ||
-                                         ![responseObject isKindOfClass:[NSDictionary class]] ||
-                                         ![[responseObject objectForKey:kSuccessKey] boolValue])
-                                     {
-                                         TGLog(@"TGCMError: Crypto currencies list invalid response: %@",responseObject);
-                                         completion(NO);
-                                         return;
-                                     }
-                                     NSArray<TGCryptoCurrency *> *newCoins = [_pricesInfo updateValuesWithJSON:responseObject
-                                                                                                      pageInfo:pricePageInfo
-                                                                                              invalidatedCoins:&invalidatedCoins];
-                                     if (newCoins.count == 0) {
-                                         completion(YES);
-                                         [self setNeedsArchiveFeedItems];
-                                         return;
-                                     }
-                                     // new coin added case
-                                     NSMutableDictionary<NSString *, TGCryptoCurrency *> *newCurrencies = _currencies.mutableCopy;
-                                     for (TGCryptoCurrency *newCoin in newCoins) {
-                                         if (newCoin.code == nil || newCurrencies[newCoin.code] != nil) continue;
-                                         newCurrencies[newCoin.code] = newCoin;
-                                     }
-                                     if (newCurrencies.count > 0) {
-                                         _currencies = newCurrencies.copy;
-                                     }
-                                     _lastUpdateDate = 0;
-                                     [NSUserDefaults.standardUserDefaults removeObjectForKey:kLastUpdateCurrenciesDateKey];
-                                     [self loadCurrencies:^(BOOL success) {
-                                         [self setNeedsArchiveFeedItems];
-                                         completion(success);
-                                     }];
-                                 }
-                                                     failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
-                                                         [self checkResponceIfAPIIsOutOfDate:task.response];
-                                                         TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
-                                                         completion(NO);
-                                                     }];
-        _updatePricesDataTask.priority = NSURLSessionTaskPriorityHigh;
+        TGLogCMD(@"request sent: %@",parameters);
+        indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(pricePageInfo.offset, pricePageInfo.limit)];
+        NSURLSessionDataTask *updatePricesDataTask =
+        [_livecoinSessionManager GET:@"bettergram/coins"
+                          parameters:parameters
+                             headers:nil
+                            progress:nil
+                             success:^(__unused NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+         {
+             responseObject = [responseObject cleanedJSON];
+             if (responseObject == nil ||
+                 ![responseObject isKindOfClass:[NSDictionary class]] ||
+                 ![[responseObject objectForKey:kSuccessKey] boolValue])
+             {
+                 TGLog(@"TGCMError: Crypto currencies list invalid response: %@",responseObject);
+                 completion(NO);
+                 return;
+             }
+             NSArray<TGCryptoCurrency *> *newCoins = [_pricesInfo updateValuesWithJSON:responseObject
+                                                                              pageInfo:pricePageInfo
+                                                                      invalidatedCoins:&invalidatedCoins];
+             if (newCoins.count == 0) {
+                 completion(YES);
+                 [self setNeedsArchiveFeedItems];
+                 return;
+             }
+             // new coin added case
+             NSMutableDictionary<NSString *, TGCryptoCurrency *> *newCurrencies = _currencies.mutableCopy;
+             for (TGCryptoCurrency *newCoin in newCoins) {
+                 if (newCoin.code == nil || newCurrencies[newCoin.code] != nil) continue;
+                 newCurrencies[newCoin.code] = newCoin;
+             }
+             if (newCurrencies.count > 0) {
+                 _currencies = newCurrencies.copy;
+             }
+             _lastUpdateDate = 0;
+             [NSUserDefaults.standardUserDefaults removeObjectForKey:kLastUpdateCurrenciesDateKey];
+             [self loadCurrencies:^(BOOL success) {
+                 [self setNeedsArchiveFeedItems];
+                 completion(success);
+             }];
+         }
+                             failure:^(__unused NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
+                                 if (error.code == NSURLErrorCancelled) return;
+                                 [self checkResponceIfAPIIsOutOfDate:task.response];
+                                 TGLog(@"TGCMError: Crypto currencies list get error: %@",error);
+                                 completion(NO);
+                             }];
+        updatePricesDataTask.priority = NSURLSessionTaskPriorityHigh;
+        _updatePricesDataTasks[indexSet] = updatePricesDataTask;
     }];
 }
 
@@ -580,10 +589,12 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     __weak static NSURLSessionDataTask *getCurrenciesTask = nil;
     static NSMutableArray<void (^)(BOOL)> *pendingBlocks = nil;
     if (getCurrenciesTask != nil) {
-        if (pendingBlocks == nil) {
-            pendingBlocks = [NSMutableArray array];
-        }
-        [pendingBlocks addObject:[completion copy]];
+        TGDispatchOnMainThread(^{
+            if (pendingBlocks == nil) {
+                pendingBlocks = [NSMutableArray array];
+            }
+            [pendingBlocks addObject:[completion copy]];
+        });
         return;
     }
     if (_currencies != nil && _lastUpdateDate + kDaySecons > NSDate.date.timeIntervalSince1970) {
@@ -645,7 +656,7 @@ NSTimeInterval const kPricesUpdateInterval = 60;
         TGCryptoCurrency *cryptoCurrency = _currencies[code] ?: [TGCryptoCurrency.alloc initWithCode:code];
         [cryptoCurrency fillWithCurrencyJson:coinDictionary];
         
-        currencies[cryptoCurrency.code.uppercaseString] = cryptoCurrency;
+        currencies[cryptoCurrency.code] = cryptoCurrency;
     }
     _currencies = currencies.copy;
     return YES;
@@ -708,49 +719,6 @@ NSTimeInterval const kPricesUpdateInterval = 60;
                                                                    toFile:self.currenciesResponseObjectFile];
                                    }];
     });
-}
-
-@end
-
-
-@implementation TGCryptoNumberFormatter
-
-- (NSString *)stringFromNumber:(NSNumber *)number
-{
-    switch (self.numberStyle) {
-        case NSNumberFormatterCurrencyStyle:
-            if (number.doubleValue < 1) {
-                self.maximumFractionDigits = 4;
-                return [super stringFromNumber:number];
-            }
-            if (number.doubleValue < 10000) {
-                self.maximumFractionDigits = 2;
-                return [super stringFromNumber:number];
-            }
-            if (number.doubleValue < 1000000) {
-                self.maximumFractionDigits = 0;
-                return [super stringFromNumber:number];
-            }
-            self.maximumFractionDigits = 2;
-            break;
-            
-        case NSNumberFormatterPercentStyle:
-            
-            break;
-            
-        default:
-            break;
-    }
-    static NSArray* units;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        units = @[@"k",@"M",@"B",@"T",@"P",@"E"];
-    });
-    BOOL isPrecents = self.numberStyle == NSNumberFormatterPercentStyle;
-    NSUInteger exp = (NSUInteger)(log10l(number.doubleValue * (isPrecents ? 100 : 1)) / 3.f);
-    if (exp - 1 < units.count)
-        return [NSString stringWithFormat:@"%@ %@", [super stringFromNumber:@(number.doubleValue / pow(1000, exp))], units[exp-1]];
-    return [super stringFromNumber:number];
 }
 
 @end

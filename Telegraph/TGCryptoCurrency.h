@@ -38,7 +38,9 @@
 @property (readonly, nonatomic, assign) NSTimeInterval rankSortingUpdatedDate;
 @property (readonly, nonatomic, assign) NSTimeInterval deltaSortingUpdatedDate;
 
-- (void)cleanSortingDate:(TGCoinSorting)sorting;
+- (NSTimeInterval)updatedDateForSorting:(TGCoinSorting)sorting;
+- (void)setUpdatedDate:(NSTimeInterval)updatedDate sorting:(TGCoinSorting)sorting;
+
 - (void)fillWithCoinInfoJson:(NSDictionary *)dictionary sorting:(TGCoinSorting)sorting;
 - (void)clean;
 

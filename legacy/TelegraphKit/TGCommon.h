@@ -70,6 +70,8 @@ inline void TGDispatchAfter(double delay, dispatch_queue_t queue, dispatch_block
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((delay) * NSEC_PER_SEC)), queue, block);
 }
     
+#define TGLogCMD(str, ...) TGLog(str != nil ? [@"%@ " stringByAppendingString:str] : @"%@", NSStringFromSelector(_cmd), ##__VA_ARGS__)
+
 void TGLogSetEnabled(bool enabled);
 bool TGLogEnabled();
 void TGLog(NSString *format, ...);

@@ -3,6 +3,7 @@
 @interface TGListsTableView : UITableView
 
 @property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;
+- (void)performBatchUpdates:(void (NS_NOESCAPE ^ _Nullable)(void))updates completion:(void (^ _Nullable)(BOOL finished))completion;
 
 @property (nonatomic, assign) bool blockContentOffset;
 @property (nonatomic, assign) CGFloat indexOffset;

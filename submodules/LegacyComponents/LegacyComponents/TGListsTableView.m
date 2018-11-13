@@ -43,8 +43,12 @@
 
 - (void)setFixedContentSize:(CGSize *)fixedContentSize
 {
-    _fixedContentSize = fixedContentSize;
-    [super setContentSize:*fixedContentSize];
+    if (_fixedContentSize != fixedContentSize) {
+        _fixedContentSize = fixedContentSize;
+        if (_fixedContentSize != NULL) {
+            [super setContentSize:*fixedContentSize];
+        }
+    }
 }
 
 - (void)setContentSize:(CGSize)contentSize
@@ -252,6 +256,20 @@
     }
     else {
         return _refreshControl;
+    }
+}
+
+- (void)performBatchUpdates:(void (NS_NOESCAPE ^ _Nullable)(void))updates completion:(void (^ _Nullable)(BOOL))completion
+{
+    if (@available(iOS 11.0, *)) {
+        [super performBatchUpdates:updates completion:completion];
+    } else {
+        [self beginUpdates];
+        if (updates != NULL)
+            updates();
+        [self endUpdates];
+        if (completion != NULL)
+            completion(YES);
     }
 }
 

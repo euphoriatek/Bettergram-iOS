@@ -9,6 +9,7 @@ FOUNDATION_EXPORT const unsigned char LegacyComponentsVersionString[];
 #import <LegacyComponents/UIView+AddSubviews.h>
 #import <LegacyComponents/NSObject+CleanedJSON.h>
 #import <LegacyComponents/Filtering.h>
+#import <LegacyComponents/TGCryptoNumberFormatter.h>
 
 
 #import <LegacyComponents/LegacyComponentsGlobals.h>

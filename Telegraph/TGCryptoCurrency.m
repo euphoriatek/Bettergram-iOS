@@ -109,47 +109,36 @@
     if ([minuteDelta isKindOfClass:[NSNumber class]]) {
         _minDelta = @([minuteDelta doubleValue] - 1);
     }
-    _updatedDate = NSDate.date.timeIntervalSince1970;
-    switch (sorting) {
-        case TGSortingPriceAscending:
-        case TGSortingPriceDescending:
-            _priceSortingUpdatedDate = NSDate.date.timeIntervalSince1970;
-            break;
-            
-        case TGSorting24hAscending:
-        case TGSorting24hDescending:
-            _deltaSortingUpdatedDate = NSDate.date.timeIntervalSince1970;
-            break;
-            
-        case TGSortingNone:
-            _rankSortingUpdatedDate = NSDate.date.timeIntervalSince1970;
-            break;
-            
-        default:
-            break;
-    }
+    
+    *[self updatedDatePointerForSorting:sorting] = _updatedDate = NSDate.date.timeIntervalSince1970;
 }
 
-- (void)cleanSortingDate:(TGCoinSorting)sorting
+- (NSTimeInterval)updatedDateForSorting:(TGCoinSorting)sorting
+{
+    return *[self updatedDatePointerForSorting:sorting];
+}
+
+- (void)setUpdatedDate:(NSTimeInterval)updatedDate sorting:(TGCoinSorting)sorting
+{
+    *[self updatedDatePointerForSorting:sorting] = updatedDate;
+}
+
+- (NSTimeInterval *)updatedDatePointerForSorting:(TGCoinSorting)sorting
 {
     switch (sorting) {
         case TGSortingPriceAscending:
         case TGSortingPriceDescending:
-            _priceSortingUpdatedDate = 0;
-            break;
+            return &_priceSortingUpdatedDate;
             
         case TGSorting24hAscending:
         case TGSorting24hDescending:
-            _deltaSortingUpdatedDate = 0;
-            break;
+            return &_deltaSortingUpdatedDate;
             
         case TGSortingNone:
-            _rankSortingUpdatedDate = 0;
-            break;
+            return &_rankSortingUpdatedDate;
             
         default:
-            _updatedDate = 0;
-            break;
+            return &_updatedDate;
     }
 }
 

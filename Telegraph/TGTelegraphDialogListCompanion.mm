@@ -317,7 +317,7 @@
 
 - (void)conversationSelected:(TGConversation *)conversation
 {
-    TGLog(@"%@ conversation=%@",NSStringFromSelector(_cmd), conversation);
+    TGLogCMD(@"conversation=%@", conversation);
     if (self.forwardMode || self.privacyMode || self.showPrivateOnly || self.showGroupsAndChannelsOnly)
     {
         [_conversatioSelectedWatcher requestAction:@"conversationSelected" options:[[NSDictionary alloc] initWithObjectsAndKeys:conversation, @"conversation", nil]];
@@ -337,10 +337,10 @@
             else
             {
                 int64_t conversationId = conversation.conversationId;
-                TGLog(@"%@ conversationID=%@",NSStringFromSelector(_cmd),@(conversationId));
+                TGLogCMD(@"conversationID=%@", @(conversationId));
 
                 void(^completed)() = ^() {
-                    TGLog(@"%@ navigateToConversationWithId",NSStringFromSelector(_cmd));
+                    TGLogCMD(@"navigateToConversationWithId");
                     [[TGInterfaceManager instance] navigateToConversationWithId:conversationId conversation:conversation performActions:nil atMessage:nil clearStack:true openKeyboard:false canOpenKeyboardWhileInTransition:true animated:true];
                 };
                 if (TGPeerIdIsChannel(conversationId) && conversation.kind == TGConversationKindTemporaryChannel) {

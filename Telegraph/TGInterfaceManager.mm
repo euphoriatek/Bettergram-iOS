@@ -164,7 +164,7 @@
 
 - (void)navigateToConversationWithId:(int64_t)conversationId conversation:(TGConversation *)__unused conversation performActions:(NSDictionary *)performActions atMessage:(NSDictionary *)atMessage clearStack:(bool)clearStack openKeyboard:(bool)openKeyboard canOpenKeyboardWhileInTransition:(bool)canOpenKeyboardWhileInTransition navigationController:(TGNavigationController *)navigationController selectChat:(bool)selectChat animated:(bool)animated
 {
-    TGLog(@"%@",NSStringFromSelector(_cmd));
+    TGLogCMD(nil);
     if (selectChat)
         [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:conversationId];
     
@@ -307,7 +307,7 @@
             conversationController.shouldOpenKeyboardOnce = true;
         }
         
-        TGLog(@"%@ conversationController=%@",NSStringFromSelector(_cmd), conversationController);
+        TGLogCMD(@"conversationController=%@", conversationController);
         if (navigationController)
         {
             [navigationController pushViewController:conversationController animated:true];
