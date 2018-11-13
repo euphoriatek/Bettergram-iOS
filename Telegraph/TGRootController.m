@@ -101,6 +101,7 @@
            ]];
         [_cryptoTabViewController setSelectedIndexCustom:0];
         
+        _videosRssController.feedParser.unreadCountUpdatedBlock =
         _newsRssController.feedParser.unreadCountUpdatedBlock = ^() {
             __strong TGRootController *strongSelf = weakSelf;
             [strongSelf updateUnreadCountsIcludingBage:NO];
