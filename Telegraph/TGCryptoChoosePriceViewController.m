@@ -57,7 +57,7 @@
     
     [self.view addSubviews:@[_tableView, _searchBar]];
     
-    [TGCryptoManager.manager loadCurrencies:^(BOOL success) {
+    [TGCryptoManager.manager loadCurrenciesIfNeeded:^(BOOL success) {
         TGDispatchOnMainThread(^{
             if (success) {
                 _currencies = TGCryptoManager.manager.currencies;

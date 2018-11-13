@@ -122,7 +122,7 @@
     copy->_marketCap = _marketCap;
     copy->_volume = _volume;
     copy->_btcDominance = _btcDominance;
-    copy->_coinInfos = _coinInfos.copy;
+    copy->_coinInfos = [[NSMutableDictionary alloc] initWithDictionary:_coinInfos copyItems:YES];
     copy->_currency = _currency;
     return copy;
 }

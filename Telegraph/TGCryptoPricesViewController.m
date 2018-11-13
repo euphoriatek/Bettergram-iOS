@@ -940,10 +940,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
                 if (_tableView.refreshControl.refreshing) {
                     [_tableView.refreshControl endRefreshing];
                 }
-                if (_lastSelectedPageIndex == -1)
-                    strongSelf.pricesInfo = pricesInfo;
-                else
-                    _pendingUpdate = pricesInfo;
+                strongSelf.pricesInfo = pricesInfo;
             }
         });
     };
@@ -1415,7 +1412,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (void)updateRightButtonItemImage
 {
-    [TGCryptoManager.manager loadCurrencies:^(__unused BOOL success) {
+    [TGCryptoManager.manager loadCurrenciesIfNeeded:^(__unused BOOL success) {
         TGCryptoCurrency *selectedCurrency = TGCryptoManager.manager.selectedCurrency;
         if (selectedCurrency) {
             NSString *currencySymbol = selectedCurrency.symbol ?: selectedCurrency.code;

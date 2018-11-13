@@ -35,7 +35,7 @@ FOUNDATION_EXPORT NSTimeInterval const kPricesUpdateInterval;
 - (void)updateBettergramResourceForKey:(NSString *)key completion:(void (^)(id json))completion;
 - (void)fetchResources:(void (^)(NSArray<TGResourceSection *> *resourceSections))completion;
 - (void)updateCoin:(TGCryptoCurrency *)coin favorite:(BOOL)favorite;
-- (void)loadCurrencies:(void (^)(BOOL success))completion;
+- (BOOL)loadCurrenciesIfNeeded:(void (^)(BOOL success))completion;
 - (void)forceUpdatePrices;
 - (TGCryptoCurrency *)cachedCurrencyWithCode:(NSString *)code;
 
