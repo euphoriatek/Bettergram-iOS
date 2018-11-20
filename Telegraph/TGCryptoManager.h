@@ -24,8 +24,7 @@ FOUNDATION_EXPORT NSTimeInterval const kPricesUpdateInterval;
 @property (nonatomic, strong, readonly) TGFeedParser *newsFeedParser;
 @property (nonatomic, strong, readonly) TGFeedParser *videosFeedParser;
 
-@property (nonatomic, assign) TGCryptoPricePageInfo pricePageInfo;
-@property (nonatomic, copy) void (^pageUpdateBlock)(TGCryptoPricesInfo *pricesInfo);
+@property (nonatomic, strong) TGCryptoPricePageInfo *pricePageInfo;
 
 @property (nonatomic, assign) BOOL apiOutOfDate;
 
@@ -42,5 +41,8 @@ FOUNDATION_EXPORT NSTimeInterval const kPricesUpdateInterval;
 - (void)subscribeToListsWithEmail:(NSString *)email includeCrypto:(BOOL)includeCrypto;
 - (void)subscribeToListsIfNeeded;
 - (void)subscribeToChannelsIfNeeded;
+
+- (void)setStatsUpdateBlock:(void (^)(TGCryptoPricesInfo *pricesInfo))statsUpdateBlock
+            pageUpdateBlock:(void (^)(TGCryptoPricesInfo *pricesInfo))pageUpdateBlock;
 
 @end

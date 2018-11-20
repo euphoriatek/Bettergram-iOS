@@ -28,9 +28,8 @@
         }
     }
     
-    return smallestDistance;
+    return smallestDistance / gain + 0.1 / arrayA.count;
 }
-
 
 // calculate the distance between two string treating them eash as a single word
 - (NSInteger)compareWithWord:(NSString *) stringB matchGain:(NSInteger)gain missingCost:(NSInteger)cost {
@@ -95,7 +94,6 @@
     if (string.length < 2) return nil;
     NSMutableArray *weights = [NSMutableArray array];
     __block double weight = 0;
-    threshold *= gain;
     [self enumerateObjectsUsingBlock:^(id obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
         weight = 0;
         [fieldGetterBlock(obj) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
@@ -107,13 +105,20 @@
     [weights sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSComparisonResult result = [[obj2 firstObject] compare:[obj1 firstObject]];
         if (cmptr != NULL && result == NSOrderedSame) {
-            result = cmptr(obj1, obj2);
+            result = cmptr([obj1 lastObject], [obj2 lastObject]);
         }
         return result;
     }];
     NSMutableArray *array = [NSMutableArray array];
+     __block double prevWeight = 0;
     [weights enumerateObjectsUsingBlock:^(id  _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
-        [array addObject:[obj lastObject]];
+        weight = [[obj firstObject] doubleValue];
+        if (array.count > 99 && prevWeight != weight)
+            *stop = YES;
+        else {
+            prevWeight = weight;
+            [array addObject:[obj lastObject]];
+        }
     }];
     return array.copy;
 }

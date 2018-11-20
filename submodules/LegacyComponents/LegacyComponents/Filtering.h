@@ -22,7 +22,7 @@
                                      levenshteinMatchGain:(NSInteger)gain
                                               missingCost:(NSInteger)cost
                                          fieldGetterBlock:(NSArray<NSString *> *(^)(ObjectType obj))fieldGetterBlock
-                                threshold:(double)threshold
-                                      equalCaseComparator:(NSComparator)cmptr;
+                                                threshold:(double)threshold
+                                      equalCaseComparator:(NSComparisonResult (^)(ObjectType obj1, ObjectType obj2))cmptr;
 
 @end

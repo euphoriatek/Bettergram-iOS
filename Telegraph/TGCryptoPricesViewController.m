@@ -815,12 +815,11 @@ const NSUInteger kCellsLimitMultiplier = 10;
     TGListsTableView *_tableView;
     NSArray<UITableViewCell *> *_topSectionCells;
     CGFloat _topSectionCellsHeight;
-    NSArray<TGCryptoCurrency *> *_filteredCoinInfos;
     CGPoint _lastContentOffset;
     NSInteger _lastSelectedPageIndex;
     
-    NSNumberFormatter *_percentFormatter;
-    NSNumberFormatter *_currencyFormatter;
+    TGCryptoNumberFormatter *_percentFormatter;
+    TGCryptoNumberFormatter *_currencyFormatter;
     
     UIBarButtonItem *_rightButtonItem;
     UIBarButtonItem *_leftButtonItem;
@@ -838,6 +837,8 @@ const NSUInteger kCellsLimitMultiplier = 10;
     CGSize _lastFrameUpdateViewSize;
     
     BOOL _pagingEnabled;
+    
+    NSInteger _forceUpdateFlags;
 }
 
 @property (nonatomic, strong) TGPresentation *presentation;
@@ -933,23 +934,30 @@ const NSUInteger kCellsLimitMultiplier = 10;
     
     [self pageInfoUpdated];
     __weak TGCryptoPricesViewController *weakSelf = self;
-    TGCryptoManager.manager.pageUpdateBlock = ^(TGCryptoPricesInfo *pricesInfo) {
+    [TGCryptoManager.manager setStatsUpdateBlock:^(TGCryptoPricesInfo *pricesInfo) {
         TGDispatchOnMainThread(^{
             __strong TGCryptoPricesViewController *strongSelf = weakSelf;
             if (strongSelf != nil && pricesInfo != nil) {
-                if (_tableView.refreshControl.refreshing) {
-                    [_tableView.refreshControl endRefreshing];
-                }
+                [self stateUpdated:2];
+                [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
+                [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
+                [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
+            }
+        });
+    } pageUpdateBlock:^(TGCryptoPricesInfo *pricesInfo) {
+        TGDispatchOnMainThread(^{
+            __strong TGCryptoPricesViewController *strongSelf = weakSelf;
+            if (strongSelf != nil && pricesInfo != nil) {
+                [self stateUpdated:1];
                 strongSelf.pricesInfo = pricesInfo;
             }
         });
-    };
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    TGCryptoManager.manager.pageUpdateBlock = NULL;
-    
+    [TGCryptoManager.manager setStatsUpdateBlock:NULL pageUpdateBlock:NULL];    
     [super viewDidDisappear:animated];
 }
 
@@ -1063,6 +1071,8 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (void)refreshStateChanged:(UIRefreshControl *)__unused sender
 {
+    setbit(&_forceUpdateFlags, 1);
+    setbit(&_forceUpdateFlags, 2);
     [TGCryptoManager.manager forceUpdatePrices];
 }
 
@@ -1108,9 +1118,9 @@ const NSUInteger kCellsLimitMultiplier = 10;
     [cell setPresentation:_presentation];
     [cell.iconImageView loadImage:coinInfo.iconURL filter:@"circle:30x30" placeholder:nil];
     cell.nameLabel.text = coinInfo.name ?: coinInfo.code;
-    cell.priceLabel.text = [_currencyFormatter stringFromNumber:@(coinInfo.price)];
-    cell.priceDelta = [@0 compare:coinInfo.minDelta ?: @0];
-    cell.h24Label.text = coinInfo.dayDelta ? [_percentFormatter stringFromNumber:coinInfo.dayDelta] : @"N/A";
+    cell.priceLabel.text = [_currencyFormatter stringFromNumber:coinInfo.price];
+    cell.priceDelta = (coinInfo.price == nil || coinInfo.minDelta == nil) ? NSOrderedSame : [@0 compare:coinInfo.minDelta];
+    cell.h24Label.text = [_percentFormatter stringFromNumber:coinInfo.dayDelta];
     cell.h24Delta = [@0 compare:coinInfo.dayDelta ?: @0];
     cell.favoriteButton.selected = coinInfo.favorite;
     return cell;
@@ -1179,7 +1189,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
     UITableView *tableView = (id)scrollView;
     _lastContentOffset = tableView.contentOffset;
     _lastSelectedPageIndex = [self tableView:tableView pageAtOffset:_lastContentOffset.y];
-    if (_filteredCoinInfos.count > 0) {
+    if (_filterCell.isFiltered) {
         [_filterCell.searchBar resignFirstResponder];
     }
 }
@@ -1257,7 +1267,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [self updateTopSectionCellsIncludeInBatch:^{
-        [self filterCoinInfos];
+        [self pageInfoUpdated];
     }];
     [searchBar setShowsCancelButton:YES animated:YES];
     if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
@@ -1275,7 +1285,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (void)searchBar:(UISearchBar *)__unused searchBar textDidChange:(NSString *)__unused searchText
 {
-    [self filterCoinInfos];
+    [self pageInfoUpdated];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)__unused searchBar
@@ -1300,14 +1310,6 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 #pragma mark - Helpers
 
-- (void)filterCoinInfos
-{
-    _filteredCoinInfos = [_pricesInfo.coinInfos[@(_sortCell.sorting)] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TGCryptoCurrency *  _Nullable evaluatedObject, __unused NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject validateFilter:_filterCell.searchBar.text];
-    }]];
-    [self updateTableViewContentSizeReloadDataCells:YES];
-}
-
 - (NSUInteger)tableView:(UITableView *)tableView pageAtOffset:(CGFloat)offset
 {
     NSUInteger basePageRowsCount = [self baseRowsCountForTableView:tableView];
@@ -1329,15 +1331,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 {
     _pricesInfo = pricesInfo;
     _currencyFormatter.currencySymbol = pricesInfo.currency.symbol ?: @"";
-    [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
-    [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
-    [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
-    if (_filterCell.isFiltered) {
-        [self filterCoinInfos];
-    }
-    else {
-        [self updateTableViewContentSizeReloadDataCells:YES];
-    }
+    [self updateTableViewContentSizeReloadDataCells:YES];
     if (_resetScrollPosition) {
         [_tableView scrollsToTop];
         _resetScrollPosition = YES;
@@ -1423,10 +1417,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (NSArray<TGCryptoCurrency *> *)coinInfos
 {
-    if (_filterCell.isFiltered) {
-        return _filteredCoinInfos;
-    }
-    return _pricesInfo.coinInfos[@(_filterCell.favoritesFilterButton.isSelected ? TGSortingFavoritedBit : _sortCell.sorting)];
+    return _pricesInfo.coinInfos[_filterCell.favoritesFilterButton.isSelected ? TGSortingFavoritedKey : @(_filterCell.isFiltered ? TGSortingSearch : _sortCell.sorting)];
 }
 
 
@@ -1435,27 +1426,33 @@ const NSUInteger kCellsLimitMultiplier = 10;
     static BOOL requested = NO;
     if (requested) return;
     
-    TGCoinSorting sorting = _sortCell.sorting;
-    if (_filterCell.favoritesFilterButton.isSelected)
-        setbit(&sorting, TGSortingFavoritedBit);
-    
-    TGCryptoPricePageInfo pageInfo;
-    pageInfo.sorting = sorting;
-    pageInfo.limit = [self baseRowsCountForTableView:_tableView];
-    if (_pagingEnabled) {
-        pageInfo.offset = MAX(0, (NSInteger)[self tableView:_tableView pageAtOffset:_tableView.contentOffset.y] - 1) * pageInfo.limit;
-        pageInfo.limit *= kPagesLimitMultiplier;
+    TGCoinSorting sorting = _sortCell.sorting ;
+    if (_filterCell.isFiltered) {
+        sorting = TGSortingSearch;
     }
-    else {
-        pageInfo.limit *= kCellsLimitMultiplier;
-        __block NSInteger topCellIndex = 0;
-        __block NSInteger bottomCellIndex = [self tableView:_tableView numberOfRowsInSection:_topSectionCells.count];
-        [_tableView.indexPathsForVisibleRows enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
-            if (obj.section != _tableView.numberOfSections - 1) return;
-            topCellIndex = MAX(topCellIndex, obj.row);
-            bottomCellIndex = MIN(bottomCellIndex, obj.row);
-        }];
-        pageInfo.offset = MAX(0, (topCellIndex + bottomCellIndex - (NSInteger)pageInfo.limit) / 2);
+    TGCryptoPricePageInfo *pageInfo = [TGCryptoPricePageInfo pageInfoWithLimit:[self baseRowsCountForTableView:_tableView]
+                                                                        offset:0
+                                                                       sorting:sorting
+                                                                  searchString:_filterCell.searchBar.text];
+    if (sorting != TGSortingSearch && _filterCell.favoritesFilterButton.isSelected)
+        pageInfo.isFavorited = YES;
+    
+    if (pageInfo.sorting != TGSortingSearch && !pageInfo.isFavorited) {
+        if (_pagingEnabled) {
+            pageInfo.offset = MAX(0, (NSInteger)[self tableView:_tableView pageAtOffset:_tableView.contentOffset.y] - 1) * pageInfo.limit;
+            pageInfo.limit *= kPagesLimitMultiplier;
+        }
+        else {
+            pageInfo.limit *= kCellsLimitMultiplier;
+            __block NSInteger topCellIndex = 0;
+            __block NSInteger bottomCellIndex = [self tableView:_tableView numberOfRowsInSection:_topSectionCells.count];
+            [_tableView.indexPathsForVisibleRows enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+                if (obj.section != _tableView.numberOfSections - 1) return;
+                topCellIndex = MAX(topCellIndex, obj.row);
+                bottomCellIndex = MIN(bottomCellIndex, obj.row);
+            }];
+            pageInfo.offset = MAX(0, (topCellIndex + bottomCellIndex - (NSInteger)pageInfo.limit) / 2);
+        }
     }
     TGCryptoManager.manager.pricePageInfo = pageInfo;
 }
@@ -1472,6 +1469,14 @@ const NSUInteger kCellsLimitMultiplier = 10;
     _apiOutOfDateLabel.text = TGLocalized(@"Crypto.Prices.API.Out.Of.Date");
     [self.view addSubview:_apiOutOfDateLabel];
     [_tableView reloadData];
+}
+
+- (void)stateUpdated:(NSInteger)flag
+{
+    clrbit(&_forceUpdateFlags, flag);
+    if (_tableView.refreshControl.refreshing && _forceUpdateFlags == 0) {
+        [_tableView.refreshControl endRefreshing];
+    }
 }
 
 @end

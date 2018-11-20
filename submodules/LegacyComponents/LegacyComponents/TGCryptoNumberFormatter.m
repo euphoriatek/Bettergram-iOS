@@ -4,6 +4,9 @@
 
 - (NSString *)stringFromNumber:(NSNumber *)number
 {
+    if (number == nil) {
+        return @"N/A";
+    }
     switch (self.numberStyle) {
         case NSNumberFormatterCurrencyStyle:
             if (number.doubleValue < 1) {
@@ -16,7 +19,9 @@
             }
             if (number.doubleValue < 1000000) {
                 self.maximumFractionDigits = 0;
-                return [super stringFromNumber:number];
+                NSString *result = [super stringFromNumber:number];
+                self.maximumFractionDigits = self.minimumFractionDigits = 2;
+                return result;
             }
             self.maximumFractionDigits = 2;
             break;

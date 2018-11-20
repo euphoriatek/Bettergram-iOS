@@ -152,7 +152,7 @@
                                                        fieldGetterBlock:^NSArray<NSString *> *(TGCryptoCurrency *obj) {
                                                            return @[ obj.name, obj.code ];
                                                        }
-                                              threshold:0.25
+                                                              threshold:0.25
                                                     equalCaseComparator:NULL];
     [_tableView reloadData];
 }

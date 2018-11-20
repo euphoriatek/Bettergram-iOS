@@ -573,9 +573,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                                                      fieldGetterBlock:^NSArray<NSString *> *(MWFeedItem *obj) {
                                                          return @[ obj.title, obj.author ];
                                                      }
-                                            threshold:0.5
-                                                  equalCaseComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                                                      return [((MWFeedItem *)[obj2 lastObject]).date compare:((MWFeedItem *)[obj1 lastObject]).date];
+                                                            threshold:0.5
+                                                  equalCaseComparator:^NSComparisonResult(MWFeedItem *obj1, MWFeedItem *obj2) {
+                                                      return [obj2.date compare:obj1.date];
                                                   }];
     lastUpdate = NSDate.date;
     [_tableView reloadData];

@@ -8,6 +8,12 @@
 #import <Foundation/Foundation.h>
 #import "TGCryptoPricesInfo.h"
 
+typedef enum : NSUInteger {
+    TGCryptoCurrencyTypeUnknown = 0,
+    TGCryptoCurrencyTypeCoin    = 1,
+    TGCryptoCurrencyTypeFiat    = 2,
+} TGCryptoCurrencyType;
+
 
 @interface TGCryptoCurrency : NSObject <NSCoding>
 
@@ -16,12 +22,15 @@
 @property (readonly, nonatomic, strong) NSString *url;
 @property (readonly, nonatomic, strong) NSString *symbol;
 @property (readonly, nonatomic, strong) NSString *iconURL;
+@property (readonly, nonatomic, assign) TGCryptoCurrencyType type;
 
 @property (nonatomic, assign) BOOL favorite;
 @property (nonatomic, assign) NSUInteger requestsCount;
 
 - (instancetype)initWithCode:(NSString *)code;
-- (void)fillWithCurrencyJson:(NSDictionary *)dictionary;
+- (void)fillWithCurrencyJson:(NSDictionary *)dictionary
+                     baseURL:(NSString *)baseURL
+        baseIconURLGenerator:(NSString *(^)(TGCryptoCurrencyType type))baseIconURLGenerator;
 - (BOOL)validateFilter:(NSString *)filter;
 
 // Coin info
@@ -29,7 +38,7 @@
 @property (readonly, nonatomic, assign) double volume;
 @property (readonly, nonatomic, assign) double cap;
 @property (readonly, nonatomic, assign) NSInteger rank;
-@property (readonly, nonatomic, assign) double price;
+@property (readonly, nonatomic, strong) NSNumber *price;
 @property (readonly, nonatomic, strong) NSNumber *minDelta;
 @property (readonly, nonatomic, strong) NSNumber *dayDelta;
 

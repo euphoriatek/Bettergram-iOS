@@ -15,7 +15,8 @@
 {    
     if (self = [super init]) {
         _requestsCount = 0;
-        _code = code.uppercaseString;
+        _code = code;
+        _rank = NSIntegerMax;
     }
     return self;
 }
@@ -27,13 +28,18 @@
         _url = [decoder decodeObjectForKey:@"url"];
         _symbol = [decoder decodeObjectForKey:@"symbol"];
         _iconURL = [decoder decodeObjectForKey:@"iconURL"];
+        _type = [decoder decodeIntegerForKey:@"type"];
+        
         _favorite = [decoder decodeBoolForKey:@"favorite"];
         _requestsCount = [decoder decodeIntegerForKey:@"requestsCount"];
         
         _volume = [decoder decodeDoubleForKey:@"volume"];
         _cap = [decoder decodeDoubleForKey:@"cap"];
         _rank = [decoder decodeIntegerForKey:@"rank"];
-        _price = [decoder decodeDoubleForKey:@"price"];
+        if (_rank < 1) {
+            _rank = NSIntegerMax;
+        }
+        _price = [decoder decodeObjectForKey:@"price"];
         _dayDelta = [decoder decodeObjectForKey:@"dayDelta"];
         _minDelta = [decoder decodeObjectForKey:@"minDelta"];
         
@@ -48,13 +54,15 @@
     [encoder encodeObject:_url forKey:@"url"];
     [encoder encodeObject:_symbol forKey:@"symbol"];
     [encoder encodeObject:_iconURL forKey:@"iconURL"];
+    [encoder encodeInteger:_type forKey:@"type"];
+    
     [encoder encodeBool:_favorite forKey:@"favorite"];
     [encoder encodeInteger:_requestsCount forKey:@"requestsCount"];
     
     [encoder encodeDouble:_volume forKey:@"volume"];
     [encoder encodeDouble:_cap forKey:@"cap"];
     [encoder encodeInteger:_rank forKey:@"rank"];
-    [encoder encodeDouble:_price forKey:@"price"];
+    [encoder encodeObject:_price forKey:@"price"];
     [encoder encodeObject:_dayDelta forKey:@"dayDelta"];
     [encoder encodeObject:_minDelta forKey:@"minDelta"];
 }
@@ -70,47 +78,86 @@
 }
 
 - (void)fillWithCurrencyJson:(NSDictionary *)dictionary
+                     baseURL:(NSString *)baseURL
+        baseIconURLGenerator:(NSString *(^)(TGCryptoCurrencyType type))baseIconURLGenerator
 {
 #if DEBUG
     NSMutableArray<NSString *> *unknownKeys = dictionary.allKeys.mutableCopy;
-    [unknownKeys removeObjectsInArray:@[@"code",@"name",@"url",@"symbol",@"icon"]];
+    [unknownKeys removeObjectsInArray:@[@"code",@"name",@"url",@"symbol",@"icon",@"type"]];
     if (unknownKeys.count > 0) {
         TGLog(@"TGCMError: unknown currency keys: %@", unknownKeys);
         [NSException raise:@"TGCMError" format:@"TGCMError: unknown currency keys: %@", unknownKeys];
     }
 #endif
     _name = dictionary[@"name"];
-    _url = dictionary[@"url"];
+    _url = [baseURL stringByAppendingString:_code];
     _symbol = dictionary[@"symbol"];
-    _iconURL = dictionary[@"icon"];
+    
+    NSString *typeString = dictionary[@"type"];
+    if ([typeString isEqualToString:@"coin"]) {
+        _type = TGCryptoCurrencyTypeCoin;
+    }
+    else if ([typeString isEqualToString:@"fiat"]) {
+        _type = TGCryptoCurrencyTypeFiat;
+    }
+    else {
+        _type = TGCryptoCurrencyTypeUnknown;
+    }
+    
+    NSString *iconName = dictionary[@"icon"];
+    if (iconName) {
+        _iconURL = [baseIconURLGenerator(_type) stringByAppendingString:iconName];
+    }
 }
 
 - (void)fillWithCoinInfoJson:(NSDictionary *)dictionary sorting:(TGCoinSorting)sorting
 {
 #if DEBUG
     NSMutableArray<NSString *> *unknownKeys = dictionary.allKeys.mutableCopy;
-    [unknownKeys removeObjectsInArray:@[@"code",@"volume",@"cap",@"rank",@"price",@"delta"]];
+    [unknownKeys removeObjectsInArray:@[@"code",@"volume",@"cap",@"rank",@"price",@"delta",@"supply",@"circulating",@"name"]];
     if (unknownKeys.count > 0) {
         TGLog(@"TGCMError: unknown currency keys: %@", unknownKeys);
         [NSException raise:@"TGCMError" format:@"TGCMError: unknown currency keys: %@", unknownKeys];
     }
 #endif
-    _volume = [dictionary[@"volume"] doubleValue];
     _cap = [dictionary[@"cap"] doubleValue];
     _rank = [dictionary[@"rank"] integerValue];
-    _price = [dictionary[@"price"] doubleValue];
+    if (_rank < 1) {
+        _rank = NSIntegerMax;
+    }
+    
+    id price = dictionary[@"price"];
+    if ([price isKindOfClass:NSNumber.class]) {
+        _price = price;
+    }
+    else {
+        _price = nil;
+    }
     
     id dayDelta = dictionary[@"delta"][@"day"];
     if ([dayDelta isKindOfClass:[NSNumber class]]) {
         _dayDelta = @([dayDelta doubleValue] - 1);
+    }
+    else {
+        _dayDelta = nil;
     }
     
     id minuteDelta = dictionary[@"delta"][@"minute"];
     if ([minuteDelta isKindOfClass:[NSNumber class]]) {
         _minDelta = @([minuteDelta doubleValue] - 1);
     }
+    else {
+        _dayDelta = nil;
+    }
     
     *[self updatedDatePointerForSorting:sorting] = _updatedDate = NSDate.date.timeIntervalSince1970;
+    
+    /* non used values
+     name
+     _volume = [dictionary[@"volume"] doubleValue];
+     _supply = [dictionary[@"supply"] integerValue];
+     _circulating = [dictionary[@"circulating"] integerValue];
+     */
 }
 
 - (NSTimeInterval)updatedDateForSorting:(TGCoinSorting)sorting
@@ -146,7 +193,7 @@
 {
     _volume = 0;
     _cap = 0;
-    _rank = 0;
+    _rank = NSIntegerMax;
     _price = 0;
     _dayDelta = nil;
     _minDelta = nil;
@@ -155,7 +202,7 @@
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"<%@: %p> code: %@; price: %@", [self class], self, _code, @(_price)];
+    return [NSString stringWithFormat:@"<%@: %p> code: %@; price: %@", [self class], self, _code, _price];
 }
 
 @end
