@@ -1267,6 +1267,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [self updateTopSectionCellsIncludeInBatch:^{
+        [self updateTableViewContentSizeReloadDataCells:YES];
         [self pageInfoUpdated];
     }];
     [searchBar setShowsCancelButton:YES animated:YES];
@@ -1301,6 +1302,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
     }
     [self setNavigationBarHidden:NO animated:YES];
     [self setNeedsStatusBarAppearanceUpdate];
+    [self pageInfoUpdated];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar

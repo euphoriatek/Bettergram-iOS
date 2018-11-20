@@ -23,6 +23,20 @@
     return result;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:TGCryptoPricePageInfo.class]) return NO;
+    TGCryptoPricePageInfo *obj = object;
+    if (_sorting != obj.sorting || _isFavorited != obj.isFavorited) return NO;
+    if (_isFavorited) {
+        return YES;
+    }
+    if (_sorting == TGSortingSearch) {
+        return TGObjectCompare(_searchString, obj.searchString);
+    }
+    return _limit == obj.limit && _offset == obj.offset;
+}
+
 @end
 
 

@@ -338,10 +338,13 @@ NSTimeInterval const kPricesUpdateInterval = 60;
 
 - (void)setPricePageInfo:(TGCryptoPricePageInfo *)pricePageInfo
 {
-    if (pricePageInfo.sorting == TGSortingSearch && TGObjectCompare(pricePageInfo.searchString, _pricePageInfo.searchString)) {
+    if (TGObjectCompare(_pricePageInfo, pricePageInfo)) {
         return;
     }
     BOOL sortingUpdated = _pricePageInfo.sorting != pricePageInfo.sorting;
+    if (_pricePageInfo.sorting == TGSortingSearch && sortingUpdated) {
+        [_pricesInfo updateSearchResults:nil];
+    }
     _pricePageInfo = pricePageInfo;
     if (sortingUpdated) {
         [_updatePricesDataTasks.allValues makeObjectsPerformSelector:@selector(cancel)];
@@ -588,6 +591,9 @@ NSTimeInterval const kPricesUpdateInterval = 60;
         case TGSorting24hAscending:
         case TGSorting24hDescending:
             return @"delta.minute";
+            
+        case TGSortingSearch:
+            return @"none";
             
         default:
             return @"rank";
