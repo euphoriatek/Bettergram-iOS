@@ -1420,9 +1420,18 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (NSArray<TGCryptoCurrency *> *)coinInfos
 {
-    return _pricesInfo.coinInfos[_filterCell.favoritesFilterButton.isSelected ? TGSortingFavoritedKey : @(_filterCell.isFiltered ? TGSortingSearch : _sortCell.sorting)];
+    NSNumber *key;
+    if (_filterCell.isFiltered) {
+        key = @(TGSortingSearch);
+    }
+    else if (_filterCell.favoritesFilterButton.isSelected) {
+        key = TGSortingFavoritedKey;
+    }
+    else {
+        key = @(_sortCell.sorting);
+    }
+    return _pricesInfo.coinInfos[key];
 }
-
 
 - (void)pageInfoUpdated
 {
@@ -1437,8 +1446,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
                                                                         offset:0
                                                                        sorting:sorting
                                                                   searchString:_filterCell.searchBar.text];
-    if (sorting != TGSortingSearch && _filterCell.favoritesFilterButton.isSelected)
-        pageInfo.isFavorited = YES;
+    pageInfo.isFavorited = _filterCell.favoritesFilterButton.isSelected;
     
     if (pageInfo.sorting != TGSortingSearch && !pageInfo.isFavorited) {
         if (_pagingEnabled) {

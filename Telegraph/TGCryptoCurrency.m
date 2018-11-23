@@ -90,12 +90,20 @@
     }
 #endif
     _name = dictionary[@"name"];
-    _url = [baseURL stringByAppendingString:_code];
     _symbol = dictionary[@"symbol"];
     
     NSString *typeString = dictionary[@"type"];
     if ([typeString isEqualToString:@"coin"]) {
         _type = TGCryptoCurrencyTypeCoin;
+        static NSCharacterSet *set = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSMutableCharacterSet *mSet = NSMutableCharacterSet.decimalDigitCharacterSet;
+            [mSet formUnionWithCharacterSet:NSMutableCharacterSet.letterCharacterSet];
+            [mSet addCharactersInString:@"_"];
+            set = mSet.invertedSet;
+        });
+        _url = [NSString stringWithFormat:@"%@%@-%@",baseURL, [[_name componentsSeparatedByCharactersInSet:set] componentsJoinedByString:@""], _code];
     }
     else if ([typeString isEqualToString:@"fiat"]) {
         _type = TGCryptoCurrencyTypeFiat;

@@ -28,9 +28,6 @@
     if (![object isKindOfClass:TGCryptoPricePageInfo.class]) return NO;
     TGCryptoPricePageInfo *obj = object;
     if (_sorting != obj.sorting || _isFavorited != obj.isFavorited) return NO;
-    if (_isFavorited) {
-        return YES;
-    }
     if (_sorting == TGSortingSearch) {
         return TGObjectCompare(_searchString, obj.searchString);
     }
@@ -87,7 +84,7 @@
     self.currency = [TGCryptoManager.manager cachedCurrencyWithCode:dictionary[@"currency"]];
     self.currency.requestsCount++;
     
-    BOOL favorites = pageInfo.isFavorited;
+    BOOL favorites = pageInfo.sorting != TGSortingSearch && pageInfo.isFavorited;
     NSNumber *key = favorites ? TGSortingFavoritedKey : @(pageInfo.sorting);
     if (_coinInfos[key] == nil) {
         _coinInfos[key] = [NSMutableArray array];
@@ -225,33 +222,40 @@
         if ((obj1.updatedDate != 0) == (obj2.updatedDate != 0) ||
             sorting == TGSortingCoinAscending || sorting == TGSortingCoinDescending)
         {
+            id var1, var2;
+            NSComparisonResult multiplier = 1;
             switch (sorting) {
                 case TGSorting24hAscending:
                 case TGSorting24hDescending:
-                    return [obj1.dayDelta compare:obj2.dayDelta] * (sorting == TGSorting24hAscending ? 1 : -1);
+                    var1 = obj1.dayDelta;
+                    var2 = obj2.dayDelta;
+                    multiplier = sorting == TGSorting24hAscending ? 1 : -1;
+                    break;
                     
                 case TGSortingCoinAscending:
                 case TGSortingCoinDescending:
-                    return [obj1.name compare:obj2.name] * (sorting == TGSortingCoinAscending ? 1 : -1);
+                    var1 = obj1.name;
+                    var2 = obj2.name;
+                    multiplier = sorting == TGSortingCoinAscending ? 1 : -1;
+                    break;
                     
                 case TGSortingPriceAscending:
-                case TGSortingPriceDescending: {
-                    NSComparisonResult result = NSOrderedSame;
-                    if ((obj1.price == nil) != (obj2.price == nil)) {
-                        result = obj1.price == nil ? NSOrderedAscending : NSOrderedDescending;
-                    }
-                    else {
-                        result = [obj1.price compare:obj2.price];
-                    }
-                    return result * (sorting == TGSortingPriceAscending ? 1 : -1);
-                }
+                case TGSortingPriceDescending:
+                    var1 = obj1.price;
+                    var2 = obj2.price;
+                    multiplier = sorting == TGSortingPriceAscending ? 1 : -1;
+                    break;
                     
                 case TGSortingNone:
                     return [@(obj1.rank) compare:@(obj2.rank)];
                     
-                case TGSortingSearch:
+                default:
                     return 0;
             }
+            if ((var1 == nil) != (var2 == nil)) {
+                return var1 == nil ? NSOrderedDescending : NSOrderedAscending;
+            }
+            return [var1 compare:var2] * multiplier;
         }
         if (obj1.updatedDate == 0) {
             return NSOrderedDescending;

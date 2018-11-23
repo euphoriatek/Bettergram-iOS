@@ -39,9 +39,7 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     AFHTTPSessionManager *_bettergramSessionManager;
     NSDictionary<NSString *, TGCryptoCurrency *> *_currencies;
     NSTimeInterval _lastUpdateDate;
-    
-    NSMutableDictionary<NSString *, NSDictionary<NSString *, id> *> *_httpHeaderImageURLs;
-    
+        
     AFHTTPSessionManager *_mailchimpSessionManager;
     AFNetworkReachabilityManager *_reachabilityManager;
     
@@ -341,8 +339,8 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     if (TGObjectCompare(_pricePageInfo, pricePageInfo)) {
         return;
     }
-    BOOL sortingUpdated = _pricePageInfo.sorting != pricePageInfo.sorting;
-    if (_pricePageInfo.sorting == TGSortingSearch && sortingUpdated) {
+    BOOL sortingUpdated = _pricePageInfo.sorting != pricePageInfo.sorting || _pricePageInfo.isFavorited != pricePageInfo.isFavorited;
+    if (_pricePageInfo.sorting == TGSortingSearch && _pricePageInfo.sorting != pricePageInfo.sorting) {
         [_pricesInfo updateSearchResults:nil];
     }
     _pricePageInfo = pricePageInfo;
@@ -395,7 +393,15 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     if (_pricePageInfo.sorting == TGSortingSearch) {
         NSArray<TGCryptoCurrency *> *searchResults = nil;
         if (_pricePageInfo.searchString.length >= 2) {
-            searchResults = [_currencies.allValues filteredArrayUsingMatchingString:_pricePageInfo.searchString
+            NSArray<TGCryptoCurrency *> *currencies = _currencies.allValues;
+            if (_pricePageInfo.isFavorited) {
+                currencies = [currencies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TGCryptoCurrency * _Nullable evaluatedObject,
+                                                                                              __unused NSDictionary<NSString *,id> * _Nullable bindings)
+                                                         {
+                                                             return evaluatedObject.favorite;
+                                                         }]];
+            }
+            searchResults = [currencies filteredArrayUsingMatchingString:_pricePageInfo.searchString
                                                                levenshteinMatchGain:3
                                                                         missingCost:1
                                                                    fieldGetterBlock:^NSArray<NSString *> *(TGCryptoCurrency *obj) {
