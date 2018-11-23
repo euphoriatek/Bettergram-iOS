@@ -198,7 +198,7 @@ static NSDictionary *countryCodes()
 {
     if (iosMajorVersion() < 10)
         return [self countryNameByCountryId:countryId code:code];
-        
+    
     NSLocale *locale = [effectiveLocalization() locale];
     NSString *name = [locale localizedStringForCountryCode:countryId];
     if (name.length == 0 || code != NULL)
@@ -283,7 +283,7 @@ static NSDictionary *countryCodes()
         NSString *localizedName = nil;
         if (iosMajorVersion() >= 10 && ![locale.languageCode isEqualToString:@"en"])
             localizedName = [locale localizedStringForCountryCode:code];
-            
+        
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         dict[@"id"] = countryId;
         dict[@"code"] = code;
@@ -372,7 +372,8 @@ static NSDictionary *countryCodes()
     {
         _tableView.backgroundColor = self.view.backgroundColor;
         _tableView.sectionIndexColor = self.presentation.pallete.accentColor;
-        [_searchBar setPallete:self.presentation.searchBarPallete];
+        [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+                segmentedControlPallete:self.presentation.segmentedControlPallete];
         _tableView.separatorColor = self.presentation.pallete.separatorColor;
     }
     
@@ -403,7 +404,8 @@ static NSDictionary *countryCodes()
         self.view.backgroundColor = presentation.pallete.backgroundColor;
     _tableView.backgroundColor = self.view.backgroundColor;
     _tableView.sectionIndexColor = presentation.pallete.accentColor;
-    [_searchBar setPallete:presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:presentation.searchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     
     _tableView.separatorColor = presentation.pallete.separatorColor;
 }

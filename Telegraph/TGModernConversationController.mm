@@ -943,7 +943,8 @@ typedef enum {
     _emptyListPlaceholder.presentation = presentation;
     _primaryTitlePanel.presentation = presentation;
     _secondaryTitlePanel.presentation = presentation;
-    _searchBar.pallete = presentation.searchBarPallete;
+    [_searchBar setSearchBarPallete:presentation.searchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     _scrollButtons.presentation = presentation;
     
     [_collectionView updatePresentation];
@@ -12157,7 +12158,8 @@ static UIView *_findBackArrow(UIView *view)
     {
         CGFloat offset = self.controllerSafeAreaInset.top > 0 ? self.controllerSafeAreaInset.top : ([self shouldIgnoreStatusBar] ? 0.0f : 20.0f) + self.additionalStatusBarHeight;
         _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0.0f, offset, _view.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleLight];
-        [_searchBar setPallete:self.presentation.searchBarPallete];
+        [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+                segmentedControlPallete:self.presentation.segmentedControlPallete];
         _searchBar.safeAreaInset = self.controllerSafeAreaInset;
         _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _searchBar.delegate = self;

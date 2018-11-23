@@ -90,7 +90,8 @@
     _presentation = presentation;
     
     self.view.backgroundColor = presentation.pallete.backgroundColor;
-    [_searchBar setPallete:_presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:_presentation.searchBarPallete
+            segmentedControlPallete:_presentation.segmentedControlPallete];
 }
 
 - (NSArray<TGCryptoCurrency *> *)displayingCurrencies

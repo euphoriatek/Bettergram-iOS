@@ -15,13 +15,16 @@
 COLOR tabBarBackgroundColor;
 COLOR tabBarSeparatorColor;
 COLOR dialogEditFavoriteColor;
-COLOR sharedMediaSelectedForegroundColor;
 
 COLOR cryptoSortArrowColor;
 COLOR cryptoFavoritedCoinColor;
 COLOR searchBarPlainBackgroundColor;
 
 COLOR conversationInputPanelActionColor;
+
+COLOR chatTitleMutedColor;
+
+COLOR navigationTextColor;
 
 //
 

@@ -9,6 +9,7 @@
 @class TGLocationOptionsView;
 
 @class TGSearchBarPallete;
+@class UISegmentedControlPallete;
 
 @interface TGLocationPallete : NSObject
 
@@ -25,9 +26,10 @@
 @property (nonatomic, readonly) UIColor *sectionHeaderBackgroundColor;
 @property (nonatomic, readonly) UIColor *sectionHeaderTextColor;
 @property (nonatomic, readonly) TGSearchBarPallete *searchBarPallete;
+@property (nonatomic, readonly) UISegmentedControlPallete *segmentedControlPallete;
 @property (nonatomic, readonly) UIImage *avatarPlaceholder;
 
-+ (instancetype)palleteWithBackgroundColor:(UIColor *)backgroundColor selectionColor:(UIColor *)selectionColor separatorColor:(UIColor *)separatorColor textColor:(UIColor *)textColor secondaryTextColor:(UIColor *)secondaryTextColor accentColor:(UIColor *)accentColor destructiveColor:(UIColor *)destructiveColor locationColor:(UIColor *)locationColor liveLocationColor:(UIColor *)liveLocationColor iconColor:(UIColor *)iconColor sectionHeaderBackgroundColor:(UIColor *)sectionHeaderBackgroundColor sectionHeaderTextColor:(UIColor *)sectionHeaderTextColor searchBarPallete:(TGSearchBarPallete *)searchBarPallete avatarPlaceholder:(UIImage *)avatarPlaceholder;
++ (instancetype)palleteWithBackgroundColor:(UIColor *)backgroundColor selectionColor:(UIColor *)selectionColor separatorColor:(UIColor *)separatorColor textColor:(UIColor *)textColor secondaryTextColor:(UIColor *)secondaryTextColor accentColor:(UIColor *)accentColor destructiveColor:(UIColor *)destructiveColor locationColor:(UIColor *)locationColor liveLocationColor:(UIColor *)liveLocationColor iconColor:(UIColor *)iconColor sectionHeaderBackgroundColor:(UIColor *)sectionHeaderBackgroundColor sectionHeaderTextColor:(UIColor *)sectionHeaderTextColor searchBarPallete:(TGSearchBarPallete *)searchBarPallete segmentedControlPallete:(UISegmentedControlPallete *)segmentedControlPallete avatarPlaceholder:(UIImage *)avatarPlaceholder;
 
 @end
 

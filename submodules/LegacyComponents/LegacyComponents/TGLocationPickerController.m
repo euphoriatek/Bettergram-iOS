@@ -187,7 +187,8 @@ const CGPoint TGLocationPickerPinOffset = { 0.0f, 33.0f };
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0.0f, safeAreaInset, _searchBarWrapper.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleHeader];
     if (self.pallete != nil)
-        [_searchBar setPallete:self.pallete.searchBarPallete];
+        [_searchBar setSearchBarPallete:self.pallete.searchBarPallete
+                segmentedControlPallete:self.pallete.segmentedControlPallete];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.customBackgroundView.image = nil;
     _searchBar.customActiveBackgroundView.image = nil;

@@ -16,6 +16,7 @@
 @class TGImageBorderPallete;
 
 @class TGPresentationAutoNightPreferences;
+@class UISegmentedControlPallete;
 
 @interface TGPresentation : NSObject
 
@@ -25,6 +26,7 @@
 @property (nonatomic, readonly) int32_t currentId;
 
 - (TGNavigationBarPallete *)navigationBarPallete;
+- (UISegmentedControlPallete *)segmentedControlPallete;
 - (TGSearchBarPallete *)searchBarPallete;
 - (TGSearchBarPallete *)keyboardSearchBarPallete;
 - (TGMenuSheetPallete *)menuSheetPallete;

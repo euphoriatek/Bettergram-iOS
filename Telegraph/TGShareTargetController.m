@@ -102,7 +102,8 @@
     _tableView.showsVerticalScrollIndicator = true;
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleLightPlain];
-    [_searchBar setPallete:self.presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+            segmentedControlPallete:self.presentation.segmentedControlPallete];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     _searchTopBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, -320.0f, self.view.frame.size.width, 320.0f)];

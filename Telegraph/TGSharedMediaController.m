@@ -1008,7 +1008,8 @@
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _collectionView.frame.size.width, 44.0f) style:TGSearchBarStyleLightPlain];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_searchBar setPallete:self.presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+            segmentedControlPallete:self.presentation.segmentedControlPallete];
     [_collectionView addSubview:_searchBar];
     _searchBar.hidden = _mode == TGSharedMediaControllerModeAll;
     _searchBar.delegate = self;
@@ -1303,7 +1304,8 @@
     _collectionView.backgroundColor = self.view.backgroundColor;
     _searchCollectionView.backgroundColor = self.view.backgroundColor;
     
-    [_searchBar setPallete:presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:presentation.searchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     _menuView.presentation = presentation;
     
     _selectionPanelView.presentation = presentation;
@@ -1361,26 +1363,9 @@
     _navbarExtensionView.backgroundColor = whiteColor;
     _navbarExtensionMaskView.image = maskImage;
     
-    [_segmentedControl setBackgroundImage:presentation.images.segmentedControlBackgroundImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:presentation.images.segmentedControlHighlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setDividerImage:presentation.images.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = UIColor.clearColor;
-    [_segmentedControl setTitleTextAttributes:@{
-                                                NSForegroundColorAttributeName: presentation.pallete.navigationButtonColor,
-                                                NSShadowAttributeName: shadow,
-                                                NSFontAttributeName: TGSystemFontOfSize(13),
-                                                }
-                                     forState:UIControlStateNormal];
-    [_segmentedControl setTitleTextAttributes:@{
-                                                NSForegroundColorAttributeName: presentation.pallete.sharedMediaSelectedForegroundColor,
-                                                NSShadowAttributeName: shadow,
-                                                NSFontAttributeName: TGSystemFontOfSize(13),
-                                                }
-                                     forState:UIControlStateSelected];
+    [_segmentedControl setPallete:_presentation.segmentedControlPallete];
     
     _stripeView.backgroundColor = presentation.pallete.barSeparatorColor;
 }

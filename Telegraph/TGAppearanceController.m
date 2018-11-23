@@ -270,11 +270,7 @@
     if (_bettergramItem.isChecked)
         return;
     
-    TGPresentationPallete *pallete = [TGBettergramPresentationPallete new];
-    [self setPallete:pallete applyColorWallpaper:true];
-    
-    TGWallpaperInfo *info = [[TGWallpaperManager instance] builtinWallpaperList].firstObject;
-    [[TGWallpaperManager instance] setCurrentWallpaperWithInfo:info];
+    [self setPallete:[TGBettergramPresentationPallete new] applyColorWallpaper:true];
 }
 
 - (void)dayClassicPressed

@@ -414,7 +414,8 @@ static bool TGContactListSectionComparator(std::shared_ptr<TGContactListSection>
     _tableView.sectionIndexColor = presentation.pallete.accentColor;
     
     _headerBackgroundView.backgroundColor = self.presentation.pallete.backgroundColor;
-    [_searchBar setPallete:presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:presentation.searchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     
     _searchTableView.layer.backgroundColor = self.presentation.pallete.backgroundColor.CGColor;
     _searchTableViewBackground.backgroundColor = self.presentation.pallete.backgroundColor;
@@ -543,7 +544,8 @@ static bool TGContactListSectionComparator(std::shared_ptr<TGContactListSection>
     if (!(_contactsMode & TGContactsModeSearchDisabled))
     {
         _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0, 0, viewSize.width, [TGSearchBar searchBarBaseHeight]) style:((_contactsMode & TGContactsModeMainContacts) && TGIsPad()) ? TGSearchBarStyleLightPlain : TGSearchBarStyleLightPlain];
-        [_searchBar setPallete:self.presentation.searchBarPallete];
+        [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+                segmentedControlPallete:self.presentation.segmentedControlPallete];
         
         [(TGListsTableView *)_tableView adjustBehaviour];
         

@@ -41,9 +41,9 @@
     return self.accentContrastColor;
 }
 
-- (UIColor *)sharedMediaSelectedForegroundColor
+- (UIColor *)chatTitleMutedColor
 {
-    return self.accentColor;
+    return self.navigationSubtitleColor;
 }
 
 //

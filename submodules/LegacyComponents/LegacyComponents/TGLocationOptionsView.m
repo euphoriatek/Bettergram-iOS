@@ -10,6 +10,8 @@
 
 #import "LegacyComponentsInternal.h"
 #import "TGImageUtils.h"
+#import "UISegmentedControl+SetPallete.h"
+
 
 @interface TGLocationOptionsView ()
 {
@@ -115,14 +117,7 @@
     
     [_trackButton setAccentColor:pallete.accentColor spinnerColor:pallete.secondaryTextColor];
     
-    [_mapModeControl setBackgroundImage:pallete.searchBarPallete.segmentedControlBackgroundImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_mapModeControl setBackgroundImage:pallete.searchBarPallete.segmentedControlSelectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [_mapModeControl setBackgroundImage:pallete.searchBarPallete.segmentedControlSelectedImage forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_mapModeControl setBackgroundImage:pallete.searchBarPallete.segmentedControlHighlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_mapModeControl setDividerImage:pallete.searchBarPallete.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
-    [_mapModeControl setTitleTextAttributes:@{UITextAttributeTextColor:pallete.searchBarPallete.accentColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-    [_mapModeControl setTitleTextAttributes:@{UITextAttributeTextColor:pallete.searchBarPallete.accentContrastColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+    [_mapModeControl setPallete:pallete.segmentedControlPallete];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event

@@ -359,7 +359,8 @@
         _scopeButtonTitles = @[TGLocalized(@"WebSearch.Images"), TGLocalized(@"WebSearch.GIFs"), TGLocalized(@"WebSearch.RecentSectionTitle")];
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frameSize.width, 0.0f) style:TGSearchBarStyleHeader];
-    [_searchBar setPallete:self.presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+            segmentedControlPallete:self.presentation.segmentedControlPallete];
     _searchBar.safeAreaInset = safeAreaInset;
     _searchBar.customScopeButtonTitles = _scopeButtonTitles;
     _searchBar.scopeBarCollapsed = _embedded;

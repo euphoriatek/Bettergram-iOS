@@ -22,6 +22,7 @@
 
 #import "TGItemPreviewController.h"
 #import "TGStickerItemPreviewView.h"
+#import "UISegmentedControl+SetPallete.h"
 
 const CGFloat TGPhotoStickersPreloadInset = 160.0f;
 const CGFloat TGPhotoStickersViewMargin = 19.0f;
@@ -136,23 +137,11 @@ typedef enum {
             [_cancelButton sizeToFit];
             [_wrapperView addSubview:_cancelButton];
             
-            [_segmentedControl setBackgroundImage:TGTintedImage(TGComponentsImageNamed(@"ModernSegmentedControlBackground.png"), UIColorRGB(0xafb2b1)) forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setBackgroundImage:TGTintedImage(TGComponentsImageNamed(@"ModernSegmentedControlSelected.png"), UIColorRGB(0xafb2b1)) forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setBackgroundImage:TGTintedImage(TGComponentsImageNamed(@"ModernSegmentedControlSelected.png"), UIColorRGB(0xafb2b1)) forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setBackgroundImage:TGComponentsImageNamed(@"PaintSegmentedControlHighlighted.png") forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setDividerImage:TGTintedImage(TGComponentsImageNamed(@"ModernSegmentedControlDivider.png"), UIColorRGB(0xafb2b1)) forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor: UIColorRGB(0xafb2b1), UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-            [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+            [_segmentedControl setNoPalleteAccentColor:UIColorRGB(0xafb2b1) accentContrastColor:UIColor.blackColor];
         }
         else
         {
-            [_segmentedControl setBackgroundImage:TGComponentsImageNamed(@"ModernSegmentedControlBackground.png") forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setBackgroundImage:TGComponentsImageNamed(@"ModernSegmentedControlSelected.png") forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setBackgroundImage:TGComponentsImageNamed(@"ModernSegmentedControlSelected.png") forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setBackgroundImage:TGComponentsImageNamed(@"ModernSegmentedControlHighlighted.png") forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setDividerImage:TGComponentsImageNamed(@"ModernSegmentedControlDivider.png") forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor: TGAccentColor(), UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-            [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor], UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+            [_segmentedControl setPallete:nil];
         }
         
         [_segmentedControl insertSegmentWithTitle:TGLocalized(@"Paint.Masks") atIndex:0 animated:false];

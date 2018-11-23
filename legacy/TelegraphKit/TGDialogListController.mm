@@ -914,7 +914,8 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     if (!_dialogListCompanion.feedChannels)
     {
         _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleLightPlain];
-        _searchBar.pallete = self.presentation.searchBarPallete;
+        [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+                segmentedControlPallete:self.presentation.segmentedControlPallete];
         _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _searchBar.safeAreaInset = [self controllerSafeAreaInset];
         _searchBar.backgroundColor = UIColor.clearColor;
@@ -4318,7 +4319,8 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     _tableView.backgroundColor = _presentation.pallete.backgroundColor;
     
-    [_searchBar setPallete:presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:presentation.searchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     
     _titleLockIconView.presentation = self.presentation;
     

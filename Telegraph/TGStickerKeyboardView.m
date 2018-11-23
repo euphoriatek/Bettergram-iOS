@@ -519,7 +519,8 @@ typedef enum {
 {
     _presentation = presentation;
     
-    [_searchBar setPallete:presentation.keyboardSearchBarPallete];
+    [_searchBar setSearchBarPallete:presentation.keyboardSearchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     _tabPanel.pallete = presentation.stickerKeyboardPallete;
     self.backgroundColor = presentation.pallete.chatInputKeyboardBackgroundColor;
     _searchWrapperView.backgroundColor = self.backgroundColor;

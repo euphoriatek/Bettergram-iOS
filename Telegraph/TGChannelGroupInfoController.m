@@ -2461,7 +2461,8 @@ static const NSUInteger loadMoreMemberCount = 100;
     
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0.0f, TGIsPad() ? 0.0f : safeAreaInset, _searchBarWrapper.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleHeader];
-    [_searchBar setPallete:self.presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+            segmentedControlPallete:self.presentation.segmentedControlPallete];
     _searchBar.safeAreaInset = [self controllerSafeAreaInset];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.customBackgroundView.image = nil;

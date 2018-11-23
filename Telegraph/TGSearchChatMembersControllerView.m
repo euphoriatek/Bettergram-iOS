@@ -172,7 +172,8 @@ static void adjustCellForUser(TGContactCell *contactCell, TGUser *user, bool ani
         }
         
         _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleLightPlain];
-        [_searchBar setPallete:presentation.searchBarPallete];
+        [_searchBar setSearchBarPallete:presentation.searchBarPallete
+                segmentedControlPallete:presentation.segmentedControlPallete];
         [(TGListsTableView *)_tableView adjustBehaviour];
         
         _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;

@@ -1016,7 +1016,8 @@ const NSUInteger kCellsLimitMultiplier = 10;
     
     self.view.backgroundColor = presentation.pallete.backgroundColor;
     
-    _filterCell.searchBar.pallete = presentation.keyboardSearchBarPallete;
+    [_filterCell.searchBar setSearchBarPallete:presentation.keyboardSearchBarPallete
+                       segmentedControlPallete:presentation.segmentedControlPallete];
     [_filterCell.favoritesFilterButton setImage:presentation.images.cryptoPricesFilterFavoriteDeselectedImage forState:UIControlStateNormal];
     [_filterCell.favoritesFilterButton setImage:presentation.images.cryptoPricesFilterFavoriteSelectedImage forState:UIControlStateSelected];
     

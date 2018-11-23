@@ -41,8 +41,16 @@
     return self.accentColor;
 }
 
-- (UIColor *)sharedMediaSelectedForegroundColor
+- (UIColor *)chatTitleMutedColor
 {
+    return self.dialogBadgeMutedColor;
+}
+
+- (UIColor *)navigationTextColor
+{
+    if (self.navigationButtonColor == self.accentContrastColor) {
+        return self.accentColor;
+    }
     return self.accentContrastColor;
 }
 

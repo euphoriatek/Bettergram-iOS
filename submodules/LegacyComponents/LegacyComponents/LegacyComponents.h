@@ -10,6 +10,7 @@ FOUNDATION_EXPORT const unsigned char LegacyComponentsVersionString[];
 #import <LegacyComponents/NSObject+CleanedJSON.h>
 #import <LegacyComponents/Filtering.h>
 #import <LegacyComponents/TGCryptoNumberFormatter.h>
+#import <LegacyComponents/UISegmentedControl+SetPallete.h>
 
 
 #import <LegacyComponents/LegacyComponentsGlobals.h>

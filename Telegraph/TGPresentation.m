@@ -14,21 +14,7 @@
 #import "TGModernConversationControllerDynamicTypeSignals.h"
 #import "TGScreenBrightnessSignals.h"
 
-#import <LegacyComponents/TGImageBlur.h>
-#import <LegacyComponents/TGImageUtils.h>
-#import <LegacyComponents/TGFont.h>
-
-#import <LegacyComponents/TGColorWallpaperInfo.h>
-#import <LegacyComponents/TGBuiltinWallpaperInfo.h>
-#import <LegacyComponents/TGNavigationBar.h>
-#import <LegacyComponents/TGSearchBar.h>
-#import <LegacyComponents/TGMenuSheetController.h>
-#import <LegacyComponents/TGStickerKeyboardTabPanel.h>
-#import <LegacyComponents/TGCheckButtonView.h>
-#import <LegacyComponents/TGMediaAssetsController.h>
-#import <LegacyComponents/TGLocationMapViewController.h>
-#import <LegacyComponents/TGModernConversationInputMicButton.h>
-#import <LegacyComponents/TGModernConversationAssociatedInputPanel.h>
+#import <LegacyComponents/LegacyComponents.h>
 
 @interface TGPresentationState : NSObject <NSCoding>
 
@@ -45,6 +31,16 @@
 - (TGNavigationBarPallete *)navigationBarPallete
 {
     return [TGNavigationBarPallete palleteWithBackgroundColor:self.pallete.barBackgroundColor separatorColor:self.pallete.barSeparatorColor titleColor:self.pallete.navigationTitleColor tintColor:self.pallete.navigationButtonColor];
+}
+
+- (UISegmentedControlPallete *)segmentedControlPallete
+{
+    return [UISegmentedControlPallete palleteWithDefaultTextColor:self.pallete.navigationButtonColor
+                                                selectedTextColor:self.pallete.navigationTextColor
+                                  segmentedControlBackgroundImage:self.images.segmentedControlBackgroundImage
+                                    segmentedControlSelectedImage:self.images.segmentedControlSelectedImage
+                                 segmentedControlHighlightedImage:self.images.segmentedControlHighlightedImage
+                                     segmentedControlDividerImage:self.images.segmentedControlDividerImage];
 }
 
 - (TGSearchBarPallete *)searchBarPallete
@@ -87,7 +83,7 @@
 
 - (TGLocationPallete *)locationPallete
 {
-    return [TGLocationPallete palleteWithBackgroundColor:self.pallete.menuBackgroundColor selectionColor:self.pallete.selectionColor separatorColor:self.pallete.separatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:self.pallete.accentColor destructiveColor:self.pallete.destructiveColor locationColor:self.pallete.locationAccentColor liveLocationColor:self.pallete.locationLiveColor iconColor:self.pallete.accentContrastColor sectionHeaderBackgroundColor:self.pallete.menuSectionHeaderBackgroundColor sectionHeaderTextColor:self.pallete.sectionHeaderTextColor searchBarPallete:self.searchBarPallete avatarPlaceholder:[self.images avatarPlaceholderWithDiameter:48.0f]];
+    return [TGLocationPallete palleteWithBackgroundColor:self.pallete.menuBackgroundColor selectionColor:self.pallete.selectionColor separatorColor:self.pallete.separatorColor textColor:self.pallete.textColor secondaryTextColor:self.pallete.secondaryTextColor accentColor:self.pallete.accentColor destructiveColor:self.pallete.destructiveColor locationColor:self.pallete.locationAccentColor liveLocationColor:self.pallete.locationLiveColor iconColor:self.pallete.accentContrastColor sectionHeaderBackgroundColor:self.pallete.menuSectionHeaderBackgroundColor sectionHeaderTextColor:self.pallete.sectionHeaderTextColor searchBarPallete:self.searchBarPallete segmentedControlPallete:self.segmentedControlPallete avatarPlaceholder:[self.images avatarPlaceholderWithDiameter:48.0f]];
 }
 
 - (TGModernConversationInputMicPallete *)micButtonPallete

@@ -126,14 +126,7 @@
     _tableView.separatorColor = _presentation.pallete.separatorColor;
     _placeholderLabel.textColor = _presentation.pallete.collectionMenuCommentColor;
     
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlBackgroundImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlHighlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setDividerImage:self.presentation.images.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.navigationButtonColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.accentColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+    [_segmentedControl setPallete:presentation.segmentedControlPallete];
     
     for (UITableViewCell *cell in _tableView.visibleCells)
     {
@@ -154,11 +147,6 @@
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     if (iosMajorVersion() >= 11)
         _segmentedControl.translatesAutoresizingMaskIntoConstraints = false;
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlBackgroundImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlHighlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [_segmentedControl setDividerImage:self.presentation.images.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     CGFloat width = 0.0f;
     for (NSString *itemName in items)
@@ -172,8 +160,7 @@
     _segmentedControl.frame = CGRectMake((self.view.frame.size.width - width) / 2.0f, 8.0f, width, 29.0f);
     _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.navigationButtonColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-    [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:_presentation.pallete.accentContrastColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+    [_segmentedControl setPallete:_presentation.segmentedControlPallete];
     
     [_segmentedControl setSelectedSegmentIndex:0];
     [_segmentedControl addTarget:self action:@selector(segmentedControlChanged) forControlEvents:UIControlEventValueChanged];

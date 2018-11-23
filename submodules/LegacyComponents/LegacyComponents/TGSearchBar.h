@@ -41,6 +41,9 @@ typedef enum {
 
 @end
 
+
+@class UISegmentedControlPallete;
+
 @interface TGSearchBar : UIView
 
 + (CGFloat)searchBarBaseHeight;
@@ -90,6 +93,7 @@ typedef enum {
 
 - (void)localizationUpdated;
 
-- (void)setPallete:(TGSearchBarPallete *)pallete;
+- (void)setSearchBarPallete:(TGSearchBarPallete *)searchBarPallete
+    segmentedControlPallete:(UISegmentedControlPallete *)segmentedControlPallete;
 
 @end

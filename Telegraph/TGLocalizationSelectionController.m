@@ -164,7 +164,8 @@
     }
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleLightPlain];
-    _searchBar.pallete = self.presentation.searchBarPallete;
+    [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+            segmentedControlPallete:self.presentation.segmentedControlPallete];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.safeAreaInset = [self controllerSafeAreaInset];
     _searchBar.placeholder = TGLocalized(@"ChatSearch.SearchPlaceholder");

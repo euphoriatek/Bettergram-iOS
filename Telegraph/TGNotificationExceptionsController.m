@@ -123,7 +123,8 @@
     [self.view addSubview:_placeholderLabel];
     
     _searchBar = [[TGSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [TGSearchBar searchBarBaseHeight]) style:TGSearchBarStyleLightPlain];
-    _searchBar.pallete = self.presentation.searchBarPallete;
+    [_searchBar setSearchBarPallete:self.presentation.searchBarPallete
+            segmentedControlPallete:self.presentation.segmentedControlPallete];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.safeAreaInset = [self controllerSafeAreaInset];
     _searchBar.placeholder = TGLocalized(@"ChatSearch.SearchPlaceholder");
@@ -153,7 +154,8 @@
     _tableView.backgroundColor = _presentation.pallete.backgroundColor;
     _tableView.separatorColor = _presentation.pallete.separatorColor;
     _placeholderLabel.textColor = _presentation.pallete.collectionMenuCommentColor;
-    _searchBar.pallete = _presentation.searchBarPallete;
+    [_searchBar setSearchBarPallete:_presentation.searchBarPallete
+            segmentedControlPallete:_presentation.segmentedControlPallete];
     _searchMixin.searchResultsTableView.backgroundColor = self.presentation.pallete.backgroundColor;
     _searchMixin.searchResultsTableView.separatorColor = self.presentation.pallete.separatorColor;
     

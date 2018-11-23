@@ -333,7 +333,8 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _rightButtonItem.image = _presentation.images.searchRssButton;
     _refreshControl.tintColor = _presentation.pallete.textColor;
     
-    _searchBar.pallete = presentation.keyboardSearchBarPallete;
+    [_searchBar setSearchBarPallete:presentation.keyboardSearchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
 }
 
 - (void)localizationUpdated

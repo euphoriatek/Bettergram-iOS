@@ -94,7 +94,8 @@
 {
     _presentation = presentation;
     
-    [_searchBar setPallete:presentation.searchBarPallete];
+    [_searchBar setSearchBarPallete:presentation.searchBarPallete
+            segmentedControlPallete:presentation.segmentedControlPallete];
     [_searchButton setImage:presentation.images.shareSearchIcon forState:UIControlStateNormal];
     [_externalButton setImage:presentation.images.shareExternalIcon forState:UIControlStateNormal];
 }

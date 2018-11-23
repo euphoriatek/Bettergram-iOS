@@ -116,15 +116,7 @@ static SSignal *statsSignal(MTNetworkUsageCalculationInfo *baseInfo) {
         [self setTitleText:TGLocalized(@"ChatSettings.Title")];
         
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[TGLocalized(@"NetworkUsageSettings.Cellular"), TGLocalized(@"NetworkUsageSettings.Wifi")]];
-        
-        [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlBackgroundImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-        [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlSelectedImage forState:UIControlStateSelected | UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        [_segmentedControl setBackgroundImage:self.presentation.images.segmentedControlHighlightedImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        [_segmentedControl setDividerImage:self.presentation.images.segmentedControlDividerImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        
-        [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:self.presentation.pallete.navigationButtonColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateNormal];
-        [_segmentedControl setTitleTextAttributes:@{UITextAttributeTextColor:self.presentation.pallete.accentContrastColor, UITextAttributeTextShadowColor: [UIColor clearColor], UITextAttributeFont: TGSystemFontOfSize(13)} forState:UIControlStateSelected];
+        [_segmentedControl setPallete:self.presentation.segmentedControlPallete];
         
         [_segmentedControl setSelectedSegmentIndex:0];
         [_segmentedControl addTarget:self action:@selector(segmentedControlChanged) forControlEvents:UIControlEventValueChanged];

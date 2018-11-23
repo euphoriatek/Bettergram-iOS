@@ -446,7 +446,7 @@
 - (UIImage *)chatTitleMutedIcon
 {
     return [self imageWithKey:@"chatTitleMuted" generator:^UIImage *{
-        return [TGPresentationAssets chatTitleMutedIcon:self.pallete.dialogBadgeMutedColor];
+        return [TGPresentationAssets chatTitleMutedIcon:self.pallete.chatTitleMutedColor];
     }];
 }
 

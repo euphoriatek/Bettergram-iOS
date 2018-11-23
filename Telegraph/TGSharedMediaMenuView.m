@@ -210,7 +210,7 @@
             [button setTitleColor:self.presentation.pallete.navigationButtonColor forState:UIControlStateNormal];
         }
         else
-            [button setTitleColor:self.presentation.pallete.sharedMediaSelectedForegroundColor forState:UIControlStateNormal];
+            [button setTitleColor:self.presentation.pallete.navigationTextColor forState:UIControlStateNormal];
         index++;
     }
     
