@@ -86,7 +86,7 @@ NSTimeInterval const kPricesUpdateInterval = 60;
                 [strongSelf->_updatePricesTimer fire];
         }];
         
-        _livecoinSessionManager = [AFHTTPSessionManager.alloc initWithBaseURL:[NSURL URLWithString:@"https://alpha-api.livecoinwatch.com/"]];
+        _livecoinSessionManager = [AFHTTPSessionManager.alloc initWithBaseURL:[NSURL URLWithString:@"https://http-api.livecoinwatch.com/"]];
         _bettergramSessionManager = [AFHTTPSessionManager.alloc initWithBaseURL:[NSURL URLWithString:@"https://api.bettergram.io/v1/"]];
         
         NSDictionary *responseObject = [NSKeyedUnarchiver unarchiveObjectWithFile:[self currenciesResponseObjectFile]];
