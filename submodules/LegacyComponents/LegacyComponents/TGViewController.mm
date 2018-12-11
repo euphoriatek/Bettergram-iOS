@@ -1000,6 +1000,7 @@ static id<LegacyComponentsContext> _defaultContext = nil;
 
 - (void)setAdditionalNavigationBarHeight:(CGFloat)additionalNavigationBarHeight
 {
+    if (_additionalNavigationBarHeight == additionalNavigationBarHeight) return;
     _additionalNavigationBarHeight = additionalNavigationBarHeight;
     
     CGFloat statusBarHeight = [self _currentStatusBarHeight];
@@ -1354,9 +1355,9 @@ static id<LegacyComponentsContext> _defaultContext = nil;
     bool updated = _targetNavigationItem != targetNavigationItem || _targetNavigationTitleController != titleController;
     _targetNavigationItem = targetNavigationItem;
     _targetNavigationTitleController = titleController;
-    _hatTargetNavigationItem = true;
+    _hatTargetNavigationItem = _targetNavigationItem != nil;
     
-    if (targetNavigationItem != nil && updated)
+    if (updated)
     {
         [[self _currentNavigationItem] setLeftBarButtonItem:_leftBarButtonItem animated:false];
         [self _setRightBarButtonItems:_rightBarButtonItems animated:false];

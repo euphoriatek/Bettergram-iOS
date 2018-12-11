@@ -1,5 +1,7 @@
 #import "TGMainTabsController.h"
 
+#define ButtonInfo(x, y) [TGTabBarButtonInfo infoWithIcon:TGImageNamed(x) accessibilityTitle:y]
+
 @interface TGMainTabsController () {
     BOOL _initialized;
 }
@@ -9,14 +11,18 @@
 
 - (NSArray<TGTabBarButtonInfo *> *)buttonInfos
 {
-    return @[
-             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_all_messages.png") accessibilityTitle:@"DialogList.Title.AM"],
-             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_direct_messages.png") accessibilityTitle:@"DialogList.Title.DM"],
-             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_groups.png") accessibilityTitle:@"DialogList.Title.Groups"],
-             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_announcements.png") accessibilityTitle:@"DialogList.Title.Announcements"],
-             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_favorites.png") accessibilityTitle:@"DialogList.Title.Favorites"],
-             [TGTabBarButtonInfo infoWithIcon:TGImageNamed(@"tab_crypto.png") accessibilityTitle:@"DialogList.Title.Crypto"],
-             ];
+    NSMutableArray<TGTabBarButtonInfo *> *buttonInfos =
+    @[
+      ButtonInfo(@"tab_all_messages.png", @"DialogList.Title.AM"),
+      ButtonInfo(@"tab_direct_messages.png", @"DialogList.Title.DM"),
+      ButtonInfo(@"tab_groups.png", @"DialogList.Title.Groups"),
+      ButtonInfo(@"tab_announcements.png", @"DialogList.Title.Announcements"),
+      ButtonInfo(@"tab_favorites.png", @"DialogList.Title.Favorites")
+      ].mutableCopy;
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPad) {
+        [buttonInfos addObject:ButtonInfo(@"tab_crypto.png", @"DialogList.Title.Crypto")];
+    }
+    return buttonInfos;
 }
 
 - (BOOL)isBarBarOnTop

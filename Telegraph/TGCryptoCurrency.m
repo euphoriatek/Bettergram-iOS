@@ -122,12 +122,18 @@
 {
 #if DEBUG
     NSMutableArray<NSString *> *unknownKeys = dictionary.allKeys.mutableCopy;
-    [unknownKeys removeObjectsInArray:@[@"code",@"volume",@"cap",@"rank",@"price",@"delta",@"supply",@"circulating",@"name"]];
+    [unknownKeys removeObjectsInArray:@[
+                                        // used
+                                        @"code",@"cap",@"rank",@"price",@"delta",
+                                        // unused
+                                        @"supply",@"circulating",@"name", @"volume", @"plot", @"extremes", @"ico"
+                                        ]];
     if (unknownKeys.count > 0) {
         TGLog(@"TGCMError: unknown currency keys: %@", unknownKeys);
         [NSException raise:@"TGCMError" format:@"TGCMError: unknown currency keys: %@", unknownKeys];
     }
 #endif
+    if (![dictionary[@"code"] isEqualToString:_code]) return;
     _cap = [dictionary[@"cap"] doubleValue];
     _rank = [dictionary[@"rank"] integerValue];
     if (_rank < 1) {

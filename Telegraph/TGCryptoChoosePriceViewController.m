@@ -69,10 +69,10 @@
 
 - (void)controllerInsetUpdated:(UIEdgeInsets)__unused previousInset
 {
-    _searchBar.frame = CGRectMake(0, self.controllerInset.top, self.view.frame.size.width, [TGSearchBar searchBarBaseHeight]);
+    _searchBar.frame = CGRectMake(0, TGIsPad() ? 0 : self.controllerInset.top, self.view.frame.size.width, [TGSearchBar searchBarBaseHeight]);
     _searchBar.safeAreaInset = self.controllerSafeAreaInset;
     
-    UIEdgeInsets safeAreaInset = [self calculatedSafeAreaInset];;
+    UIEdgeInsets safeAreaInset = TGIsPad() ? [self calculatedSafeAreaInset] : UIEdgeInsetsZero;
     _tableView.frame = CGRectMake(safeAreaInset.left, CGRectGetMaxY(_searchBar.frame),
                                   self.view.frame.size.width - safeAreaInset.left - safeAreaInset.right, self.view.frame.size.height - CGRectGetMaxY(_searchBar.frame) - safeAreaInset.bottom);
     if (!_frameInitialized) {
@@ -131,7 +131,12 @@
 - (void)tableView:(UITableView *)__unused tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TGCryptoManager.manager.selectedCurrency = [self displayingCurrencies][indexPath.row];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (TGIsPad()) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

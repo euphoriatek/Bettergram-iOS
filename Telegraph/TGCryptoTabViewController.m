@@ -6,6 +6,8 @@
 //
 
 #import "TGCryptoTabViewController.h"
+#import "TGAppDelegate.h"
+#import "CALayer+SketchShadow.h"
 
 
 @interface TGCryptoTabViewController () {
@@ -39,6 +41,16 @@
              ];
 }
 
+- (void)initializeTabBar
+{
+    [super initializeTabBar];
+    [self.customTabBar.layer applySketchShadowWithColor:UIColor.blackColor
+                                                opacity:20
+                                                      x:0 y:-1
+                                                   blur:6];
+
+}
+
 - (BOOL)isBarBarOnTop
 {
     return YES;
@@ -50,14 +62,14 @@
     for (UIViewController *viewController in self.customViewControllers)
     {
         index++;
-        BOOL selected = index == (int)selectedIndex;
         if ([viewController isKindOfClass:[TGViewController class]])
         {
-            [(TGViewController *)viewController setTargetNavigationItem:selected ? _targetNavigationItem : nil
-                                                        titleController:selected ? _titleController : nil];
+            BOOL selected = index == (int)selectedIndex;
+            [(TGViewController *)viewController setTargetNavigationItem:selected ? _targetNavigationItem ?: self.navigationItem : nil
+                                                        titleController:selected ? _titleController ?: self : nil];
         }
     }
-}
+}   
 
 - (void)setTargetNavigationItem:(UINavigationItem *)targetNavigationItem titleController:(UIViewController *)titleController
 {

@@ -197,11 +197,13 @@ static const CGSize kBaseCellOffset = (CGSize){.width = 20, .height = 7};
     [_tableView registerClass:[TGCryptoResourceHeaderView class] forHeaderFooterViewReuseIdentifier:TGCryptoResourceHeaderView.reuseIdentifier];
     [self.view addSubview:_tableView];
     
-    [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(settingsButtonTap)]
-                      animated:false];
+    if (!TGIsPad()) {
+        [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(settingsButtonTap)]
+                          animated:false];
+    }
     
     [self setPresentation:_presentation];
     [self localizationUpdated];

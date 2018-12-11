@@ -906,11 +906,13 @@ const NSUInteger kCellsLimitMultiplier = 10;
                                                                                  action:@selector(currencyButtonTap)]
                        animated:false];
     
-    [self setLeftBarButtonItem:_leftButtonItem = [UIBarButtonItem.alloc initWithImage:nil
-                                                                                style:UIBarButtonItemStylePlain
-                                                                               target:self
-                                                                               action:@selector(settingsButtonTap)]
-                      animated:false];
+    if (!TGIsPad()) {
+        [self setLeftBarButtonItem:_leftButtonItem = [UIBarButtonItem.alloc initWithImage:nil
+                                                                                    style:UIBarButtonItemStylePlain
+                                                                                   target:self
+                                                                                   action:@selector(settingsButtonTap)]
+                          animated:false];
+    }
     [self setPresentation:_presentation];
     [self localizationUpdated];
     
@@ -939,6 +941,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
             __strong TGCryptoPricesViewController *strongSelf = weakSelf;
             if (strongSelf != nil && pricesInfo != nil) {
                 [self stateUpdated:2];
+                _currencyFormatter.currencySymbol = pricesInfo.currency.symbol ?: @"";
                 [_marketInfoCell setMarketCapValue:pricesInfo.marketCap change:0];
                 [_marketInfoCell set24VolumeValue:pricesInfo.volume change:0];
                 [_marketInfoCell setBTCDominanceValue:pricesInfo.btcDominance change:0];
@@ -963,7 +966,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (BOOL)prefersStatusBarHidden
 {
-    return _filterCell.isFiltered;
+    return !TGIsPad() && _filterCell.isFiltered;
 }
 
 - (void)viewDidLayoutSubviews
@@ -1047,7 +1050,18 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (void)currencyButtonTap
 {
-    [self.navigationController pushViewController:[TGCryptoChoosePriceViewController.alloc initWithPresentation:_presentation] animated:YES];
+    UIViewController *viewController = [TGCryptoChoosePriceViewController.alloc initWithPresentation:_presentation];
+    if (TGIsPad()) {
+        TGPopoverController *popoverController = [[TGPopoverController alloc] initWithContentViewController:viewController];
+        [popoverController setContentSize:CGSizeMake(320.0f, 528.0f)];
+        
+        [popoverController presentPopoverFromBarButtonItem:self.tabBarController.navigationItem.rightBarButtonItem
+                                  permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                  animated:true];
+    }
+    else {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 - (void)settingsButtonTap
@@ -1272,14 +1286,16 @@ const NSUInteger kCellsLimitMultiplier = 10;
         [self pageInfoUpdated];
     }];
     [searchBar setShowsCancelButton:YES animated:YES];
-    if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
-        [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:YES animated:YES];
-    }
-    if (iosMajorVersion() >= 11) {
-        [self setNavigationBarHidden:YES withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
-    }
-    else {
-        [self setNavigationBarHidden:YES animated:YES];
+    if (!TGIsPad()) {
+        if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
+            [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:YES animated:YES];
+        }
+        if (iosMajorVersion() >= 11) {
+            [self setNavigationBarHidden:YES withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
+        }
+        else {
+            [self setNavigationBarHidden:YES animated:YES];
+        }
     }
     _filterActivated = YES;
     [self controllerInsetUpdated:UIEdgeInsetsZero];
@@ -1298,11 +1314,13 @@ const NSUInteger kCellsLimitMultiplier = 10;
     [self updateTopSectionCellsIncludeInBatch:^{
         [self updateTableViewContentSizeReloadDataCells:YES];
     }];
-    if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
-        [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:NO animated:YES];
+    if (!TGIsPad()) {
+        if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
+            [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:NO animated:YES];
+        }
+        [self setNavigationBarHidden:NO animated:YES];
+        [self setNeedsStatusBarAppearanceUpdate];
     }
-    [self setNavigationBarHidden:NO animated:YES];
-    [self setNeedsStatusBarAppearanceUpdate];
     [self pageInfoUpdated];
 }
 

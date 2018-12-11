@@ -108,7 +108,13 @@
         };
         
         _mainTabsController = [[TGMainTabsController alloc] initWithPresentation:_presentation];
-        [_mainTabsController setViewControllers:[(NSArray<UIViewController *> *)_dialogListControllers arrayByAddingObject:_cryptoTabViewController]];
+        {
+            NSMutableArray *viewControllers = _dialogListControllers.mutableCopy;
+            if (!TGIsPad()) {
+                [viewControllers addObject:_cryptoTabViewController];
+            }
+            [_mainTabsController setViewControllers:viewControllers];
+        }
         _mainTabsController.onControllerInsetUpdated = ^(CGFloat inset)
         {
             __strong TGRootController *strongSelf = weakSelf;
@@ -118,6 +124,9 @@
         
         _masterNavigationController = [TGNavigationController navigationControllerWithControllers:@[]];
         _detailNavigationController = [TGNavigationController navigationControllerWithControllers:@[]];
+        if (TGIsPad()) {
+            [_detailNavigationController setViewControllers:@[_cryptoTabViewController]];
+        }
         [_detailNavigationController setDisplayPlayer:true];
         
         if (iosMajorVersion() >= 8)
@@ -273,8 +282,9 @@
         _volumeBarView.safeAreaInset = self.controllerSafeAreaInset;
         _volumeBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, 16.0f + inset);
         
-        if (TGIsPad())
+        if (TGIsPad()) {
             [_mainTabsController controllerInsetUpdated:self.controllerInset];
+        }
     }
 }
 
@@ -306,7 +316,7 @@
         }
     } else {
         bool addDetail = _detailNavigationController.viewControllers.count == 0;
-        [_detailNavigationController setViewControllers:@[contentController] animated:false];
+        [_detailNavigationController setViewControllers:@[_cryptoTabViewController, contentController] animated:false];
         if (addDetail) {
             [self addDetailController];
         }
@@ -321,8 +331,7 @@
     if (_currentSizeClass == UIUserInterfaceSizeClassCompact) {
         [_detailNavigationController popToRootViewControllerAnimated:true];
     } else if (_detailNavigationController.viewControllers.count != 0) {
-        [_detailNavigationController setViewControllers:@[] animated:false];
-        [self removeDetailController];
+        [_detailNavigationController setViewControllers:@[_cryptoTabViewController] animated:false];
     }
 }
 

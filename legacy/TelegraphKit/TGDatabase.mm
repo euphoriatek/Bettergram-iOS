@@ -19783,7 +19783,9 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
                 }
                 
                 if (messageForNotification != nil) {
-                    [[TGInterfaceManager instance] displayBannerIfNeeded:messageForNotification conversationId:messageForNotification.cid];
+                    TGDispatchOnMainThread(^{
+                        [[TGInterfaceManager instance] displayBannerIfNeeded:messageForNotification conversationId:messageForNotification.cid];
+                    });
                 }
                 
                 if (messageForNotification.groupedId != 0)

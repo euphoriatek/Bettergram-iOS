@@ -8,7 +8,6 @@
 
 #import "TGAppDelegate.h"
 #import "TGDebugController.h"
-#import "CALayer+SketchShadow.h"
 
 #import "TGCryptoTabViewController.h"
 
@@ -617,12 +616,6 @@ static CGFloat kHeight = 18;
     
     _customTabBar = [[TGTabBar alloc] initWithButtonInfos:self.buttonInfos isBarBarOnTop:self.isBarBarOnTop presentation:_presentation];
     _customTabBar.tabDelegate = self;
-    if (self.isBarBarOnTop) {
-        [_customTabBar.layer applySketchShadowWithColor:UIColor.blackColor
-                                                opacity:20
-                                                      x:0 y:-1
-                                                   blur:6];
-    }
     [self.view insertSubview:_customTabBar aboveSubview:self.tabBar];
     [self.view setNeedsLayout];
 }

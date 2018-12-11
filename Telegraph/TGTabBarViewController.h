@@ -24,6 +24,8 @@
 @property (nonatomic, readonly) BOOL isBarBarOnTop;
 @property (nonatomic, readonly) NSArray<TGTabBarButtonInfo *> *buttonInfos;
 
+@property (nonatomic, readonly) NSArray<UIViewController *> *customViewControllers;
+
 - (instancetype)initWithPresentation:(TGPresentation *)presentation;
 - (void)setPresentation:(TGPresentation *)presentation;
 
@@ -39,7 +41,9 @@
 
 - (void)updateNavigationItemOverride:(NSUInteger)selectedIndex;
 
+@property (nonatomic, strong, readonly) UIView *customTabBar;
 @property (nonatomic, assign) BOOL tabBarHidden;
 - (void)setTabBarHidden:(bool)tabBarHidden animated:(BOOL)animated;
+- (void)initializeTabBar;
 
 @end

@@ -220,11 +220,13 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _tableView.refreshControl = _refreshControl;
     [_refreshControl addTarget:self action:@selector(refreshStateChanged:) forControlEvents:UIControlEventValueChanged];
     
-    [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(settingsButtonTap)]
-                      animated:false];
+    if (!TGIsPad()) {
+        [self setLeftBarButtonItem:_leftButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(settingsButtonTap)]
+                          animated:false];
+    }
     [self setRightBarButtonItem:_rightButtonItem = [[UIBarButtonItem alloc] initWithImage:nil
                                                                                     style:UIBarButtonItemStylePlain
                                                                                    target:self
@@ -282,7 +284,7 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
 
 - (BOOL)prefersStatusBarHidden
 {
-    return _searchBarActive;
+    return !TGIsPad() && _searchBarActive;
 }
 
 - (void)setSearchBarActive:(BOOL)searchBarActive
@@ -291,16 +293,18 @@ static NSString *const kEmptyHeaderReuseIdentifier =@"EmptyHeader";
     _searchBarActive = searchBarActive;
     [_tableView reloadData];
     _tableView.refreshControl = _searchBarActive ? nil : _refreshControl;
-    if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
-        [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:_searchBarActive animated:YES];
+    if (!TGIsPad()) {
+        if ([self.tabBarController isKindOfClass:[TGCryptoTabViewController class]]) {
+            [(TGCryptoTabViewController *)self.tabBarController setTabBarHidden:_searchBarActive animated:YES];
+        }
+        if (iosMajorVersion() >= 11) {
+            [self setNavigationBarHidden:_searchBarActive withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
+        }
+        else {
+            [self setNavigationBarHidden:_searchBarActive animated:YES];
+        }
+        [self setNeedsStatusBarAppearanceUpdate];
     }
-    if (iosMajorVersion() >= 11) {
-        [self setNavigationBarHidden:_searchBarActive withAnimation:TGViewControllerNavigationBarAnimationSlideFar duration:0.3];
-    }
-    else {
-        [self setNavigationBarHidden:_searchBarActive animated:YES];
-    }
-    [self setNeedsStatusBarAppearanceUpdate];
     if (_searchBarActive) {
         [_searchBar becomeFirstResponder];
     }
@@ -460,7 +464,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                                         peerId:0
                                      messageId:0
                                      cancelPIP:NO
-                                    sourceView:[tableView cellForRowAtIndexPath:indexPath]
+                                    sourceView:self.view
                                     sourceRect:^CGRect{
                                         return [tableView convertRect:[tableView rectForRowAtIndexPath:indexPath]
                                                                toView:self.view];
