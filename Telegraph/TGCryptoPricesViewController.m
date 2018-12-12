@@ -1260,13 +1260,8 @@ const NSUInteger kCellsLimitMultiplier = 10;
 {
     NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
     if (indexPath == nil) return;
-    favoriteButton.selected = !favoriteButton.selected;
-    TGCryptoCurrency *currency = self.coinInfos[indexPath.row];
-    [TGCryptoManager.manager updateCoin:currency favorite:favoriteButton.selected];
-    if (_filterCell.favoritesFilterButton.isSelected) {
-        [_pricesInfo coin:currency favorited:NO];
-        [self updateTableViewContentSizeReloadDataCells:YES];
-    }
+    [TGCryptoManager.manager updateCoin:self.coinInfos[indexPath.row]
+                               favorite:!favoriteButton.selected];
 }
 
 #pragma mark - TGFilterCellDelegate

@@ -905,11 +905,7 @@ typedef enum {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         return nil;
     
-    if (self.isFirstInStack) {
-        return [[UIBarButtonItem alloc] initWithTitle:TGLocalized(@"Common.Close") style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonPressed)];
-    }
-    
-    return nil;
+    return [[UIBarButtonItem alloc] initWithTitle:TGLocalized(@"Common.Close") style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonPressed)];
 }
 
 - (void)setIsFirstInStack:(bool)isFirstInStack {

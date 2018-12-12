@@ -14,6 +14,7 @@
 #import "TGHacks.h"
 
 #import <set>
+#import <LocalAuthentication/LocalAuthentication.h>
 
 static __strong NSTimer *autorotationEnableTimer = nil;
 static bool autorotationDisabled = false;
@@ -1086,19 +1087,30 @@ static id<LegacyComponentsContext> _defaultContext = nil;
 
 + (UIEdgeInsets)safeAreaInsetForOrientation:(UIInterfaceOrientation)orientation
 {
-    if (TGIsPad() || ((int)TGScreenSize().height != 812 && (int)TGScreenSize().height != 896))
-        return UIEdgeInsetsZero;
-    
-    switch (orientation)
-    {
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            return UIEdgeInsetsMake(0.0f, 44.0f, 21.0f, 44.0f);
-            
-        
-        default:
-            return UIEdgeInsetsMake(44.0f, 0.0f, 34.0f, 0.0f);
+    if (@available(iOS 11.0, *)) {
+        static LAContext *context = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            context = [[LAContext alloc] init];
+        });
+        if (context.biometryType != LABiometryTypeFaceID) {
+            return UIEdgeInsetsZero;
+        }
+        if (TGIsPad()) {
+            return UIEdgeInsetsMake(24, 0, 20, 0);
+        }
+        switch (orientation)
+        {
+            case UIInterfaceOrientationLandscapeLeft:
+            case UIInterfaceOrientationLandscapeRight:
+                return UIEdgeInsetsMake(0.0f, 44.0f, 21.0f, 44.0f);
+                
+                
+            default:
+                return UIEdgeInsetsMake(44.0f, 0.0f, 34.0f, 0.0f);
+        }
     }
+    return UIEdgeInsetsZero;
 }
 
 - (bool)_updateControllerInsetForOrientation:(UIInterfaceOrientation)orientation statusBarHeight:(CGFloat)statusBarHeight keyboardHeight:(CGFloat)keyboardHeight force:(bool)force notify:(bool)notify
@@ -1133,10 +1145,9 @@ static id<LegacyComponentsContext> _defaultContext = nil;
 #pragma clang diagnostic pop
     }
     
+    edgeInset.bottom += safeAreaInset.bottom;
     if (!_ignoreKeyboardWhenAdjustingScrollViewInsets)
         edgeInset.bottom = MAX(edgeInset.bottom, keyboardHeight);
-    
-    edgeInset.bottom += safeAreaInset.bottom;
     
     UIEdgeInsets previousInset = _controllerInset;
     UIEdgeInsets previousCleanInset = _controllerCleanInset;

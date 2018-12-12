@@ -15,12 +15,7 @@
         if (UIApplication.sharedApplication.statusBarOrientation == orientation) {
             return UIApplication.sharedApplication.keyWindow.safeAreaInsets;
         }
-        if (UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom != 0) {
-            if (UIInterfaceOrientationIsLandscape(orientation)) {
-                return UIEdgeInsetsMake(0, 44, 21, 44);
-            }
-            return UIEdgeInsetsMake(44, 0, 34, 0);
-        }
+        return [self _safeAreaInsetForOrientation:orientation];
     }
     return UIEdgeInsetsZero;
 }

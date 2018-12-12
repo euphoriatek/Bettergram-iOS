@@ -51,6 +51,7 @@
 #import "TGLegacyComponentsContext.h"
 
 #import "TGPresentation.h"
+#import "TGMainTabsController.h"
 
 @interface TGInterfaceManager ()
 {
@@ -585,7 +586,10 @@
 - (void)dismissConversation
 {
     [TGAppDelegateInstance.rootController clearContentControllers];
-    [TGAppDelegateInstance.rootController.dialogListControllers[0] selectConversationWithId:0];
+    TGDialogListController *selectedController = TGAppDelegateInstance.rootController.mainTabsController.selectedViewController;
+    if ([selectedController isKindOfClass:TGDialogListController.class]) {
+        [selectedController selectConversationWithId:0];
+    }
 }
 
 - (void)navigateToProfileOfUser:(int)uid

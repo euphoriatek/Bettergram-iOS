@@ -617,6 +617,9 @@ NSTimeInterval const kPricesUpdateInterval = 60;
     coin.favorite = favorite;
     [_pricesInfo coin:coin favorited:favorite];
     [self setNeedsArchiveFeedItems];
+    if (_pricePageInfo.isFavorited && !favorite && _pageUpdateBlock != NULL) {
+        _pageUpdateBlock(_pricesInfo.copy);
+    }
 }
 
 - (NSArray<TGCryptoCurrency *> *)currencies
