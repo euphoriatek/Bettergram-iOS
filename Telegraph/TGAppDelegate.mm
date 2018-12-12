@@ -2220,12 +2220,6 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (void)requestDeviceToken:(id<TGDeviceTokenListener>)listener
 {
-    if (_tokenAlreadyRequested)
-    {
-        [_deviceTokenListener deviceTokenRequestCompleted:nil];
-        return;
-    }
-    
     _deviceTokenListener = listener;
 
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
