@@ -1131,7 +1131,12 @@ const NSUInteger kCellsLimitMultiplier = 10;
     TGCoinCell *cell = (TGCoinCell *)[tableView dequeueReusableCellWithIdentifier:TGCoinCell.reuseIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     [cell setPresentation:_presentation];
-    [cell.iconImageView loadImage:coinInfo.iconURL filter:@"circle:30x30" placeholder:nil];
+    if (coinInfo.iconURL) {
+        [cell.iconImageView loadImage:coinInfo.iconURL filter:@"circle:30x30" placeholder:nil];
+    }
+    else {
+        cell.iconImageView.image = nil;
+    }
     cell.nameLabel.text = coinInfo.name ?: coinInfo.code;
     cell.priceLabel.text = [_currencyFormatter stringFromNumber:coinInfo.price];
     cell.priceDelta = (coinInfo.price == nil || coinInfo.minDelta == nil) ? NSOrderedSame : [@0 compare:coinInfo.minDelta];
