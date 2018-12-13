@@ -944,7 +944,6 @@
 		686ED3211BF3CBB8001F2F96 /* StickerPanelPopupMiddleDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686ED31E1BF3CBB8001F2F96 /* StickerPanelPopupMiddleDark@2x.png */; };
 		686ED3221BF3CBB8001F2F96 /* StickerPanelPopupRightDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686ED31F1BF3CBB8001F2F96 /* StickerPanelPopupRightDark@2x.png */; };
 		68744C1A1BB1A9F700FE6542 /* watchkitapp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 68744C191BB1A9F700FE6542 /* watchkitapp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		68744C2E1BB1A9F800FE6542 /* watchkitapp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 68744C0D1BB1A9F700FE6542 /* watchkitapp.app */; };
 		687770B81E06229100331194 /* TGCallDataSettingsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 687770B61E06229100331194 /* TGCallDataSettingsController.h */; };
 		687770B91E06229100331194 /* TGCallDataSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687770B71E06229100331194 /* TGCallDataSettingsController.m */; };
 		687770C51E06333E00331194 /* TGCallAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 687770C31E06333E00331194 /* TGCallAlertView.h */; };
@@ -5044,13 +5043,6 @@
 			remoteGlobalIDString = 68744C181BB1A9F700FE6542;
 			remoteInfo = "watchkitapp Extension";
 		};
-		68744C2C1BB1A9F800FE6542 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D08805A3156E8F3600311537 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 68744C0C1BB1A9F700FE6542;
-			remoteInfo = watchkitapp;
-		};
 		692AB87B1E67591700706ACC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 69F842411E67546900C110F7 /* libtgvoip.xcodeproj */;
@@ -5378,17 +5370,6 @@
 				68744C1A1BB1A9F700FE6542 /* watchkitapp Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6879BEE41B43683E007C9800 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				68744C2E1BB1A9F800FE6542 /* watchkitapp.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D020FB161D99637200F279AA /* Embed Frameworks */ = {
@@ -25488,7 +25469,6 @@
 				D08805AA156E8F3600311537 /* Resources */,
 				687751281A16D79400AC673F /* Headers */,
 				D061F3021A9290F80031BCBE /* Embed App Extensions */,
-				6879BEE41B43683E007C9800 /* Embed Watch Content */,
 				D020FB161D99637200F279AA /* Embed Frameworks */,
 				932E96A716946F6A00D6EC55 /* Update build number */,
 			);
@@ -25497,7 +25477,6 @@
 			dependencies = (
 				D0CB068C1ADC8DC6005E298F /* PBXTargetDependency */,
 				D061F3011A9290F80031BCBE /* PBXTargetDependency */,
-				68744C2D1BB1A9F800FE6542 /* PBXTargetDependency */,
 				D020FAE41D99466A00F279AA /* PBXTargetDependency */,
 				D020FB101D99637200F279AA /* PBXTargetDependency */,
 				099120CB1EEAA63400F1366E /* PBXTargetDependency */,
@@ -29368,11 +29347,6 @@
 			isa = PBXTargetDependency;
 			target = 68744C181BB1A9F700FE6542 /* watchkitapp Extension */;
 			targetProxy = 68744C1B1BB1A9F700FE6542 /* PBXContainerItemProxy */;
-		};
-		68744C2D1BB1A9F800FE6542 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 68744C0C1BB1A9F700FE6542 /* watchkitapp */;
-			targetProxy = 68744C2C1BB1A9F800FE6542 /* PBXContainerItemProxy */;
 		};
 		68B22D071C11F32400EE8FF9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
