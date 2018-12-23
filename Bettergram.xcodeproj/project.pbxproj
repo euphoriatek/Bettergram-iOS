@@ -429,8 +429,6 @@
 		098C0E5720242D6A007B4539 /* TGFeedConversationInputPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 098C0E5520242D6A007B4539 /* TGFeedConversationInputPanel.m */; };
 		098C0E62202481FF007B4539 /* TGNotificationReplyButtonsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 098C0E60202481FF007B4539 /* TGNotificationReplyButtonsView.h */; };
 		098C0E63202481FF007B4539 /* TGNotificationReplyButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 098C0E61202481FF007B4539 /* TGNotificationReplyButtonsView.m */; };
-		098C0E662024A2DD007B4539 /* anim_group.json in Resources */ = {isa = PBXBuildFile; fileRef = 098C0E642024A2DB007B4539 /* anim_group.json */; };
-		098C0E672024A2DD007B4539 /* anim_ungroup.json in Resources */ = {isa = PBXBuildFile; fileRef = 098C0E652024A2DC007B4539 /* anim_ungroup.json */; };
 		098C0E6A2029696A007B4539 /* TGQueuedPeerPoll.h in Headers */ = {isa = PBXBuildFile; fileRef = 098C0E682029696A007B4539 /* TGQueuedPeerPoll.h */; };
 		098C0E6B2029696A007B4539 /* TGQueuedPeerPoll.m in Sources */ = {isa = PBXBuildFile; fileRef = 098C0E692029696A007B4539 /* TGQueuedPeerPoll.m */; };
 		098C0E6E202A1A02007B4539 /* TLRPCchannels_readFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 098C0E6C202A1A02007B4539 /* TLRPCchannels_readFeed.h */; };
@@ -553,12 +551,6 @@
 		09B5EABE2119F3FF00A51F17 /* TLInputCheckPasswordSRP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09B5EABC2119F3FF00A51F17 /* TLInputCheckPasswordSRP.mm */; };
 		09B76D2B2020A5B5009835B5 /* TGFeedPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 09B76D292020A5B5009835B5 /* TGFeedPosition.h */; };
 		09B76D2C2020A5B5009835B5 /* TGFeedPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B76D2A2020A5B5009835B5 /* TGFeedPosition.m */; };
-		09B76D4A20214939009835B5 /* anim_unmute.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B76D4520214935009835B5 /* anim_unmute.json */; };
-		09B76D4B20214939009835B5 /* anim_pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B76D4620214936009835B5 /* anim_pin.json */; };
-		09B76D4C20214939009835B5 /* anim_delete.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B76D4720214937009835B5 /* anim_delete.json */; };
-		09B76D4D20214939009835B5 /* anim_unpin.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B76D4820214937009835B5 /* anim_unpin.json */; };
-		09B76D4E20214939009835B5 /* anim_mute.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B76D4920214938009835B5 /* anim_mute.json */; };
-		09B76D4F202149D8009835B5 /* libLottie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B76D44202133B0009835B5 /* libLottie.a */; };
 		09B76D552023E3D8009835B5 /* TGSegmentedTitleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 09B76D532023E3D8009835B5 /* TGSegmentedTitleView.h */; };
 		09B76D562023E3D8009835B5 /* TGSegmentedTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B76D542023E3D8009835B5 /* TGSegmentedTitleView.m */; };
 		09B81BFF1F9908ED00B90FCA /* TGEditProfileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 09B81BFD1F9908ED00B90FCA /* TGEditProfileController.h */; };
@@ -567,8 +559,6 @@
 		09B81C0D1F99A01800B90FCA /* TGMessageGroupedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B81C0B1F99A01800B90FCA /* TGMessageGroupedLayout.m */; };
 		09BC508120C8E52500B28F9D /* TGProxyBarButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 09BC507F20C8E52400B28F9D /* TGProxyBarButton.h */; };
 		09BC508220C8E52500B28F9D /* TGProxyBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BC508020C8E52500B28F9D /* TGProxyBarButton.m */; };
-		09BC509820C9AF4F00B28F9D /* anim_unread.json in Resources */ = {isa = PBXBuildFile; fileRef = 09BC508920C9AF4E00B28F9D /* anim_unread.json */; };
-		09BC509920C9AF4F00B28F9D /* anim_read.json in Resources */ = {isa = PBXBuildFile; fileRef = 09BC509720C9AF4F00B28F9D /* anim_read.json */; };
 		09BE54291EA531920026E961 /* TooltipArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BE54251EA531920026E961 /* TooltipArrow@2x.png */; };
 		09BE542A1EA531920026E961 /* TooltipArrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BE54261EA531920026E961 /* TooltipArrow@3x.png */; };
 		09BE542B1EA531920026E961 /* TooltipBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BE54271EA531920026E961 /* TooltipBackground@2x.png */; };
@@ -5008,34 +4998,6 @@
 			remoteGlobalIDString = D0D2250A1B4D817B0085E26D;
 			remoteInfo = MtProtoKitDynamic;
 		};
-		09B76D3D202133B0009835B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09B76D36202133B0009835B5 /* Lottie.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 62CA59B81E3C173B002D7188;
-			remoteInfo = Lottie_iOS;
-		};
-		09B76D3F202133B0009835B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09B76D36202133B0009835B5 /* Lottie.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAE1F7E61E428CBE002E0974;
-			remoteInfo = Lottie_macOS;
-		};
-		09B76D41202133B0009835B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09B76D36202133B0009835B5 /* Lottie.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8C5379761FB471D100C1BC65;
-			remoteInfo = Lottie_tvOS;
-		};
-		09B76D43202133B0009835B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09B76D36202133B0009835B5 /* Lottie.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 84FE12EF1E4C1485009B157C;
-			remoteInfo = LottieLibraryIOS;
-		};
 		68744C1B1BB1A9F700FE6542 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D08805A3156E8F3600311537 /* Project object */;
@@ -5839,8 +5801,6 @@
 		098C0E5520242D6A007B4539 /* TGFeedConversationInputPanel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGFeedConversationInputPanel.m; sourceTree = "<group>"; };
 		098C0E60202481FF007B4539 /* TGNotificationReplyButtonsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGNotificationReplyButtonsView.h; sourceTree = "<group>"; };
 		098C0E61202481FF007B4539 /* TGNotificationReplyButtonsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGNotificationReplyButtonsView.m; sourceTree = "<group>"; };
-		098C0E642024A2DB007B4539 /* anim_group.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_group.json; path = Resources/anim_group.json; sourceTree = "<group>"; };
-		098C0E652024A2DC007B4539 /* anim_ungroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_ungroup.json; path = Resources/anim_ungroup.json; sourceTree = "<group>"; };
 		098C0E682029696A007B4539 /* TGQueuedPeerPoll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGQueuedPeerPoll.h; sourceTree = "<group>"; };
 		098C0E692029696A007B4539 /* TGQueuedPeerPoll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGQueuedPeerPoll.m; sourceTree = "<group>"; };
 		098C0E6C202A1A02007B4539 /* TLRPCchannels_readFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLRPCchannels_readFeed.h; sourceTree = "<group>"; };
@@ -5979,12 +5939,6 @@
 		09B661CA1F0CD672007A8C82 /* TGMediaPickerScrubberHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGMediaPickerScrubberHeaderView.m; sourceTree = "<group>"; };
 		09B76D292020A5B5009835B5 /* TGFeedPosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGFeedPosition.h; sourceTree = "<group>"; };
 		09B76D2A2020A5B5009835B5 /* TGFeedPosition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGFeedPosition.m; sourceTree = "<group>"; };
-		09B76D36202133B0009835B5 /* Lottie.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lottie.xcodeproj; path = thirdparty/Lottie/Lottie.xcodeproj; sourceTree = SOURCE_ROOT; };
-		09B76D4520214935009835B5 /* anim_unmute.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_unmute.json; path = Resources/anim_unmute.json; sourceTree = "<group>"; };
-		09B76D4620214936009835B5 /* anim_pin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_pin.json; path = Resources/anim_pin.json; sourceTree = "<group>"; };
-		09B76D4720214937009835B5 /* anim_delete.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_delete.json; path = Resources/anim_delete.json; sourceTree = "<group>"; };
-		09B76D4820214937009835B5 /* anim_unpin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_unpin.json; path = Resources/anim_unpin.json; sourceTree = "<group>"; };
-		09B76D4920214938009835B5 /* anim_mute.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_mute.json; path = Resources/anim_mute.json; sourceTree = "<group>"; };
 		09B76D532023E3D8009835B5 /* TGSegmentedTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGSegmentedTitleView.h; sourceTree = "<group>"; };
 		09B76D542023E3D8009835B5 /* TGSegmentedTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGSegmentedTitleView.m; sourceTree = "<group>"; };
 		09B81BFD1F9908ED00B90FCA /* TGEditProfileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGEditProfileController.h; sourceTree = "<group>"; };
@@ -5993,8 +5947,6 @@
 		09B81C0B1F99A01800B90FCA /* TGMessageGroupedLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGMessageGroupedLayout.m; sourceTree = "<group>"; };
 		09BC507F20C8E52400B28F9D /* TGProxyBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGProxyBarButton.h; sourceTree = "<group>"; };
 		09BC508020C8E52500B28F9D /* TGProxyBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGProxyBarButton.m; sourceTree = "<group>"; };
-		09BC508920C9AF4E00B28F9D /* anim_unread.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_unread.json; path = Resources/anim_unread.json; sourceTree = "<group>"; };
-		09BC509720C9AF4F00B28F9D /* anim_read.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = anim_read.json; path = Resources/anim_read.json; sourceTree = "<group>"; };
 		09BE54251EA531920026E961 /* TooltipArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TooltipArrow@2x.png"; path = "Resources/TooltipArrow@2x.png"; sourceTree = "<group>"; };
 		09BE54261EA531920026E961 /* TooltipArrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TooltipArrow@3x.png"; path = "Resources/TooltipArrow@3x.png"; sourceTree = "<group>"; };
 		09BE54271EA531920026E961 /* TooltipBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TooltipBackground@2x.png"; path = "Resources/TooltipBackground@2x.png"; sourceTree = "<group>"; };
@@ -12169,7 +12121,6 @@
 			files = (
 				0942D9DC2122D3A400F32F57 /* Vision.framework in Frameworks */,
 				D5991F4921555B55000D823C /* AFNetworking.framework in Frameworks */,
-				09B76D4F202149D8009835B5 /* libLottie.a in Frameworks */,
 				0991BA251FDADFFF005EDFF2 /* PhotosUI.framework in Frameworks */,
 				D08805B3156E8F3600311537 /* Foundation.framework in Frameworks */,
 				D08805B1156E8F3600311537 /* UIKit.framework in Frameworks */,
@@ -12579,17 +12530,6 @@
 				09B51DFB1F69D15E000EE471 /* TGLiveLocationSession.m */,
 			);
 			name = Location;
-			sourceTree = "<group>";
-		};
-		09B76D37202133B0009835B5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				09B76D3E202133B0009835B5 /* Lottie.framework */,
-				09B76D40202133B0009835B5 /* Lottie.framework */,
-				09B76D42202133B0009835B5 /* Lottie.framework */,
-				09B76D44202133B0009835B5 /* libLottie.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		09C05D581E8410F200ACD425 /* RoundMessage */ = {
@@ -20371,7 +20311,6 @@
 				D5991F3121555B2A000D823C /* AFNetworking.xcodeproj */,
 				D5DC0C08215386BF003B9E78 /* Harpy */,
 				D54854572152D1EA00587D74 /* AirshipKit.xcodeproj */,
-				09B76D36202133B0009835B5 /* Lottie.xcodeproj */,
 				D01777321F1F8FA80044446D /* LegacyComponents.xcodeproj */,
 				69F842411E67546900C110F7 /* libtgvoip.xcodeproj */,
 				D01F93FD1E5E3D9A002627A1 /* Stripe */,
@@ -20553,8 +20492,6 @@
 			isa = PBXGroup;
 			children = (
 				D5C3D22521354988002363B8 /* Bettergram */,
-				09BC509720C9AF4F00B28F9D /* anim_read.json */,
-				09BC508920C9AF4E00B28F9D /* anim_unread.json */,
 				0976A39420C5EB9800CEB156 /* PassportSettingsLogo@2x.png */,
 				0976A3A220C5EB9900CEB156 /* PassportSettingsLogo@3x.png */,
 				09053D6F20A5CB810029652D /* ocr_nn.bin */,
@@ -20582,13 +20519,6 @@
 				09FB81CE204EF92400A3F832 /* StickersPlaceholderIcon@3x.png */,
 				09690805204459CE00E943AF /* ShareSearchIcon@2x.png */,
 				09690806204459CF00E943AF /* ShareSearchIcon@3x.png */,
-				098C0E642024A2DB007B4539 /* anim_group.json */,
-				098C0E652024A2DC007B4539 /* anim_ungroup.json */,
-				09B76D4720214937009835B5 /* anim_delete.json */,
-				09B76D4920214938009835B5 /* anim_mute.json */,
-				09B76D4620214936009835B5 /* anim_pin.json */,
-				09B76D4520214935009835B5 /* anim_unmute.json */,
-				09B76D4820214937009835B5 /* anim_unpin.json */,
 				0907899A1FE9277D00B5451E /* VideoPlayerPIPIcon@2x.png */,
 				0907899B1FE9277E00B5451E /* VideoPlayerPIPIcon@3x.png */,
 				0907898A1FE9232800B5451E /* VideoPlayerBackwardIcon@2x.png */,
@@ -25625,10 +25555,6 @@
 					ProjectRef = 69F842411E67546900C110F7 /* libtgvoip.xcodeproj */;
 				},
 				{
-					ProductGroup = 09B76D37202133B0009835B5 /* Products */;
-					ProjectRef = 09B76D36202133B0009835B5 /* Lottie.xcodeproj */;
-				},
-				{
 					ProductGroup = D0EE3B241C7C86B200DD5E83 /* Products */;
 					ProjectRef = D0EE3B231C7C86B200DD5E83 /* MtProtoKit.xcodeproj */;
 				},
@@ -25651,34 +25577,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		09B76D3E202133B0009835B5 /* Lottie.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Lottie.framework;
-			remoteRef = 09B76D3D202133B0009835B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		09B76D40202133B0009835B5 /* Lottie.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Lottie.framework;
-			remoteRef = 09B76D3F202133B0009835B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		09B76D42202133B0009835B5 /* Lottie.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Lottie.framework;
-			remoteRef = 09B76D41202133B0009835B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		09B76D44202133B0009835B5 /* libLottie.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLottie.a;
-			remoteRef = 09B76D43202133B0009835B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		692AB87C1E67591700706ACC /* libtgvoip.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -26100,7 +25998,6 @@
 				68EE347B1C873E5D002F5419 /* ShareExternalIcon@2x.png in Resources */,
 				D069B1BB1B3D94110034C967 /* MusicPlayerMinimizedClose@3x.png in Resources */,
 				D5C3D2582135C083002363B8 /* header_logo_live_coin_watch@2x.png in Resources */,
-				09B76D4C20214939009835B5 /* anim_delete.json in Resources */,
 				09FCB6921FB2E98C0007D2CA /* PasswordPlaceholderIcon@2x.png in Resources */,
 				935B6E261628540C00A2E265 /* SearchInputField@2x.png in Resources */,
 				09E97B691F97E63B00526020 /* SettingsDataIcon@3x.png in Resources */,
@@ -26118,7 +26015,6 @@
 				934D0A9E1632D3B50090BCD0 /* LinkCornerRL@2x.png in Resources */,
 				934D0A9F1632D3B50090BCD0 /* LinkCornerLR@2x.png in Resources */,
 				0958973C1E6C86660035E905 /* CallCancelIcon@2x.png in Resources */,
-				09B76D4B20214939009835B5 /* anim_pin.json in Resources */,
 				D5875A23213EC50C00ED6B61 /* splash_background@3x.png in Resources */,
 				D0E352851E5E4127007E6EB8 /* stp_card_jcb@3x.png in Resources */,
 				09361CEA1E725E84007ED29C /* ModernConversationInput@3x.png in Resources */,
@@ -26167,7 +26063,6 @@
 				D098521C1DD1F0F000A2392C /* ConversationSearchCalendar@2x.png in Resources */,
 				D0D97D871B3B99F5003457CD /* MusicPlayerControlPause@2x.png in Resources */,
 				681653B91CC24F9E006D88C2 /* OpenInUberIcon@2x.png in Resources */,
-				098C0E672024A2DD007B4539 /* anim_ungroup.json in Resources */,
 				9386E8AB185DE9CC00930205 /* ModernAuthCountryButtonHighlighted@2x.png in Resources */,
 				D0B9B19519CA324D0020C9CF /* LaunchScreen.xib in Resources */,
 				D055A7E31A6882C000A1D48C /* SharedMediaNavigationBarArrow.png in Resources */,
@@ -26182,7 +26077,6 @@
 				D0E352931E5E4127007E6EB8 /* stp_card_visa@2x.png in Resources */,
 				09F2A08E1EB8CEAF00653F24 /* InstantViewFontMaxIcon@2x.png in Resources */,
 				D5C3D2962139A17B002363B8 /* dialog_pin@2x.png in Resources */,
-				09B76D4D20214939009835B5 /* anim_unpin.json in Resources */,
 				D54854712152D32800587D74 /* AirshipConfig.plist in Resources */,
 				09C0BF1E206B708700380399 /* SettingsPassportIcon@2x.png in Resources */,
 				D0C925CD194A024000E629CA /* start_arrow_ipad.png in Resources */,
@@ -26392,7 +26286,6 @@
 				68521C861BCE80A100B8A6FA /* MediaLocation@2x.png in Resources */,
 				D0249B031ABCAC280076ECBF /* FileHowToScheme@2x.png in Resources */,
 				D03EF6D21A4CE4CF00ABEF35 /* StickerPanelPopupMiddle@2x.png in Resources */,
-				09BC509820C9AF4F00B28F9D /* anim_unread.json in Resources */,
 				D5C3D2A02139A17B002363B8 /* dialog_unpin@3x.png in Resources */,
 				096CEDA51F769B2B005C5C70 /* LiveLocationTitleIcon@2x.png in Resources */,
 				D0351A691B08DE3C0040533C /* private_door@2x.png in Resources */,
@@ -26433,7 +26326,6 @@
 				0915605B1F70006B007F77C4 /* MusicPlayerSmallAlbumArtPlaceholder@2x.png in Resources */,
 				098E68D320613F7C001F5150 /* PassportButtonIcon@3x.png in Resources */,
 				D0EFBEDE1A1AB34900FF33C3 /* ChangePhoneHelpIcon.png in Resources */,
-				09B76D4A20214939009835B5 /* anim_unmute.json in Resources */,
 				D03DC90E1F805016001D584C /* Icons.xcassets in Resources */,
 				D0C925BA194A024000E629CA /* ic_cam_lens@2x.png in Resources */,
 				934134C118551FF500480294 /* builtin-wallpaper-4.jpg in Resources */,
@@ -26491,7 +26383,6 @@
 				D5C3D29F2139A17B002363B8 /* dialog_unmute@3x.png in Resources */,
 				D5C3D24B21354989002363B8 /* tab_favorites@3x.png in Resources */,
 				68D167FA1DB77E7400509032 /* CallSpeakerIcon@2x.png in Resources */,
-				09B76D4E20214939009835B5 /* anim_mute.json in Resources */,
 				09F2A08D1EB8CEAF00653F24 /* InstantViewBrightnessMinIcon@3x.png in Resources */,
 				09E0996F1E85406C00253536 /* VideoMessageUnmutedIcon@2x.png in Resources */,
 				9341B0211851E89300D1195B /* ModernMenuCheck@2x.png in Resources */,
@@ -26627,7 +26518,6 @@
 				68EE34741C84A772002F5419 /* ShareCommentCloseIcon@2x.png in Resources */,
 				D5F3D160214E8147004093B7 /* tab_crypto_prices@2x.png in Resources */,
 				D5C59F94214074E100B8AAA9 /* InfoPlist.strings in Resources */,
-				09BC509920C9AF4F00B28F9D /* anim_read.json in Resources */,
 				0973F3601F90E0F100EE2749 /* ConversationGoToIcon@2x.png in Resources */,
 				936219DA186460F600C52870 /* 109.m4a in Resources */,
 				0937A5A31E9678F00093D4DA /* TempAudioPreviewPause@3x.png in Resources */,
@@ -26645,7 +26535,6 @@
 				096CEDA61F769B2B005C5C70 /* LiveLocationTitlePin@3x.png in Resources */,
 				D5C59FAC214074E100B8AAA9 /* Localizable.strings in Resources */,
 				D5C3D24321354989002363B8 /* tab_announcements@3x.png in Resources */,
-				098C0E662024A2DD007B4539 /* anim_group.json in Resources */,
 				D0E352941E5E4127007E6EB8 /* stp_card_visa@3x.png in Resources */,
 				931C5942174C1D1600D597D9 /* MenuArrowTop@2x.png in Resources */,
 				09E97B761F97E63B00526020 /* SettingsFaqIcon@3x.png in Resources */,
@@ -30675,10 +30564,8 @@
 					legacy/TL,
 					thirdparty/pop,
 					thirdparty/libbpg,
-					/Users/peter/Dropbox/workspace/ModernTelegram/MtProtoKit/openssl,
 					submodules/SSignalKit,
 					submodules/libtgvoip,
-					"thirdparty/Lottie/lottie-ios/Classes/PublicHeaders",
 					submodules/urbanairship/AirshipKit/AirshipKit/ios,
 				);
 				INFOPLIST_FILE = "Telegraph/Bettergram-Info.plist";
@@ -30769,7 +30656,6 @@
 					"$(SRCROOT)/../MtProtoKit/thirdparty/openssl",
 					submodules/SSignalKit,
 					submodules/libtgvoip,
-					"thirdparty/Lottie/lottie-ios/Classes/PublicHeaders",
 				);
 				INFOPLIST_FILE = "Telegraph/Bettergram-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

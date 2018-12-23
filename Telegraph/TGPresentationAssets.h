@@ -12,6 +12,8 @@
 + (UIImage *)searchRssIcon:(UIColor *)color;
 + (UIImage *)newMessageIcon:(UIColor *)color;
 
++ (UIImage *)readIcon:(UIColor *)color unread:(BOOL)unread;
+
 // Tabs
 + (UIImage *)tabBarContactsIcon:(UIColor *)color;
 + (UIImage *)tabBarCallsIcon:(UIColor *)color;

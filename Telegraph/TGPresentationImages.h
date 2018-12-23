@@ -20,6 +20,9 @@ IMAGE searchRssButton;
 IMAGE newMessageButton;
 IMAGE githubImage;
 
+IMAGE readImage;
+IMAGE unreadImage;
+
 IMAGE cryptoPricesSortImage;
 IMAGE cryptoPricesSortAscendingImage;
 IMAGE cryptoPricesSortDescendingImage;

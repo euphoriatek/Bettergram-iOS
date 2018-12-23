@@ -198,6 +198,36 @@
     return image;
 }
 
++ (UIImage *)readIcon:(UIColor *)color unread:(BOOL)unread
+{
+    NSString *code = @"M13,0.1875 C5.925781,0.1875 0.1875,5.253906 0.1875,11.5 C0.1875,14.675781 1.675781,17.539063 4.0625,19.59375 C3.542969,22.601563 0.175781,23.828125 0.40625,24.65625 C3.414063,25.902344 9.378906,23.011719 10.28125,22.5625 C11.15625,22.730469 12.070313,22.8125 13,22.8125 C20.074219,22.8125 25.8125,17.746094 25.8125,11.5 C25.8125,5.253906 20.074219,0.1875 13,0.1875 Z";
+    CGFloat side = 26;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(side, side), false, 0.0f);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    TGDrawSvgPath(context, code);
+    
+    if (unread) {
+        CGFloat smallRadius = side * 20 / 78 / 2;
+        CGFloat bigRadius = smallRadius * 3 / 2 ;
+        CGPoint center = CGPointMake(side - smallRadius, smallRadius);
+        CGContextSetBlendMode(context, kCGBlendModeClear);
+        CGContextAddArc(context, center.x, center.y, bigRadius, 0, 2 * M_PI, 0);
+        CGContextDrawPath(context, kCGPathFill);
+        
+        CGContextSetBlendMode(context, kCGBlendModeNormal);
+        CGContextAddArc(context, center.x, center.y, smallRadius, 0, 2 * M_PI, 0);
+        CGContextDrawPath(context, kCGPathFill);
+    }
+        
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+};
+
 #pragma mark - orinigal ones
 
 + (UIImage *)tabBarContactsIcon:(UIColor *)color

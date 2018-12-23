@@ -147,6 +147,20 @@
     return TGImageNamed(@"github_logo.png");
 }
 
+- (UIImage *)readImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets readIcon:self.pallete.navigationButtonColor unread:NO];
+    }];
+}
+
+- (UIImage *)unreadImage
+{
+    return [self imageWithSel:_cmd generator:^UIImage *{
+        return [TGPresentationAssets readIcon:self.pallete.navigationButtonColor unread:YES];
+    }];
+}
+
 #pragma mark - Tabs
 
 - (UIImage *)tabBarBadgeImage

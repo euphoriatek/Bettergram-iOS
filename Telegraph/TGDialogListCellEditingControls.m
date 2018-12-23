@@ -43,17 +43,6 @@ static NSString *buttonTitleForType(TGDialogListCellEditingControlButton button)
     }
 }
 
-static NSString *animationForType(TGDialogListCellEditingControlButton button) {
-    switch (button) {
-        case TGDialogListCellEditingControlsRead:
-            return @"anim_read";
-        case TGDialogListCellEditingControlsUnread:
-            return @"anim_unread";
-        default:
-            return nil;
-    }
-}
-
 static UIColor *buttonColorForType(TGDialogListCellEditingControlButton button, TGPresentation *presentation) {
     switch (button) {
         case TGDialogListCellEditingControlsDelete:
@@ -103,6 +92,10 @@ static UIImage *buttonImageForType(TGDialogListCellEditingControlButton button, 
             return presentation.images.dialogEditGroupIcon;
         case TGDialogListCellEditingControlsUngroup:
             return presentation.images.dialogEditUngroupIcon;
+        case TGDialogListCellEditingControlsRead:
+            return presentation.images.readImage;
+        case TGDialogListCellEditingControlsUnread:
+            return presentation.images.unreadImage;
         default:
             return nil;
     }
@@ -265,19 +258,6 @@ static CGRect validatedRect(CGRect value) {
             [_scroller setContentOffset:offset animated:false];
         } completion:^(__unused BOOL finished) {
             if (!expanded) {
-                for (TGDialogListCellEditingButton *button in _leftButtons) {
-                    if (button.hidden)
-                        continue;
-                    
-                    [button resetAnimation];
-                }
-                for (TGDialogListCellEditingButton *button in _rightButtons.reverseObjectEnumerator) {
-                    if (button.hidden)
-                        continue;
-                    
-                    [button resetAnimation];
-                }
-                
                 _animatingCollapse = false;
                 if (_scheduledReset)
                 {
@@ -288,13 +268,6 @@ static CGRect validatedRect(CGRect value) {
         }];
     } else {
         if (expanded) {
-            for (TGDialogListCellEditingButton *button in _rightButtons.reverseObjectEnumerator) {
-                if (button.hidden)
-                    continue;
-                
-                [button skipAnimation];
-            }
-            
             _leftReadyToPlay = false;
             _rightReadyToPlay = false;
         }
@@ -304,20 +277,6 @@ static CGRect validatedRect(CGRect value) {
             [self insertSubview:_scroller atIndex:0];
         }
         [_scroller setContentOffset:offset animated:false];
-        if (!expanded) {
-            for (TGDialogListCellEditingButton *button in _leftButtons) {
-                if (button.hidden)
-                    continue;
-                
-                [button resetAnimation];
-            }
-            for (TGDialogListCellEditingButton *button in _rightButtons.reverseObjectEnumerator) {
-                if (button.hidden)
-                    continue;
-                
-                [button resetAnimation];
-            }
-        }
     }
     if (_isExpanded != expanded) {
         _isExpanded = expanded;
@@ -360,12 +319,8 @@ static CGRect validatedRect(CGRect value) {
             button.labelOnly = _labelOnly;
             button.smallLabel = _smallLabels;
             button.offsetLabel = _offsetLabels;
-            NSString *animationName = animationForType(buttonType);
-            if (animationName.length > 0)
-                [button setTitle:buttonTitleForType(buttonType) animationName:animationName];
-            else
-                [button setTitle:buttonTitleForType(buttonType) image:buttonImageForType(buttonType, self.presentation)];
-            [button setBackgroundColor:buttonColorForType(buttonType, self.presentation) force:true];
+            [button setTitle:buttonTitleForType(buttonType) image:buttonImageForType(buttonType, self.presentation)];
+            [button setBackgroundColor:buttonColorForType(buttonType, self.presentation)];
             index++;
         }
         while (index < buttons.count) {
@@ -521,12 +476,6 @@ static CGRect validatedRect(CGRect value) {
             button.frame = CGRectMake(-rightButtonWidth * (1.0f - leftOffsetFactor) + nextButtonEndOffset * leftOffsetFactor + offset, 0.0f, rightButtonWidth + MAX(-offset - leftContentWidth, 0.0f), bounds.size.height);
             nextButtonEndOffset += rightButtonWidth;
             
-            if (leftOffsetFactor >= 0.4f && _leftReadyToPlay)
-                [button playAnimation];
-            else if (leftOffsetFactor < FLT_EPSILON && maybeReset) {
-                [button resetAnimation];
-            }
-            
             UIEdgeInsets targetContentInset = UIEdgeInsetsMake(0.0f, leftContentWidth, 0.0f, 0.0f);
             if (unconstrainedLeftOffsetFactor > 1.0f)
                 targetContentInset = UIEdgeInsetsMake(0.0f, leftContentWidth * 2.0f, 0.0f, 0.0f);
@@ -572,12 +521,6 @@ static CGRect validatedRect(CGRect value) {
             button.buttonWidth = rightButtonWidth;
             button.frame = CGRectMake(bounds.size.width * (1.0f - rightOffsetFactor) + nextButtonEndOffset * rightOffsetFactor + offset, 0.0f, rightButtonWidth, bounds.size.height);
             nextButtonEndOffset -= rightButtonWidth;
-            
-            if (rightOffsetFactor >= 0.4f && _rightReadyToPlay)
-                [button playAnimation];
-            else if (rightOffsetFactor < FLT_EPSILON && maybeReset) {
-                [button resetAnimation];
-            }
         }
         
         if (rightOffsetFactor >= 0.4f && rightOffsetFactor < 1.0f - FLT_EPSILON)

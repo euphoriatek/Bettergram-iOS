@@ -8,15 +8,11 @@
 
 @property (nonatomic, assign) CGFloat buttonWidth;
 
-- (void)setTitle:(NSString *)title animationName:(NSString *)animationName;
-- (void)playAnimation;
-- (void)resetAnimation;
-- (void)skipAnimation;
+- (void)setTitle:(NSString *)title;
 
 @property (nonatomic, assign) bool triggered;
 - (void)setTriggered:(bool)triggered animated:(bool)animated;
 
 - (void)setTitle:(NSString *)title image:(UIImage *)image;
-- (void)setBackgroundColor:(UIColor *)backgroundColor force:(bool)force;
 
 @end
