@@ -3215,12 +3215,6 @@
 		D020FB231D99665400F279AA /* LegacyDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D020FB0A1D99637100F279AA /* LegacyDatabase.framework */; };
 		D020FB261D99669800F279AA /* TGLegacyUser.h in Headers */ = {isa = PBXBuildFile; fileRef = D020FB241D99669800F279AA /* TGLegacyUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D020FB271D99669800F279AA /* TGLegacyUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D020FB251D99669800F279AA /* TGLegacyUser.m */; };
-		D020FB2E1D99681400F279AA /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = D020FB281D99681400F279AA /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D020FB2F1D99681400F279AA /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D020FB291D99681400F279AA /* FMDatabase.m */; };
-		D020FB301D99681400F279AA /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D020FB2A1D99681400F279AA /* FMDatabaseAdditions.h */; };
-		D020FB311D99681400F279AA /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D020FB2B1D99681400F279AA /* FMDatabaseAdditions.m */; };
-		D020FB321D99681400F279AA /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D020FB2C1D99681400F279AA /* FMResultSet.h */; };
-		D020FB331D99681400F279AA /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D020FB2D1D99681400F279AA /* FMResultSet.m */; };
 		D020FB591D996D5200F279AA /* TGShareContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D020FB3F1D996D5200F279AA /* TGShareContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D020FB5A1D996D5200F279AA /* TGShareContextSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = D020FB401D996D5200F279AA /* TGShareContextSignal.m */; };
 		D020FB5B1D996D5200F279AA /* TGShareContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D020FB411D996D5200F279AA /* TGShareContext.m */; };
@@ -4955,6 +4949,21 @@
 		D5C59FFB2140756B00B8AAA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5C59FE82140756B00B8AAA9 /* InfoPlist.strings */; };
 		D5C5A0242141148600B8AAA9 /* check_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C5A0152141148400B8AAA9 /* check_mark@2x.png */; };
 		D5C5A0252141148600B8AAA9 /* check_mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5C5A0232141148500B8AAA9 /* check_mark@3x.png */; };
+		D5D5167721D0C2150053BBAC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5165421D0C2130053BBAC /* FMDatabasePool.m */; };
+		D5D5167821D0C2150053BBAC /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5167421D0C2130053BBAC /* FMDatabaseQueue.h */; };
+		D5D5167921D0C2150053BBAC /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5167521D0C2140053BBAC /* FMDatabasePool.h */; };
+		D5D5167A21D0C2150053BBAC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5167621D0C2140053BBAC /* FMDatabaseQueue.m */; };
+		D5D5168721D0C2360053BBAC /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5167C21D0C2350053BBAC /* FMDatabase.h */; };
+		D5D5168821D0C2360053BBAC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5167D21D0C2350053BBAC /* FMDatabaseQueue.m */; };
+		D5D5168921D0C2360053BBAC /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5167E21D0C2350053BBAC /* FMResultSet.h */; };
+		D5D5168A21D0C2360053BBAC /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5167F21D0C2350053BBAC /* FMDatabasePool.h */; };
+		D5D5168B21D0C2360053BBAC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168021D0C2350053BBAC /* FMDatabaseAdditions.m */; };
+		D5D5168C21D0C2360053BBAC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168121D0C2350053BBAC /* FMDatabase.m */; };
+		D5D5168D21D0C2360053BBAC /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5168221D0C2350053BBAC /* FMDatabaseQueue.h */; };
+		D5D5168E21D0C2360053BBAC /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5168321D0C2350053BBAC /* FMDB.h */; };
+		D5D5168F21D0C2360053BBAC /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5168421D0C2350053BBAC /* FMDatabaseAdditions.h */; };
+		D5D5169021D0C2360053BBAC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168521D0C2350053BBAC /* FMDatabasePool.m */; };
+		D5D5169121D0C2360053BBAC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168621D0C2350053BBAC /* FMResultSet.m */; };
 		D5DC0C0C215386BF003B9E78 /* Harpy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DC0C09215386BF003B9E78 /* Harpy.m */; };
 		D5DC0C0D215386BF003B9E78 /* Harpy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D5DC0C0A215386BF003B9E78 /* Harpy.bundle */; };
 		D5DC0C0E215386BF003B9E78 /* Harpy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DC0C0B215386BF003B9E78 /* Harpy.h */; };
@@ -9648,12 +9657,6 @@
 		D020FB201D99663100F279AA /* TGLegacyDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLegacyDatabase.m; sourceTree = "<group>"; };
 		D020FB241D99669800F279AA /* TGLegacyUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLegacyUser.h; sourceTree = "<group>"; };
 		D020FB251D99669800F279AA /* TGLegacyUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLegacyUser.m; sourceTree = "<group>"; };
-		D020FB281D99681400F279AA /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		D020FB291D99681400F279AA /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		D020FB2A1D99681400F279AA /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		D020FB2B1D99681400F279AA /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		D020FB2C1D99681400F279AA /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		D020FB2D1D99681400F279AA /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D020FB3F1D996D5200F279AA /* TGShareContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGShareContext.h; sourceTree = "<group>"; };
 		D020FB401D996D5200F279AA /* TGShareContextSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGShareContextSignal.m; sourceTree = "<group>"; };
 		D020FB411D996D5200F279AA /* TGShareContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGShareContext.m; sourceTree = "<group>"; };
@@ -12059,6 +12062,21 @@
 		D5C59FE92140756B00B8AAA9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D5C5A0152141148400B8AAA9 /* check_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@2x.png"; sourceTree = "<group>"; };
 		D5C5A0232141148500B8AAA9 /* check_mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_mark@3x.png"; sourceTree = "<group>"; };
+		D5D5165421D0C2130053BBAC /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		D5D5167421D0C2130053BBAC /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		D5D5167521D0C2140053BBAC /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		D5D5167621D0C2140053BBAC /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		D5D5167C21D0C2350053BBAC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		D5D5167D21D0C2350053BBAC /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		D5D5167E21D0C2350053BBAC /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		D5D5167F21D0C2350053BBAC /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		D5D5168021D0C2350053BBAC /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		D5D5168121D0C2350053BBAC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		D5D5168221D0C2350053BBAC /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		D5D5168321D0C2350053BBAC /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		D5D5168421D0C2350053BBAC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		D5D5168521D0C2350053BBAC /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		D5D5168621D0C2350053BBAC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D5DC0C09215386BF003B9E78 /* Harpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harpy.m; sourceTree = "<group>"; };
 		D5DC0C0A215386BF003B9E78 /* Harpy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Harpy.bundle; sourceTree = "<group>"; };
 		D5DC0C0B215386BF003B9E78 /* Harpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Harpy.h; sourceTree = "<group>"; };
@@ -16973,12 +16991,7 @@
 				D020FB561D996D5200F279AA /* TGModernCache.m */,
 				D020FB571D996D5200F279AA /* TGPoolWithTimeout.h */,
 				D020FB581D996D5200F279AA /* TGPoolWithTimeout.m */,
-				D020FB281D99681400F279AA /* FMDatabase.h */,
-				D020FB291D99681400F279AA /* FMDatabase.m */,
-				D020FB2A1D99681400F279AA /* FMDatabaseAdditions.h */,
-				D020FB2B1D99681400F279AA /* FMDatabaseAdditions.m */,
-				D020FB2C1D99681400F279AA /* FMResultSet.h */,
-				D020FB2D1D99681400F279AA /* FMResultSet.m */,
+				D5D5167B21D0C2350053BBAC /* FMDB */,
 				D020FB171D9963D600F279AA /* sqlite3.c */,
 				D020FB181D9963D600F279AA /* sqlite3.h */,
 				D020FB191D9963D600F279AA /* sqlite3ext.h */,
@@ -21504,6 +21517,10 @@
 				D0983D2119CB9A4300CE5BB0 /* FMDatabaseAdditions.m */,
 				D0983D2219CB9A4300CE5BB0 /* FMResultSet.h */,
 				D0983D2319CB9A4300CE5BB0 /* FMResultSet.m */,
+				D5D5167521D0C2140053BBAC /* FMDatabasePool.h */,
+				D5D5165421D0C2130053BBAC /* FMDatabasePool.m */,
+				D5D5167421D0C2130053BBAC /* FMDatabaseQueue.h */,
+				D5D5167621D0C2140053BBAC /* FMDatabaseQueue.m */,
 			);
 			path = FMDB;
 			sourceTree = "<group>";
@@ -23593,6 +23610,25 @@
 			path = it.lproj;
 			sourceTree = "<group>";
 		};
+		D5D5167B21D0C2350053BBAC /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				D5D5167C21D0C2350053BBAC /* FMDatabase.h */,
+				D5D5167D21D0C2350053BBAC /* FMDatabaseQueue.m */,
+				D5D5167E21D0C2350053BBAC /* FMResultSet.h */,
+				D5D5167F21D0C2350053BBAC /* FMDatabasePool.h */,
+				D5D5168021D0C2350053BBAC /* FMDatabaseAdditions.m */,
+				D5D5168121D0C2350053BBAC /* FMDatabase.m */,
+				D5D5168221D0C2350053BBAC /* FMDatabaseQueue.h */,
+				D5D5168321D0C2350053BBAC /* FMDB.h */,
+				D5D5168421D0C2350053BBAC /* FMDatabaseAdditions.h */,
+				D5D5168521D0C2350053BBAC /* FMDatabasePool.m */,
+				D5D5168621D0C2350053BBAC /* FMResultSet.m */,
+			);
+			name = FMDB;
+			path = "legacy/TelegraphKit/Third-Party/FMDB";
+			sourceTree = SOURCE_ROOT;
+		};
 		D5DC0C08215386BF003B9E78 /* Harpy */ = {
 			isa = PBXGroup;
 			children = (
@@ -24808,6 +24844,7 @@
 				09208CE12085612500C4CFFC /* TGProxyInfoItemView.h in Headers */,
 				D008C1D91C18CF76007D2855 /* TLWebPage$webPageExternal.h in Headers */,
 				68EE346D1C83C2F3002F5419 /* TGScrollIndicatorView.h in Headers */,
+				D5D5167921D0C2150053BBAC /* FMDatabasePool.h in Headers */,
 				D008C2011C18E1B7007D2855 /* TGBotContextExternalResult.h in Headers */,
 				0995BFC2203D7FD700AA2700 /* TLmessages_FoundStickerSets.h in Headers */,
 				68BBB21E1BE9DED300237553 /* TGBridgeMessageEntities.h in Headers */,
@@ -25027,6 +25064,7 @@
 				D0E0AB241DB6BF86006060EE /* TGCallState.h in Headers */,
 				D0DA8C401ACF5EBD00606990 /* TGArticleWebpageFooterModel.h in Headers */,
 				687D86A21D01FDC600820510 /* TGPreviewTextItemView.h in Headers */,
+				D5D5167821D0C2150053BBAC /* FMDatabaseQueue.h in Headers */,
 				D0C156741D424F3E00D573C4 /* TGArchivedStickerPacksAlertView.h in Headers */,
 				D0821A3C1BBEADD000CE53BA /* TGSpotlightIndexData.h in Headers */,
 				096A73361E65D02D00BD973B /* TGUserInfoCallsCollectionItem.h in Headers */,
@@ -25228,30 +25266,33 @@
 				D020FBC71D9972D300F279AA /* TGShareLocationSignals.h in Headers */,
 				D020FBCB1D9972D300F279AA /* TGUploadedMessageContent.h in Headers */,
 				D020FB711D996D5200F279AA /* TGPoolWithTimeout.h in Headers */,
-				D020FB321D99681400F279AA /* FMResultSet.h in Headers */,
 				D020FB211D99663100F279AA /* TGLegacyDatabase.h in Headers */,
-				D020FB301D99681400F279AA /* FMDatabaseAdditions.h in Headers */,
+				D5D5168A21D0C2360053BBAC /* FMDatabasePool.h in Headers */,
 				D020FB621D996D5200F279AA /* PSKeyValueReader.h in Headers */,
-				D020FB2E1D99681400F279AA /* FMDatabase.h in Headers */,
 				D020FB8C1D99710800F279AA /* TGFileLocation.h in Headers */,
 				D020FBC01D9972D300F279AA /* TGSendMessageSignals.h in Headers */,
 				D020FB6A1D996D5200F279AA /* PSLMDBTable.h in Headers */,
 				D020FB651D996D5200F279AA /* PSLMDBKeyValueCursor.h in Headers */,
+				D5D5168F21D0C2360053BBAC /* FMDatabaseAdditions.h in Headers */,
 				D020FBDF1D9973AF00F279AA /* TGScaleImage.h in Headers */,
 				D020FB861D9970FE00F279AA /* TGContactModel.h in Headers */,
 				D020FB5E1D996D5200F279AA /* TGShareContextSignal.h in Headers */,
 				D020FB0E1D99637200F279AA /* LegacyDatabase.h in Headers */,
 				D020FBC31D9972D300F279AA /* TGUploadedMessageContentMedia.h in Headers */,
+				D5D5168921D0C2360053BBAC /* FMResultSet.h in Headers */,
 				D020FBDA1D9973AF00F279AA /* TGGeometry.h in Headers */,
+				D5D5168E21D0C2360053BBAC /* FMDB.h in Headers */,
 				D020FB9E1D99712600F279AA /* TGPrivateChatModel.h in Headers */,
 				D020FB261D99669800F279AA /* TGLegacyUser.h in Headers */,
 				D020FB981D99712600F279AA /* TGChannelChatModel.h in Headers */,
 				D020FBC51D9972D300F279AA /* TGUploadMediaSignals.h in Headers */,
 				D020FBDB1D9973AF00F279AA /* TGColor.h in Headers */,
+				D5D5168D21D0C2360053BBAC /* FMDatabaseQueue.h in Headers */,
 				D020FBC81D9972D300F279AA /* TGShareRecentPeersSignals.h in Headers */,
 				D020FB6E1D996D5200F279AA /* TGMemoryImageCache.h in Headers */,
 				D020FBCA1D9972D300F279AA /* TGSearchSignals.h in Headers */,
 				D020FB611D996D5200F279AA /* PSData.h in Headers */,
+				D5D5168721D0C2360053BBAC /* FMDatabase.h in Headers */,
 				D020FB631D996D5200F279AA /* PSKeyValueStore.h in Headers */,
 				D020FB5F1D996D5200F279AA /* PSLMDBKeyValueReaderWriter.h in Headers */,
 				D020FB8F1D99711800F279AA /* TGPeerId.h in Headers */,
@@ -26869,7 +26910,6 @@
 				D020FB7D1D996E4800F279AA /* TGDatacenterConnectionContext.m in Sources */,
 				D020FB5C1D996D5200F279AA /* TGShareMtSerialization.m in Sources */,
 				D020FB691D996D5200F279AA /* PSLMDBKeyValueStore.m in Sources */,
-				D020FB331D99681400F279AA /* FMResultSet.m in Sources */,
 				D020FBBF1D9972D300F279AA /* TGSearchSignals.m in Sources */,
 				D07BC6A71F2945E200ED97AA /* TGLegacyDatabasePhoneUtils.m in Sources */,
 				D020FB9F1D99712600F279AA /* TGPrivateChatModel.m in Sources */,
@@ -26878,6 +26918,7 @@
 				D020FB871D9970FE00F279AA /* TGContactModel.m in Sources */,
 				D020FB5B1D996D5200F279AA /* TGShareContext.m in Sources */,
 				D07BC69C1F2945CC00ED97AA /* PSKeyValueDecoder.m in Sources */,
+				D5D5168C21D0C2360053BBAC /* FMDatabase.m in Sources */,
 				D020FB671D996D5200F279AA /* PSLMDBKeyValueReaderWriter.m in Sources */,
 				09A60A24212702EC002A42DE /* ApiLayer86.m in Sources */,
 				D020FBBC1D9972D300F279AA /* TGShareLocationSignals.m in Sources */,
@@ -26898,21 +26939,23 @@
 				D020FB6F1D996D5200F279AA /* TGMemoryImageCache.m in Sources */,
 				D020FB991D99712600F279AA /* TGChannelChatModel.m in Sources */,
 				D020FB701D996D5200F279AA /* TGModernCache.m in Sources */,
+				D5D5168821D0C2360053BBAC /* FMDatabaseQueue.m in Sources */,
 				D020FBCF1D99736C00F279AA /* TGRemoteHttpLocationSignal.m in Sources */,
 				09C05C2B20D7CE6700D66A08 /* TGVCard.m in Sources */,
+				D5D5168B21D0C2360053BBAC /* FMDatabaseAdditions.m in Sources */,
 				D020FBCC1D9972D300F279AA /* TGUploadedMessageContent.m in Sources */,
 				D020FB6D1D996D5200F279AA /* TGMemoryCache.m in Sources */,
+				D5D5169121D0C2360053BBAC /* FMResultSet.m in Sources */,
 				D020FB271D99669800F279AA /* TGLegacyUser.m in Sources */,
 				D020FBC41D9972D300F279AA /* TGUploadedMessageContentMedia.m in Sources */,
 				D020FBE01D9973AF00F279AA /* TGScaleImage.m in Sources */,
 				D020FBDC1D9973AF00F279AA /* TGColor.m in Sources */,
 				D020FB1A1D9963D600F279AA /* sqlite3.c in Sources */,
-				D020FB2F1D99681400F279AA /* FMDatabase.m in Sources */,
 				D020FB891D9970FE00F279AA /* TGUserModel.m in Sources */,
 				D020FB9D1D99712600F279AA /* TGGroupChatModel.m in Sources */,
+				D5D5169021D0C2360053BBAC /* FMDatabasePool.m in Sources */,
 				D07BC69B1F2945CC00ED97AA /* PSKeyValueCoder.m in Sources */,
 				D07BC69A1F2945CC00ED97AA /* TGLocalization.m in Sources */,
-				D020FB311D99681400F279AA /* FMDatabaseAdditions.m in Sources */,
 				D07BC6991F2945CC00ED97AA /* TGPluralization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27479,6 +27522,7 @@
 				093F9D1B1FDF74300081EB25 /* TLchannels_FeedSources.mm in Sources */,
 				D01160771F41F1320039383E /* TLRPCpayments_getSavedInfo.mm in Sources */,
 				D07587691B3B343300117DFF /* TGMusicPlayerController.m in Sources */,
+				D5D5167721D0C2150053BBAC /* FMDatabasePool.m in Sources */,
 				D06F2B3A1AB1DFD900A4E214 /* TGReplyHeaderStickerModel.m in Sources */,
 				D01160F71F41F1320039383E /* TLupload_File.mm in Sources */,
 				D013FA941CDA6ACB00EF175C /* TGRemoteRecentPeer.m in Sources */,
@@ -27813,6 +27857,7 @@
 				D03FECE719CC7446004866D6 /* TGSecretPeerMediaGalleryVideoItemView.m in Sources */,
 				D0EA698F1A09530800D1F747 /* TGAccountSettingsUpdateActor.mm in Sources */,
 				D0983DB419CB9A4300CE5BB0 /* FMResultSet.m in Sources */,
+				D5D5167A21D0C2150053BBAC /* FMDatabaseQueue.m in Sources */,
 				D0C925B0194A024000E629CA /* platform_log.c in Sources */,
 				D01161E71F41F1340039383E /* TLContactLocated.mm in Sources */,
 				93E8A65B1623332E0014C17A /* TGRevokeSessionsActor.m in Sources */,

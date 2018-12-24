@@ -1,6 +1,6 @@
 #import "TGLegacyDatabase.h"
 
-#import "FMDatabase.h"
+#import "FMDB.h"
 
 #import "PSKeyValueDecoder.h"
 
@@ -10,6 +10,7 @@
 #import "TGPrivateChatModel.h"
 #import "TGGroupChatModel.h"
 #import "TGChannelChatModel.h"
+#import "sqlite3.h"
 
 static inline bool TGPeerIdIsChannel(int64_t peerId) {
     return peerId <= ((int64_t)INT32_MIN) * 2 && peerId > ((int64_t)INT32_MIN) * 3;
