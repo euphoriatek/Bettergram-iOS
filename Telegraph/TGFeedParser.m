@@ -268,7 +268,7 @@ static NSTimeInterval const kRssUpdateInterval = 60 * 20;
     NSRange subarrayRange;
     subarrayRange.location = _lastReportedFeedItemIndex == NSNotFound ? 0 : _lastReportedFeedItemIndex + 1;
     subarrayRange.length = _feedItems.count - subarrayRange.location;
-    if (subarrayRange.length > 0) {
+    if (subarrayRange.location < _feedItems.count && NSMaxRange(subarrayRange) <= _feedItems.count) {
         [_delegate feedParser:self fetchedItems:[_feedItems subarrayWithRange:subarrayRange]];
         _lastReportedFeedItemIndex = NSMaxRange(subarrayRange) - 1;
     }
