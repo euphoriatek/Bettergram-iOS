@@ -230,7 +230,6 @@ NSTimeInterval const kPricesUpdateInterval = 60;
 #ifndef DEBUG
     [self addUsernames:@[
                          @"bettergramapp",
-                         @"livecoinwatchofficial",
                          @"bettergramchannel",
                          @"bgsecuritytokens"
                          ]
