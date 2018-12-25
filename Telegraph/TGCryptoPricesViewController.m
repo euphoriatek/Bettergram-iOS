@@ -17,6 +17,8 @@
 #import "TGCryptoManager.h"
 #import "TGAppDelegate.h"
 #import "TGCryptoTabViewController.h"
+#import "TGViewController+OpenLink.h"
+
 
 const CGFloat kMarketInfoOffset = 2;
 const CGFloat kMarketInfoInset = 20;
@@ -547,7 +549,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
             sort24h = NSOrderedDescending;
             break;
             
-        case TGSortingNone:
+        default:
             break;
     }
     _sortCoinButton.sortState = sortCoin;
@@ -899,6 +901,7 @@ const NSUInteger kCellsLimitMultiplier = 10;
     self.titleView = _titleView = [UIButton.alloc init];
     [_titleView addTarget:self action:@selector(titleViewTap) forControlEvents:UIControlEventTouchUpInside];
     _titleView.adjustsImageWhenHighlighted = NO;
+    [_titleView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(titleViewLongPress:)]];
     
     [self setRightBarButtonItem:_rightButtonItem = [UIBarButtonItem.alloc initWithImage:nil
                                                                                   style:UIBarButtonItemStylePlain
@@ -1082,6 +1085,15 @@ const NSUInteger kCellsLimitMultiplier = 10;
     [(TGApplication *)[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.livecoinwatch.com/"]
                                                     forceNative:true
                                                       keepStack:true];
+}
+
+- (void)titleViewLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self showActionsMenuForLink:@"https://www.livecoinwatch.com/"
+                             webPage:nil];
+        
+    }
 }
 
 - (void)refreshStateChanged:(UIRefreshControl *)__unused sender

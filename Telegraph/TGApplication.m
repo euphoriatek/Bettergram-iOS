@@ -355,26 +355,6 @@
         return true;
     }
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone && iosMajorVersion() >= 9 && ([url.scheme isEqual:@"http"] || [url.scheme isEqual:@"https"])) {
-        
-        UIViewController *parentController = TGAppDelegateInstance.window.rootViewController;
-        if ([parentController.presentedViewController isKindOfClass:[TGHashtagOverviewController class]])
-        {
-            parentController = parentController.presentedViewController;
-        }
-        
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                SFSafariViewController *controller = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:false];
-                [parentController presentViewController:controller animated:true completion:nil];
-            });
-        } else {
-            SFSafariViewController *controller = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:false];
-            [parentController presentViewController:controller animated:true completion:nil];
-        }
-        return true;
-    }
-    
     return [super openURL:url];
 }
 

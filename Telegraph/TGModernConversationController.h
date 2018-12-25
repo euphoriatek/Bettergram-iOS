@@ -7,6 +7,7 @@
 #import "TGModernConversationInputPanel.h"
 #import "TGModernConversationEmptyListPlaceholderView.h"
 #import "TGModernConversationCompanion.h"
+#import "TGViewController+OpenLink.h"
 
 @class TGModernConversationCompanion;
 @class TGModernViewStorage;
@@ -93,7 +94,6 @@ typedef enum {
 - (void)highlightAndShowActionsMenuForMessage:(int32_t)messageId peerId:(int64_t)peerId groupedId:(int64_t)groupedId;
 - (void)temporaryHighlightMessage:(int32_t)messageId automatically:(bool)automatically;
 - (void)temporaryHighlightMessage:(int32_t)messageId grouped:(bool)grouped automatically:(bool)automatically;
-- (void)showActionsMenuForLink:(NSString *)url webPage:(TGWebPageMediaAttachment *)webPage;
 - (void)showActionsMenuForContact:(TGUser *)contact isContact:(bool)isContact;
 - (void)showAddContactMenu:(TGUser *)contact;
 - (void)showCallNumberMenu:(NSArray *)phoneNumbers;
@@ -200,5 +200,7 @@ typedef enum {
 - (void)setSecondaryController:(TGViewController *)secondaryController;
 
 - (void)showNext;
+
+- (void)maybeDisplayGifTooltip;
 
 @end

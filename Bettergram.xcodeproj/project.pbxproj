@@ -4964,6 +4964,8 @@
 		D5D5168F21D0C2360053BBAC /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5168421D0C2350053BBAC /* FMDatabaseAdditions.h */; };
 		D5D5169021D0C2360053BBAC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168521D0C2350053BBAC /* FMDatabasePool.m */; };
 		D5D5169121D0C2360053BBAC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168621D0C2350053BBAC /* FMResultSet.m */; };
+		D5D5169621D1EFCC0053BBAC /* TGViewController+OpenLink.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5169321D1EF6E0053BBAC /* TGViewController+OpenLink.m */; };
+		D5D5169721D1EFD10053BBAC /* TGViewController+OpenLink.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5169221D1EF6E0053BBAC /* TGViewController+OpenLink.h */; };
 		D5DC0C0C215386BF003B9E78 /* Harpy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DC0C09215386BF003B9E78 /* Harpy.m */; };
 		D5DC0C0D215386BF003B9E78 /* Harpy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D5DC0C0A215386BF003B9E78 /* Harpy.bundle */; };
 		D5DC0C0E215386BF003B9E78 /* Harpy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DC0C0B215386BF003B9E78 /* Harpy.h */; };
@@ -12077,6 +12079,8 @@
 		D5D5168421D0C2350053BBAC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
 		D5D5168521D0C2350053BBAC /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
 		D5D5168621D0C2350053BBAC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		D5D5169221D1EF6E0053BBAC /* TGViewController+OpenLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TGViewController+OpenLink.h"; sourceTree = "<group>"; };
+		D5D5169321D1EF6E0053BBAC /* TGViewController+OpenLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TGViewController+OpenLink.m"; sourceTree = "<group>"; };
 		D5DC0C09215386BF003B9E78 /* Harpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harpy.m; sourceTree = "<group>"; };
 		D5DC0C0A215386BF003B9E78 /* Harpy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Harpy.bundle; sourceTree = "<group>"; };
 		D5DC0C0B215386BF003B9E78 /* Harpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Harpy.h; sourceTree = "<group>"; };
@@ -17626,6 +17630,8 @@
 				D5C3D24F2135BF34002363B8 /* Crypto */,
 				D5606F1A214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.h */,
 				D5606F1B214ECA6E00CF2C0C /* TGViewController+SafeAreaInsetsSwizzling.m */,
+				D5D5169221D1EF6E0053BBAC /* TGViewController+OpenLink.h */,
+				D5D5169321D1EF6E0053BBAC /* TGViewController+OpenLink.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -23793,6 +23799,7 @@
 				D0115FC01F41F1300039383E /* TLRPChelp_getConfig.h in Headers */,
 				09D65FD51F3A182E00854B1D /* TGStickerGroupPackCell.h in Headers */,
 				D083AD931AE1507000C7F41B /* TGMessageViewedContentProperty.h in Headers */,
+				D5D5169721D1EFD10053BBAC /* TGViewController+OpenLink.h in Headers */,
 				093243571FE4F63800D87AF1 /* TGAppearancePreviewCollectionItemView.h in Headers */,
 				D06EBE9E1C60EE8E0026491B /* TGGenericPeerVoiceMessagesPlaylistSignal.h in Headers */,
 				D0083AE81BCD85B600CA1D77 /* TGAttachmentSheetView.h in Headers */,
@@ -28524,6 +28531,7 @@
 				933F501816ADB9DA00EC845A /* TGLocationServicesStateActor.m in Sources */,
 				D0983DA319CB9A4300CE5BB0 /* TGTableViewCell.m in Sources */,
 				93316A51184E3ABE005EBBEF /* TGModernUnreadHeaderView.m in Sources */,
+				D5D5169621D1EFCC0053BBAC /* TGViewController+OpenLink.m in Sources */,
 				0976A38120C1940A00CEB156 /* TLhelp_TermsOfServiceUpdate.mm in Sources */,
 				D011624D1F41F1350039383E /* TLInlineBotSwitchPM.mm in Sources */,
 				D066E99E18C6A88B00509410 /* internal.c in Sources */,
