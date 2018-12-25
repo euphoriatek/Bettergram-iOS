@@ -289,12 +289,21 @@
 }
 
 - (void)pushContentController:(UIViewController *)contentController {
-    if (_detailNavigationController.viewControllers.count == 0) {
-        [_detailNavigationController setViewControllers:@[contentController] animated:false];
-        
-        [self addDetailController];
-    } else {
-        [_detailNavigationController pushViewController:contentController animated:true];
+    NSUInteger index = [_detailNavigationController.viewControllers indexOfObject:contentController];
+    if (index != NSNotFound) {
+        if (index != _detailNavigationController.viewControllers.count - 1) {
+            [_detailNavigationController setViewControllers:[_detailNavigationController.viewControllers subarrayWithRange:NSMakeRange(0, index + 1)]
+                                                   animated:YES];
+        }
+    }
+    else {
+        if (_detailNavigationController.viewControllers.count == 0) {
+            [_detailNavigationController setViewControllers:@[contentController] animated:false];
+            
+            [self addDetailController];
+        } else {
+            [_detailNavigationController pushViewController:contentController animated:true];
+        }
     }
 }
 
