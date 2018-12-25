@@ -896,7 +896,7 @@ static CGFloat kHeight = 18;
 
 - (void)setUnreadCounts:(NSArray<NSNumber *> *)unreadCounts {
     if ([_unreadCounts isEqualToArray:unreadCounts]) return;
-    _unreadCounts = unreadCounts;
+    _unreadCounts = unreadCounts.copy;
     [_customTabBar setUnreadCounts:_unreadCounts];
 }
 

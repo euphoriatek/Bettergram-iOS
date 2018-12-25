@@ -976,7 +976,7 @@
                 }
                 
                 [[TGDatabase instance] storeConversationList:conversations replace:false];
-                [TGDatabaseInstance() updateUnreadCounts];
+                [TGDatabaseInstance() setNeedsUpdateUnreadCounts];
                 
                 [multipleMessagesByConversation enumerateKeysAndObjectsUsingBlock:^(NSNumber *nConversationId, NSArray *messages, __unused  BOOL *stop)
                  {

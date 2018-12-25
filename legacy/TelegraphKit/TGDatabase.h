@@ -665,8 +665,6 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
 - (void)_setCurrentSynchronizeFeededChannelsAction:(TGSynchronizeFeededChannelsAction *)action;
 - (SSignal *)synchronizeFeededChannelsActionUpdated;
 
-- (void)commitSynchronizedPinnedConversationPeers:(NSArray *)peerIds;
-
 - (TGWebPageMediaAttachment *)_webpageWithId:(int64_t)webPageId;
 - (void)updateWebpages:(NSArray<TGWebPageMediaAttachment *> *)webpages;
 
@@ -720,7 +718,7 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
 - (void)resetStartupTime:(NSTimeInterval)value;
 
 - (void)conversationFieldUpdated:(TGConversation *)conversation;
-- (void)updateUnreadCounts;
+- (void)setNeedsUpdateUnreadCounts;
 
 @end
 
