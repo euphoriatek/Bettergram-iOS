@@ -3558,13 +3558,20 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                 if (strongSelf == nil)
                     return false;
                 
-                if (strongSelf->_searchMixin.isActive)
-                {
-                    CGPoint tablePoint = [strongSelf.view convertPoint:point toView:strongSelf->_searchMixin.searchResultsTableView];
-                    for (UITableViewCell *cell in strongSelf->_searchMixin.searchResultsTableView.visibleCells) {
-                        if ([cell isKindOfClass:[TGDialogListRecentPeersCell class]] && CGRectContainsPoint([cell convertRect:[(TGDialogListRecentPeersCell *)cell bounds] toView:strongSelf->_searchMixin.searchResultsTableView], tablePoint))
+                UITableView *tableView = strongSelf->_searchMixin.isActive ? strongSelf->_searchMixin.searchResultsTableView : strongSelf->_tableView;
+                CGPoint tablePoint = [strongSelf.view convertPoint:point toView:tableView];
+                for (UITableViewCell *cell in tableView.visibleCells) {
+                    if (!CGRectContainsPoint([cell convertRect:cell.bounds toView:tableView], tablePoint)) continue;
+                    if (strongSelf->_searchMixin.isActive)
+                    {
+                        if ([cell isKindOfClass:TGDialogListRecentPeersCell.class])
                         {
                             return false;
+                        }
+                    } else {
+                        if ([cell isKindOfClass:TGDialogListCell.class])
+                        {
+                            return !((TGDialogListCell *)cell).pinnedToTop;
                         }
                     }
                 }
