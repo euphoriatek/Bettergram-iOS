@@ -1660,6 +1660,13 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     [accountSettingsController setTargetNavigationItem:accountSettingsController.navigationItem titleController:TGAppDelegateInstance.rootController];
 }
 
+- (void)reorderGestureRecognizerHandler:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self editButtonPressed];
+    }
+}
+
 - (void)editButtonPressed
 {
     [self setupEditingMode:!_editingMode];
@@ -1702,6 +1709,12 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     
     if (!editing)
         [self selectCurrentConversation];
+    [_tableView.visibleCells enumerateObjectsUsingBlock:^(__kindof UITableViewCell * _Nonnull obj, __unused NSUInteger idx, __unused BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:TGDialogListCell.class]) {
+            TGDialogListCell *cell = (TGDialogListCell *)obj;
+            cell.reorderGestureRecognizer.enabled = cell.pinnedToTop && !_editingMode;
+        }
+    }];
 }
 
 - (void)dismissEditingControls
@@ -2035,6 +2048,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
     }
     
     [cell restartAnimations:false];
+    cell.reorderGestureRecognizer.enabled = cell.pinnedToTop && !_editingMode;
 }
 
 - (bool)isLastCell:(NSIndexPath *)indexPath {
@@ -2225,6 +2239,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                     cell.toggleReadConversation = self.toggleReadConversation;
                     cell.watcherHandle = _actionHandle;
                     cell.enableEditing = ![_dialogListCompanion forwardMode] && !_dialogListCompanion.privacyMode;
+                    [cell.reorderGestureRecognizer addTarget:self action:@selector(reorderGestureRecognizerHandler:)];
                 }
                 
                 cell.presentation = _presentation;

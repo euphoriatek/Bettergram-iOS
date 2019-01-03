@@ -1420,6 +1420,8 @@
             bool showSecretInForwardMode = self.showSecretInForwardMode;
             NSPredicate *filterPredicate = [self filterPredicate];
             
+            NSArray *originalLoadedItems = loadedItems.copy;
+            
             TGUser *selfUser = [[TGDatabase instance] loadUser:TGTelegraphInstance.clientUserId];
             
             if ((forwardMode || privacyMode) && !showSecretInForwardMode)
@@ -1467,19 +1469,6 @@
                 }
             }
             
-            if (showGroupsOnly)
-            {
-                for (int i = 0; i < (int)loadedItems.count; i++)
-                {
-                    id<TGDialogListItem> conversation = loadedItems[i];
-                    if (conversation.isChannel && conversation.isChannelGroup && (!self.botStartMode || conversation.channelRole == TGChannelRoleCreator || conversation.channelRole == TGChannelRoleModerator || conversation.channelRole == TGChannelRolePublisher)) {
-                    } else if (conversation.conversationId <= INT_MIN || conversation.conversationId > 0) {
-                        [loadedItems removeObjectAtIndex:i];
-                        i--;
-                    }
-                }
-            }
-            
             if (filterPredicate != nil) {
                 [loadedItems filterUsingPredicate:filterPredicate];
             }
@@ -1516,7 +1505,7 @@
             }
             
             //[loadedItems addObjectsFromArray:[TGDatabaseInstance() feeds]];
-            
+            TGLogCMD(@"%@ %@ %@ -> %@", path, @[@(_filter), @(canLoadMore), @(forwardMode), @(privacyMode), @(showGroupsOnly), @(showPrivateOnly), @(showGroupsAndChannelsOnly), @(showSecretInForwardMode)], originalLoadedItems, loadedItems);
             if (_conversationList.count == 0)
             {
                 canLoadMore = loadedItems.count != 0;
@@ -1863,6 +1852,8 @@
              else
                  return NSOrderedSame;
          }];
+        TGLogCMD(@"%@ %@ %@ -> %@", path, @(_filter), ((SGraphObjectNode *)resource).object, conversations);
+
         
         if (conversations.count == 1 && _conversationList.count != 0)
         {
@@ -1945,6 +1936,7 @@
                 [self initializeDialogListData:newConversation customUser:nil selfUser:selfUser];
                 
                 [_conversationList addObject:newConversation];
+                TGLogCMD(@"%@ %@ %@ -> %@", path, @(_filter), newConversation);
             }
         }
         

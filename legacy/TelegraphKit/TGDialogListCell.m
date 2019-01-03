@@ -280,6 +280,8 @@ static const CGFloat kAvatarSide = 46;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
+        _reorderGestureRecognizer = [[UILongPressGestureRecognizer alloc] init];
+        [self addGestureRecognizer:_reorderGestureRecognizer];
         if (iosMajorVersion() >= 7)
         {
             self.contentView.superview.clipsToBounds = false;

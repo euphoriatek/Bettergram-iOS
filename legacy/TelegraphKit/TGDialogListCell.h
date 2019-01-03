@@ -96,6 +96,8 @@ extern const CGFloat cellSeparatorInset;
 
 @property (nonatomic, strong) TGDatabaseMessageDraft *draft;
 
+@property (nonatomic, readonly, strong) UIGestureRecognizer *reorderGestureRecognizer;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier assetsSource:(id<TGDialogListCellAssetsSource>)assetsSource;
 
 - (void)collectCachedPhotos:(NSMutableDictionary *)dict;
