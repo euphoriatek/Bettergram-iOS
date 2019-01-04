@@ -95,6 +95,7 @@
         
         self.showSecretInForwardMode = true;
         self.showListEditingControl = true;
+        self.editingControlOnRightSide = true;
 
         [self resetWatchedNodePaths];
         

@@ -581,28 +581,27 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 
 - (UIBarButtonItem *)editingControl
 {
-    if (![_dialogListCompanion showListEditingControl])
-        return nil;
-    
-    if (!_editingMode)
-    {
-        return [[UIBarButtonItem alloc] initWithImage:_presentation.images.settingsButton
-                                                style:UIBarButtonItemStylePlain
-                                               target:self
-                                               action:@selector(settingsButtonPressed)];
-    }
-    else
+    if (_editingMode && [_dialogListCompanion showListEditingControl])
     {
         return [[UIBarButtonItem alloc] initWithTitle:TGLocalized(@"Common.Done") style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed)];
     }
+    return nil;
 }
 
 - (UIBarButtonItem *)controllerLeftBarButtonItem
 {
-    if ([_dialogListCompanion editingControlOnRightSide])
+    if (_editingMode) {
+        if (![_dialogListCompanion editingControlOnRightSide]) {
+            return self.editingControl;
+        }
         return nil;
+    }
     
-    return [self editingControl];
+    return [[UIBarButtonItem alloc] initWithImage:_presentation.images.settingsButton
+                                            style:UIBarButtonItemStylePlain
+                                           target:self
+                                           action:@selector(settingsButtonPressed)];
+
 }
 
 - (void)scrollToTopRequested
@@ -723,11 +722,12 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
 
 - (NSArray *)controllerRightBarButtonItems
 {
-    if ([_dialogListCompanion editingControlOnRightSide])
-        return @[[self editingControl]];
-    
-    if (_editingMode)
+    if (_editingMode) {
+        if ([_dialogListCompanion editingControlOnRightSide]) {
+            return @[self.editingControl];
+        }
         return nil;
+    }
     
     return @[[[UIBarButtonItem alloc] initWithImage:_presentation.images.newMessageButton
                                               style:UIBarButtonItemStylePlain
