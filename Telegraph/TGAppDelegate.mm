@@ -170,6 +170,7 @@
 #import "Harpy.h"
 #import "TGSpentTimeManager.h"
 #import "TGCryptoManager.h"
+#import <UserNotifications/UserNotifications.h>
 
 NSString *TGDeviceProximityStateChangedNotification = @"TGDeviceProximityStateChangedNotification";
 
@@ -197,7 +198,7 @@ TGTelegraph *telegraph = nil;
 
 @end
 
-@interface TGAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate, AVAudioPlayerDelegate, PKPushRegistryDelegate>
+@interface TGAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate, AVAudioPlayerDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate>
 {
     bool _inBackground;
     bool _enteringForeground;
@@ -931,7 +932,11 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
         } else {
             [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
         }
+        if (iosMajorVersion() >= 10) {
+            [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+        }
     }
+    
     return true;
 }
 
@@ -2535,6 +2540,20 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
     [self processRemoteNotification:userInfo];
 }
 
+#pragma mark - UNUserNotificationCenterDelegate
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)__unused center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
+{
+    NSDictionary *responseInfo = nil;
+    if ([response isKindOfClass:UNTextInputNotificationResponse.class]) {
+        NSString *text = ((UNTextInputNotificationResponse *)response).userText;
+        if (text.length > 0) {
+            responseInfo = @{UIUserNotificationActionResponseTypedTextKey: text};
+        }
+    }
+    [self handleActionWithIdentifier:response.actionIdentifier notificationInfo:response.notification.request.content.userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
+}
+
 - (void)application:(UIApplication *)__unused application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [self processPossibleCloudKitNotification:userInfo];
@@ -3921,24 +3940,30 @@ static unsigned int overrideIndexAbove(__unused id self, __unused SEL _cmd)
 
 - (void)application:(UIApplication *)__unused application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(nonnull NSDictionary *)responseInfo completionHandler:(nonnull void (^)())completionHandler
 {
-    int64_t peerId = [notification.userInfo[@"cid"] longLongValue];
-    int32_t mid = [notification.userInfo[@"mid"] int32Value];
+    [self handleActionWithIdentifier:identifier notificationInfo:notification.userInfo withResponseInfo:responseInfo completionHandler:completionHandler];
+}
+
+- (void)handleActionWithIdentifier:(NSString *)identifier notificationInfo:(NSDictionary *)info withResponseInfo:(nonnull NSDictionary *)responseInfo completionHandler:(nonnull void (^)())completionHandler
+{
+    int64_t peerId = [info[@"cid"] longLongValue];
+    int32_t mid = [info[@"mid"] int32Value];
     
     [[_finishedLaunching.signal deliverOn:[SQueue mainQueue]] startWithNext:^(__unused id next)
-    {
-        if ([identifier isEqualToString:@"reply"])
-            [self _replyActionForPeerId:peerId mid:mid openKeyboard:true responseInfo:responseInfo completion:completionHandler];
-        else if ([identifier isEqualToString:@"like"])
-            [self _likeActionForPeerId:peerId completion:completionHandler];
-        else if ([identifier isEqualToString:@"mute"])
-            [self _muteActionForPeerId:peerId duration:1 completion:completionHandler];
-        else if ([identifier isEqualToString:@"mute8h"])
-            [self _muteActionForPeerId:peerId duration:8 completion:completionHandler];
-        else if ([identifier isEqualToString:@"call"])
-            [self _callActionForPeerId:peerId completion:completionHandler];
-        else if (completionHandler)
-            completionHandler();
-    }];
+     {
+         if ([identifier isEqualToString:@"reply"])
+             [self _replyActionForPeerId:peerId mid:mid openKeyboard:true responseInfo:responseInfo completion:completionHandler];
+         else if ([identifier isEqualToString:@"like"])
+             [self _likeActionForPeerId:peerId completion:completionHandler];
+         else if ([identifier isEqualToString:@"mute"])
+             [self _muteActionForPeerId:peerId duration:1 completion:completionHandler];
+         else if ([identifier isEqualToString:@"mute8h"])
+             [self _muteActionForPeerId:peerId duration:8 completion:completionHandler];
+         else if ([identifier isEqualToString:@"call"])
+             [self _callActionForPeerId:peerId completion:completionHandler];
+         else {
+             [self _replyActionForPeerId:peerId mid:mid openKeyboard:false responseInfo:responseInfo completion:completionHandler];
+         }
+     }];
 }
 
 - (void)_callActionForPeerId:(int64_t)peerId completion:(void (^)())completion

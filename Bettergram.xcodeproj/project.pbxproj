@@ -4966,6 +4966,7 @@
 		D5D5169121D0C2360053BBAC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5168621D0C2350053BBAC /* FMResultSet.m */; };
 		D5D5169621D1EFCC0053BBAC /* TGViewController+OpenLink.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D5169321D1EF6E0053BBAC /* TGViewController+OpenLink.m */; };
 		D5D5169721D1EFD10053BBAC /* TGViewController+OpenLink.h in Headers */ = {isa = PBXBuildFile; fileRef = D5D5169221D1EF6E0053BBAC /* TGViewController+OpenLink.h */; };
+		D5D5C7FE21E70D9A00EA0D73 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D5C7DE21E70D9A00EA0D73 /* UserNotifications.framework */; };
 		D5DC0C0C215386BF003B9E78 /* Harpy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DC0C09215386BF003B9E78 /* Harpy.m */; };
 		D5DC0C0D215386BF003B9E78 /* Harpy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D5DC0C0A215386BF003B9E78 /* Harpy.bundle */; };
 		D5DC0C0E215386BF003B9E78 /* Harpy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DC0C0B215386BF003B9E78 /* Harpy.h */; };
@@ -12081,6 +12082,7 @@
 		D5D5168621D0C2350053BBAC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D5D5169221D1EF6E0053BBAC /* TGViewController+OpenLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TGViewController+OpenLink.h"; sourceTree = "<group>"; };
 		D5D5169321D1EF6E0053BBAC /* TGViewController+OpenLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TGViewController+OpenLink.m"; sourceTree = "<group>"; };
+		D5D5C7DE21E70D9A00EA0D73 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D5DC0C09215386BF003B9E78 /* Harpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harpy.m; sourceTree = "<group>"; };
 		D5DC0C0A215386BF003B9E78 /* Harpy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Harpy.bundle; sourceTree = "<group>"; };
 		D5DC0C0B215386BF003B9E78 /* Harpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Harpy.h; sourceTree = "<group>"; };
@@ -12141,6 +12143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D5C7FE21E70D9A00EA0D73 /* UserNotifications.framework in Frameworks */,
 				0942D9DC2122D3A400F32F57 /* Vision.framework in Frameworks */,
 				D5991F4921555B55000D823C /* AFNetworking.framework in Frameworks */,
 				0991BA251FDADFFF005EDFF2 /* PhotosUI.framework in Frameworks */,
@@ -20156,6 +20159,7 @@
 		D08805AF156E8F3600311537 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5D5C7DE21E70D9A00EA0D73 /* UserNotifications.framework */,
 				09C05C2520D7949600D66A08 /* CloudKit.framework */,
 				0944CD712070B5DF00CB0461 /* Vision.framework */,
 				0944CD6F2070B5DA00CB0461 /* CoreML.framework */,
