@@ -102,42 +102,63 @@ static const CGFloat kButtonTFHeight = 54;
     CGSize viewSize = self.view.bounds.size;
     
     _backgroudView.frame = CGRectMake(0, 0, viewSize.width, viewSize.height);
+
+    CGRect(^baseButtonFrame)(UIButton *) = ^(UIButton *button) {
+        CGRect frame = CGRectZero;
+        frame.size = [button sizeThatFits:button.frame.size];
+        frame.size.height = MAX(frame.size.height, 45);
+        frame.size.width = MIN(frame.size.width + button.titleEdgeInsets.left, viewSize.width * 0.9);
+        frame.origin.x = (viewSize.width - frame.size.width)/2;
+        return frame;
+    };
     
-    _emailTextField.frame = CGRectMake(viewSize.width * 0.05, viewSize.height / 2 - kButtonTFHeight,
-                                       viewSize.width * 0.9, kButtonTFHeight);    
-    {
-        CGRect frame = CGRectZero;
-        frame.size = _logoImageView.image.size;
-        frame.origin.x = (viewSize.width - frame.size.width)/2;
-        frame.origin.y = (_emailTextField.frame.origin.y - frame.size.height) * 0.7;
-        _logoImageView.frame = frame;
-    }{
-        CGRect frame = CGRectZero;
-        frame.size = CGSizeMake(viewSize.width * 0.48, kButtonTFHeight);
-        frame.origin.x = (viewSize.width - frame.size.width)/2;
-        frame.origin.y = CGRectGetMaxY(_emailTextField.frame) + 23;
-        _signUpButton.frame = frame;
-    }{
-        CGRect(^baseButtonFrame)(UIButton *) = ^(UIButton *button) {
-            CGRect frame = CGRectZero;
-            frame.size = [button sizeThatFits:button.frame.size];
-            frame.size.height = MAX(frame.size.height, 45);
-            frame.size.width = MIN(frame.size.width + button.titleEdgeInsets.left, viewSize.width * 0.9);
-            frame.origin.x = (viewSize.width - frame.size.width)/2;
-            return frame;
-        };
+    CGRect newsletterFrame = baseButtonFrame(_newsletterButton);
+    newsletterFrame.origin.y = viewSize.height - newsletterFrame.size.height - MAX(33, self.controllerInset.bottom);
+    
+    CGRect termsFrame = baseButtonFrame(_termsButton);
+    termsFrame.origin.y = newsletterFrame.origin.y - termsFrame.size.height;
+    
+    newsletterFrame.origin.x = termsFrame.origin.x = MIN(termsFrame.origin.x, newsletterFrame.origin.x);
+    
+    _newsletterButton.frame = newsletterFrame;
+    _termsButton.frame = termsFrame;
+    
+    CGRect logoFrame = CGRectZero;
+    logoFrame.size = _logoImageView.image.size;
+    logoFrame.origin.x = (viewSize.width - logoFrame.size.width)/2;
+    
+    CGRect emailFrame = CGRectMake(viewSize.width * 0.05, logoFrame.size.height + 23,
+                                   viewSize.width * 0.9, kButtonTFHeight);
+    
+    CGRect signUpFrame = CGRectZero;
+    signUpFrame.size = CGSizeMake(viewSize.width * 0.48, kButtonTFHeight);
+    signUpFrame.origin.x = (viewSize.width - signUpFrame.size.width)/2;
+    signUpFrame.origin.y = CGRectGetMaxY(emailFrame) + 23;
+    
+    CGFloat totalHeight = CGRectGetMaxY(signUpFrame) - CGRectGetMinY(logoFrame);
+    CGFloat leftSpace = _termsButton.frame.origin.y - totalHeight - self.controllerInset.top;
+    if (leftSpace < 0) {
+        leftSpace += logoFrame.size.height + 23;
+        logoFrame.size.height = logoFrame.size.width = 0;
         
-        CGRect newsletterFrame = baseButtonFrame(_newsletterButton);
-        newsletterFrame.origin.y = viewSize.height - newsletterFrame.size.height - MAX(33, self.controllerSafeAreaInset.bottom);
-        
-        CGRect termsFrame = baseButtonFrame(_termsButton);
-        termsFrame.origin.y = newsletterFrame.origin.y - termsFrame.size.height;
-        
-        newsletterFrame.origin.x = termsFrame.origin.x = MIN(termsFrame.origin.x, newsletterFrame.origin.x);
-        
-        _newsletterButton.frame = newsletterFrame;
-        _termsButton.frame = termsFrame;
+        emailFrame.origin.y = self.controllerInset.top + leftSpace / 2;
+        signUpFrame.origin.y = CGRectGetMaxY(emailFrame) + 23;
     }
+    else {
+        logoFrame.origin.y = self.controllerInset.top + leftSpace / 2;
+        emailFrame.origin.y += logoFrame.origin.y;
+        signUpFrame.origin.y += logoFrame.origin.y;
+    }
+    
+    _logoImageView.frame = logoFrame;
+    _emailTextField.frame = emailFrame;
+    _signUpButton.frame = signUpFrame;
+}
+
+- (void)controllerInsetUpdated:(UIEdgeInsets)previousInset
+{
+    [super controllerInsetUpdated:previousInset];
+    [self.view setNeedsLayout];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
