@@ -1188,8 +1188,6 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    TGLog(@"willAppear");
-    
     [self setLeftBarButtonItem:[self defaultLeftBarButtonItem]];
     if (!_editingMode && _titleView != nil && _secondaryController == nil && !(self.companion.previewMode && [self isSavedMessages]))
         [self setRightBarButtonItem:[self defaultRightBarButtonItem]];

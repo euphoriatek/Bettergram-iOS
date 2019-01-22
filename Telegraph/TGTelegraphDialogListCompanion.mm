@@ -1937,7 +1937,7 @@
                 [self initializeDialogListData:newConversation customUser:nil selfUser:selfUser];
                 
                 [_conversationList addObject:newConversation];
-                TGLogCMD(@"%@ %@ %@ -> %@", path, @(_filter), newConversation);
+                TGLogCMD(@"%@ %@ added %@", path, @(_filter), newConversation);
             }
         }
         

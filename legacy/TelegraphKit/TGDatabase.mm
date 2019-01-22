@@ -2356,6 +2356,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
     {
         TGLog(@"journal_mode = %@", [result stringForColumnIndex:0]);
     }
+    [result close];
 }
 
 - (void)_reopenIndexDatabase

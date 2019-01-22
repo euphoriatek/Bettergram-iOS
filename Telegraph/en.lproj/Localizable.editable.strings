@@ -20,8 +20,8 @@
 "DialogList.Unfavorite" = "Unfavorite";
 
 "Crypto.Prices.TabTitle" = "Prices";
-"Crypto.Prices.MarketCap" = "MARKET CAP:";
-"Crypto.Prices.24Volume" = "24H VOLUME:";
+"Crypto.Prices.MarketCap" = "MARKET CAP";
+"Crypto.Prices.24Volume" = "24H VOLUME";
 "Crypto.Prices.BTCDominance" = "BTC DOMINANCE";
 "Crypto.Prices.SearchLabel" = "Search cryptocurrencies";
 "Crypto.Prices.SortCoin" = "COIN";
@@ -40,7 +40,6 @@
 
 "Crypto.Resources.TabTitle" = "Resources";
 "Crypto.Resources.Title" = "Crypto resources";
-"Crypto.Resources.SeeAllButton" = "SEE ALL";
 
 "Rate.Header" = "Enjoy TELEGRAM_APP_NAME?";
 "Rate.Body" = "Take a moment to rate it on the App Store";

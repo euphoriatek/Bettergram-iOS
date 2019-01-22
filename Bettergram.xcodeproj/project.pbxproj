@@ -26664,7 +26664,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "build_string=$(grep 'TELEGRAPH_BUILD=' \"${PROJECT_DIR}/Common.xcconfig\")\nsed -i '' \"s/${build_string}/TELEGRAPH_BUILD=$((build_string+1))/g\" \"${PROJECT_DIR}/Common.xcconfig\"\n";
+			shellScript = "if [[ $(git diff --name-only | grep -v submodules) ]]; then\n    build_string=$(grep 'TELEGRAPH_BUILD=' \"${PROJECT_DIR}/Common.xcconfig\")\n    sed -i '' \"s/${build_string}/TELEGRAPH_BUILD=$((build_string+1))/g\" \"${PROJECT_DIR}/Common.xcconfig\"\nfi\n";
 		};
 		D5C59EE821405B6C00B8AAA9 /* Preprocess localizations */ = {
 			isa = PBXShellScriptBuildPhase;

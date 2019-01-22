@@ -288,8 +288,8 @@ const NSUInteger kCellsLimitMultiplier = 10;
 
 - (void)localizationUpdated
 {
-    [_marketCapView setTitle:TGLocalized(@"Crypto.Prices.MarketCap")];
-    [_24VolumeView setTitle:TGLocalized(@"Crypto.Prices.24Volume")];
+    [_marketCapView setTitle:[NSString stringWithFormat:@"%@:",TGLocalized(@"Crypto.Prices.MarketCap")]];
+    [_24VolumeView setTitle:[NSString stringWithFormat:@"%@:",TGLocalized(@"Crypto.Prices.24Volume")]];
     [_btcDominanceView setTitle:TGLocalized(@"Crypto.Prices.BTCDominance")];
 }
 
