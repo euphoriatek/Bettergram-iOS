@@ -526,8 +526,6 @@
         _restrictionReason = [coder decodeStringForCKey:"rr"];
         _pinnedMessageId = [coder decodeInt32ForCKey:"pmi"];
         _chatCreationDate = [coder decodeInt32ForCKey:"ccd"];
-        _pinnedDate = [coder decodeInt32ForCKey:"pdt"];
-        _favoritedDate = [coder decodeInt32ForCKey:"fdt"];
         _channelAdminRights = [coder decodeObjectForCKey:"car"];
         _channelBannedRights = [coder decodeObjectForCKey:"cbr"];
         _messageFlags = [coder decodeInt64ForCKey:"mf"];
@@ -587,7 +585,6 @@
     [coder encodeInt32:_chatCreationDate forCKey:"ccd"];
     [coder encodeObject:_channelAdminRights forCKey:"car"];
     [coder encodeObject:_channelBannedRights forCKey:"cbr"];
-    [coder encodeInt32:_favoritedDate forCKey:"fdt"];
     [coder encodeInt64:_messageFlags forCKey:"mf"];
     [coder encodeInt32:_feedId != nil ? _feedId.intValue : -1 forCKey:"fi"];
     [coder encodeInt32:_unreadMark ? 1 : 0 forCKey:"unrm"];

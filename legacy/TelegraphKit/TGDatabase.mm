@@ -118,6 +118,10 @@ static const int32_t resend_seq_in_hash = 1298242412;
 
 #define TGFiltersCount 5
 
+#define DatabasePinFavsSchemaVersion 29
+#define kTGPinnedKey [NSString stringWithFormat:@"pinnedFor%@",@(TGTelegraphInstance.clientUserId)]
+#define kTGFavoritedKey [NSString stringWithFormat:@"favoritedFor%@",@(TGTelegraphInstance.clientUserId)]
+
 static const char *databaseQueueSpecific = "com.actionstage.databasequeue";
 static const char *databaseIndexQueueSpecific = "com.actionstage.databaseindexqueue";
 
@@ -329,6 +333,27 @@ static TGFutureAction *futureActionDeserializer(int type)
     }
     
     return nil;
+}
+
+static NSMutableDictionary<NSNumber *, NSNumber *> *_favoritedConversationDates;
+
+static inline void setNeedsSaveFavories()
+{
+    static BOOL needsSaveFavories = NO;
+    if (needsSaveFavories) return;
+    needsSaveFavories = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [NSUserDefaults.standardUserDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:_favoritedConversationDates] forKey:kTGFavoritedKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
+        needsSaveFavories = NO;
+    });
+}
+
+static inline TGConversation *channelWithKeyValueCoder(PSKeyValueDecoder *decoder)
+{
+    TGConversation *conversation = [[TGConversation alloc] initWithKeyValueCoder:decoder];
+    conversation.favoritedDate = [_favoritedConversationDates[@(conversation.conversationId)] int32Value];
+    return conversation;
 }
 
 @interface TGDatabase ()
@@ -1206,7 +1231,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         
         _userLinksVersion = 1;
         
-        _schemaVersion = 29;
+        _schemaVersion = 30;
         
         _cachedUnreadCount = INT_MIN;
         _cachedUnreadChatsCount = INT_MIN;
@@ -1303,8 +1328,6 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         _validateReadStateTableName = [NSString stringWithFormat:@"validate_read_state_%d", _schemaVersion];
         _peerMessageDraftsTableName = [NSString stringWithFormat:@"peer_message_drafts_%d", _schemaVersion];
         _synchronizePeerMessageDraftsTableName = [NSString stringWithFormat:@"sync_peer_message_drafts_%d", _schemaVersion];
-        
-        _pinnedConversationsTableName = [NSString stringWithFormat:@"pinned_conversations_%d", _schemaVersion];
         
         _secretPeerIncomingTableName = [NSString stringWithFormat:@"peer_incoming_actions_%d", _schemaVersion];
         _secretPeerIncomingEncryptedTableName = [NSString stringWithFormat:@"peer_incoming_encrypted_actions_%d", _schemaVersion];
@@ -1506,6 +1529,56 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
 {
     TGDatabaseUpgradeCompletedBlock completion = nil;
     
+    if (_schemaVersion > DatabasePinFavsSchemaVersion) {
+        [self _getPinnedConversationDates];
+        if (_favoritedConversationDates == nil) {
+            _favoritedConversationDates = [NSMutableDictionary dictionary];
+        }
+        
+        NSString *conversationListTableName = [NSString stringWithFormat:@"convesations_v%d", DatabasePinFavsSchemaVersion];;
+        FMResultSet *result = [_database executeQuery:[NSString stringWithFormat:@"SELECT * FROM %@", conversationListTableName]];
+        while ([result next]) {
+            int64_t conversationId = [result longLongIntForColumn:@"cid"];
+            int favorited_date = [result intForColumn:@"favorited_date"];
+            if (favorited_date != 0) {
+                _favoritedConversationDates[@(conversationId)] = @(favorited_date);
+                setNeedsSaveFavories();
+            }
+        }
+        [result close];
+        [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", conversationListTableName]];
+        
+        NSString *channelListTableName = [NSString stringWithFormat:@"channel_conversations_v%d", DatabasePinFavsSchemaVersion];
+        result = [_database executeQuery:[NSString stringWithFormat:@"SELECT data FROM %@", channelListTableName]];
+        PSKeyValueDecoder *decoder = [[PSKeyValueDecoder alloc] init];
+        while ([result next]) {
+            [decoder resetData:[result dataForColumnIndex:0]];
+            
+            int64_t conversationId = [decoder decodeInt64ForCKey:"i"];
+            int32_t favorited_date = [decoder decodeInt32ForCKey:"fdt"];
+            if (favorited_date != 0) {
+                _favoritedConversationDates[@(conversationId)] = @(favorited_date);
+                setNeedsSaveFavories();
+            }
+        }
+        [result close];
+        [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", channelListTableName]];
+        
+        NSString *pinnedConversationsTableName = [NSString stringWithFormat:@"pinned_conversations_%d", DatabasePinFavsSchemaVersion];
+        result = [_database executeQuery:[NSString stringWithFormat:@"SELECT peer_id, date FROM %@", pinnedConversationsTableName]];
+        BOOL updated = NO;
+        NSMutableDictionary<NSNumber *, NSNumber *> *pinnedConversationDates = _pinnedConversationDates.mutableCopy;
+        while ([result next]) {
+            pinnedConversationDates[@([result longLongIntForColumnIndex:0])] = @([result intForColumnIndex:1]);
+            updated = YES;
+        }
+        if (updated) {
+            [self _replacePinnedConversationDates:pinnedConversationDates];
+        }
+        [result close];
+        [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", pinnedConversationsTableName]];
+    }
+    
     for (int i = _schemaVersion - 2; i < _schemaVersion + 2; i++)
     {
         if (i != _schemaVersion)
@@ -1579,7 +1652,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         [_database executeUpdate:[[NSString alloc] initWithFormat:@"ALTER TABLE %@ ADD COLUMN data BLOB", _usersTableName]];
     }
     
-    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, date INTEGER, from_uid INTEGER, message TEXT, media BLOB, unread_count INTEGER, flags INTEGER, chat_title TEXT, chat_photo BLOB, participants BLOB, participants_count INTEGER, chat_version INTEGER, favorited_date INTEGER, service_unread INTEGER)", _conversationListTableName]];
+    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, date INTEGER, from_uid INTEGER, message TEXT, media BLOB, unread_count INTEGER, flags INTEGER, chat_title TEXT, chat_photo BLOB, participants BLOB, participants_count INTEGER, chat_version INTEGER, service_unread INTEGER)", _conversationListTableName]];
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE INDEX IF NOT EXISTS date ON %@ (date DESC)", _conversationListTableName]];
     
     FMResultSet *serviceUnreadResult = [_database executeQuery:[[NSString alloc] initWithFormat:@"SELECT service_unread FROM %@ LIMIT 1", _conversationListTableName]];
@@ -1619,7 +1692,7 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
         [_database executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ RENAME TO %@_%x", _channelLeaveTableName, _channelLeaveTableName, randomId]];
     }
     
-    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, variant_sort_key BLOB, data BLOB, favorited_date INTEGER)", _channelListTableName]];
+    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (cid INTEGER PRIMARY KEY, variant_sort_key BLOB, data BLOB)", _channelListTableName]];
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE INDEX IF NOT EXISTS channel_conversations_variant_sort ON %@ (variant_sort_key)", _channelListTableName]];
     
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (fid INTEGER PRIMARY KEY, data BLOB)", _feedListTableName]];
@@ -1946,8 +2019,6 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (peer_id INTEGER PRIMARY KEY)", _validateReadStateTableName]];
     
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (peer_id INTEGER PRIMARY KEY, draft BLOB)", _peerMessageDraftsTableName]];
-    
-    [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (peer_id INTEGER PRIMARY KEY, date INTEGER)", _pinnedConversationsTableName]];
     
     [_database executeUpdate:[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (peer_id INTEGER PRIMARY KEY, operation INTEGER)", _synchronizePeerMessageDraftsTableName]];
     
@@ -2606,7 +2677,6 @@ static void cleanupMessage(TGDatabase *database, int mid, NSArray *attachments, 
             [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", _validateReadStateTableName]];
             [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", _peerMessageDraftsTableName]];
             [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", _synchronizePeerMessageDraftsTableName]];
-            [_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", _pinnedConversationsTableName]];
             
             //[_database executeUpdate:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", _assetsTableName]];
             
@@ -2946,8 +3016,26 @@ inline static TGUser *loadUserFromDatabase(FMResultSet *result, PSKeyValueDecode
 
 - (void)setLocalUserId:(int)localUserId
 {
+    if (localUserId == _localUserId) return;
     [self dispatchOnDatabaseThread:^
     {
+        if (_localUserId == 0 && _favoritedConversationDates.count != 0) {
+            setNeedsSaveFavories();
+        }
+        else {
+            _pinnedConversationDates = nil;
+            _favoritedConversationDates = [NSMutableDictionary dictionary];            
+            if (localUserId != 0) {
+                [NSUserDefaults.standardUserDefaults synchronize];
+                NSData *data = [NSUserDefaults.standardUserDefaults objectForKey:kTGFavoritedKey];
+                if ([data isKindOfClass:NSData.class]) {
+                    NSDictionary *stored = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    if ([stored isKindOfClass:NSDictionary.class]) {
+                        _favoritedConversationDates = stored.mutableCopy;
+                    }
+                }
+            }
+        }
         _localUserId = localUserId;
     } synchronous:false];
 }
@@ -3326,7 +3414,7 @@ inline static TGUser *loadUserFromDatabase(FMResultSet *result, PSKeyValueDecode
 
 static void storeConversationToDatabase(TGDatabase *database, TGConversation *conversation)
 {
-    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version, favorited_date, service_unread) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
+    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version, service_unread) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
     
     int flags = 0;
     if (conversation.outgoing)
@@ -3348,12 +3436,12 @@ static void storeConversationToDatabase(TGDatabase *database, TGConversation *co
     if (conversation.unreadMark)
         flags |= 256;
     
-    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion], @(conversation.favoritedDate), [[NSNumber alloc] initWithInt:conversation.serviceUnreadCount]];
+    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion], [[NSNumber alloc] initWithInt:conversation.serviceUnreadCount]];
 }
 
 static inline void storeConversationToDatabaseIfNotExists(TGDatabase *database, TGConversation *conversation)
 {
-    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR IGNORE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version, favorited_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
+    NSString *queryFormat = [NSString stringWithFormat:@"INSERT OR IGNORE INTO %@ (cid, date, from_uid, message, media, unread_count, flags, chat_title, chat_photo, participants, participants_count, chat_version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [database _listTableNameForConversationId:conversation.conversationId]];
     
     int flags = 0;
     if (conversation.outgoing)
@@ -3375,7 +3463,7 @@ static inline void storeConversationToDatabaseIfNotExists(TGDatabase *database, 
     if (conversation.unreadMark)
         flags |= 256;
     
-    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion], @(conversation.favoritedDate)];
+    [database.database executeUpdate:queryFormat, [[NSNumber alloc] initWithLongLong:conversation.conversationId], [[NSNumber alloc] initWithInt:conversation.date], [[NSNumber alloc] initWithInt:conversation.fromUid], conversation.text, conversation.media == nil ? nil :  [TGMessage serializeMediaAttachments:false attachments:conversation.media], [[NSNumber alloc] initWithInt:conversation.unreadCount], [[NSNumber alloc] initWithInt:flags], conversation.chatTitle, [conversation serializeChatPhoto], !conversation.isChat ? nil : [conversation.chatParticipants serializedData], [[NSNumber alloc] initWithInt:conversation.chatParticipantCount], [[NSNumber alloc] initWithInt:conversation.chatVersion]];
 }
 
 static inline TGConversation *loadConversationFromDatabase(FMResultSet *result)
@@ -3414,8 +3502,7 @@ static inline TGConversation *loadConversationFromDatabase(FMResultSet *result)
     if (conversation.messageDate == 0) {
         conversation.messageDate = [result intForColumn:@"date"];
     }
-    
-    conversation.favoritedDate = [result intForColumn:@"favorited_date"];
+    conversation.favoritedDate = [_favoritedConversationDates[@(conversation.conversationId)] int32Value];
     
     return conversation;
 }
@@ -4115,16 +4202,16 @@ NSPredicate *TGFilterPredicateForFilter(TGDialogFilter filter)
     } synchronous:false];
 }
 
-- (void)conversationFieldUpdated:(TGConversation *)conversation
+- (void)toggleFavoritedConversation:(TGConversation *)conversation
 {
-    if (TGPeerIdIsChannel(conversation.conversationId)) {
-        [self dispatchOnDatabaseThread:^{
-            [self _updateChannelConversation:conversation.conversationId conversation:conversation mergeReadState:false updateFeeds:false updateFavorite:true];
-        } synchronous:false];
+    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
+    if (conversation.isFavorited) {
+        _favoritedConversationDates[@(conversation.conversationId)] = @(conversation.favoritedDate);
     }
     else {
-        storeConversationToDatabase(self, conversation);
+        [_favoritedConversationDates removeObjectForKey:@(conversation.conversationId)];
     }
+    setNeedsSaveFavories();
     
     [ActionStageInstance() dispatchResource:_liveMessagesDispatchPath resource:[[SGraphObjectNode alloc] initWithObject:[NSArray arrayWithObject:conversation]]];
     [ActionStageInstance() dispatchResource:[NSString stringWithFormat:@"/tg/conversation/(%lld)/conversation", conversation.conversationId] resource:[[SGraphObjectNode alloc] initWithObject:conversation]];
@@ -4198,7 +4285,7 @@ bool searchDialogsResultComparator(const std::pair<id, int> &obj1, const std::pa
                 if (everyPartMatches)
                 {
                     [decoder rewind];
-                    TGConversation *conversation = [[TGConversation alloc] initWithKeyValueCoder:decoder];
+                    TGConversation *conversation = channelWithKeyValueCoder(decoder);
                     searchResults.push_back(std::pair<id, int>(conversation, TGConversationSortKeyTimestamp(conversation.variantSortKey)));
                 }
             }
@@ -12742,7 +12829,7 @@ typedef struct {
     FMResultSet *result = [_database executeQuery:[NSString stringWithFormat:@"SELECT data FROM %@ WHERE cid=?", _channelListTableName], @(peerId)];
     if ([result next]) {
         NSData *data = [result dataForColumnIndex:0];
-        TGConversation *conversation = [[TGConversation alloc] initWithKeyValueCoder:[[PSKeyValueDecoder alloc] initWithData:data]];
+        TGConversation *conversation = channelWithKeyValueCoder([[PSKeyValueDecoder alloc] initWithData:data]);
         [self _renderConversations:@[conversation]];
         if (conversation.conversationId != 0)
             return conversation;
@@ -12757,7 +12844,7 @@ typedef struct {
     NSMutableArray *channels = [[NSMutableArray alloc] init];
     while ([result next]) {
         [decoder resetData:[result dataForColumnIndex:0]];
-        TGConversation *channel = [[TGConversation alloc] initWithKeyValueCoder:decoder];
+        TGConversation *channel = channelWithKeyValueCoder(decoder);
         if (channel.conversationId != 0) {
             [channels addObject:channel];
         } else {
@@ -12815,7 +12902,7 @@ typedef struct {
 - (TGConversation *)_updateChannelConversation:(int64_t)peerId conversation:(TGConversation *)conversation mergeReadState:(bool)mergeReadState updateFeeds:(bool)updateFeeds updateFavorite:(bool)updateFavorite {
     FMResultSet *existingResult = [_database executeQuery:[NSString stringWithFormat:@"SELECT data FROM %@ WHERE cid=?", _channelListTableName], @(peerId)];
     if ([existingResult next]) {
-        TGConversation *currentConversation = [[TGConversation alloc] initWithKeyValueCoder:[[PSKeyValueDecoder alloc] initWithData:[existingResult dataForColumnIndex:0]]];
+        TGConversation *currentConversation = channelWithKeyValueCoder([[PSKeyValueDecoder alloc] initWithData:[existingResult dataForColumnIndex:0]]);
         
         if (updateFeeds && currentConversation.feedId.intValue != conversation.feedId.intValue) {
             [self _updateChannelFeedId:currentConversation.conversationId feedId:conversation.feedId.intValue previousFeedId:currentConversation.feedId.intValue];
@@ -12883,7 +12970,7 @@ typedef struct {
 - (void)_updateChannelConversationSortKeys:(int64_t)peerId importantMessage:(TGMessage *)__unused proposedTopImportantMessage unimportantMessage:(TGMessage *)__unused proposedTopUnimportantMessage addImportantUnread:(int32_t)addImportantUnread addUnimportantUnread:(int32_t)addUnimportantUnread {
     FMResultSet *currentResult = [_database executeQuery:[NSString stringWithFormat:@"SELECT data FROM %@ WHERE cid=?", _channelListTableName], @(peerId)];
     if ([currentResult next]) {
-        TGConversation *channel = [[TGConversation alloc] initWithKeyValueCoder:[[PSKeyValueDecoder alloc] initWithData:[currentResult dataForColumnIndex:0]]];
+        TGConversation *channel = channelWithKeyValueCoder([[PSKeyValueDecoder alloc] initWithData:[currentResult dataForColumnIndex:0]]);
         
         bool previousUnread = channel.unreadCount > 0;
         
@@ -12965,7 +13052,7 @@ typedef struct {
 - (TGConversation *)_updateChannelConversation:(int64_t)peerId {
     FMResultSet *currentResult = [_database executeQuery:[NSString stringWithFormat:@"SELECT data FROM %@ WHERE cid=?", _channelListTableName], @(peerId)];
     if ([currentResult next]) {
-        TGConversation *channel = [[TGConversation alloc] initWithKeyValueCoder:[[PSKeyValueDecoder alloc] initWithData:[currentResult dataForColumnIndex:0]]];
+        TGConversation *channel = channelWithKeyValueCoder([[PSKeyValueDecoder alloc] initWithData:[currentResult dataForColumnIndex:0]]);
         
         int32_t displayVariant = channel.displayVariant;
         
@@ -14371,7 +14458,7 @@ typedef struct {
     PSKeyValueDecoder *decoder = [[PSKeyValueDecoder alloc] init];
     while ([result next]) {
         [decoder resetData:[result dataForColumnIndex:0]];
-        TGConversation *conversation = [[TGConversation alloc] initWithKeyValueCoder:decoder];
+        TGConversation *conversation = channelWithKeyValueCoder(decoder);
         
         TGMessage *importantMessage = [self _topChannelMessage:conversation.conversationId important:true];
         TGMessage *unimportantMessage = [self _topChannelMessage:conversation.conversationId important:false];
@@ -14501,7 +14588,6 @@ typedef struct {
             [notifyFeeds addObject:removedFeed];
             
             [_database executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@ WHERE fid=?", _feedListTableName], @(feed.fid)];
-            [_database executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@ WHERE peer_id=?", _pinnedConversationsTableName], @(feed.conversationId)];
             [_database executeUpdate:[[NSString alloc] initWithFormat:@"DELETE FROM %@ WHERE fid=?", _feedMessagesTableName], @(feed.conversationId)];
             [_database executeUpdate:[[NSString alloc] initWithFormat:@"DELETE FROM %@ WHERE fid=?", _feedMessageHolesTableName], @(feed.conversationId)];
             [_database executeUpdate:[[NSString alloc] initWithFormat:@"DELETE FROM %@ WHERE fid=?", _feedMessageTagsTableName], @(feed.conversationId)];
@@ -19870,44 +19956,30 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
     __block NSDictionary *dict = nil;
     [TGDatabaseInstance() dispatchOnDatabaseThread:^{
         if (_pinnedConversationDates == nil) {
-            FMResultSet *result = [_database executeQuery:[NSString stringWithFormat:@"SELECT peer_id, date FROM %@", _pinnedConversationsTableName]];
-            NSMutableDictionary *pinnedConversationDates = [[NSMutableDictionary alloc] init];
-            while ([result next]) {
-                pinnedConversationDates[@([result longLongIntForColumnIndex:0])] = @([result intForColumnIndex:1]);
+            _pinnedConversationDates = [NSMutableDictionary dictionary];
+            NSData *data = [NSUserDefaults.standardUserDefaults objectForKey:kTGPinnedKey];
+            if ([data isKindOfClass:NSData.class]) {
+                NSDictionary *stored = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if ([stored isKindOfClass:NSDictionary.class]) {
+                    _pinnedConversationDates = stored.mutableCopy;
+                }
             }
-            _pinnedConversationDates = pinnedConversationDates;
         }
-        dict = [[NSDictionary alloc] initWithDictionary:_pinnedConversationDates];
+        dict = _pinnedConversationDates.copy;
     } synchronous:true];
     return dict;
 }
 
 - (int32_t)_peerPinnedDate:(int64_t)peerId {
-    __block int32_t pinnedDate = 0;
-    [TGDatabaseInstance() dispatchOnDatabaseThread:^{
-        if (_pinnedConversationDates == nil) {
-            FMResultSet *result = [_database executeQuery:[NSString stringWithFormat:@"SELECT peer_id, date FROM %@", _pinnedConversationsTableName]];
-            NSMutableDictionary *pinnedConversationDates = [[NSMutableDictionary alloc] init];
-            while ([result next]) {
-                pinnedConversationDates[@([result longLongIntForColumnIndex:0])] = @([result intForColumnIndex:1]);
-            }
-            _pinnedConversationDates = pinnedConversationDates;
-        }
-        
-        NSNumber *cachedDate = _pinnedConversationDates[@(peerId)];
-        pinnedDate = [cachedDate intValue];
-    } synchronous:true];
-    return pinnedDate;
+    return [[self _getPinnedConversationDates][@(peerId)] intValue];
 }
 
 - (void)_replacePinnedConversationDates:(NSDictionary *)pinnedConversationDates {
     [TGDatabaseInstance() dispatchOnDatabaseThread:^{
         [_pinnedConversationDates removeAllObjects];
         [_pinnedConversationDates addEntriesFromDictionary:pinnedConversationDates];
-        [_database executeUpdate:[NSString stringWithFormat:@"DELETE FROM %@", _pinnedConversationsTableName]];
-        [pinnedConversationDates enumerateKeysAndObjectsUsingBlock:^(NSNumber *nPeerId, NSNumber *nDate, __unused BOOL *stop) {
-            [_database executeUpdate:[NSString stringWithFormat:@"INSERT INTO %@ (peer_id, date) VALUES (?, ?)", _pinnedConversationsTableName], nPeerId, nDate];
-        }];
+        [NSUserDefaults.standardUserDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:pinnedConversationDates] forKey:kTGPinnedKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
     } synchronous:false];
 }
 

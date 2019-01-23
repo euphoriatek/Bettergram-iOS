@@ -717,7 +717,7 @@ readMessageContentsInteractive:(NSDictionary<NSNumber *, NSArray<NSNumber *> *> 
 
 - (void)resetStartupTime:(NSTimeInterval)value;
 
-- (void)conversationFieldUpdated:(TGConversation *)conversation;
+- (void)toggleFavoritedConversation:(TGConversation *)conversation;
 - (void)setNeedsUpdateUnreadCounts;
 
 @end

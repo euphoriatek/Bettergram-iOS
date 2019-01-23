@@ -1970,11 +1970,15 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
     
     CGFloat contentOffset = self.contentView.frame.origin.x;
     CGFloat contentWidth = self.contentView.frame.size.width;
+    CGFloat safeInset = 0.0f;
+    if (@available(iOS 11.0, *)) {
+        safeInset = self.safeAreaInsets.left;
+    }
     
-    if ((_disableActions || contentOffset > FLT_EPSILON) && [_wrapView isExpanded]) {
+    if ((_disableActions || contentOffset > safeInset + FLT_EPSILON) && [_wrapView isExpanded]) {
         [_wrapView setExpanded:false animated:false];
     }
-    [_wrapView setExpandable:contentOffset <= FLT_EPSILON || _disableActions];
+    [_wrapView setExpandable:contentOffset <= safeInset + FLT_EPSILON || _disableActions];
     
     static Class separatorClass = nil;
     static dispatch_once_t onceToken2;
@@ -1988,7 +1992,7 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
                 frame.size.width = self.bounds.size.width;
                 frame.origin.x = 0.0f;
             } else {
-                if (contentOffset > FLT_EPSILON) {
+                if (contentOffset > safeInset + FLT_EPSILON) {
                     frame.size.width = self.bounds.size.width - 116.0f;
                     frame.origin.x = 116.0f;
                 } else {
@@ -2027,10 +2031,6 @@ static NSArray *editingButtonTypes(bool muted, bool pinnable, bool pinned, bool 
         screenSize = TGScreenSize();
         widescreenWidth = MAX(screenSize.width, screenSize.height);
     });
-    
-    CGFloat safeInset = 0.0f;
-    if ([self respondsToSelector:@selector(safeAreaInsets)])
-        safeInset = self.safeAreaInsets.left;
     
     if (contentOffset > safeInset + FLT_EPSILON && (_pinnedToTop || _isAd)) {
         if (_pinnedBackgrond.alpha >= FLT_EPSILON) {

@@ -1389,9 +1389,7 @@ static UIView *_findBackArrow(UIView *view)
 
 - (void)favoriteInfoPressed
 {
-    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:self.converstaionUID];
-    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
-    [TGDatabaseInstance() conversationFieldUpdated:conversation];
+    [TGDatabaseInstance() toggleFavoritedConversation:[TGDatabaseInstance() loadConversationWithIdCached:self.converstaionUID]];
 }
 
 - (void)_commitCreateNewContact

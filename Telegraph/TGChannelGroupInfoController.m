@@ -1108,9 +1108,7 @@ static const NSUInteger loadMoreMemberCount = 100;
 
 - (void)favoriteInfoPressed
 {
-    TGConversation *conversation = [TGDatabaseInstance() loadConversationWithIdCached:_peerId];
-    conversation.favoritedDate = conversation.isFavorited ? 0 : (int32_t)[NSDate date].timeIntervalSince1970;
-    [TGDatabaseInstance() conversationFieldUpdated:conversation];
+    [TGDatabaseInstance() toggleFavoritedConversation:[TGDatabaseInstance() loadConversationWithIdCached:_peerId]];
 }
 
 - (void)soundPressed

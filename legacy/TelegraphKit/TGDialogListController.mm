@@ -371,12 +371,7 @@ NSString *authorNameYou = @"  __TGLocalized__YOU";
                     TGConversation *conversation = strongSelf->_listModel[indexPath.row];
                     [(TGDialogListCell *)[strongSelf->_tableView cellForRowAtIndexPath:indexPath] setEditingConrolsExpanded:false animated:true];
                     if (conversation.isFavorited != favorited) {
-                        if (favorited) {
-                            conversation.favoritedDate = (int32_t)[NSDate date].timeIntervalSince1970;
-                        } else {
-                            conversation.favoritedDate = 0;
-                        }
-                        [TGDatabaseInstance() conversationFieldUpdated:conversation];
+                        [TGDatabaseInstance() toggleFavoritedConversation:conversation];
                     }
                 }
             }
