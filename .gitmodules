@@ -1,6 +1,7 @@
 [submodule "submodules/MtProtoKit"]
 	path = submodules/MtProtoKit
-	url = git@github.com:iakovlev-peter/MtProtoKit.git
+	url = https://github.com/peter-iakovlev/MtProtoKit.git
+	
 [submodule "submodules/urbanairship"]
 	path = submodules/urbanairship
 	url = https://github.com/urbanairship/ios-library
@@ -9,10 +10,10 @@
 	url = https://github.com/ArtSabintsev/Harpy
 [submodule "submodules/AFNetworking"]
 	path = submodules/AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git
 [submodule "submodules/HTMLReader"]
 	path = submodules/HTMLReader
-	url = https://github.com/nolanw/HTMLReader
+	url = https://github.com/nolanw/HTMLReader.git
 [submodule "submodules/SSignalKit"]
 	path = submodules/SSignalKit
-	url = https://github.com/peter-iakovlev/Signals.git
+	url = https://github.com/artman/Signals.git
